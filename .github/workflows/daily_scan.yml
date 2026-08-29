@@ -1,0 +1,96 @@
+name: EOD Scanner (15:30 ET)
+
+# Автоматически: будни в 15:30 ET (19:30 UTC — летнее время NY).
+# Зимой (ноябрь-март) сдвинь на 20:30 UTC или запускай кнопкой.
+on:
+  schedule:
+    - cron: "30 19 * * 1-5"
+  workflow_dispatch: {}   # ручной запуск: Actions -> Run workflow
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: eod-scanner
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Month tag (для кэша данных)
+        id: month
+        run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache market data (месячный)
+        id: cache-data
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: nasdaq-data-${{ steps.month.outputs.month }}
+          restore-keys: nasdaq-data-
+
+      - name: Обновить состав NASDAQ
+        run: python src/update_universe.py
+
+      - name: Обновить историю (инкрементально, при кэше — быстро)
+        run: INCREMENTAL=1 python src/download_history.py
+
+      - name: Собрать панель признаков
+        run: python src/prep_panel.py
+
+      - name: Бэктест (только если нет OOS-предсказаний в кэше)
+        run: |
+          if [ ! -f data/oos_predictions.parquet ]; then
+            python src/backtest.py
+          else
+            echo "OOS-предсказания уже в кэше — пропускаю бэктест"
+          fi
+
+      - name: Скан (сигнал 15:30 ET, неполная свеча)
+        run: python src/scan.py
+
+      - name: Сборка дашборда
+        run: python src/build_dashboard.py
+
+      - name: Проверка результата
+        run: |
+          test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv) строк"
+          test -f output/index.html && echo "dashboard OK"
+
+      - name: Коммит и push результатов
+        run: |
+          git config user.name "eod-scanner-bot"
+          git config user.email "eod-scanner-bot@users.noreply.github.com"
+          git add output data/nasdaq_universe.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "scan $(date -u +%F) 15:30 ET"
+            git push
+          else
+            echo "нет изменений — пропускаю коммит"
+          fi
+
+      - name: Deploy на GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+      - name: Publish Pages
+        uses: actions/deploy-pages@v4
