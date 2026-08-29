@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  scanner:
+    build: .
+    container_name: nasdaq-eod-scanner
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./deploy/keys:/app/deploy/keys:ro
+    environment:
+      - TZ=America/New_York
+      - SCAN_TRIGGER_TOKEN=${SCAN_TRIGGER_TOKEN:-}
+      - INCREMENTAL=1
+    restart: unless-stopped
+    command: python -m uvicorn deploy_server:app --host 0.0.0.0 --port 8000
+
+  # Optional: cron-like scheduler for daily scan at 15:30 ET (19:30 UTC summer, 20:30 UTC winter)
+  scheduler:
+    build: .
+    container_name: nasdaq-eod-scheduler
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./deploy/keys:/app/deploy/keys:ro
+    environment:
+      - TZ=America/New_York
+    restart: unless-stopped
+    entrypoint: >
+      bash -c "
+      echo 'Scheduler started - runs scan daily at 15:30 ET';
+      while true; do
+        CURRENT_HOUR=$$(date +%H:%M);
+        CURRENT_DOW=$$(date +%u);
+        # 19:30 UTC = 15:30 ET summer, 20:30 UTC = 15:30 ET winter
+        if [[ \"$$CURRENT_DOW\" -lt 6 ]] && [[ \"$$CURRENT_HOUR\" == \"19:30\" || \"$$CURRENT_HOUR\" == \"20:30\" ]]; then
+          echo \"[$(date)] Running daily scan...\";
+          python src/update_universe.py && \
+          INCREMENTAL=1 python src/download_history.py && \
+          python src/prep_panel.py && \
+          python src/scan.py && \
+          python src/build_dashboard.py && \
+          ./deploy/push.sh \"auto scan $$(date +%F) 15:30 ET\" || echo 'Scan failed';
+          sleep 3600;
+        fi;
+        sleep 60;
+      done
+      "
+    depends_on:
+      - scanner

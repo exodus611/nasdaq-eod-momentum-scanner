@@ -1,0 +1,47 @@
+name: Pages Deploy on Push
+
+# Деплоит дашборд на GitHub Pages при каждом пуше в main (когда output/ меняется)
+# Работает вместе с daily_scan.yml - не конфликтует благодаря concurrency group
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'output/**'
+      - '.github/workflows/pages_on_push.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check output exists
+        run: |
+          ls -lh output/
+          test -f output/index.html || (echo "No dashboard" && exit 1)
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

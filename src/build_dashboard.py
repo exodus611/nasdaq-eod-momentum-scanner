@@ -13,7 +13,7 @@ DATA = os.path.join(ROOT, "data")
 OUT = os.path.join(ROOT, "output")
 
 # Ручная курация топ-2 (модель ранжирует в таблице; аналитик выбирает сценарии)
-PICKS = ["MRVL", "IREN"]
+PICKS = ['MRNA', 'IREN']
 
 scan = pd.read_csv(os.path.join(OUT, "scan_results.csv"))
 LAST = str(scan["date"].iloc[0])
