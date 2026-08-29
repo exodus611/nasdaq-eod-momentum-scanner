@@ -19,6 +19,24 @@ scan = pd.read_csv(os.path.join(OUT, "scan_results.csv"))
 LAST = str(scan["date"].iloc[0])
 scan = scan.sort_values("prob", ascending=False)
 
+# метаданные (вселенная, время)
+META = {}
+if os.path.exists(os.path.join(OUT, "meta.json")):
+    META = json.load(open(os.path.join(OUT, "meta.json")))
+
+# история запусков из git-лога
+def last_runs(n=8):
+    try:
+        out = os.popen(f"cd {ROOT} && git log --format='%h|%ad|%s' --date=short -n {n} 2>/dev/null").read()
+        return [l.split("|", 2) for l in out.strip().splitlines() if l.strip()]
+    except Exception:
+        return []
+
+RUNS = last_runs()
+
+# токен для кнопки ручного запуска (подставляется в CI из секрета; локально — пусто)
+SCAN_TOKEN = os.environ.get("SCAN_TRIGGER_TOKEN", "")
+
 fund = {}
 if os.path.exists(os.path.join(DATA, "fundamentals.json")):
     fund = json.load(open(os.path.join(DATA, "fundamentals.json")))
@@ -413,6 +431,59 @@ def build():
       </div>
     </div>"""
 
+    # кнопка ручного запуска (реализована в CI токеном из секрета; локально — ссылка на Actions)
+    if SCAN_TOKEN:
+        run_btn = f"""<button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Запустить скан сейчас</button>
+        <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:6px"></div>
+        <script>
+        const SCAN_TOKEN = {json.dumps(SCAN_TOKEN)};
+        async function runScan(){{
+          const st = document.getElementById('run-status');
+          st.style.color = '#d29922'; st.textContent = '⏳ Отправляю запрос на GitHub...';
+          try {{
+            const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/dispatches', {{
+              method: 'POST',
+              headers: {{'Authorization': 'token ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}},
+              body: JSON.stringify({{event_type: 'manual-scan'}})
+            }});
+            if (r.ok) {{ st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идёт на GitHub (~5–10 мин), дашборд обновится сам.'; }}
+            else {{ st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + (await r.text()).slice(0,120); }}
+          }} catch(e) {{ st.style.color = '#f85149'; st.textContent = '❌ ' + e.message; }}
+        }}
+        </script>"""
+    else:
+        run_btn = """<a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Запустить скан (GitHub Actions)</a>
+        <div style="font-size:12px;color:#8b949e;margin-top:6px">Токен для запуска с дашборда не настроен — откроется вкладка Actions</div>"""
+
+    univ_html = ""
+    if META:
+        univ_html = f"""<div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 16px;font-size:13px;margin-top:14px">
+          <span style="color:#8b949e">Вселенная NASDAQ:</span>
+          <b style="color:#e6edf3">{META.get('universe_total', '—'):,}</b> акций ·
+          отсканировано: <b style="color:#e6edf3">{META.get('scanned', '—')}</b> ·
+          <span style="color:#8b949e">состав обновляется автоматически при каждом прогоне</span>
+          <div style="color:#8b949e;font-size:11.5px;margin-top:3px">{META.get('universe_note', '')}</div>
+        </div>"""
+
+    runs_html = ""
+    if RUNS:
+        rows_r = ""
+        for h, d, m in RUNS:
+            rows_r += f'<tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">{h}</td><td style="padding:6px 10px;color:#e6edf3">{d}</td><td style="padding:6px 10px;color:#c9d1d9">{m}</td></tr>'
+        runs_html = f"""
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
+    <h2 style="margin:0 0 12px;font-size:20px">🗂 История запусков (последние {len(RUNS)})</h2>
+    <div style="overflow-x:auto">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;min-width:480px">
+      <thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d">
+        <th style="padding:8px 10px">Коммит</th><th style="padding:8px 10px">Дата</th><th style="padding:8px 10px">Событие</th>
+      </tr></thead>
+      <tbody>{rows_r}</tbody>
+    </table>
+    </div>
+    <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (15:30 ET) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни 15:30 ET (зимой сдвигается на 20:30 UTC в workflow).</div>
+  </div>"""
+
     html = f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -429,14 +500,19 @@ def build():
       <h1 style="margin:6px 0 2px;font-size:30px;font-weight:800">EOD Momentum Scanner</h1>
       <div style="color:#8b949e;font-size:14px">Скан в <b style="color:#e6edf3">15:30 ET</b> (за 30 мин до закрытия) → вход на закрытии → цель <b style="color:#e6edf3">+2…+5%</b> за 24–48 часов</div>
     </div>
-    <div style="text-align:right">
-      <div style="background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 16px;font-size:13px">
-        <div style="color:#8b949e">Сигнал от</div>
-        <div style="font-size:16px;font-weight:700;color:#e6edf3">{last_date} · 15:30 ET</div>
-        <div style="color:#8b949e;font-size:12px;margin-top:2px">свеча дня — неполная (до 15:30)</div>
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div style="text-align:right">
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 16px;font-size:13px">
+          <div style="color:#8b949e">Сигнал от</div>
+          <div style="font-size:16px;font-weight:700;color:#e6edf3">{last_date} · 15:30 ET</div>
+          <div style="color:#8b949e;font-size:12px;margin-top:2px">свеча дня — неполная (до 15:30)</div>
+        </div>
       </div>
+      <div style="text-align:right">{run_btn}</div>
     </div>
   </div>
+
+  {univ_html}
 
   <div style="background:#1c2a12;border:1px solid #238636;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:13.5px;color:#c9d1d9;line-height:1.6">
     <b style="color:#56d364">Рекомендация на эту сессию:</b> {rec_extra}
@@ -519,6 +595,8 @@ def build():
     рыночного режима. Позиция 1–2% капитала, стоп −3% обязателен. Историческая точность 49–57% означает, что почти
     каждая вторая сделка цели не достигнет. Это исследовательский инструмент, а не индивидуальная инвестиционная рекомендация.
   </div>
+
+  {runs_html}
 
   <div style="color:#8b949e;font-size:12px;margin-top:20px;text-align:center">
     EOD Momentum Scanner · скан {last_date} 15:30 ET · данные: Nasdaq.com + Yahoo Finance · автоматический запуск: будни 15:30 ET (GitHub Actions)

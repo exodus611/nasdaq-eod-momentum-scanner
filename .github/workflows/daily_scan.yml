@@ -1,11 +1,14 @@
 name: EOD Scanner (15:30 ET)
 
 # Автоматически: будни в 15:30 ET (19:30 UTC — летнее время NY).
-# Зимой (ноябрь-март) сдвинь на 20:30 UTC или запускай кнопкой.
+# Зимой (ноябрь-март) сдвинь на 20:30 UTC.
+# Ручной запуск: кнопка на дашборде (repository_dispatch) или Actions -> Run workflow.
 on:
   schedule:
     - cron: "30 19 * * 1-5"
-  workflow_dispatch: {}   # ручной запуск: Actions -> Run workflow
+  workflow_dispatch: {}        # ручной запуск из вкладки Actions
+  repository_dispatch:
+    types: [manual-scan]       # ручной запуск кнопкой с дашборда
 
 permissions:
   contents: write
@@ -47,16 +50,16 @@ jobs:
           key: nasdaq-data-${{ steps.month.outputs.month }}
           restore-keys: nasdaq-data-
 
-      - name: Обновить состав NASDAQ
+      - name: Обновить состав NASDAQ (юниверс)
         run: python src/update_universe.py
 
-      - name: Обновить историю (инкрементально, при кэше — быстро)
+      - name: Обновить историю (инкрементально)
         run: INCREMENTAL=1 python src/download_history.py
 
       - name: Собрать панель признаков
         run: python src/prep_panel.py
 
-      - name: Бэктест (только если нет OOS-предсказаний в кэше)
+      - name: Бэктест (только если нет OOS в кэше)
         run: |
           if [ ! -f data/oos_predictions.parquet ]; then
             python src/backtest.py
@@ -67,7 +70,9 @@ jobs:
       - name: Скан (сигнал 15:30 ET, неполная свеча)
         run: python src/scan.py
 
-      - name: Сборка дашборда
+      - name: Сборка дашборда (кнопка ручного запуска подключается из секрета)
+        env:
+          SCAN_TRIGGER_TOKEN: ${{ secrets.SCAN_TRIGGER_TOKEN }}
         run: python src/build_dashboard.py
 
       - name: Проверка результата

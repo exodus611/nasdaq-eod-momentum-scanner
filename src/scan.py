@@ -208,7 +208,21 @@ def main():
     scan = pd.DataFrame(rows).sort_values("prob", ascending=False)
     scan.to_csv(os.path.join(OUT, "scan_results.csv"), index=False)
     scan.to_parquet(os.path.join(DATA, "live_scan.parquet"))
-    print(f"\nsaved output/scan_results.csv ({len(scan)} rows)")
+
+    # метаданные для дашборда
+    uni = pd.read_csv(os.path.join(DATA, "nasdaq_universe.csv"))
+    meta = {
+        "last_scan": last_session,
+        "signal_time": f"{SCAN_HR} ET",
+        "universe_total": int(len(uni)),
+        "scanned": int(len(scan)),
+        "generated_utc": datetime.now(timezone.utc).isoformat(),
+        "universe_note": "Состав вселенной обновляется автоматически при каждом прогоне (Nasdaq.com screener): "
+                         "новые IPO добавляются, делистинги/банкротства удаляются, "
+                         "акции переходят границы по цене ≥$3 и капитализации ≥$500 млн.",
+    }
+    json.dump(meta, open(os.path.join(OUT, "meta.json"), "w"), indent=1, ensure_ascii=False)
+    print(f"\nsaved output/scan_results.csv ({len(scan)} rows) + meta.json")
 
     cols = ["ticker", "close", "prob", "hit", "avg_best", "avg_fwd2",
             "gap_sig_p", "gap_sig_med", "gap_down_p", "gap_down_med", "vol_ratio", "rsi14"]
