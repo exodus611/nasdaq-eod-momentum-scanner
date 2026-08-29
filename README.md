@@ -91,11 +91,13 @@ python src/build_dashboard.py       # дашборд
 
 ### Настройка кнопки на дашборде (одноразово) — заодно включает Pages автоматически
 1. Создай **fine-grained PAT** (`github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token`):
+   - **Token name:** `scan-trigger`
    - **Repository access:** Only select repositories → `nasdaq-eod-momentum-scanner`
-   - **Permissions:** `Actions: Read and write` **и** `Pages: Read and write` (оба нужны: Actions — для запуска скана, Pages — для автовключения GitHub Pages)
-2. Добавь его как секрет репозитория: `Settings → Secrets and variables → Actions → New repository secret`, имя `SCAN_TRIGGER_TOKEN`.
-3. Запусти workflow (кнопка в Actions или дождись расписания) — GitHub Pages включится **сам**, дашборд соберётся с активной кнопкой.
-   ⚠️ Токен встраивается в HTML-дашборд и виден в исходниках — давай ему доступ **только к этому репозиторию** и только эти два права (не Contents, не другие репозитории). Если кнопка не нужна — не настраивай секрет, Pages включи вручную (Settings → Pages → Source → GitHub Actions).
+   - **Permissions:** `Actions: Read and write` **и** `Pages: Read and write` (только эти два!)
+2. Добавь его как секрет: `Settings → Secrets and variables → Actions → New repository secret`, имя `SCAN_TRIGGER_TOKEN`.
+3. Запусти workflow (вкладка Actions → Run workflow) — GitHub Pages включится **сам**, дашборд соберётся с активной кнопкой.
+4. Кнопка на дашборде вызывает `workflow_dispatch` через API — токену нужно только `Actions: write`, поэтому его безопасно встраивать в публичный HTML (он не может трогать код и данные).
+   Если кнопка не нужна — не настраивай секрет; кнопка будет вести на вкладку Actions, а Pages включи вручную.
 
 ## GitHub Pages — постоянный адрес дашборда
 

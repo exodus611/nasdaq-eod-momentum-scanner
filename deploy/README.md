@@ -1,34 +1,36 @@
 # Deploy-ключ для связи с GitHub
 
-SSH-деплой-ключ даёт этому workspace постоянный доступ на запись
-к репозиторию `exodus611/nasdaq-eod-momentum-scanner` **без токенов**.
+SSH-деплой-ключ даёт этому workspace доступ на запись к репозиторию
+`exodus611/nasdaq-eod-momentum-scanner` **без токенов**.
 
-## Как это устроено
+## Важно: среда песочницы
 
-| Что | Где |
-|---|---|
-| Приватный ключ | `~/.ssh/id_ed25519_algotrade` (в workspace, не публикуется) |
-| Публичный ключ | добавлен в **Settings → Deploy keys** репозитория с галочкой **Allow write access** |
-| SSH-конфиг | `~/.ssh/config` (алиас `github.com` → ключ) |
-| Скрипт обновления | `deploy/push.sh` |
+Песочница **не сохраняет** между перезапусками: папку `~/.ssh` и папку `.git`.
+Поэтому:
+- ключ хранится в **`deploy/keys/id_ed25519_algotrade`** (обычный файл в workspace — сохраняется);
+- `deploy/push.sh` сам восстанавливает `.git` (init → fetch origin/main → reset) и подключает ключ.
 
-## Как обновить дашборд на GitHub после нового скана
+## Как обновить дашборд на GitHub
 
 ```bash
-python src/scan.py             # 1) свежий скан
-python src/build_dashboard.py  # 2) свежий дашборд
-./deploy/push.sh "сигнал 04.09"   # 3) залить на GitHub
+python src/scan.py              # 1) свежий скан
+python src/build_dashboard.py   # 2) свежий дашборд
+./deploy/push.sh "сигнал 04.09" # 3) залить на GitHub
 ```
 
-Скрипт сам настраивает remote и коммитит — токены не нужны.
-Приватный ключ в workspace переживает перезапуски, поэтому связь постоянная.
+## Если ключ потерян (песочница пересоздана)
+
+1. Сгенерировать новый ключ:
+   ```bash
+   mkdir -p deploy/keys && chmod 700 deploy/keys
+   ssh-keygen -t ed25519 -N "" -f deploy/keys/id_ed25519_algotrade
+   cat deploy/keys/id_ed25519_algotrade.pub
+   ```
+2. На GitHub: **Settings → Deploy keys → удалить старый → Add deploy key**,
+   вставить новый публичный ключ, **Allow write access**.
+3. Проверка: `./deploy/push.sh "test"`.
 
 ## Безопасность
 
-- Приватный ключ **никогда не коммить и не публикуй** — он вне репозитория.
-- Если ключ скомпрометирован: удалить его на GitHub
-  (Settings → Deploy keys → Delete) и сгенерировать новый:
-  `ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519_algotrade`, затем заново
-  добавить `.pub` в Deploy keys.
-- Связь только с этим одним репозиторием — это фича deploy keys (в отличие от
-  токенов, ключ не может трогать другие репозитории).
+- Приватный ключ в `deploy/keys/` — он в `.gitignore`, никогда не коммитится.
+- Деплой-ключ привязан только к одному репозиторию.

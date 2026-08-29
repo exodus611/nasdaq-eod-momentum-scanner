@@ -2,13 +2,11 @@ name: EOD Scanner (15:30 ET)
 
 # Автоматически: будни в 15:30 ET (19:30 UTC — летнее время NY).
 # Зимой (ноябрь-март) сдвинь на 20:30 UTC.
-# Ручной запуск: кнопка на дашборде (repository_dispatch) или Actions -> Run workflow.
+# Ручной запуск: кнопка на дашборде (workflow_dispatch через API) или Actions -> Run workflow.
 on:
   schedule:
     - cron: "30 19 * * 1-5"
-  workflow_dispatch: {}        # ручной запуск из вкладки Actions
-  repository_dispatch:
-    types: [manual-scan]       # ручной запуск кнопкой с дашборда
+  workflow_dispatch: {}        # ручной запуск: кнопка на дашборде / вкладка Actions
 
 permissions:
   contents: write
@@ -22,6 +20,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -54,7 +53,7 @@ jobs:
         run: python src/update_universe.py
 
       - name: Обновить историю (инкрементально)
-        run: INCREMENTAL=1 python src/download_history.py
+        run: INCREMENTAL=1 python src/download_history.py || echo "⚠️ инкрементальное обновление не удалось — использую кэш"
 
       - name: Собрать панель признаков
         run: python src/prep_panel.py
@@ -80,8 +79,9 @@ jobs:
           test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv) строк"
           test -f output/index.html && echo "dashboard OK"
 
-      - name: Включить GitHub Pages (если ещё не включён) — автоматически
+      - name: Включить GitHub Pages автоматически (если секрет задан)
         if: ${{ secrets.SCAN_TRIGGER_TOKEN != '' }}
+        continue-on-error: true
         uses: actions/configure-pages@v5
         with:
           token: ${{ secrets.SCAN_TRIGGER_TOKEN }}
@@ -99,10 +99,12 @@ jobs:
             echo "нет изменений — пропускаю коммит"
           fi
 
-      - name: Deploy на GitHub Pages
+      - name: Deploy на GitHub Pages (не падает, если Pages ещё не включён)
+        continue-on-error: true
         uses: actions/upload-pages-artifact@v3
         with:
           path: output
 
-      - name: Publish Pages
+      - name: Publish Pages (не падает, если Pages ещё не включён)
+        continue-on-error: true
         uses: actions/deploy-pages@v4

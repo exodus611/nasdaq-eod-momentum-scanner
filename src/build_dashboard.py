@@ -441,10 +441,11 @@ def build():
           const st = document.getElementById('run-status');
           st.style.color = '#d29922'; st.textContent = '⏳ Отправляю запрос на GitHub...';
           try {{
-            const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/dispatches', {{
+            // workflow_dispatch требует только Actions:write (безопасно в публичном HTML)
+            const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {{
               method: 'POST',
               headers: {{'Authorization': 'token ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}},
-              body: JSON.stringify({{event_type: 'manual-scan'}})
+              body: JSON.stringify({{ref: 'main'}})
             }});
             if (r.ok) {{ st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идёт на GitHub (~5–10 мин), дашборд обновится сам.'; }}
             else {{ st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + (await r.text()).slice(0,120); }}

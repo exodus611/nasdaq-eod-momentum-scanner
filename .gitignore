@@ -3,3 +3,4 @@ __pycache__/
 data/hist_*.csv
 data/*.parquet
 data/history_index.json
+deploy/keys/
