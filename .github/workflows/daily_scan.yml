@@ -82,7 +82,7 @@ jobs:
       - name: Включить GitHub Pages автоматически (если секрет задан)
         if: ${{ secrets.SCAN_TRIGGER_TOKEN != '' }}
         continue-on-error: true
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
         with:
           token: ${{ secrets.SCAN_TRIGGER_TOKEN }}
           enablement: 'true'
