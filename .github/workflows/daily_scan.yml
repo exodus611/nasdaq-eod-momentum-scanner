@@ -80,6 +80,13 @@ jobs:
           test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv) строк"
           test -f output/index.html && echo "dashboard OK"
 
+      - name: Включить GitHub Pages (если ещё не включён) — автоматически
+        if: ${{ secrets.SCAN_TRIGGER_TOKEN != '' }}
+        uses: actions/configure-pages@v5
+        with:
+          token: ${{ secrets.SCAN_TRIGGER_TOKEN }}
+          enablement: 'true'
+
       - name: Коммит и push результатов
         run: |
           git config user.name "eod-scanner-bot"
