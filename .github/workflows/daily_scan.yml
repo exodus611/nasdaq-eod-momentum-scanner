@@ -1,122 +1,88 @@
 name: EOD Scanner (15:30 ET)
-
-# Автоматически: будни в 15:30 ET (19:30 UTC — летнее время NY).
-# Зимой (ноябрь-март) сдвинь на 20:30 UTC.
-# Ручной запуск: кнопка на дашборде (workflow_dispatch через API) или Actions -> Run workflow.
 on:
   schedule:
     - cron: "30 19 * * 1-5"
-  workflow_dispatch: {}        # ручной запуск: кнопка на дашборде / вкладка Actions
-
+  workflow_dispatch: {}
 permissions:
   contents: write
   pages: write
   id-token: write
-
 concurrency:
   group: eod-scanner
   cancel-in-progress: false
-
 jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Cache pip
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: pip-${{ hashFiles('requirements.txt') }}
-
       - name: Install deps
         run: pip install -r requirements.txt
-
-      - name: Month tag (для кэша данных)
+      - name: Month tag
         id: month
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
-
-      - name: Cache market data (месячный)
+      - name: Cache market data
         id: cache-data
         uses: actions/cache@v4
         with:
           path: data
           key: nasdaq-data-${{ steps.month.outputs.month }}
           restore-keys: nasdaq-data-
-
-      - name: Диагностика кэша
+      - name: Diagnostics
         run: |
-          echo "Data dir:"
           ls -lh data/ | head -30
-          echo "Hist files: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
-          echo "Parquet: $(ls data/*.parquet 2>/dev/null | wc -l)"
-          free -h
-          df -h
-
-      - name: Обновить состав NASDAQ (юниверс)
+          echo "Hist: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
+          free -h; df -h
+      - name: Update universe
         run: python src/update_universe.py
-
-      - name: Обновить историю (инкрементально, с фолбэком на полную)
+      - name: Download history
         run: |
-          echo "Trying incremental download..."
-          INCREMENTAL=1 python src/download_history.py || echo "⚠️ инкрементальное не удалось, пробую полную загрузку"
-          echo "Hist files after incremental: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
+          echo "Incremental..."
+          INCREMENTAL=1 python src/download_history.py || echo "incremental failed"
+          echo "Hist after inc: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
           if [ $(ls data/hist_*.csv 2>/dev/null | wc -l) -lt 50 ]; then
-            echo "Too few hist files, doing full download..."
+            echo "Full download..."
             python src/download_history.py
           fi
-          echo "Final hist files: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
-
-      - name: Собрать панель признаков (robust v2)
+          echo "Final: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
+      - name: Prep panel (robust v3)
         run: |
-          echo "=== PREP_PANEL with robust error handling ==="
           python src/prep_panel.py
-          echo "Exit code: $?"
           ls -lh data/*.parquet
-          echo "Featured panel rows:"
           python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')"
-
-      - name: Бэктест (только если нет OOS в кэше)
+      - name: Backtest if no OOS
         run: |
           if [ ! -f data/oos_predictions.parquet ]; then
-            echo "No OOS cache, running backtest..."
             python src/backtest.py
           else
-            echo "OOS-предсказания уже в кэше ($(du -h data/oos_predictions.parquet)) — пропускаю бэктест"
-            python -c "import pandas as pd; df=pd.read_parquet('data/oos_predictions.parquet'); print(f'OOS: {len(df)} rows, hit {df[\"target_2pct\"].mean():.3f}')"
+            echo "OOS cached $(du -h data/oos_predictions.parquet)"
           fi
-
-      - name: Скан (сигнал 15:30 ET, неполная свеча)
-        run: |
-          python src/scan.py
-          echo "Scan done:"
-          head -20 output/scan_results.csv
-
-      - name: Сборка дашборда (кнопка ручного запуска подключается из секрета)
+      - name: Scan
+        run: python src/scan.py
+      - name: Build dashboard
         env:
           SCAN_TRIGGER_TOKEN: ${{ secrets.SCAN_TRIGGER_TOKEN }}
         run: python src/build_dashboard.py
-
-      - name: Проверка результата
+      - name: Check result
         run: |
-          test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv) строк"
-          test -f output/index.html && echo "dashboard OK: $(du -h output/index.html)"
-          ls -lh output/
-
-      - name: Включить GitHub Pages автоматически (если секрет задан)
+          test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv)"
+          test -f output/index.html && echo "dashboard OK"
+      - name: Enable Pages auto
         if: ${{ secrets.SCAN_TRIGGER_TOKEN != '' }}
         continue-on-error: true
         uses: actions/configure-pages@v4
         with:
           token: ${{ secrets.SCAN_TRIGGER_TOKEN }}
           enablement: 'true'
-
-      - name: Коммит и push результатов
+      - name: Commit push
         run: |
           git config user.name "eod-scanner-bot"
           git config user.email "eod-scanner-bot@users.noreply.github.com"
@@ -125,15 +91,13 @@ jobs:
             git commit -m "scan $(date -u +%F) 15:30 ET"
             git push
           else
-            echo "нет изменений — пропускаю коммит"
+            echo "no changes"
           fi
-
-      - name: Deploy на GitHub Pages (не падает, если Pages ещё не включён)
+      - name: Upload Pages artifact
         continue-on-error: true
         uses: actions/upload-pages-artifact@v3
         with:
           path: output
-
-      - name: Publish Pages (не падает, если Pages ещё не включён)
+      - name: Deploy Pages
         continue-on-error: true
         uses: actions/deploy-pages@v4
