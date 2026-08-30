@@ -110,16 +110,20 @@ rows = ""
 for i, (_, r) in enumerate(top5.iterrows(), 1):
     hl = "background:#12261a;" if r["ticker"] in PICKS else ""
     rows += f"<tr style='{hl}'><td style='padding:6px 8px'>{i}</td><td style='padding:6px 8px;font-weight:700'>{r['ticker']}</td><td style='padding:6px 8px;text-align:right'>${r['close']:.2f}</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>{r['prob']:.3f}</td><td style='padding:6px 8px;text-align:right'>{r['hit']:.0%}</td></tr>"
+ACTIONS_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml"
 if SCAN_TOKEN:
     run_btn = f"""
-    <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
-    <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:6px"></div>
+    <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+      <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
+      <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или открыть Actions → Run workflow</a>
+      <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:280px;text-align:right"></div>
+    </div>
     <script>
     async function runScan(){{
       const btn = document.getElementById('run-btn');
       const st = document.getElementById('run-status');
       btn.disabled = true; btn.textContent = '⏳ Запускаю...';
-      st.style.color = '#d29922'; st.textContent = 'Отправляю запрос на GitHub...';
+      st.style.color = '#d29922'; st.textContent = 'Отправляю запрос...';
       try {{
         const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {{
           method: 'POST',
@@ -127,22 +131,33 @@ if SCAN_TOKEN:
           body: JSON.stringify({{ref: 'main'}})
         }});
         if (r.status === 204) {{
-          st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идет ~5 мин, обнови позже.';
+          st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз - уже идёт.';
           btn.textContent = '✅ Запущено';
+          setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; }}, 300000);
+        }} else if (r.status === 422) {{
+          st.style.color = '#d29922'; st.textContent = '⏳ Скан уже запущен! Подожди 5 мин.';
+          btn.textContent = '⏳ Уже запущен';
+          setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; st.textContent=''; }}, 60000);
+        }} else if (r.status === 401) {{
+          st.style.color = '#f85149'; st.textContent = '❌ Токен невалидный.';
+          btn.disabled = false; btn.textContent = '▶ Попробовать снова';
         }} else {{
           const txt = await r.text();
-          st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,200);
+          st.style.color = '#f85149'; st.innerHTML = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
           btn.disabled = false; btn.textContent = '▶ Попробовать снова';
         }}
       }} catch(e) {{
-        st.style.color = '#f85149'; st.textContent = '❌ ' + e.message;
+        st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
         btn.disabled = false;
       }}
     }}
     </script>
     """
 else:
-    run_btn = """<a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a><div style="font-size:11px;color:#8b949e;margin-top:6px">Откроет Actions → Run workflow</div>"""
+    run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+      <a href="{ACTIONS_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
+      <div style="font-size:11px;color:#8b949e;max-width:240px;text-align:right">Откроет Actions → Run workflow.<br>Автоскан каждый день 15:30 ET.<br>Если жмёшь 2 раза - второй раз "уже запущен", это нормально.</div>
+    </div>"""
 html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TOP 2 - EOD {LAST}</title></head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif"><div style="max-width:900px;margin:0 auto;padding:24px 16px 60px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid #30363d;padding-bottom:16px"><div><div style="color:#58a6ff;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase">NASDAQ EOD · TOP 2</div><h1 style="margin:4px 0 2px;font-size:26px;font-weight:800">Две лучшие акции на сегодня</h1><div style="color:#8b949e;font-size:13px">Сигнал {LAST} 15:30 ET → вход на закрытии → цель +2..+5% за 24-48ч</div></div><div style="text-align:right">{run_btn}</div></div><div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><span><span style="color:#8b949e">Вселенная:</span> <b>{META.get('universe_total', '—'):,} NASDAQ</b> → <b>{META.get('scanned', '—')}</b> ликвидных</span><span><span style="color:#8b949e">Обновлено:</span> <b>{META.get('generated_utc', '')[:16]}</b></span></div><div style="margin-top:18px">{cards_html}</div><div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-top:20px"><h3 style="margin:0 0 10px;font-size:16px">Топ-5 рейтинга</h3><table style="border-collapse:collapse;width:100%;font-size:13px"><thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d"><th>#</th><th>Тикер</th><th style="text-align:right">Цена</th><th style="text-align:right">Скор</th><th style="text-align:right">P(+2%)</th></tr></thead><tbody>{rows}</tbody></table><div style="margin-top:10px;font-size:12px"><a href="dashboard.html">Полный дашборд с статистикой →</a> | <a href="scan_results.csv">CSV →</a></div></div><div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:12px 14px;margin-top:20px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div></div></body></html>"""
 import os
 os.makedirs(OUT, exist_ok=True)
