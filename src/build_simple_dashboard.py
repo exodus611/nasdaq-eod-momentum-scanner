@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build SIMPLE dashboard - TOP2 + accordion + local time (TLV)"""
+"""Build SIMPLE dashboard - TOP2 + accordion + local time (TLV) + RUNS link"""
 import json, os
 from datetime import datetime, timezone, timedelta
 import numpy as np
@@ -150,12 +150,18 @@ rows = ""
 for i, (_, r) in enumerate(top5.iterrows(), 1):
     hl = "background:#12261a;" if r["ticker"] in PICKS else ""
     rows += f"<tr style='{hl}'><td style='padding:6px 8px'>{i}</td><td style='padding:6px 8px;font-weight:700'>{r['ticker']}</td><td style='padding:6px 8px;text-align:right'>${r['close']:.2f}</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>{r['prob']:.3f}</td><td style='padding:6px 8px;text-align:right'>{r['hit']:.0%}</td></tr>"
-ACTIONS_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml"
+
+WORKFLOW_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml"
+RUNS_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions"
+
 if SCAN_TOKEN:
     run_btn = f"""
     <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
       <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
-      <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или Actions → Run workflow</a>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+        <a href="{WORKFLOW_URL}" target="_blank" style="font-size:11px;color:#58a6ff;text-decoration:underline">▶ Запустить тут</a>
+        <a href="{RUNS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">📊 Статус Runs (running)</a>
+      </div>
       <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:280px;text-align:right"></div>
     </div>
     <script>
@@ -171,20 +177,22 @@ if SCAN_TOKEN:
           body: JSON.stringify({{ref: 'main'}})
         }});
         if (r.status === 204) {{
-          st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз.';
-          btn.textContent = '✅ Запущено';
+          st.style.color = '#2ea043'; st.innerHTML = '✅ Запущено! <a href="{RUNS_URL}" target="_blank" style="color:#58a6ff;text-decoration:underline">→ Смотреть running в Actions</a><br>~5-10 мин';
+          btn.textContent = '✅ Запущено → Runs';
+          window.open('{RUNS_URL}', '_blank');
           setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; }}, 300000);
         }} else if (r.status === 422) {{
-          st.style.color = '#d29922'; st.textContent = '⏳ Уже запущен! Подожди 5 мин.';
-          btn.textContent = '⏳ Уже запущен';
+          st.style.color = '#d29922'; st.innerHTML = '⏳ Уже запущен! <a href="{RUNS_URL}" target="_blank" style="color:#58a6ff">→ Смотреть Runs (running)</a>';
+          btn.textContent = '⏳ Уже запущен → Runs';
+          window.open('{RUNS_URL}', '_blank');
           setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; st.textContent=''; }}, 60000);
         }} else {{
           const txt = await r.text();
-          st.style.color = '#f85149'; st.innerHTML = '❌ ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Actions →</a>';
+          st.style.color = '#f85149'; st.innerHTML = '❌ ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{WORKFLOW_URL}" target="_blank" style="color:#58a6ff">→ Запусти в Actions</a> | <a href="{RUNS_URL}" target="_blank" style="color:#58a6ff">Runs (running)</a>';
           btn.disabled = false; btn.textContent = '▶ Попробовать снова';
         }}
       }} catch(e) {{
-        st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Actions →</a>';
+        st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{WORKFLOW_URL}" target="_blank" style="color:#58a6ff">→ Запусти в Actions</a> | <a href="{RUNS_URL}" target="_blank" style="color:#58a6ff">Runs</a>';
         btn.disabled = false;
       }}
     }}
@@ -192,9 +200,11 @@ if SCAN_TOKEN:
     """
 else:
     run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-      <a href="{ACTIONS_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
-      <div style="font-size:11px;color:#8b949e;max-width:240px;text-align:right">Автоскан будни 15:30 ET<br>2-й клик = "уже запущен" - норма</div>
+      <a href="{WORKFLOW_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
+      <a href="{RUNS_URL}" target="_blank" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;display:inline-block;text-decoration:none">📊 Running статус →</a>
+      <div style="font-size:11px;color:#8b949e;max-width:260px;text-align:right">Верхняя - запустить скан<br>Нижняя зелёная - смотреть что бежит (running page)<br>2-й клик = "уже запущен"</div>
     </div>"""
+
 html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TOP 2 - EOD {LAST}</title>
 <style>
@@ -203,7 +213,6 @@ html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name
   summary::-webkit-details-marker {{ display:none; }}
   summary {{ list-style:none; }}
   .time-pill {{ background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:6px 10px;font-size:12px; }}
-  .acc {{ cursor:pointer; }}
 </style>
 </head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif">
 <div style="max-width:900px;margin:0 auto;padding:20px 16px 60px">
@@ -226,7 +235,7 @@ html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name
       const utc = "{gen_utc_str}";
       if (utc) {{
         const d = new Date(utc);
-        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}}) + " (твой браузер)";
+        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}}) + " (браузер)";
         document.getElementById('tlv-time').textContent = d.toLocaleString('ru-RU', {{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}}) + " Тель-Авив";
       }}
     }} catch(e){{}}
@@ -251,13 +260,14 @@ html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name
   <details style="background:#0d1117;border:1px solid #21262d;border-radius:12px;margin-top:10px">
     <summary style="padding:12px 16px;cursor:pointer;color:#8b949e;font-size:12px">ℹ️ Как следить + время сканирования</summary>
     <div style="padding:0 16px 16px;font-size:12px;color:#8b949e;line-height:1.6;border-top:1px solid #21262d;margin-top:0;padding-top:12px">
-      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Если жмёшь "Сканировать" второй раз за 5 мин - покажет "уже запущен" - это нормально, GitHub не дает 2 скана параллельно.
+      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Кнопка "Сканировать" теперь ведёт на Actions и автоматом открывает Runs (running) страницу.
     </div>
   </details>
   <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div>
 </div></body></html>"""
+
 import os
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, "simple.html"), "w", encoding="utf-8").write(html)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html)
-print(f"accordion dashboard: {len(html)} bytes TOP2 {PICKS} gen {gen_tlv}")
+print(f"accordion+RUNS dashboard: {len(html)} bytes TOP2 {PICKS}")

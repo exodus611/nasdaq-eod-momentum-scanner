@@ -6,7 +6,6 @@
   summary::-webkit-details-marker { display:none; }
   summary { list-style:none; }
   .time-pill { background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:6px 10px;font-size:12px; }
-  .acc { cursor:pointer; }
 </style>
 </head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif">
 <div style="max-width:900px;margin:0 auto;padding:20px 16px 60px">
@@ -18,7 +17,8 @@
     </div>
     <div style="text-align:right"><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
       <a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
-      <div style="font-size:11px;color:#8b949e;max-width:240px;text-align:right">Автоскан будни 15:30 ET<br>2-й клик = "уже запущен" - норма</div>
+      <a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions" target="_blank" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;display:inline-block;text-decoration:none">📊 Running статус →</a>
+      <div style="font-size:11px;color:#8b949e;max-width:260px;text-align:right">Верхняя - запустить скан<br>Нижняя зелёная - смотреть что бежит (running page)<br>2-й клик = "уже запущен"</div>
     </div></div>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px">
@@ -32,7 +32,7 @@
       const utc = "2026-08-30T18:42:45.489596+00:00";
       if (utc) {
         const d = new Date(utc);
-        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}) + " (твой браузер)";
+        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}) + " (браузер)";
         document.getElementById('tlv-time').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + " Тель-Авив";
       }
     } catch(e){}
@@ -109,7 +109,7 @@
   <details style="background:#0d1117;border:1px solid #21262d;border-radius:12px;margin-top:10px">
     <summary style="padding:12px 16px;cursor:pointer;color:#8b949e;font-size:12px">ℹ️ Как следить + время сканирования</summary>
     <div style="padding:0 16px 16px;font-size:12px;color:#8b949e;line-height:1.6;border-top:1px solid #21262d;margin-top:0;padding-top:12px">
-      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Если жмёшь "Сканировать" второй раз за 5 мин - покажет "уже запущен" - это нормально, GitHub не дает 2 скана параллельно.
+      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Кнопка "Сканировать" теперь ведёт на Actions и автоматом открывает Runs (running) страницу.
     </div>
   </details>
   <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div>
