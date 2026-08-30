@@ -53,7 +53,7 @@ jobs:
             python src/download_history.py
           fi
           echo "Final: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
-      - name: Prep panel (robust v3)
+      - name: Prep panel (robust v3 fixed)
         run: |
           python src/prep_panel.py
           ls -lh data/*.parquet
@@ -61,6 +61,7 @@ jobs:
       - name: Backtest if no OOS
         run: |
           if [ ! -f data/oos_predictions.parquet ]; then
+            echo "No OOS cache, running backtest..."
             python src/backtest.py
           else
             echo "OOS cached $(du -h data/oos_predictions.parquet)"
@@ -76,11 +77,9 @@ jobs:
           test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv)"
           test -f output/index.html && echo "dashboard OK"
       - name: Enable Pages auto
-        if: ${{ secrets.SCAN_TRIGGER_TOKEN != '' }}
         continue-on-error: true
         uses: actions/configure-pages@v4
         with:
-          token: ${{ secrets.SCAN_TRIGGER_TOKEN }}
           enablement: 'true'
       - name: Commit push
         run: |
@@ -94,10 +93,8 @@ jobs:
             echo "no changes"
           fi
       - name: Upload Pages artifact
-        continue-on-error: true
         uses: actions/upload-pages-artifact@v3
         with:
           path: output
       - name: Deploy Pages
-        continue-on-error: true
         uses: actions/deploy-pages@v4
