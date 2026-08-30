@@ -1,7 +1,5 @@
 name: Pages Deploy on Push
 
-# Деплоит дашборд на GitHub Pages при каждом пуше в main (когда output/ меняется)
-# Работает вместе с daily_scan.yml - не конфликтует благодаря concurrency group
 on:
   push:
     branches: [main]
@@ -33,9 +31,12 @@ jobs:
         run: |
           ls -lh output/
           test -f output/index.html || (echo "No dashboard" && exit 1)
+          echo "Dashboard size: $(du -h output/index.html)"
 
-      - name: Setup Pages
+      - name: Setup Pages (auto-enable)
         uses: actions/configure-pages@v4
+        with:
+          enablement: 'true'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
