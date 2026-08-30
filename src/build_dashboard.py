@@ -431,32 +431,57 @@ def build():
       </div>
     </div>"""
 
-    # кнопка ручного запуска (реализована в CI токеном из секрета; локально — ссылка на Actions)
+    # кнопка ручного запуска - robust: всегда есть fallback ссылка, обработка 422 уже запущен
+    ACTIONS_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml"
     if SCAN_TOKEN:
-        run_btn = f"""<button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Запустить скан сейчас</button>
-        <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:6px"></div>
+        run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Запустить скан сейчас</button>
+          <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или открыть Actions → Run workflow</a>
+          <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:300px;text-align:right"></div>
+        </div>
         <script>
         const SCAN_TOKEN = {json.dumps(SCAN_TOKEN)};
         async function runScan(){{
+          const btn = document.getElementById('run-btn');
           const st = document.getElementById('run-status');
-          st.style.color = '#d29922'; st.textContent = '⏳ Отправляю запрос на GitHub...';
+          btn.disabled = true; btn.textContent = '⏳ Запускаю...';
+          st.style.color = '#d29922'; st.textContent = 'Отправляю запрос...';
           try {{
-            // workflow_dispatch требует только Actions:write (безопасно в публичном HTML)
             const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {{
               method: 'POST',
               headers: {{'Authorization': 'Bearer ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}},
               body: JSON.stringify({{ref: 'main'}})
             }});
-            if (r.status === 204) {{ st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идёт на GitHub (~5–10 мин), дашборд обновится сам.'; }}
-            else {{ st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + (await r.text()).slice(0,120); }}
-          }} catch(e) {{ st.style.color = '#f85149'; st.textContent = '❌ ' + e.message; }}
+            if (r.status === 204) {{
+              st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз - уже идёт. Обнови через 5 мин.';
+              btn.textContent = '✅ Запущено';
+              setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Запустить скан сейчас'; }}, 300000);
+            }} else if (r.status === 422) {{
+              st.style.color = '#d29922'; st.textContent = '⏳ Скан уже запущен! Подожди 5 мин. Второй раз жать не надо.';
+              btn.textContent = '⏳ Уже запущен';
+              setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Запустить скан сейчас'; st.textContent=''; }}, 60000);
+            }} else if (r.status === 401) {{
+              st.style.color = '#f85149'; st.innerHTML = '❌ Токен невалидный.<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Запусти через Actions →</a>';
+              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
+            }} else {{
+              const txt = await r.text();
+              st.style.color = '#f85149'; st.innerHTML = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions вручную →</a>';
+              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
+            }}
+          }} catch(e) {{
+            st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions вручную →</a>';
+            btn.disabled = false; btn.textContent = '▶ Запустить скан сейчас';
+          }}
         }}
         </script>"""
     else:
-        run_btn = """<a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Запустить скан (GitHub Actions)</a>
-        <div style="font-size:12px;color:#8b949e;margin-top:6px">Токен для запуска с дашборда не настроен — откроется вкладка Actions</div>"""
+        run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <a href="{ACTIONS_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Запустить скан (GitHub Actions)</a>
+          <div style="font-size:11px;color:#8b949e;max-width:260px;text-align:right">Откроет Actions → Run workflow. Автоскан каждый день 15:30 ET.<br>Если жмёшь 2 раза подряд - второй раз покажет "уже запущен", это нормально.</div>
+        </div>"""
 
-    univ_html = ""
+    univ_html = """
+
     if META:
         univ_html = f"""<div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 16px;font-size:13px;margin-top:14px">
           <span style="color:#8b949e">Вселенная NASDAQ:</span>
