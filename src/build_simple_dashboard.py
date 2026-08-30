@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Build SIMPLE dashboard - only top 2 picks + tracking, minimal stats."""
+"""Build SIMPLE dashboard - TOP2 + accordion + local time (TLV)"""
 import json, os
+from datetime import datetime, timezone, timedelta
 import numpy as np
 import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +18,32 @@ fund = {}
 if os.path.exists(os.path.join(DATA, "fundamentals.json")):
     fund = json.load(open(os.path.join(DATA, "fundamentals.json")))
 SCAN_TOKEN = os.environ.get("SCAN_TRIGGER_TOKEN", "")
+gen_utc_str = META.get('generated_utc', '')
+gen_dt = None
+try:
+    gen_dt = datetime.fromisoformat(gen_utc_str.replace('Z','+00:00'))
+    if gen_dt.tzinfo is None:
+        gen_dt = gen_dt.replace(tzinfo=timezone.utc)
+except:
+    gen_dt = datetime.now(timezone.utc)
+et_tz = timezone(timedelta(hours=-4))
+tlv_tz = timezone(timedelta(hours=3))
+gen_et = gen_dt.astimezone(et_tz)
+gen_tlv = gen_dt.astimezone(tlv_tz)
+now_utc = datetime.now(timezone.utc)
+next_scan_utc = now_utc.replace(hour=19, minute=30, second=0, microsecond=0)
+while True:
+    if next_scan_utc <= now_utc:
+        next_scan_utc += timedelta(days=1)
+        continue
+    if next_scan_utc.weekday() >= 5:
+        next_scan_utc += timedelta(days=1)
+        continue
+    break
+next_scan_et = next_scan_utc.astimezone(et_tz)
+next_scan_tlv = next_scan_utc.astimezone(tlv_tz)
+def fmt(dt):
+    return dt.strftime("%d.%m %H:%M")
 def pct(x, nd=1):
     return f"{x * 100:+.{nd}f}%" if x is not None and not (isinstance(x, float) and np.isnan(x)) else "—"
 def num(x, nd=2):
@@ -84,26 +111,39 @@ def score_bar(p):
     w = int(round(min(max(p, 0), 1) * 100))
     return f'<div style="background:#21262d;border-radius:6px;height:10px;width:100%"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:{w}%;height:100%;border-radius:6px"></div></div>'
 cards_html = ""
-for t in PICKS:
+for idx, t in enumerate(PICKS):
     r = row(t)
     f = fund.get(t, {})
     entry, t2, t5, stop = level_band(t)
     gap_p = r.get("gap_sig_p")
     gap_s = f"{gap_p:.0%}" if gap_p is not None and not np.isnan(gap_p) else "—"
+    open_attr = "open" if idx == 0 else ""
     cards_html += f"""
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:20px;margin-bottom:20px">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-        <div><span style="font-size:28px;font-weight:800;color:#e6edf3">{t}</span><span style="color:#8b949e;font-size:13px;margin-left:10px">{f.get('longName', t)}</span></div>
-        <div style="text-align:right"><div style="font-size:26px;font-weight:800;color:#e6edf3">${num(r['close'])}</div><div style="font-size:12px;color:{'#f85149' if (r.get('ret_1') or 0) < 0 else '#2ea043'}">{pct(r.get('ret_1'))} сегодня</div></div>
+    <details {open_attr} style="background:#161b22;border:1px solid #30363d;border-radius:14px;margin-bottom:14px;overflow:hidden">
+      <summary style="list-style:none;cursor:pointer;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span style="font-size:22px;font-weight:800;color:#e6edf3">{t}</span>
+          <span style="background:#12261a;color:#56d364;border:1px solid #238636;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700">TOP {idx+1} • {r['prob']:.3f}</span>
+          <span style="color:#8b949e;font-size:12px">{f.get('longName','')[:30]}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="text-align:right">
+            <div style="font-size:18px;font-weight:800;color:#e6edf3">${num(r['close'])}</div>
+            <div style="font-size:11px;color:{'#f85149' if (r.get('ret_1') or 0) < 0 else '#2ea043'}">{pct(r.get('ret_1'))}</div>
+          </div>
+          <div style="color:#8b949e;font-size:18px">⌄</div>
+        </div>
+      </summary>
+      <div style="padding:0 20px 20px;border-top:1px solid #21262d">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вероятность +2% за 48ч</div><div style="font-size:20px;font-weight:800;color:#56d364;margin:4px 0">{r['hit']:.0%}</div>{score_bar(r['prob'])}<div style="color:#8b949e;font-size:10px;margin-top:4px">скор {r['prob']:.3f}</div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Уровни (вход=закрытие)</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Вход</span><b>${entry:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +2%</span><b style="color:#56d364">${t2:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +5%</span><b style="color:#2ea043">${t5:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Стоп -3%</span><b style="color:#f85149">${stop:.2f}</b></div></div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Для слежения</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">P(гэп↑)</span><b style="color:#2ea043">{gap_s}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">RSI</span><b>{num(r.get('rsi14'))}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Объем</span><b>{num(r.get('vol_ratio'))}×</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Капа</span><b>{money(f.get('marketCap'))}</b></div></div></div>
+        </div>
+        <div style="margin-top:14px">{svg_candles(t)}</div>
+        <div style="color:#8b949e;font-size:10px;margin-top:4px">Свеча {LAST} до 15:30 ET (неполная). Вход по закрытию.</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вероятность +2% за 48ч</div><div style="font-size:20px;font-weight:800;color:#56d364;margin:4px 0">{r['hit']:.0%}</div>{score_bar(r['prob'])}<div style="color:#8b949e;font-size:10px;margin-top:4px">скор {r['prob']:.3f}</div></div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Уровни</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Вход</span><b>${entry:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +2%</span><b style="color:#56d364">${t2:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +5%</span><b style="color:#2ea043">${t5:.2f}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Стоп -3%</span><b style="color:#f85149">${stop:.2f}</b></div></div></div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Гэп след. дня</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">P(вверх)</span><b style="color:#2ea043">{gap_s}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">RSI</span><b>{num(r.get('rsi14'))}</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Объем</span><b>{num(r.get('vol_ratio'))}×</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Капа</span><b>{money(f.get('marketCap'))}</b></div></div></div>
-      </div>
-      <div style="margin-top:14px">{svg_candles(t)}</div>
-      <div style="color:#8b949e;font-size:10px;margin-top:4px">Свеча {LAST} до 15:30 ET (неполная). Вход по закрытию.</div>
-    </div>
+    </details>
     """
 top5 = scan.head(5)
 rows = ""
@@ -115,7 +155,7 @@ if SCAN_TOKEN:
     run_btn = f"""
     <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
       <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
-      <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или открыть Actions → Run workflow</a>
+      <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или Actions → Run workflow</a>
       <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:280px;text-align:right"></div>
     </div>
     <script>
@@ -123,7 +163,7 @@ if SCAN_TOKEN:
       const btn = document.getElementById('run-btn');
       const st = document.getElementById('run-status');
       btn.disabled = true; btn.textContent = '⏳ Запускаю...';
-      st.style.color = '#d29922'; st.textContent = 'Отправляю запрос...';
+      st.style.color = '#d29922'; st.textContent = 'Отправляю...';
       try {{
         const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {{
           method: 'POST',
@@ -131,23 +171,20 @@ if SCAN_TOKEN:
           body: JSON.stringify({{ref: 'main'}})
         }});
         if (r.status === 204) {{
-          st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз - уже идёт.';
+          st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз.';
           btn.textContent = '✅ Запущено';
           setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; }}, 300000);
         }} else if (r.status === 422) {{
-          st.style.color = '#d29922'; st.textContent = '⏳ Скан уже запущен! Подожди 5 мин.';
+          st.style.color = '#d29922'; st.textContent = '⏳ Уже запущен! Подожди 5 мин.';
           btn.textContent = '⏳ Уже запущен';
           setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; st.textContent=''; }}, 60000);
-        }} else if (r.status === 401) {{
-          st.style.color = '#f85149'; st.textContent = '❌ Токен невалидный.';
-          btn.disabled = false; btn.textContent = '▶ Попробовать снова';
         }} else {{
           const txt = await r.text();
-          st.style.color = '#f85149'; st.innerHTML = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
+          st.style.color = '#f85149'; st.innerHTML = '❌ ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Actions →</a>';
           btn.disabled = false; btn.textContent = '▶ Попробовать снова';
         }}
       }} catch(e) {{
-        st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
+        st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Actions →</a>';
         btn.disabled = false;
       }}
     }}
@@ -156,11 +193,71 @@ if SCAN_TOKEN:
 else:
     run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
       <a href="{ACTIONS_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
-      <div style="font-size:11px;color:#8b949e;max-width:240px;text-align:right">Откроет Actions → Run workflow.<br>Автоскан каждый день 15:30 ET.<br>Если жмёшь 2 раза - второй раз "уже запущен", это нормально.</div>
+      <div style="font-size:11px;color:#8b949e;max-width:240px;text-align:right">Автоскан будни 15:30 ET<br>2-й клик = "уже запущен" - норма</div>
     </div>"""
-html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TOP 2 - EOD {LAST}</title></head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif"><div style="max-width:900px;margin:0 auto;padding:24px 16px 60px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid #30363d;padding-bottom:16px"><div><div style="color:#58a6ff;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase">NASDAQ EOD · TOP 2</div><h1 style="margin:4px 0 2px;font-size:26px;font-weight:800">Две лучшие акции на сегодня</h1><div style="color:#8b949e;font-size:13px">Сигнал {LAST} 15:30 ET → вход на закрытии → цель +2..+5% за 24-48ч</div></div><div style="text-align:right">{run_btn}</div></div><div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:10px 14px;font-size:12px;margin-top:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><span><span style="color:#8b949e">Вселенная:</span> <b>{META.get('universe_total', '—'):,} NASDAQ</b> → <b>{META.get('scanned', '—')}</b> ликвидных</span><span><span style="color:#8b949e">Обновлено:</span> <b>{META.get('generated_utc', '')[:16]}</b></span></div><div style="margin-top:18px">{cards_html}</div><div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-top:20px"><h3 style="margin:0 0 10px;font-size:16px">Топ-5 рейтинга</h3><table style="border-collapse:collapse;width:100%;font-size:13px"><thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d"><th>#</th><th>Тикер</th><th style="text-align:right">Цена</th><th style="text-align:right">Скор</th><th style="text-align:right">P(+2%)</th></tr></thead><tbody>{rows}</tbody></table><div style="margin-top:10px;font-size:12px"><a href="dashboard.html">Полный дашборд с статистикой →</a> | <a href="scan_results.csv">CSV →</a></div></div><div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:12px 14px;margin-top:20px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div></div></body></html>"""
+html = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOP 2 - EOD {LAST}</title>
+<style>
+  details {{ transition: all 0.2s; }}
+  details[open] summary {{ border-bottom:1px solid #21262d; }}
+  summary::-webkit-details-marker {{ display:none; }}
+  summary {{ list-style:none; }}
+  .time-pill {{ background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:6px 10px;font-size:12px; }}
+  .acc {{ cursor:pointer; }}
+</style>
+</head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif">
+<div style="max-width:900px;margin:0 auto;padding:20px 16px 60px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;border-bottom:1px solid #30363d;padding-bottom:14px">
+    <div>
+      <div style="color:#58a6ff;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase">NASDAQ EOD · TOP 2 · Аккордеон</div>
+      <h1 style="margin:4px 0 2px;font-size:24px;font-weight:800">Две лучшие акции на сегодня</h1>
+      <div style="color:#8b949e;font-size:13px">Сигнал {LAST} 15:30 ET → вход на закрытии → цель +2..+5% за 24-48ч</div>
+    </div>
+    <div style="text-align:right">{run_btn}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px">
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Последний сигнал</div><div style="font-weight:700;margin-top:2px">{LAST} 15:30 ET</div><div style="color:#8b949e;font-size:11px">15:30 ET = 22:30 Тель-Авив = 19:30 UTC</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Обновлено (Тель-Авив)</div><div style="font-weight:700;margin-top:2px" id="tlv-time">{fmt(gen_tlv)}</div><div style="color:#8b949e;font-size:11px" id="local-time-js">ET {fmt(gen_et)} · UTC {gen_dt.strftime("%d.%m %H:%M")}</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Следующий автоскан</div><div style="font-weight:700;margin-top:2px;color:#56d364">{fmt(next_scan_tlv)} Тель-Авив</div><div style="color:#8b949e;font-size:11px">{fmt(next_scan_et)} ET · {next_scan_utc.strftime("%d.%m %H:%M")} UTC</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вселенная</div><div style="font-weight:700;margin-top:2px">{META.get('universe_total','—'):,} → {META.get('scanned','—')} ликвидных</div><div style="color:#8b949e;font-size:11px">NASDAQ, без логов</div></div>
+  </div>
+  <script>
+    try {{
+      const utc = "{gen_utc_str}";
+      if (utc) {{
+        const d = new Date(utc);
+        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}}) + " (твой браузер)";
+        document.getElementById('tlv-time').textContent = d.toLocaleString('ru-RU', {{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}}) + " Тель-Авив";
+      }}
+    }} catch(e){{}}
+  </script>
+  <div style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <h3 style="margin:0;font-size:14px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px">Акции - нажми чтобы развернуть (аккордеон)</h3>
+      <div style="display:flex;gap:8px">
+        <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)" style="background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer">Развернуть всё</button>
+        <button onclick="document.querySelectorAll('details').forEach((d,i)=>d.open=i===0)" style="background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer">Свернуть</button>
+      </div>
+    </div>
+    {cards_html}
+  </div>
+  <details style="background:#161b22;border:1px solid #30363d;border-radius:12px;margin-top:14px">
+    <summary style="padding:14px 16px;cursor:pointer;font-weight:700;display:flex;justify-content:space-between;align-items:center"><span>📊 Топ-5 рейтинга (гармошка)</span><span style="color:#8b949e">⌄</span></summary>
+    <div style="padding:0 16px 16px;border-top:1px solid #21262d">
+      <table style="border-collapse:collapse;width:100%;font-size:13px;margin-top:10px"><thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d"><th>#</th><th>Тикер</th><th style="text-align:right">Цена</th><th style="text-align:right">Скор</th><th style="text-align:right">P(+2%)</th></tr></thead><tbody>{rows}</tbody></table>
+      <div style="margin-top:10px;font-size:12px"><a href="dashboard.html">Полный дашборд →</a> | <a href="scan_results.csv">CSV →</a></div>
+    </div>
+  </details>
+  <details style="background:#0d1117;border:1px solid #21262d;border-radius:12px;margin-top:10px">
+    <summary style="padding:12px 16px;cursor:pointer;color:#8b949e;font-size:12px">ℹ️ Как следить + время сканирования</summary>
+    <div style="padding:0 16px 16px;font-size:12px;color:#8b949e;line-height:1.6;border-top:1px solid #21262d;margin-top:0;padding-top:12px">
+      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Если жмёшь "Сканировать" второй раз за 5 мин - покажет "уже запущен" - это нормально, GitHub не дает 2 скана параллельно.
+    </div>
+  </details>
+  <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div>
+</div></body></html>"""
 import os
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, "simple.html"), "w", encoding="utf-8").write(html)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html)
-print(f"simple dashboard: {len(html)} bytes TOP2 {PICKS}")
+print(f"accordion dashboard: {len(html)} bytes TOP2 {PICKS} gen {gen_tlv}")
