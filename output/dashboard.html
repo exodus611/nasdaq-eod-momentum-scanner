@@ -22,8 +22,25 @@
           <div style="color:#8b949e;font-size:12px;margin-top:2px">свеча дня — неполная (до 15:30)</div>
         </div>
       </div>
-      <div style="text-align:right"><a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Запустить скан (GitHub Actions)</a>
-        <div style="font-size:12px;color:#8b949e;margin-top:6px">Токен для запуска с дашборда не настроен — откроется вкладка Actions</div></div>
+      <div style="text-align:right"><button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Запустить скан сейчас</button>
+        <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:6px"></div>
+        <script>
+        const SCAN_TOKEN = "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";
+        async function runScan(){
+          const st = document.getElementById('run-status');
+          st.style.color = '#d29922'; st.textContent = '⏳ Отправляю запрос на GitHub...';
+          try {
+            // workflow_dispatch требует только Actions:write (безопасно в публичном HTML)
+            const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {
+              method: 'POST',
+              headers: {'Authorization': 'token ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
+              body: JSON.stringify({ref: 'main'})
+            });
+            if (r.ok) { st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идёт на GitHub (~5–10 мин), дашборд обновится сам.'; }
+            else { st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + (await r.text()).slice(0,120); }
+          } catch(e) { st.style.color = '#f85149'; st.textContent = '❌ ' + e.message; }
+        }
+        </script></div>
     </div>
   </div>
 
@@ -36,7 +53,7 @@
         </div>
 
   <div style="background:#1c2a12;border:1px solid #238636;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:13.5px;color:#c9d1d9;line-height:1.6">
-    <b style="color:#56d364">Рекомендация на эту сессию:</b> <b>MRNA</b> — P(рост ≥2% за 48ч) 57%, P(положительный гэп) 49%; <b>IREN</b> — P(рост ≥2% за 48ч) 57%, P(положительный гэп) 49%; 
+    <b style="color:#56d364">Рекомендация на эту сессию:</b> <b>MRNA</b> — P(рост ≥2% за 48ч) 58%, P(положительный гэп) 48%; <b>IREN</b> — P(рост ≥2% за 48ч) 58%, P(положительный гэп) 51%; 
     Сигнал сформирован по данным до 15:30 ET, вход — по цене закрытия. Гэп следующего дня — статистически ~50/50
     с лёгким положительным смещением у лидеров; <b>основной заработок — движение внутри 24–48ч к целям +2/+5%</b>,
     поэтому выход по открытию не рекомендуется, стоп −3% обязателен.
@@ -60,25 +77,25 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px">
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Скор модели (0–1)</div>
-          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.527</div>
-          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:53%;height:100%;border-radius:6px"></div></div>
+          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.499</div>
+          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:50%;height:100%;border-radius:6px"></div></div>
           <div style="color:#8b949e;font-size:11px;margin-top:6px">P(рост ≥2% за 48ч)</div>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Ожидания на 48ч (калибровка)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">57%</td></tr>
+            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">58%</td></tr>
             <tr><td style="color:#8b949e">Среднее лучшее движение</td><td style="text-align:right;color:#2ea043;font-weight:700">+3.9%</td></tr>
             <tr><td style="color:#8b949e">Средний результат 2-го дня</td><td style="text-align:right;color:#e6edf3;font-weight:700">+2.0%</td></tr>
-            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-0.7%</td></tr>
+            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-0.8%</td></tr>
           </table>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Гэп следующего дня (история OOS)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">49%</td></tr>
-            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.0%</td></tr>
-            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">91</td></tr>
+            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">48%</td></tr>
+            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">-0.1%</td></tr>
+            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">92</td></tr>
             <tr><td style="color:#8b949e">Контекст: после распрод. дней</td><td style="text-align:right;color:#e6edf3;font-weight:700">-0.7%</td></tr>
           </table>
         </div>
@@ -119,7 +136,7 @@
 
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;margin-top:14px">
         <div style="color:#58a6ff;font-size:13px;font-weight:700;margin-bottom:6px">📰 Состояние и драйверы</div>
-        <div style="color:#c9d1d9;font-size:13.5px;line-height:1.55"><b>Сигнал в 15:30 ET: MRNA — высокий скор модели.</b> Изменение за день -3.8%, объём 0.77× от среднего, RSI 63.27, позиция в диапазоне дня 73%. Вероятность роста ≥2% за 48ч — 57%, положительный гэп следующего дня — 49% случаев. Moderna, Inc. (Healthcare). Рекомендация: hold, средний таргет $106.62.</div>
+        <div style="color:#c9d1d9;font-size:13.5px;line-height:1.55"><b>Сигнал в 15:30 ET: MRNA — высокий скор модели.</b> Изменение за день -3.8%, объём 0.77× от среднего, RSI 63.27, позиция в диапазоне дня 73%. Вероятность роста ≥2% за 48ч — 58%, положительный гэп следующего дня — 48% случаев. Moderna, Inc. (Healthcare). Рекомендация: hold, средний таргет $106.62.</div>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px">
@@ -157,25 +174,25 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px">
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Скор модели (0–1)</div>
-          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.524</div>
-          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:52%;height:100%;border-radius:6px"></div></div>
+          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.531</div>
+          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:53%;height:100%;border-radius:6px"></div></div>
           <div style="color:#8b949e;font-size:11px;margin-top:6px">P(рост ≥2% за 48ч)</div>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Ожидания на 48ч (калибровка)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">57%</td></tr>
+            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">58%</td></tr>
             <tr><td style="color:#8b949e">Среднее лучшее движение</td><td style="text-align:right;color:#2ea043;font-weight:700">+3.9%</td></tr>
             <tr><td style="color:#8b949e">Средний результат 2-го дня</td><td style="text-align:right;color:#e6edf3;font-weight:700">+2.0%</td></tr>
-            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-0.7%</td></tr>
+            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-0.8%</td></tr>
           </table>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Гэп следующего дня (история OOS)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">49%</td></tr>
-            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">-0.1%</td></tr>
-            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">172</td></tr>
+            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">51%</td></tr>
+            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.1%</td></tr>
+            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">183</td></tr>
             <tr><td style="color:#8b949e">Контекст: после распрод. дней</td><td style="text-align:right;color:#e6edf3;font-weight:700">-2.6%</td></tr>
           </table>
         </div>
@@ -257,86 +274,53 @@
       </thead>
       <tbody><tr style="background:#12261a;">
       <td style="padding:8px 10px;color:#8b949e">1</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MRNA</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$137.33</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.527</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">57%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+3.9%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">49%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-3.8%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.27</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.77×</td>
-    </tr><tr style="background:#12261a;">
-      <td style="padding:8px 10px;color:#8b949e">2</td>
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">IREN</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">$35.56</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.524</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">57%</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.531</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">58%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">+3.9%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">49%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">51%</td>
       <td style="padding:8px 10px;color:#f85149;text-align:right">-12.3%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">40.38</td>
       <td style="padding:8px 10px;color:#d29922;text-align:right">1.57×</td>
     </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">3</td>
+      <td style="padding:8px 10px;color:#8b949e">2</td>
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MRVL</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">$217.65</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.518</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">57%</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.523</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">58%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">+3.9%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">61%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">59%</td>
       <td style="padding:8px 10px;color:#f85149;text-align:right">-9.9%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">47.48</td>
       <td style="padding:8px 10px;color:#d29922;text-align:right">1.73×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">4</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MSTR</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$128.18</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.498</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">57%</td>
+    </tr><tr style="background:#12261a;">
+      <td style="padding:8px 10px;color:#8b949e">3</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MRNA</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$137.33</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.499</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">58%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">+3.9%</td>
       <td style="padding:8px 10px;color:#58a6ff;text-align:right">48%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-6.7%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.79</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">1.01×</td>
+      <td style="padding:8px 10px;color:#f85149;text-align:right">-3.8%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.27</td>
+      <td style="padding:8px 10px;color:#d29922;text-align:right">0.77×</td>
     </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">5</td>
+      <td style="padding:8px 10px;color:#8b949e">4</td>
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">AXTI</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">$59.47</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.479</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.474</td>
       <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">55%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">56%</td>
       <td style="padding:8px 10px;color:#f85149;text-align:right">-11.1%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">43.36</td>
       <td style="padding:8px 10px;color:#d29922;text-align:right">0.46×</td>
     </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">6</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">SNDK</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$1475.50</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.449</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">59%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-0.6%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">48.88</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.50×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">7</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">LITE</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$901.79</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.445</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">64%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-5.7%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">53.66</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.54×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">8</td>
+      <td style="padding:8px 10px;color:#8b949e">5</td>
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">CRWV</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">$83.84</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.443</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.468</td>
       <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
       <td style="padding:8px 10px;color:#58a6ff;text-align:right">52%</td>
@@ -344,27 +328,60 @@
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">44.49</td>
       <td style="padding:8px 10px;color:#d29922;text-align:right">0.46×</td>
     </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">9</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">CRWD</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$216.93</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.441</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.7%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">57%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-4.8%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">57.40</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">1.40×</td>
+      <td style="padding:8px 10px;color:#8b949e">6</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MSTR</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$128.18</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.455</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">49%</td>
+      <td style="padding:8px 10px;color:#f85149;text-align:right">-6.7%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.79</td>
+      <td style="padding:8px 10px;color:#d29922;text-align:right">1.01×</td>
     </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">10</td>
+      <td style="padding:8px 10px;color:#8b949e">7</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">AAOI</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$106.65</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.453</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">54%</td>
+      <td style="padding:8px 10px;color:#f85149;text-align:right">-5.9%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">42.75</td>
+      <td style="padding:8px 10px;color:#d29922;text-align:right">0.35×</td>
+    </tr><tr style="">
+      <td style="padding:8px 10px;color:#8b949e">8</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">LITE</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$901.79</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.452</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">64%</td>
+      <td style="padding:8px 10px;color:#f85149;text-align:right">-5.7%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">53.66</td>
+      <td style="padding:8px 10px;color:#d29922;text-align:right">0.54×</td>
+    </tr><tr style="">
+      <td style="padding:8px 10px;color:#8b949e">9</td>
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">NBIS</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">$208.62</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.440</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.7%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">54%</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.448</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">55%</td>
       <td style="padding:8px 10px;color:#f85149;text-align:right">-4.5%</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">47.01</td>
       <td style="padding:8px 10px;color:#d29922;text-align:right">0.43×</td>
+    </tr><tr style="">
+      <td style="padding:8px 10px;color:#8b949e">10</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">APP</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$319.86</td>
+      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.443</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#58a6ff;text-align:right">50%</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">+2.3%</td>
+      <td style="padding:8px 10px;color:#e6edf3;text-align:right">38.64</td>
+      <td style="padding:8px 10px;color:#d29922;text-align:right">0.82×</td>
     </tr></tbody>
     </table>
     </div>
@@ -379,13 +396,13 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
         <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Попадание ≥2% за 48ч</div>
-        <div style="font-size:26px;font-weight:800;color:#2ea043">48.8%</div>
-        <div style="color:#8b949e;font-size:12px">база рынка: 34.4%</div>
+        <div style="font-size:26px;font-weight:800;color:#2ea043">48.6%</div>
+        <div style="color:#8b949e;font-size:12px">база рынка: 34.3%</div>
       </div>
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
         <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Среднее лучшее движение</div>
-        <div style="font-size:26px;font-weight:800;color:#2ea043">+2.9%</div>
-        <div style="color:#8b949e;font-size:12px">база рынка: +1.5%</div>
+        <div style="font-size:26px;font-weight:800;color:#2ea043">+2.8%</div>
+        <div style="color:#8b949e;font-size:12px">база рынка: +1.4%</div>
       </div>
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
         <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Средний результат 2-го дня</div>
@@ -394,12 +411,12 @@
       </div>
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
         <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Худший случай (средний)</div>
-        <div style="font-size:26px;font-weight:800;color:#f85149">-1.5%</div>
+        <div style="font-size:26px;font-weight:800;color:#f85149">-1.6%</div>
         <div style="color:#8b949e;font-size:12px">стоп −3% защищает</div>
       </div>
     </div>
     <div style="color:#c9d1d9;font-size:13px;margin:10px 0 6px">Точность стратегии по месяцам (зелёный — стратегия, серый — база рынка):</div>
-    <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="46" y1="210.0" x2="746" y2="210.0" stroke="#21262d" stroke-width="1"/><text x="42" y="214.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">0%</text><line x1="46" y1="177.7" x2="746" y2="177.7" stroke="#21262d" stroke-width="1"/><text x="42" y="181.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">10%</text><line x1="46" y1="145.3" x2="746" y2="145.3" stroke="#21262d" stroke-width="1"/><text x="42" y="149.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">20%</text><line x1="46" y1="113.0" x2="746" y2="113.0" stroke="#21262d" stroke-width="1"/><text x="42" y="117.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">30%</text><line x1="46" y1="80.7" x2="746" y2="80.7" stroke="#21262d" stroke-width="1"/><text x="42" y="84.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">40%</text><line x1="46" y1="48.3" x2="746" y2="48.3" stroke="#21262d" stroke-width="1"/><text x="42" y="52.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">50%</text><line x1="46" y1="16.0" x2="746" y2="16.0" stroke="#21262d" stroke-width="1"/><text x="42" y="20.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">60%</text><rect x="57.45454545454545" y="62.2" width="17.81818181818182" height="147.8" fill="#2ea043" rx="2"/><rect x="80.36363636363637" y="106.2" width="17.81818181818182" height="103.8" fill="#8b949e" opacity="0.6" rx="2"/><text x="77.8" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Окт 25</text><rect x="121.09090909090908" y="64.8" width="17.81818181818182" height="145.2" fill="#2ea043" rx="2"/><rect x="144.0" y="102.0" width="17.81818181818182" height="108.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="184.7272727272727" y="57.1" width="17.81818181818182" height="152.9" fill="#2ea043" rx="2"/><rect x="207.63636363636363" y="120.1" width="17.81818181818182" height="89.9" fill="#8b949e" opacity="0.6" rx="2"/><text x="205.1" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Дек 25</text><rect x="248.36363636363637" y="52.2" width="17.81818181818182" height="157.8" fill="#2ea043" rx="2"/><rect x="271.27272727272725" y="95.9" width="17.81818181818182" height="114.1" fill="#8b949e" opacity="0.6" rx="2"/><rect x="311.99999999999994" y="47.7" width="17.81818181818182" height="162.3" fill="#2ea043" rx="2"/><rect x="334.9090909090909" y="97.2" width="17.81818181818182" height="112.8" fill="#8b949e" opacity="0.6" rx="2"/><text x="332.4" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Фев 26</text><rect x="375.6363636363636" y="48.7" width="17.81818181818182" height="161.3" fill="#2ea043" rx="2"/><rect x="398.54545454545456" y="111.7" width="17.81818181818182" height="98.3" fill="#8b949e" opacity="0.6" rx="2"/><rect x="439.27272727272725" y="36.0" width="17.81818181818182" height="174.0" fill="#2ea043" rx="2"/><rect x="462.1818181818182" y="81.3" width="17.81818181818182" height="128.7" fill="#8b949e" opacity="0.6" rx="2"/><text x="459.6" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Апр 26</text><rect x="502.9090909090909" y="44.8" width="17.81818181818182" height="165.2" fill="#2ea043" rx="2"/><rect x="525.8181818181818" y="93.0" width="17.81818181818182" height="117.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="566.5454545454545" y="52.2" width="17.81818181818182" height="157.8" fill="#2ea043" rx="2"/><rect x="589.4545454545454" y="78.7" width="17.81818181818182" height="131.3" fill="#8b949e" opacity="0.6" rx="2"/><text x="586.9" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Июн 26</text><rect x="630.1818181818182" y="53.8" width="17.81818181818182" height="156.2" fill="#2ea043" rx="2"/><rect x="653.0909090909091" y="95.9" width="17.81818181818182" height="114.1" fill="#8b949e" opacity="0.6" rx="2"/><rect x="693.8181818181819" y="55.8" width="17.81818181818182" height="154.2" fill="#2ea043" rx="2"/><rect x="716.7272727272727" y="105.2" width="17.81818181818182" height="104.8" fill="#8b949e" opacity="0.6" rx="2"/><text x="714.2" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">Авг 26</text></svg>
+    <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="46" y1="210.0" x2="746" y2="210.0" stroke="#21262d" stroke-width="1"/><text x="42" y="214.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">0%</text><line x1="46" y1="177.7" x2="746" y2="177.7" stroke="#21262d" stroke-width="1"/><text x="42" y="181.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">10%</text><line x1="46" y1="145.3" x2="746" y2="145.3" stroke="#21262d" stroke-width="1"/><text x="42" y="149.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">20%</text><line x1="46" y1="113.0" x2="746" y2="113.0" stroke="#21262d" stroke-width="1"/><text x="42" y="117.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">30%</text><line x1="46" y1="80.7" x2="746" y2="80.7" stroke="#21262d" stroke-width="1"/><text x="42" y="84.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">40%</text><line x1="46" y1="48.3" x2="746" y2="48.3" stroke="#21262d" stroke-width="1"/><text x="42" y="52.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">50%</text><line x1="46" y1="16.0" x2="746" y2="16.0" stroke="#21262d" stroke-width="1"/><text x="42" y="20.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">60%</text><rect x="57.45454545454545" y="60.7" width="17.81818181818182" height="149.3" fill="#2ea043" rx="2"/><rect x="80.36363636363637" y="106.3" width="17.81818181818182" height="103.7" fill="#8b949e" opacity="0.6" rx="2"/><text x="77.8" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2025-10</text><rect x="121.09090909090908" y="63.5" width="17.81818181818182" height="146.5" fill="#2ea043" rx="2"/><rect x="144.0" y="102.0" width="17.81818181818182" height="108.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="184.7272727272727" y="57.9" width="17.81818181818182" height="152.1" fill="#2ea043" rx="2"/><rect x="207.63636363636363" y="120.2" width="17.81818181818182" height="89.8" fill="#8b949e" opacity="0.6" rx="2"/><text x="205.1" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2025-12</text><rect x="248.36363636363637" y="51.5" width="17.81818181818182" height="158.5" fill="#2ea043" rx="2"/><rect x="271.27272727272725" y="95.9" width="17.81818181818182" height="114.1" fill="#8b949e" opacity="0.6" rx="2"/><rect x="311.99999999999994" y="51.0" width="17.81818181818182" height="159.0" fill="#2ea043" rx="2"/><rect x="334.9090909090909" y="97.1" width="17.81818181818182" height="112.9" fill="#8b949e" opacity="0.6" rx="2"/><text x="332.4" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-02</text><rect x="375.6363636363636" y="50.1" width="17.81818181818182" height="159.9" fill="#2ea043" rx="2"/><rect x="398.54545454545456" y="111.7" width="17.81818181818182" height="98.3" fill="#8b949e" opacity="0.6" rx="2"/><rect x="439.27272727272725" y="37.0" width="17.81818181818182" height="173.0" fill="#2ea043" rx="2"/><rect x="462.1818181818182" y="81.4" width="17.81818181818182" height="128.6" fill="#8b949e" opacity="0.6" rx="2"/><text x="459.6" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-04</text><rect x="502.9090909090909" y="44.2" width="17.81818181818182" height="165.8" fill="#2ea043" rx="2"/><rect x="525.8181818181818" y="93.0" width="17.81818181818182" height="117.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="566.5454545454545" y="52.9" width="17.81818181818182" height="157.1" fill="#2ea043" rx="2"/><rect x="589.4545454545454" y="78.9" width="17.81818181818182" height="131.1" fill="#8b949e" opacity="0.6" rx="2"/><text x="586.9" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-06</text><rect x="630.1818181818182" y="55.5" width="17.81818181818182" height="154.5" fill="#2ea043" rx="2"/><rect x="653.0909090909091" y="95.8" width="17.81818181818182" height="114.2" fill="#8b949e" opacity="0.6" rx="2"/><rect x="693.8181818181819" y="56.9" width="17.81818181818182" height="153.1" fill="#2ea043" rx="2"/><rect x="716.7272727272727" y="106.9" width="17.81818181818182" height="103.1" fill="#8b949e" opacity="0.6" rx="2"/><text x="714.2" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-08</text></svg>
   </div>
 
   <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
@@ -423,13 +440,13 @@
 
   
   <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-    <h2 style="margin:0 0 12px;font-size:20px">🗂 История запусков (последние 8)</h2>
+    <h2 style="margin:0 0 12px;font-size:20px">🗂 История запусков (последние 1)</h2>
     <div style="overflow-x:auto">
     <table style="border-collapse:collapse;width:100%;font-size:13px;min-width:480px">
       <thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d">
         <th style="padding:8px 10px">Коммит</th><th style="padding:8px 10px">Дата</th><th style="padding:8px 10px">Событие</th>
       </tr></thead>
-      <tbody><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">7b25ffe</td><td style="padding:6px 10px;color:#e6edf3">2026-08-30</td><td style="padding:6px 10px;color:#c9d1d9">FIX: workflow startup failure - remove secrets from if (Unrecognized named-value: secrets) - now uses GITHUB_TOKEN, should run</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">fcaf553</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">docs: dashboard URLs - LIVE PREVIEW 8000-itfzt3s35dl7n27yygks7.e2b.app + Pages troubleshooting</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">602cd5b</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">docs: production checklist 100% + telegram setup</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">1718f54</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">FIX: prep_panel crash - ticker missing after groupby, robust v3 fixed, workflow diagnostics + fallback</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">7bca2d8</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">FIX: step 3 prep_panel crash - ticker column missing after groupby with include_groups=False in pandas 2.2+, now fixed with robust v3 + workflow with fallback and diagnostics</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">f50be16</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">docs: Pages enable guide - direct link + Code and automation + auto-enable via token</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">dab782d</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">docs: maximum deploy final report 29.08 - full 1504 universe, 48.8% backtest, docker, v2 server</td></tr><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">6c5f9a5</td><td style="padding:6px 10px;color:#e6edf3">2026-08-29</td><td style="padding:6px 10px;color:#c9d1d9">MAXIMUM DEPLOY 29.08 - full universe 1504, 1452 hist, 449k featured, backtest 48.8% vs 34.3% base, scan MRNA/IREN top, Dockerfile+compose+Pages workflow+v2 deploy server, fundamentals top20</td></tr></tbody>
+      <tbody><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">d60c2f4</td><td style="padding:6px 10px;color:#e6edf3">2026-08-30</td><td style="padding:6px 10px;color:#c9d1d9">FIX: Pages not enabled - add enablement:true to configure-pages in pages_on_push, should auto-enable Pages</td></tr></tbody>
     </table>
     </div>
     <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (15:30 ET) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни 15:30 ET (зимой сдвигается на 20:30 UTC в workflow).</div>
