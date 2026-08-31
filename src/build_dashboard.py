@@ -13,11 +13,12 @@ DATA = os.path.join(ROOT, "data")
 OUT = os.path.join(ROOT, "output")
 
 # Ручная курация топ-2 (модель ранжирует в таблице; аналитик выбирает сценарии)
+PICKS = []  # placeholder will be overwritten
 
 scan = pd.read_csv(os.path.join(OUT, "scan_results.csv"))
 LAST = str(scan["date"].iloc[0])
 scan = scan.sort_values("prob", ascending=False)
-PICKS = scan.head(2)["ticker"].tolist()  # AUTO TOP2
+PICKS = scan.head(2)["ticker"].tolist()  # AUTO TOP2 FIX - was hardcoded
 
 # метаданные (вселенная, время)
 META = {}
@@ -34,7 +35,8 @@ def last_runs(n=8):
 
 RUNS = last_runs()
 
-# token removed - no PAT in HTML
+# токен для кнопки ручного запуска (подставляется в CI из секрета; локально — пусто)
+# "" removed - security
 
 fund = {}
 if os.path.exists(os.path.join(DATA, "fundamentals.json")):
@@ -430,54 +432,30 @@ def build():
       </div>
     </div>"""
 
-    # кнопка ручного запуска - robust: fallback + 422 already running
-    ACTIONS_URL = "https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml"
-    if SCAN_TOKEN:
-        run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-          <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
-          <a href="{ACTIONS_URL}" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или открыть Actions → Run workflow</a>
-          <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:300px;text-align:right"></div>
-        </div>
+    # кнопка ручного запуска (реализована в CI токеном из секрета; локально — ссылка на Actions)
+    if False:  # token removed
+        run_btn = f"""<button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Запустить скан сейчас</button>
+        <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:6px"></div>
         <script>
-        const SCAN_TOKEN = {json.dumps(SCAN_TOKEN)};
+        const "" = {json.dumps("")};
         async function runScan(){{
-          const btn = document.getElementById('run-btn');
           const st = document.getElementById('run-status');
-          btn.disabled = true; btn.textContent = '⏳ Запускаю...';
-          st.style.color = '#d29922'; st.textContent = 'Отправляю запрос...';
+          st.style.color = '#d29922'; st.textContent = '⏳ Отправляю запрос на GitHub...';
           try {{
+            // workflow_dispatch требует только Actions:write (безопасно в публичном HTML)
             const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {{
               method: 'POST',
-              headers: {{'Authorization': 'Bearer ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}},
+              headers: {{'Authorization': 'token ' + "", 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}},
               body: JSON.stringify({{ref: 'main'}})
             }});
-            if (r.status === 204) {{
-              st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз - уже идёт.';
-              btn.textContent = '✅ Запущено';
-              setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; }}, 300000);
-            }} else if (r.status === 422) {{
-              st.style.color = '#d29922'; st.textContent = '⏳ Скан уже запущен! Подожди 5 мин.';
-              btn.textContent = '⏳ Уже запущен';
-              setTimeout(()=>{{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; st.textContent=''; }}, 60000);
-            }} else if (r.status === 401) {{
-              st.style.color = '#f85149'; st.innerHTML = '❌ Токен невалидный.<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Запусти через Actions →</a>';
-              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
-            }} else {{
-              const txt = await r.text();
-              st.style.color = '#f85149'; st.innerHTML = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
-              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
-            }}
-          }} catch(e) {{
-            st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="{ACTIONS_URL}" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
-            btn.disabled = false; btn.textContent = '▶ Сканировать сейчас';
-          }}
+            if (r.ok) {{ st.style.color = '#2ea043'; st.textContent = '✅ Запущено! Скан идёт на GitHub (~5–10 мин), дашборд обновится сам.'; }}
+            else {{ st.style.color = '#f85149'; st.textContent = '❌ Ошибка ' + r.status + ': ' + (await r.text()).slice(0,120); }}
+          }} catch(e) {{ st.style.color = '#f85149'; st.textContent = '❌ ' + e.message; }}
         }}
         </script>"""
     else:
-        run_btn = f"""<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-          <a href="{ACTIONS_URL}" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
-          <div style="font-size:11px;color:#8b949e;max-width:260px;text-align:right">Откроет Actions → Run workflow. Автоскан каждый день 15:30 ET.<br>Если жмёшь 2 раза - второй раз "уже запущен", это нормально.</div>
-        </div>"""
+        run_btn = """<a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Запустить скан (GitHub Actions)</a>
+        <div style="font-size:12px;color:#8b949e;margin-top:6px">Токен для запуска с дашборда не настроен — откроется вкладка Actions</div>"""
 
     univ_html = ""
     if META:
