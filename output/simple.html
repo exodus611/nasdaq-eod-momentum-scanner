@@ -23,13 +23,13 @@
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px">
     <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Последний сигнал</div><div style="font-weight:700;margin-top:2px">2026-08-31 15:30 ET</div><div style="color:#8b949e;font-size:11px">15:30 ET = 22:30 Тель-Авив = 19:30 UTC</div></div>
-    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Обновлено (Тель-Авив)</div><div style="font-weight:700;margin-top:2px" id="tlv-time">31.08 22:42</div><div style="color:#8b949e;font-size:11px" id="local-time-js">ET 31.08 15:42 · UTC 31.08 19:42</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Обновлено (Тель-Авив)</div><div style="font-weight:700;margin-top:2px" id="tlv-time">01.09 00:30</div><div style="color:#8b949e;font-size:11px" id="local-time-js">ET 31.08 17:30 · UTC 31.08 21:30</div></div>
     <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Следующий автоскан</div><div style="font-weight:700;margin-top:2px;color:#56d364">01.09 22:30 Тель-Авив</div><div style="color:#8b949e;font-size:11px">01.09 15:30 ET · 01.09 19:30 UTC</div></div>
-    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вселенная</div><div style="font-weight:700;margin-top:2px">1,504 → 60 ликвидных</div><div style="color:#8b949e;font-size:11px">NASDAQ, без логов</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вселенная</div><div style="font-weight:700;margin-top:2px">1,503 → 60 ликвидных</div><div style="color:#8b949e;font-size:11px">NASDAQ, без логов</div></div>
   </div>
   <script>
     try {
-      const utc = "2026-08-31T19:42:10.196556+00:00";
+      const utc = "2026-08-31T21:30:21.586320+00:00";
       if (utc) {
         const d = new Date(utc);
         document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}) + " (браузер)";
