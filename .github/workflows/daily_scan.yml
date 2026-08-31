@@ -68,14 +68,18 @@ jobs:
           fi
       - name: Scan
         run: python src/scan.py
-      - name: Build dashboard
-        env:
-          SCAN_TRIGGER_TOKEN: ${{ secrets.SCAN_TRIGGER_TOKEN }}
-        run: python src/build_dashboard.py
+      - name: Build dashboard (full + simple TOP2 accordion)
+        run: |
+          python src/build_dashboard.py
+          python src/build_simple_dashboard.py
+          cp output/simple.html output/index.html
+          echo "Dashboards: full=dashboard.html simple=index.html (TOP2 auto)"
+          ls -lh output/
       - name: Check result
         run: |
           test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv)"
-          test -f output/index.html && echo "dashboard OK"
+          test -f output/index.html && echo "dashboard OK: $(du -h output/index.html)"
+          head -3 output/scan_results.csv
       - name: Enable Pages auto
         continue-on-error: true
         uses: actions/configure-pages@v4

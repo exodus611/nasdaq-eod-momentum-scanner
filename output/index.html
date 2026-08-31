@@ -1,481 +1,116 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EOD Momentum Scanner — NASDAQ · сигнал 2026-08-31 (15:30 ET)</title>
-</head>
-<body style="margin:0;background:#0d1117;color:#e6edf3;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-<div style="max-width:1080px;margin:0 auto;padding:28px 18px 60px">
-
-  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:1px solid #30363d;padding-bottom:18px">
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOP 2 - EOD 2026-08-31</title>
+<style>
+  details { transition: all 0.2s; }
+  details[open] summary { border-bottom:1px solid #21262d; }
+  summary::-webkit-details-marker { display:none; }
+  summary { list-style:none; }
+  .time-pill { background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:6px 10px;font-size:12px; }
+</style>
+</head><body style="margin:0;background:#0d1117;color:#e6edf3;font-family:system-ui,Segoe UI,Roboto,sans-serif">
+<div style="max-width:900px;margin:0 auto;padding:20px 16px 60px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;border-bottom:1px solid #30363d;padding-bottom:14px">
     <div>
-      <div style="color:#58a6ff;font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase">Algotrading · NASDAQ</div>
-      <h1 style="margin:6px 0 2px;font-size:30px;font-weight:800">EOD Momentum Scanner</h1>
-      <div style="color:#8b949e;font-size:14px">Скан в <b style="color:#e6edf3">15:30 ET</b> (за 30 мин до закрытия) → вход на закрытии → цель <b style="color:#e6edf3">+2…+5%</b> за 24–48 часов</div>
+      <div style="color:#58a6ff;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase">NASDAQ EOD · TOP 2 · Аккордеон</div>
+      <h1 style="margin:4px 0 2px;font-size:24px;font-weight:800">Две лучшие акции на сегодня</h1>
+      <div style="color:#8b949e;font-size:13px">Сигнал 2026-08-31 15:30 ET → вход на закрытии → цель +2..+5% за 24-48ч</div>
     </div>
-    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
-      <div style="text-align:right">
-        <div style="background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 16px;font-size:13px">
-          <div style="color:#8b949e">Сигнал от</div>
-          <div style="font-size:16px;font-weight:700;color:#e6edf3">2026-08-31 · 15:30 ET</div>
-          <div style="color:#8b949e;font-size:12px;margin-top:2px">свеча дня — неполная (до 15:30)</div>
-        </div>
-      </div>
-      <div style="text-align:right"><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-          <button onclick="runScan()" id="run-btn" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer">▶ Сканировать сейчас</button>
-          <a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="font-size:11px;color:#8b949e;text-decoration:underline">или открыть Actions → Run workflow</a>
-          <div id="run-status" style="font-size:12px;color:#8b949e;margin-top:2px;max-width:300px;text-align:right"></div>
-        </div>
-        <script>
-        const SCAN_TOKEN = "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";
-        async function runScan(){
-          const btn = document.getElementById('run-btn');
-          const st = document.getElementById('run-status');
-          btn.disabled = true; btn.textContent = '⏳ Запускаю...';
-          st.style.color = '#d29922'; st.textContent = 'Отправляю запрос...';
-          try {
-            const r = await fetch('https://api.github.com/repos/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml/dispatches', {
-              method: 'POST',
-              headers: {'Authorization': 'Bearer ' + SCAN_TOKEN, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'},
-              body: JSON.stringify({ref: 'main'})
-            });
-            if (r.status === 204) {
-              st.style.color = '#2ea043'; st.textContent = '✅ Запущено! ~5-10 мин. Не жми второй раз - уже идёт.';
-              btn.textContent = '✅ Запущено';
-              setTimeout(()=>{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; }, 300000);
-            } else if (r.status === 422) {
-              st.style.color = '#d29922'; st.textContent = '⏳ Скан уже запущен! Подожди 5 мин.';
-              btn.textContent = '⏳ Уже запущен';
-              setTimeout(()=>{ btn.disabled=false; btn.textContent='▶ Сканировать сейчас'; st.textContent=''; }, 60000);
-            } else if (r.status === 401) {
-              st.style.color = '#f85149'; st.innerHTML = '❌ Токен невалидный.<br><a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="color:#58a6ff">Запусти через Actions →</a>';
-              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
-            } else {
-              const txt = await r.text();
-              st.style.color = '#f85149'; st.innerHTML = '❌ Ошибка ' + r.status + ': ' + txt.slice(0,120) + '<br><a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
-              btn.disabled = false; btn.textContent = '▶ Попробовать снова';
-            }
-          } catch(e) {
-            st.style.color = '#f85149'; st.innerHTML = '❌ ' + e.message + '<br><a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="color:#58a6ff">Открой Actions →</a>';
-            btn.disabled = false; btn.textContent = '▶ Сканировать сейчас';
-          }
-        }
-        </script></div>
-    </div>
+    <div style="text-align:right"><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+      <a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions/workflows/daily_scan.yml" target="_blank" style="background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;display:inline-block">▶ Сканировать (Actions)</a>
+      <a href="https://github.com/exodus611/nasdaq-eod-momentum-scanner/actions" target="_blank" style="background:#238636;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;display:inline-block;text-decoration:none">📊 Running статус →</a>
+      <div style="font-size:11px;color:#8b949e;max-width:260px;text-align:right">Верхняя - запустить скан<br>Нижняя зелёная - смотреть что бежит (running page)<br>2-й клик = "уже запущен"</div>
+    </div></div>
   </div>
-
-  <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 16px;font-size:13px;margin-top:14px">
-          <span style="color:#8b949e">Вселенная NASDAQ:</span>
-          <b style="color:#e6edf3">1,504</b> акций ·
-          отсканировано: <b style="color:#e6edf3">60</b> ·
-          <span style="color:#8b949e">состав обновляется автоматически при каждом прогоне</span>
-          <div style="color:#8b949e;font-size:11.5px;margin-top:3px">Состав вселенной обновляется автоматически при каждом прогоне (Nasdaq.com screener): новые IPO добавляются, делистинги/банкротства удаляются, акции переходят границы по цене ≥$3 и капитализации ≥$500 млн.</div>
-        </div>
-
-  <div style="background:#1c2a12;border:1px solid #238636;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:13.5px;color:#c9d1d9;line-height:1.6">
-    <b style="color:#56d364">Рекомендация на эту сессию:</b> <b>MRNA</b> — P(рост ≥2% за 48ч) 46%, P(положительный гэп) 48%; <b>IREN</b> — P(рост ≥2% за 48ч) 42%, P(положительный гэп) 51%; 
-    Сигнал сформирован по данным до 15:30 ET, вход — по цене закрытия. Гэп следующего дня — статистически ~50/50
-    с лёгким положительным смещением у лидеров; <b>основной заработок — движение внутри 24–48ч к целям +2/+5%</b>,
-    поэтому выход по открытию не рекомендуется, стоп −3% обязателен.
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px">
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Последний сигнал</div><div style="font-weight:700;margin-top:2px">2026-08-31 15:30 ET</div><div style="color:#8b949e;font-size:11px">15:30 ET = 22:30 Тель-Авив = 19:30 UTC</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Обновлено (Тель-Авив)</div><div style="font-weight:700;margin-top:2px" id="tlv-time">01.09 00:36</div><div style="color:#8b949e;font-size:11px" id="local-time-js">ET 31.08 17:36 · UTC 31.08 21:36</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Следующий автоскан</div><div style="font-weight:700;margin-top:2px;color:#56d364">01.09 22:30 Тель-Авив</div><div style="color:#8b949e;font-size:11px">01.09 15:30 ET · 01.09 19:30 UTC</div></div>
+    <div class="time-pill"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вселенная</div><div style="font-weight:700;margin-top:2px">1,504 → 60 ликвидных</div><div style="color:#8b949e;font-size:11px">NASDAQ, без логов</div></div>
   </div>
-
-  
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-bottom:22px">
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px">
-        <div>
-          <span style="font-size:26px;font-weight:700;color:#e6edf3">MRNA</span>
-          <span style="color:#8b949e;font-size:14px;margin-left:10px">Moderna, Inc.</span>
-          <span style="color:#8b949e;font-size:12px;margin-left:8px">Healthcare · Biotechnology</span>
-        </div>
-        <div style="text-align:right">
-          <span style="font-size:28px;font-weight:700;color:#e6edf3">$137.95</span>
-          <span style="font-size:13px;color:#8b949e"> сигнал 15:30 ET</span>
-          <div style="font-size:12px;color:#f85149">-0.0% (за день)</div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px">
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Скор модели (0–1)</div>
-          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.443</div>
-          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:44%;height:100%;border-radius:6px"></div></div>
-          <div style="color:#8b949e;font-size:11px;margin-top:6px">P(рост ≥2% за 48ч)</div>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Ожидания на 48ч (калибровка)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">46%</td></tr>
-            <tr><td style="color:#8b949e">Среднее лучшее движение</td><td style="text-align:right;color:#2ea043;font-weight:700">+2.2%</td></tr>
-            <tr><td style="color:#8b949e">Средний результат 2-го дня</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.5%</td></tr>
-            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-1.4%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Гэп следующего дня (история OOS)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">48%</td></tr>
-            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">-0.1%</td></tr>
-            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">92</td></tr>
-            <tr><td style="color:#8b949e">Контекст: после распрод. дней</td><td style="text-align:right;color:#e6edf3;font-weight:700">-0.7%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Уровни (вход = закрытие)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Вход (закрытие)</td><td style="text-align:right;color:#e6edf3;font-weight:700">≈$137.95</td></tr>
-            <tr><td style="color:#8b949e">Цель 1 (+2%)</td><td style="text-align:right;color:#56d364;font-weight:700">$140.70</td></tr>
-            <tr><td style="color:#8b949e">Цель 2 (+5%)</td><td style="text-align:right;color:#2ea043;font-weight:700">$144.84</td></tr>
-            <tr><td style="color:#8b949e">Стоп (−3%)</td><td style="text-align:right;color:#f85149;font-weight:700">$133.81</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Техническое состояние (до 15:30)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">RSI(14)</td><td style="text-align:right;color:#e6edf3;font-weight:700">63.52</td></tr>
-            <tr><td style="color:#8b949e">Объём vs 20д</td><td style="text-align:right;color:#d29922;font-weight:700">0.48×</td></tr>
-            <tr><td style="color:#8b949e">Позиция закрытия</td><td style="text-align:right;color:#e6edf3;font-weight:700">40% дня</td></tr>
-            <tr><td style="color:#8b949e">vs VWAP</td><td style="text-align:right;color:#e6edf3;font-weight:700">-1.7%</td></tr>
-            <tr><td style="color:#8b949e">vs SMA50 / SMA200</td><td style="text-align:right;color:#e6edf3;font-weight:700">+76% / +164%</td></tr>
-            <tr><td style="color:#8b949e">От 52н. макс.</td><td style="text-align:right;color:#e6edf3;font-weight:700">-21.9%</td></tr>
-            <tr><td style="color:#8b949e">Волат. ATR(14)</td><td style="text-align:right;color:#e6edf3;font-weight:700">+10.4%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Фундаментал</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Капитализация</td><td style="text-align:right;color:#e6edf3;font-weight:700">$55.1B</td></tr>
-            <tr><td style="color:#8b949e">Forward P/E</td><td style="text-align:right;color:#e6edf3;font-weight:700">-29.75</td></tr>
-            <tr><td style="color:#8b949e">Рост выручки (г/г)</td><td style="text-align:right;color:#2ea043;font-weight:700">+2.1%</td></tr>
-            <tr><td style="color:#8b949e">Валовая маржа</td><td style="text-align:right;color:#e6edf3;font-weight:700">-66.0%</td></tr>
-            <tr><td style="color:#8b949e">Рекомендация</td><td style="text-align:right;color:#58a6ff;font-weight:700">Держать</td></tr>
-            <tr><td style="color:#8b949e">Аналитиков</td><td style="text-align:right;color:#e6edf3;font-weight:700">16</td></tr>
-            <tr><td style="color:#8b949e">Сред. таргет</td><td style="text-align:right;color:#e6edf3;font-weight:700">$106.62</td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;margin-top:14px">
-        <div style="color:#58a6ff;font-size:13px;font-weight:700;margin-bottom:6px">📰 Состояние и драйверы</div>
-        <div style="color:#c9d1d9;font-size:13.5px;line-height:1.55"><b>Сигнал в 15:30 ET: MRNA — высокий скор модели.</b> Изменение за день -0.0%, объём 0.48× от среднего, RSI 63.52, позиция в диапазоне дня 40%. Вероятность роста ≥2% за 48ч — 46%, положительный гэп следующего дня — 48% случаев. Moderna, Inc. (Healthcare). Рекомендация: hold, средний таргет $106.62.</div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px">
-        <div style="background:#0d2818;border:1px solid #238636;border-radius:10px;padding:12px">
-          <div style="color:#2ea043;font-size:12px;font-weight:700">🎯 Базовый сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Отскок в течение 1–2 сессий к целям +2/+5%; стоп −3% обязателен.</div>
-        </div>
-        <div style="background:#0d2818;border:1px solid #238636;border-radius:10px;padding:12px">
-          <div style="color:#56d364;font-size:12px;font-weight:700">🚀 Бычий сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Закрепление выше пятничного закрытия $137.95 открывает путь к +5% и выше.</div>
-        </div>
-        <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:12px">
-          <div style="color:#f85149;font-size:12px;font-weight:700">⚠️ Медвежий сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Пробой минимума дня — продолжение движения вниз; стоп −3% защищает позицию.</div>
-        </div>
-      </div>
-
-      <div style="margin-top:14px"><svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="10" y1="274.0" x2="710" y2="274.0" stroke="#21262d" stroke-width="1"/><text x="716" y="278.0" fill="#8b949e" font-size="10" font-family="Verdana">43</text><line x1="10" y1="221.6" x2="710" y2="221.6" stroke="#21262d" stroke-width="1"/><text x="716" y="225.6" fill="#8b949e" font-size="10" font-family="Verdana">70</text><line x1="10" y1="169.2" x2="710" y2="169.2" stroke="#21262d" stroke-width="1"/><text x="716" y="173.2" fill="#8b949e" font-size="10" font-family="Verdana">97</text><line x1="10" y1="116.8" x2="710" y2="116.8" stroke="#21262d" stroke-width="1"/><text x="716" y="120.8" fill="#8b949e" font-size="10" font-family="Verdana">124</text><line x1="10" y1="64.4" x2="710" y2="64.4" stroke="#21262d" stroke-width="1"/><text x="716" y="68.4" fill="#8b949e" font-size="10" font-family="Verdana">151</text><line x1="10" y1="12.0" x2="710" y2="12.0" stroke="#21262d" stroke-width="1"/><text x="716" y="16.0" fill="#8b949e" font-size="10" font-family="Verdana">178</text><line x1="15.5" y1="268.7" x2="15.5" y2="273.1" stroke="#2ea043" stroke-width="1.2"/><rect x="12.1" y="269.8" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="26.4" y1="262.2" x2="26.4" y2="270.4" stroke="#2ea043" stroke-width="1.2"/><rect x="23.0" y="263.1" width="6.8" height="7.3" fill="#2ea043" rx="1"/><line x1="37.3" y1="257.6" x2="37.3" y2="263.4" stroke="#2ea043" stroke-width="1.2"/><rect x="34.0" y="258.2" width="6.8" height="4.3" fill="#2ea043" rx="1"/><line x1="48.3" y1="258.3" x2="48.3" y2="268.3" stroke="#f85149" stroke-width="1.2"/><rect x="44.9" y="259.8" width="6.8" height="6.5" fill="#f85149" rx="1"/><line x1="59.2" y1="263.3" x2="59.2" y2="267.5" stroke="#f85149" stroke-width="1.2"/><rect x="55.8" y="264.8" width="6.8" height="1.2" fill="#f85149" rx="1"/><line x1="70.2" y1="264.4" x2="70.2" y2="270.2" stroke="#f85149" stroke-width="1.2"/><rect x="66.8" y="264.4" width="6.8" height="1.3" fill="#f85149" rx="1"/><line x1="81.1" y1="264.2" x2="81.1" y2="269.7" stroke="#f85149" stroke-width="1.2"/><rect x="77.7" y="266.7" width="6.8" height="2.4" fill="#f85149" rx="1"/><line x1="92.0" y1="261.4" x2="92.0" y2="268.5" stroke="#2ea043" stroke-width="1.2"/><rect x="88.6" y="262.0" width="6.8" height="6.2" fill="#2ea043" rx="1"/><line x1="103.0" y1="257.9" x2="103.0" y2="262.0" stroke="#f85149" stroke-width="1.2"/><rect x="99.6" y="261.3" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="113.9" y1="257.0" x2="113.9" y2="261.6" stroke="#2ea043" stroke-width="1.2"/><rect x="110.5" y="257.2" width="6.8" height="1.5" fill="#2ea043" rx="1"/><text x="113.9" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">15.06</text><line x1="124.8" y1="246.2" x2="124.8" y2="258.1" stroke="#2ea043" stroke-width="1.2"/><rect x="121.5" y="250.8" width="6.8" height="6.1" fill="#2ea043" rx="1"/><line x1="135.8" y1="237.4" x2="135.8" y2="252.6" stroke="#2ea043" stroke-width="1.2"/><rect x="132.4" y="238.4" width="6.8" height="10.9" fill="#2ea043" rx="1"/><line x1="146.7" y1="226.9" x2="146.7" y2="240.5" stroke="#2ea043" stroke-width="1.2"/><rect x="143.3" y="234.2" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="157.7" y1="231.2" x2="157.7" y2="246.7" stroke="#f85149" stroke-width="1.2"/><rect x="154.3" y="234.0" width="6.8" height="9.2" fill="#f85149" rx="1"/><line x1="168.6" y1="234.2" x2="168.6" y2="245.1" stroke="#2ea043" stroke-width="1.2"/><rect x="165.2" y="240.0" width="6.8" height="3.8" fill="#2ea043" rx="1"/><line x1="179.5" y1="236.6" x2="179.5" y2="242.2" stroke="#f85149" stroke-width="1.2"/><rect x="176.1" y="239.6" width="6.8" height="1.5" fill="#f85149" rx="1"/><line x1="190.5" y1="238.3" x2="190.5" y2="246.0" stroke="#f85149" stroke-width="1.2"/><rect x="187.1" y="241.3" width="6.8" height="1.1" fill="#f85149" rx="1"/><line x1="201.4" y1="223.9" x2="201.4" y2="243.4" stroke="#2ea043" stroke-width="1.2"/><rect x="198.0" y="227.8" width="6.8" height="15.2" fill="#2ea043" rx="1"/><line x1="212.3" y1="222.7" x2="212.3" y2="229.7" stroke="#2ea043" stroke-width="1.2"/><rect x="209.0" y="223.1" width="6.8" height="3.4" fill="#2ea043" rx="1"/><line x1="223.3" y1="216.1" x2="223.3" y2="224.0" stroke="#2ea043" stroke-width="1.2"/><rect x="219.9" y="222.4" width="6.8" height="1.0" fill="#2ea043" rx="1"/><text x="223.3" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">30.06</text><line x1="234.2" y1="214.9" x2="234.2" y2="224.7" stroke="#2ea043" stroke-width="1.2"/><rect x="230.8" y="217.6" width="6.8" height="4.8" fill="#2ea043" rx="1"/><line x1="245.2" y1="200.4" x2="245.2" y2="215.3" stroke="#2ea043" stroke-width="1.2"/><rect x="241.8" y="203.5" width="6.8" height="11.7" fill="#2ea043" rx="1"/><line x1="256.1" y1="192.2" x2="256.1" y2="207.9" stroke="#2ea043" stroke-width="1.2"/><rect x="252.7" y="199.6" width="6.8" height="6.3" fill="#2ea043" rx="1"/><line x1="267.0" y1="197.4" x2="267.0" y2="208.1" stroke="#f85149" stroke-width="1.2"/><rect x="263.6" y="199.0" width="6.8" height="4.5" fill="#f85149" rx="1"/><line x1="278.0" y1="206.4" x2="278.0" y2="216.0" stroke="#f85149" stroke-width="1.2"/><rect x="274.6" y="208.2" width="6.8" height="6.9" fill="#f85149" rx="1"/><line x1="288.9" y1="209.2" x2="288.9" y2="216.4" stroke="#2ea043" stroke-width="1.2"/><rect x="285.5" y="209.7" width="6.8" height="5.4" fill="#2ea043" rx="1"/><line x1="299.8" y1="209.4" x2="299.8" y2="227.7" stroke="#f85149" stroke-width="1.2"/><rect x="296.5" y="209.4" width="6.8" height="16.4" fill="#f85149" rx="1"/><line x1="310.8" y1="223.4" x2="310.8" y2="231.1" stroke="#2ea043" stroke-width="1.2"/><rect x="307.4" y="228.3" width="6.8" height="1.3" fill="#2ea043" rx="1"/><line x1="321.7" y1="226.6" x2="321.7" y2="230.6" stroke="#2ea043" stroke-width="1.2"/><rect x="318.3" y="227.5" width="6.8" height="1.5" fill="#2ea043" rx="1"/><line x1="332.7" y1="225.4" x2="332.7" y2="230.3" stroke="#2ea043" stroke-width="1.2"/><rect x="329.3" y="225.8" width="6.8" height="1.0" fill="#2ea043" rx="1"/><text x="332.7" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">15.07</text><line x1="343.6" y1="227.5" x2="343.6" y2="236.5" stroke="#f85149" stroke-width="1.2"/><rect x="340.2" y="228.2" width="6.8" height="7.6" fill="#f85149" rx="1"/><line x1="354.5" y1="235.5" x2="354.5" y2="239.8" stroke="#2ea043" stroke-width="1.2"/><rect x="351.1" y="238.4" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="365.5" y1="237.2" x2="365.5" y2="243.3" stroke="#f85149" stroke-width="1.2"/><rect x="362.1" y="239.1" width="6.8" height="3.8" fill="#f85149" rx="1"/><line x1="376.4" y1="240.3" x2="376.4" y2="244.6" stroke="#2ea043" stroke-width="1.2"/><rect x="373.0" y="242.6" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="387.3" y1="242.2" x2="387.3" y2="246.3" stroke="#f85149" stroke-width="1.2"/><rect x="384.0" y="242.8" width="6.8" height="2.8" fill="#f85149" rx="1"/><line x1="398.3" y1="244.9" x2="398.3" y2="249.1" stroke="#f85149" stroke-width="1.2"/><rect x="394.9" y="247.3" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="409.2" y1="246.8" x2="409.2" y2="253.8" stroke="#f85149" stroke-width="1.2"/><rect x="405.8" y="247.2" width="6.8" height="6.2" fill="#f85149" rx="1"/><line x1="420.2" y1="247.6" x2="420.2" y2="252.8" stroke="#2ea043" stroke-width="1.2"/><rect x="416.8" y="250.4" width="6.8" height="1.7" fill="#2ea043" rx="1"/><line x1="431.1" y1="250.0" x2="431.1" y2="254.8" stroke="#2ea043" stroke-width="1.2"/><rect x="427.7" y="250.0" width="6.8" height="1.9" fill="#2ea043" rx="1"/><line x1="442.0" y1="249.2" x2="442.0" y2="253.2" stroke="#f85149" stroke-width="1.2"/><rect x="438.6" y="251.5" width="6.8" height="1.1" fill="#f85149" rx="1"/><text x="442.0" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">29.07</text><line x1="453.0" y1="245.6" x2="453.0" y2="252.5" stroke="#2ea043" stroke-width="1.2"/><rect x="449.6" y="245.9" width="6.8" height="3.8" fill="#2ea043" rx="1"/><line x1="463.9" y1="242.9" x2="463.9" y2="252.2" stroke="#f85149" stroke-width="1.2"/><rect x="460.5" y="246.1" width="6.8" height="5.9" fill="#f85149" rx="1"/><line x1="474.8" y1="245.8" x2="474.8" y2="256.1" stroke="#2ea043" stroke-width="1.2"/><rect x="471.5" y="251.3" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="485.8" y1="245.1" x2="485.8" y2="249.9" stroke="#2ea043" stroke-width="1.2"/><rect x="482.4" y="247.7" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="496.7" y1="243.0" x2="496.7" y2="250.5" stroke="#f85149" stroke-width="1.2"/><rect x="493.3" y="245.8" width="6.8" height="3.4" fill="#f85149" rx="1"/><line x1="507.7" y1="243.8" x2="507.7" y2="254.1" stroke="#f85149" stroke-width="1.2"/><rect x="504.3" y="246.7" width="6.8" height="7.1" fill="#f85149" rx="1"/><line x1="518.6" y1="243.0" x2="518.6" y2="252.3" stroke="#2ea043" stroke-width="1.2"/><rect x="515.2" y="243.5" width="6.8" height="8.5" fill="#2ea043" rx="1"/><line x1="529.5" y1="240.4" x2="529.5" y2="245.0" stroke="#2ea043" stroke-width="1.2"/><rect x="526.1" y="242.3" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="540.5" y1="239.2" x2="540.5" y2="244.6" stroke="#2ea043" stroke-width="1.2"/><rect x="537.1" y="240.8" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="551.4" y1="233.6" x2="551.4" y2="243.3" stroke="#2ea043" stroke-width="1.2"/><rect x="548.0" y="234.8" width="6.8" height="6.0" fill="#2ea043" rx="1"/><text x="551.4" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">12.08</text><line x1="562.3" y1="231.5" x2="562.3" y2="237.4" stroke="#f85149" stroke-width="1.2"/><rect x="559.0" y="234.5" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="573.3" y1="234.6" x2="573.3" y2="240.3" stroke="#2ea043" stroke-width="1.2"/><rect x="569.9" y="235.4" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="584.2" y1="231.2" x2="584.2" y2="236.2" stroke="#f85149" stroke-width="1.2"/><rect x="580.8" y="232.6" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="595.2" y1="233.2" x2="595.2" y2="237.8" stroke="#f85149" stroke-width="1.2"/><rect x="591.8" y="236.0" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="606.1" y1="15.4" x2="606.1" y2="136.2" stroke="#2ea043" stroke-width="1.2"/><rect x="602.7" y="19.9" width="6.8" height="113.3" fill="#2ea043" rx="1"/><line x1="617.0" y1="57.5" x2="617.0" y2="108.7" stroke="#f85149" stroke-width="1.2"/><rect x="613.6" y="66.9" width="6.8" height="32.7" fill="#f85149" rx="1"/><line x1="628.0" y1="48.8" x2="628.0" y2="101.3" stroke="#2ea043" stroke-width="1.2"/><rect x="624.6" y="76.6" width="6.8" height="23.3" fill="#2ea043" rx="1"/><line x1="638.9" y1="75.9" x2="638.9" y2="106.0" stroke="#f85149" stroke-width="1.2"/><rect x="635.5" y="81.4" width="6.8" height="7.4" fill="#f85149" rx="1"/><line x1="649.8" y1="45.1" x2="649.8" y2="84.2" stroke="#2ea043" stroke-width="1.2"/><rect x="646.5" y="50.0" width="6.8" height="29.8" fill="#2ea043" rx="1"/><line x1="660.8" y1="55.3" x2="660.8" y2="76.7" stroke="#f85149" stroke-width="1.2"/><rect x="657.4" y="59.0" width="6.8" height="8.8" fill="#f85149" rx="1"/><text x="660.8" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">26.08</text><line x1="671.7" y1="69.9" x2="671.7" y2="89.4" stroke="#f85149" stroke-width="1.2"/><rect x="668.3" y="78.5" width="6.8" height="2.7" fill="#f85149" rx="1"/><line x1="682.7" y1="88.9" x2="682.7" y2="99.5" stroke="#2ea043" stroke-width="1.2"/><rect x="679.3" y="90.5" width="6.8" height="1.6" fill="#2ea043" rx="1"/><line x1="693.6" y1="78.4" x2="693.6" y2="98.5" stroke="#2ea043" stroke-width="1.2"/><rect x="690.2" y="85.9" width="6.8" height="12.1" fill="#2ea043" rx="1"/><line x1="704.5" y1="78.4" x2="704.5" y2="98.5" stroke="#2ea043" stroke-width="1.2"/><rect x="701.1" y="90.6" width="6.8" height="1.0" fill="#2ea043" rx="1"/><text x="704.5" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">31.08</text><line x1="551.4" y1="241.6" x2="562.3" y2="240.9" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="562.3" y1="240.9" x2="573.3" y2="240.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="573.3" y1="240.3" x2="584.2" y2="239.8" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="584.2" y1="239.8" x2="595.2" y2="239.2" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="595.2" y1="239.2" x2="606.1" y2="234.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="606.1" y1="234.3" x2="617.0" y2="231.0" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="617.0" y1="231.0" x2="628.0" y2="227.1" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="628.0" y1="227.1" x2="638.9" y2="223.7" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="638.9" y1="223.7" x2="649.8" y2="219.4" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="649.8" y1="219.4" x2="660.8" y2="215.7" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="660.8" y1="215.7" x2="671.7" y2="212.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="671.7" y1="212.3" x2="682.7" y2="209.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="682.7" y1="209.3" x2="693.6" y2="206.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="693.6" y1="206.3" x2="704.5" y2="203.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="10" y1="90.6" x2="710" y2="90.6" stroke="#ffffff" stroke-width="1.1" stroke-dasharray="2 2" opacity="0.85"/><text x="14" y="86.6" fill="#ffffff" font-size="9.5" font-family="Verdana">вход (закр.) 137.95</text><line x1="10" y1="77.2" x2="710" y2="77.2" stroke="#2ea043" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="73.2" fill="#2ea043" font-size="9.5" font-family="Verdana">+5% 144.84</text><line x1="10" y1="85.2" x2="710" y2="85.2" stroke="#56d364" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="81.2" fill="#56d364" font-size="9.5" font-family="Verdana">+2% 140.70</text><line x1="10" y1="98.6" x2="710" y2="98.6" stroke="#f85149" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="94.6" fill="#f85149" font-size="9.5" font-family="Verdana">стоп −3% 133.81</text></svg></div>
-      <div style="color:#8b949e;font-size:11px;margin-top:4px">Последняя свеча — 2026-08-31 до 15:30 ET (неполная, на момент скана). Уровни от цены 15:30; вход — по фактическому закрытию.</div>
-    </div>
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-bottom:22px">
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px">
-        <div>
-          <span style="font-size:26px;font-weight:700;color:#e6edf3">IREN</span>
-          <span style="color:#8b949e;font-size:14px;margin-left:10px">IREN Limited</span>
-          <span style="color:#8b949e;font-size:12px;margin-left:8px">Financial Services · Capital Markets</span>
-        </div>
-        <div style="text-align:right">
-          <span style="font-size:28px;font-weight:700;color:#e6edf3">$36.55</span>
-          <span style="font-size:13px;color:#8b949e"> сигнал 15:30 ET</span>
-          <div style="font-size:12px;color:#f85149">+3.1% (за день)</div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px">
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Скор модели (0–1)</div>
-          <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">0.427</div>
-          <div style="background:#21262d;border-radius:6px;height:14px;width:100%;overflow:hidden"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:43%;height:100%;border-radius:6px"></div></div>
-          <div style="color:#8b949e;font-size:11px;margin-top:6px">P(рост ≥2% за 48ч)</div>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Ожидания на 48ч (калибровка)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">42%</td></tr>
-            <tr><td style="color:#8b949e">Среднее лучшее движение</td><td style="text-align:right;color:#2ea043;font-weight:700">+1.8%</td></tr>
-            <tr><td style="color:#8b949e">Средний результат 2-го дня</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.3%</td></tr>
-            <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">-1.3%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Гэп следующего дня (история OOS)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">51%</td></tr>
-            <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.1%</td></tr>
-            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">183</td></tr>
-            <tr><td style="color:#8b949e">Контекст: после распрод. дней</td><td style="text-align:right;color:#e6edf3;font-weight:700">-2.6%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Уровни (вход = закрытие)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Вход (закрытие)</td><td style="text-align:right;color:#e6edf3;font-weight:700">≈$36.55</td></tr>
-            <tr><td style="color:#8b949e">Цель 1 (+2%)</td><td style="text-align:right;color:#56d364;font-weight:700">$37.28</td></tr>
-            <tr><td style="color:#8b949e">Цель 2 (+5%)</td><td style="text-align:right;color:#2ea043;font-weight:700">$38.38</td></tr>
-            <tr><td style="color:#8b949e">Стоп (−3%)</td><td style="text-align:right;color:#f85149;font-weight:700">$35.45</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Техническое состояние (до 15:30)</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">RSI(14)</td><td style="text-align:right;color:#e6edf3;font-weight:700">42.49</td></tr>
-            <tr><td style="color:#8b949e">Объём vs 20д</td><td style="text-align:right;color:#d29922;font-weight:700">0.62×</td></tr>
-            <tr><td style="color:#8b949e">Позиция закрытия</td><td style="text-align:right;color:#e6edf3;font-weight:700">77% дня</td></tr>
-            <tr><td style="color:#8b949e">vs VWAP</td><td style="text-align:right;color:#e6edf3;font-weight:700">+0.8%</td></tr>
-            <tr><td style="color:#8b949e">vs SMA50 / SMA200</td><td style="text-align:right;color:#e6edf3;font-weight:700">-11% / -20%</td></tr>
-            <tr><td style="color:#8b949e">От 52н. макс.</td><td style="text-align:right;color:#e6edf3;font-weight:700">-52.5%</td></tr>
-            <tr><td style="color:#8b949e">Волат. ATR(14)</td><td style="text-align:right;color:#e6edf3;font-weight:700">+9.7%</td></tr>
-          </table>
-        </div>
-        <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Фундаментал</div>
-          <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Капитализация</td><td style="text-align:right;color:#e6edf3;font-weight:700">$12.7B</td></tr>
-            <tr><td style="color:#8b949e">Forward P/E</td><td style="text-align:right;color:#e6edf3;font-weight:700">-172.93</td></tr>
-            <tr><td style="color:#8b949e">Рост выручки (г/г)</td><td style="text-align:right;color:#2ea043;font-weight:700">-24.0%</td></tr>
-            <tr><td style="color:#8b949e">Валовая маржа</td><td style="text-align:right;color:#e6edf3;font-weight:700">+68.9%</td></tr>
-            <tr><td style="color:#8b949e">Рекомендация</td><td style="text-align:right;color:#58a6ff;font-weight:700">Покупка</td></tr>
-            <tr><td style="color:#8b949e">Аналитиков</td><td style="text-align:right;color:#e6edf3;font-weight:700">16</td></tr>
-            <tr><td style="color:#8b949e">Сред. таргет</td><td style="text-align:right;color:#e6edf3;font-weight:700">$80.19</td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;margin-top:14px">
-        <div style="color:#58a6ff;font-size:13px;font-weight:700;margin-bottom:6px">📰 Состояние и драйверы</div>
-        <div style="color:#c9d1d9;font-size:13.5px;line-height:1.55"><b>Сигнал в 15:30 ET: тяжёлый отчёт, но переход в AI-облако идёт по плану.</b> В четверг вечером IREN отчиталась за FY2026: AI-cloud выручка впервые обогнала майнинговую ($70,5 млн против $66,7 млн, вдвое кв/кв), но EBITDA −68% кв/кв и убыток $684 млн (вкл. списание $450 млн) обрушили акцию на −12,5%. Свеча до 15:30 — у минимумов дня, объём 1,6×. Контракты Microsoft ($9,7 млрд) и Nvidia, $4 млрд законтрактованного run-rate на 2026 год, заморозка дата-центров в Техасе играет на руку. Бернстайн: outperform, цель $100.</div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px">
-        <div style="background:#0d2818;border:1px solid #238636;border-radius:10px;padding:12px">
-          <div style="color:#2ea043;font-size:12px;font-weight:700">🎯 Базовый сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Волатильный отскок от перепроданности: RSI 40, −54% от 52-недельного максимума, закрытие у минимума на повышенном объёме. Цель +2…+3% за 24–48 часов.</div>
-        </div>
-        <div style="background:#0d2818;border:1px solid #238636;border-radius:10px;padding:12px">
-          <div style="color:#56d364;font-size:12px;font-weight:700">🚀 Бычий сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Закрытие понедельника выше $36,4 открывает путь к $37,2 (+5%). Позитив: рост AI-cloud выручки, операционная готовность контрактов MSFT/NVDA.</div>
-        </div>
-        <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:12px">
-          <div style="color:#f85149;font-size:12px;font-weight:700">⚠️ Медвежий сценарий</div>
-          <div style="color:#c9d1d9;font-size:12.5px;margin-top:4px;line-height:1.5">Пробой $34,4 — продолжение падения на фоне слабой маржинальности и больших капзатрат; стоп −3% ($34,49).</div>
-        </div>
-      </div>
-
-      <div style="margin-top:14px"><svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="10" y1="274.0" x2="710" y2="274.0" stroke="#21262d" stroke-width="1"/><text x="716" y="278.0" fill="#8b949e" font-size="10" font-family="Verdana">29</text><line x1="10" y1="221.6" x2="710" y2="221.6" stroke="#21262d" stroke-width="1"/><text x="716" y="225.6" fill="#8b949e" font-size="10" font-family="Verdana">37</text><line x1="10" y1="169.2" x2="710" y2="169.2" stroke="#21262d" stroke-width="1"/><text x="716" y="173.2" fill="#8b949e" font-size="10" font-family="Verdana">46</text><line x1="10" y1="116.8" x2="710" y2="116.8" stroke="#21262d" stroke-width="1"/><text x="716" y="120.8" fill="#8b949e" font-size="10" font-family="Verdana">54</text><line x1="10" y1="64.4" x2="710" y2="64.4" stroke="#21262d" stroke-width="1"/><text x="716" y="68.4" fill="#8b949e" font-size="10" font-family="Verdana">63</text><line x1="10" y1="12.0" x2="710" y2="12.0" stroke="#21262d" stroke-width="1"/><text x="716" y="16.0" fill="#8b949e" font-size="10" font-family="Verdana">71</text><line x1="15.5" y1="23.3" x2="15.5" y2="55.8" stroke="#2ea043" stroke-width="1.2"/><rect x="12.1" y="41.5" width="6.8" height="12.4" fill="#2ea043" rx="1"/><line x1="26.4" y1="16.3" x2="26.4" y2="54.6" stroke="#f85149" stroke-width="1.2"/><rect x="23.0" y="27.9" width="6.8" height="20.4" fill="#f85149" rx="1"/><line x1="37.3" y1="64.1" x2="37.3" y2="83.9" stroke="#f85149" stroke-width="1.2"/><rect x="34.0" y="68.9" width="6.8" height="1.7" fill="#f85149" rx="1"/><line x1="48.3" y1="86.1" x2="48.3" y2="136.8" stroke="#f85149" stroke-width="1.2"/><rect x="44.9" y="86.1" width="6.8" height="30.4" fill="#f85149" rx="1"/><line x1="59.2" y1="83.9" x2="59.2" y2="111.7" stroke="#2ea043" stroke-width="1.2"/><rect x="55.8" y="86.9" width="6.8" height="15.9" fill="#2ea043" rx="1"/><line x1="70.2" y1="76.6" x2="70.2" y2="136.2" stroke="#f85149" stroke-width="1.2"/><rect x="66.8" y="88.3" width="6.8" height="30.3" fill="#f85149" rx="1"/><line x1="81.1" y1="103.6" x2="81.1" y2="135.7" stroke="#f85149" stroke-width="1.2"/><rect x="77.7" y="119.2" width="6.8" height="14.7" fill="#f85149" rx="1"/><line x1="92.0" y1="99.7" x2="92.0" y2="138.6" stroke="#2ea043" stroke-width="1.2"/><rect x="88.6" y="102.1" width="6.8" height="33.8" fill="#2ea043" rx="1"/><line x1="103.0" y1="73.3" x2="103.0" y2="106.8" stroke="#2ea043" stroke-width="1.2"/><rect x="99.6" y="83.3" width="6.8" height="20.0" fill="#2ea043" rx="1"/><line x1="113.9" y1="62.5" x2="113.9" y2="79.8" stroke="#f85149" stroke-width="1.2"/><rect x="110.5" y="67.7" width="6.8" height="9.0" fill="#f85149" rx="1"/><text x="113.9" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">15.06</text><line x1="124.8" y1="69.5" x2="124.8" y2="88.4" stroke="#f85149" stroke-width="1.2"/><rect x="121.5" y="81.5" width="6.8" height="5.4" fill="#f85149" rx="1"/><line x1="135.8" y1="71.7" x2="135.8" y2="95.9" stroke="#f85149" stroke-width="1.2"/><rect x="132.4" y="88.3" width="6.8" height="5.2" fill="#f85149" rx="1"/><line x1="146.7" y1="72.5" x2="146.7" y2="94.2" stroke="#f85149" stroke-width="1.2"/><rect x="143.3" y="74.1" width="6.8" height="8.1" fill="#f85149" rx="1"/><line x1="157.7" y1="74.1" x2="157.7" y2="104.6" stroke="#f85149" stroke-width="1.2"/><rect x="154.3" y="77.7" width="6.8" height="23.3" fill="#f85149" rx="1"/><line x1="168.6" y1="97.0" x2="168.6" y2="126.3" stroke="#2ea043" stroke-width="1.2"/><rect x="165.2" y="114.3" width="6.8" height="7.7" fill="#2ea043" rx="1"/><line x1="179.5" y1="113.8" x2="179.5" y2="150.3" stroke="#f85149" stroke-width="1.2"/><rect x="176.1" y="118.1" width="6.8" height="23.2" fill="#f85149" rx="1"/><line x1="190.5" y1="129.1" x2="190.5" y2="160.6" stroke="#f85149" stroke-width="1.2"/><rect x="187.1" y="129.6" width="6.8" height="27.4" fill="#f85149" rx="1"/><line x1="201.4" y1="153.1" x2="201.4" y2="173.5" stroke="#2ea043" stroke-width="1.2"/><rect x="198.0" y="160.3" width="6.8" height="3.4" fill="#2ea043" rx="1"/><line x1="212.3" y1="149.4" x2="212.3" y2="180.6" stroke="#f85149" stroke-width="1.2"/><rect x="209.0" y="151.7" width="6.8" height="16.5" fill="#f85149" rx="1"/><line x1="223.3" y1="163.0" x2="223.3" y2="176.9" stroke="#2ea043" stroke-width="1.2"/><rect x="219.9" y="169.3" width="6.8" height="1.0" fill="#2ea043" rx="1"/><text x="223.3" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">30.06</text><line x1="234.2" y1="175.0" x2="234.2" y2="193.6" stroke="#f85149" stroke-width="1.2"/><rect x="230.8" y="179.6" width="6.8" height="4.4" fill="#f85149" rx="1"/><line x1="245.2" y1="183.5" x2="245.2" y2="218.8" stroke="#f85149" stroke-width="1.2"/><rect x="241.8" y="189.0" width="6.8" height="22.7" fill="#f85149" rx="1"/><line x1="256.1" y1="174.0" x2="256.1" y2="193.7" stroke="#2ea043" stroke-width="1.2"/><rect x="252.7" y="180.5" width="6.8" height="11.9" fill="#2ea043" rx="1"/><line x1="267.0" y1="187.8" x2="267.0" y2="209.4" stroke="#f85149" stroke-width="1.2"/><rect x="263.6" y="190.7" width="6.8" height="14.8" fill="#f85149" rx="1"/><line x1="278.0" y1="185.7" x2="278.0" y2="202.7" stroke="#2ea043" stroke-width="1.2"/><rect x="274.6" y="186.0" width="6.8" height="13.9" fill="#2ea043" rx="1"/><line x1="288.9" y1="170.5" x2="288.9" y2="194.7" stroke="#f85149" stroke-width="1.2"/><rect x="285.5" y="176.9" width="6.8" height="17.0" fill="#f85149" rx="1"/><line x1="299.8" y1="188.4" x2="299.8" y2="204.6" stroke="#f85149" stroke-width="1.2"/><rect x="296.5" y="188.4" width="6.8" height="9.0" fill="#f85149" rx="1"/><line x1="310.8" y1="191.1" x2="310.8" y2="216.2" stroke="#f85149" stroke-width="1.2"/><rect x="307.4" y="202.3" width="6.8" height="8.3" fill="#f85149" rx="1"/><line x1="321.7" y1="200.6" x2="321.7" y2="222.6" stroke="#f85149" stroke-width="1.2"/><rect x="318.3" y="204.1" width="6.8" height="8.9" fill="#f85149" rx="1"/><line x1="332.7" y1="201.7" x2="332.7" y2="217.0" stroke="#f85149" stroke-width="1.2"/><rect x="329.3" y="209.8" width="6.8" height="5.1" fill="#f85149" rx="1"/><text x="332.7" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">15.07</text><line x1="343.6" y1="220.2" x2="343.6" y2="238.5" stroke="#f85149" stroke-width="1.2"/><rect x="340.2" y="222.2" width="6.8" height="13.8" fill="#f85149" rx="1"/><line x1="354.5" y1="235.5" x2="354.5" y2="252.1" stroke="#f85149" stroke-width="1.2"/><rect x="351.1" y="242.5" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="365.5" y1="197.7" x2="365.5" y2="227.0" stroke="#2ea043" stroke-width="1.2"/><rect x="362.1" y="203.2" width="6.8" height="23.3" fill="#2ea043" rx="1"/><line x1="376.4" y1="188.0" x2="376.4" y2="202.3" stroke="#2ea043" stroke-width="1.2"/><rect x="373.0" y="196.5" width="6.8" height="2.3" fill="#2ea043" rx="1"/><line x1="387.3" y1="181.6" x2="387.3" y2="202.9" stroke="#2ea043" stroke-width="1.2"/><rect x="384.0" y="196.6" width="6.8" height="6.0" fill="#2ea043" rx="1"/><line x1="398.3" y1="183.4" x2="398.3" y2="202.3" stroke="#f85149" stroke-width="1.2"/><rect x="394.9" y="200.7" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="409.2" y1="203.0" x2="409.2" y2="222.7" stroke="#f85149" stroke-width="1.2"/><rect x="405.8" y="204.3" width="6.8" height="18.0" fill="#f85149" rx="1"/><line x1="420.2" y1="213.6" x2="420.2" y2="235.8" stroke="#f85149" stroke-width="1.2"/><rect x="416.8" y="219.2" width="6.8" height="8.0" fill="#f85149" rx="1"/><line x1="431.1" y1="234.5" x2="431.1" y2="250.1" stroke="#f85149" stroke-width="1.2"/><rect x="427.7" y="235.0" width="6.8" height="6.6" fill="#f85149" rx="1"/><line x1="442.0" y1="239.7" x2="442.0" y2="272.2" stroke="#f85149" stroke-width="1.2"/><rect x="438.6" y="240.7" width="6.8" height="29.2" fill="#f85149" rx="1"/><text x="442.0" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">29.07</text><line x1="453.0" y1="214.6" x2="453.0" y2="251.5" stroke="#2ea043" stroke-width="1.2"/><rect x="449.6" y="215.1" width="6.8" height="35.3" fill="#2ea043" rx="1"/><line x1="463.9" y1="199.4" x2="463.9" y2="234.1" stroke="#f85149" stroke-width="1.2"/><rect x="460.5" y="199.4" width="6.8" height="24.6" fill="#f85149" rx="1"/><line x1="474.8" y1="203.1" x2="474.8" y2="232.2" stroke="#2ea043" stroke-width="1.2"/><rect x="471.5" y="206.0" width="6.8" height="19.8" fill="#2ea043" rx="1"/><line x1="485.8" y1="190.7" x2="485.8" y2="209.3" stroke="#2ea043" stroke-width="1.2"/><rect x="482.4" y="199.2" width="6.8" height="10.0" fill="#2ea043" rx="1"/><line x1="496.7" y1="197.3" x2="496.7" y2="211.2" stroke="#f85149" stroke-width="1.2"/><rect x="493.3" y="204.1" width="6.8" height="7.1" fill="#f85149" rx="1"/><line x1="507.7" y1="201.5" x2="507.7" y2="222.3" stroke="#2ea043" stroke-width="1.2"/><rect x="504.3" y="217.1" width="6.8" height="4.1" fill="#2ea043" rx="1"/><line x1="518.6" y1="196.5" x2="518.6" y2="221.0" stroke="#2ea043" stroke-width="1.2"/><rect x="515.2" y="196.9" width="6.8" height="10.8" fill="#2ea043" rx="1"/><line x1="529.5" y1="196.4" x2="529.5" y2="212.4" stroke="#f85149" stroke-width="1.2"/><rect x="526.1" y="196.6" width="6.8" height="15.6" fill="#f85149" rx="1"/><line x1="540.5" y1="198.6" x2="540.5" y2="208.4" stroke="#f85149" stroke-width="1.2"/><rect x="537.1" y="203.2" width="6.8" height="2.8" fill="#f85149" rx="1"/><line x1="551.4" y1="175.8" x2="551.4" y2="191.8" stroke="#2ea043" stroke-width="1.2"/><rect x="548.0" y="181.9" width="6.8" height="1.0" fill="#2ea043" rx="1"/><text x="551.4" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">12.08</text><line x1="562.3" y1="148.2" x2="562.3" y2="180.0" stroke="#f85149" stroke-width="1.2"/><rect x="559.0" y="167.8" width="6.8" height="7.5" fill="#f85149" rx="1"/><line x1="573.3" y1="165.0" x2="573.3" y2="181.8" stroke="#f85149" stroke-width="1.2"/><rect x="569.9" y="179.4" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="584.2" y1="164.1" x2="584.2" y2="180.7" stroke="#f85149" stroke-width="1.2"/><rect x="580.8" y="172.4" width="6.8" height="2.0" fill="#f85149" rx="1"/><line x1="595.2" y1="172.1" x2="595.2" y2="194.7" stroke="#f85149" stroke-width="1.2"/><rect x="591.8" y="182.6" width="6.8" height="9.6" fill="#f85149" rx="1"/><line x1="606.1" y1="183.0" x2="606.1" y2="207.6" stroke="#2ea043" stroke-width="1.2"/><rect x="602.7" y="187.0" width="6.8" height="8.7" fill="#2ea043" rx="1"/><line x1="617.0" y1="182.5" x2="617.0" y2="197.6" stroke="#2ea043" stroke-width="1.2"/><rect x="613.6" y="188.5" width="6.8" height="1.0" fill="#2ea043" rx="1"/><line x1="628.0" y1="168.1" x2="628.0" y2="199.2" stroke="#f85149" stroke-width="1.2"/><rect x="624.6" y="179.9" width="6.8" height="13.0" fill="#f85149" rx="1"/><line x1="638.9" y1="196.6" x2="638.9" y2="206.9" stroke="#f85149" stroke-width="1.2"/><rect x="635.5" y="199.2" width="6.8" height="6.4" fill="#f85149" rx="1"/><line x1="649.8" y1="189.7" x2="649.8" y2="204.2" stroke="#2ea043" stroke-width="1.2"/><rect x="646.5" y="190.9" width="6.8" height="12.5" fill="#2ea043" rx="1"/><line x1="660.8" y1="194.8" x2="660.8" y2="208.3" stroke="#f85149" stroke-width="1.2"/><rect x="657.4" y="197.1" width="6.8" height="9.9" fill="#f85149" rx="1"/><text x="660.8" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">26.08</text><line x1="671.7" y1="195.1" x2="671.7" y2="202.5" stroke="#f85149" stroke-width="1.2"/><rect x="668.3" y="200.4" width="6.8" height="1.0" fill="#f85149" rx="1"/><line x1="682.7" y1="216.4" x2="682.7" y2="236.2" stroke="#f85149" stroke-width="1.2"/><rect x="679.3" y="218.8" width="6.8" height="13.4" fill="#f85149" rx="1"/><line x1="693.6" y1="220.9" x2="693.6" y2="231.9" stroke="#2ea043" stroke-width="1.2"/><rect x="690.2" y="222.1" width="6.8" height="7.9" fill="#2ea043" rx="1"/><line x1="704.5" y1="223.7" x2="704.5" y2="231.9" stroke="#2ea043" stroke-width="1.2"/><rect x="701.1" y="225.6" width="6.8" height="5.0" fill="#2ea043" rx="1"/><text x="704.5" y="292.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">31.08</text><line x1="551.4" y1="169.1" x2="562.3" y2="171.8" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="562.3" y1="171.8" x2="573.3" y2="174.4" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="573.3" y1="174.4" x2="584.2" y2="176.5" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="584.2" y1="176.5" x2="595.2" y2="178.0" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="595.2" y1="178.0" x2="606.1" y2="180.0" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="606.1" y1="180.0" x2="617.0" y2="181.4" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="617.0" y1="181.4" x2="628.0" y2="182.6" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="628.0" y1="182.6" x2="638.9" y2="184.7" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="638.9" y1="184.7" x2="649.8" y2="186.8" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="649.8" y1="186.8" x2="660.8" y2="189.4" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="660.8" y1="189.4" x2="671.7" y2="191.7" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="671.7" y1="191.7" x2="682.7" y2="194.5" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="682.7" y1="194.5" x2="693.6" y2="197.3" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="693.6" y1="197.3" x2="704.5" y2="199.8" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/><line x1="10" y1="225.6" x2="710" y2="225.6" stroke="#ffffff" stroke-width="1.1" stroke-dasharray="2 2" opacity="0.85"/><text x="14" y="221.6" fill="#ffffff" font-size="9.5" font-family="Verdana">вход (закр.) 36.55</text><line x1="10" y1="214.4" x2="710" y2="214.4" stroke="#2ea043" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="210.4" fill="#2ea043" font-size="9.5" font-family="Verdana">+5% 38.38</text><line x1="10" y1="221.1" x2="710" y2="221.1" stroke="#56d364" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="217.1" fill="#56d364" font-size="9.5" font-family="Verdana">+2% 37.28</text><line x1="10" y1="232.3" x2="710" y2="232.3" stroke="#f85149" stroke-width="1.1" stroke-dasharray="4 3" opacity="0.85"/><text x="14" y="228.3" fill="#f85149" font-size="9.5" font-family="Verdana">стоп −3% 35.45</text></svg></div>
-      <div style="color:#8b949e;font-size:11px;margin-top:4px">Последняя свеча — 2026-08-31 до 15:30 ET (неполная, на момент скана). Уровни от цены 15:30; вход — по фактическому закрытию.</div>
-    </div>
-
-  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-    <h2 style="margin:0 0 14px;font-size:20px">Полный рейтинг сканера (топ-10 из 60)</h2>
-    <div style="overflow-x:auto">
-    <table style="border-collapse:collapse;width:100%;font-size:13px;min-width:820px">
-      <thead>
-        <tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d">
-          <th style="padding:8px 10px">#</th><th style="padding:8px 10px">Тикер</th>
-          <th style="padding:8px 10px;text-align:right">Цена 15:30</th>
-          <th style="padding:8px 10px;text-align:right">Скор</th>
-          <th style="padding:8px 10px;text-align:right">P(≥2%)</th>
-          <th style="padding:8px 10px;text-align:right">Ср.лучшее</th>
-          <th style="padding:8px 10px;text-align:right">P(гэп↑)</th>
-          <th style="padding:8px 10px;text-align:right">День</th>
-          <th style="padding:8px 10px;text-align:right">RSI</th>
-          <th style="padding:8px 10px;text-align:right">Объём</th>
-        </tr>
-      </thead>
-      <tbody><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">1</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">CRWD</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$231.02</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.468</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.2%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">57%</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">+5.8%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.01</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">1.10×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">2</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">CRDO</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$224.39</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.461</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.2%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">53%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-3.6%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">46.23</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.62×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">3</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">AXTI</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$60.69</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.450</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.2%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">56%</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">+3.5%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">44.47</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.41×</td>
-    </tr><tr style="background:#12261a;">
-      <td style="padding:8px 10px;color:#8b949e">4</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MRNA</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$137.95</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.443</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">46%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+2.2%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">48%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-0.0%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">63.52</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.48×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">5</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">SNDK</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$1475.17</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.435</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">60%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-0.7%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">48.83</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.73×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">6</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">NBIS</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$204.29</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.432</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">55%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-2.3%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">45.82</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.32×</td>
-    </tr><tr style="background:#12261a;">
-      <td style="padding:8px 10px;color:#8b949e">7</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">IREN</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$36.55</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.427</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">51%</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">+3.1%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">42.49</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.62×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">8</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MRVL</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$211.04</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.425</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">59%</td>
-      <td style="padding:8px 10px;color:#f85149;text-align:right">-2.6%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">45.38</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.79×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">9</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">MSTR</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$132.68</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.419</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">49%</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">+4.2%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">65.69</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.67×</td>
-    </tr><tr style="">
-      <td style="padding:8px 10px;color:#8b949e">10</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">HOOD</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">$105.12</td>
-      <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">0.418</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">42%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">+1.8%</td>
-      <td style="padding:8px 10px;color:#58a6ff;text-align:right">51%</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">+0.8%</td>
-      <td style="padding:8px 10px;color:#e6edf3;text-align:right">54.89</td>
-      <td style="padding:8px 10px;color:#d29922;text-align:right">0.70×</td>
-    </tr></tbody>
-    </table>
-    </div>
-    <div style="color:#8b949e;font-size:12px;margin-top:10px">Зелёная подсветка — выбранные фавориты. P(гэп↑) — историческая доля случаев с положительным гэпом следующего дня после сигналов модели (вне выборки).</div>
-  </div>
-
-  
-
-  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-    <h2 style="margin:0 0 8px;font-size:20px">Проверка стратегии (бэктест, вне выборки)</h2>
-    <div style="color:#8b949e;font-size:13px;margin-bottom:14px">Walk-forward: модель обучается на прошлом, тестируется на следующем месяце. 11 месяцев вне выборки (окт 2025 – авг 2026), ~1500 акций NASDAQ.</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
-        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Попадание ≥2% за 48ч</div>
-        <div style="font-size:26px;font-weight:800;color:#2ea043">48.6%</div>
-        <div style="color:#8b949e;font-size:12px">база рынка: 34.3%</div>
-      </div>
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
-        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Среднее лучшее движение</div>
-        <div style="font-size:26px;font-weight:800;color:#2ea043">+2.8%</div>
-        <div style="color:#8b949e;font-size:12px">база рынка: +1.4%</div>
-      </div>
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
-        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Средний результат 2-го дня</div>
-        <div style="font-size:26px;font-weight:800;color:#56d364">+0.9%</div>
-        <div style="color:#8b949e;font-size:12px">база рынка: +0.3%</div>
-      </div>
-      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
-        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Худший случай (средний)</div>
-        <div style="font-size:26px;font-weight:800;color:#f85149">-1.6%</div>
-        <div style="color:#8b949e;font-size:12px">стоп −3% защищает</div>
+  <script>
+    try {
+      const utc = "2026-08-31T21:36:26.448998+00:00";
+      if (utc) {
+        const d = new Date(utc);
+        document.getElementById('local-time-js').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit', timeZoneName:'short'}) + " (браузер)";
+        document.getElementById('tlv-time').textContent = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + " Тель-Авив";
+      }
+    } catch(e){}
+  </script>
+  <div style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <h3 style="margin:0;font-size:14px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px">Акции - нажми чтобы развернуть (аккордеон)</h3>
+      <div style="display:flex;gap:8px">
+        <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)" style="background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer">Развернуть всё</button>
+        <button onclick="document.querySelectorAll('details').forEach((d,i)=>d.open=i===0)" style="background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer">Свернуть</button>
       </div>
     </div>
-    <div style="color:#c9d1d9;font-size:13px;margin:10px 0 6px">Точность стратегии по месяцам (зелёный — стратегия, серый — база рынка):</div>
-    <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="46" y1="210.0" x2="746" y2="210.0" stroke="#21262d" stroke-width="1"/><text x="42" y="214.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">0%</text><line x1="46" y1="177.7" x2="746" y2="177.7" stroke="#21262d" stroke-width="1"/><text x="42" y="181.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">10%</text><line x1="46" y1="145.3" x2="746" y2="145.3" stroke="#21262d" stroke-width="1"/><text x="42" y="149.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">20%</text><line x1="46" y1="113.0" x2="746" y2="113.0" stroke="#21262d" stroke-width="1"/><text x="42" y="117.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">30%</text><line x1="46" y1="80.7" x2="746" y2="80.7" stroke="#21262d" stroke-width="1"/><text x="42" y="84.7" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">40%</text><line x1="46" y1="48.3" x2="746" y2="48.3" stroke="#21262d" stroke-width="1"/><text x="42" y="52.3" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">50%</text><line x1="46" y1="16.0" x2="746" y2="16.0" stroke="#21262d" stroke-width="1"/><text x="42" y="20.0" fill="#8b949e" font-size="10" font-family="Verdana" text-anchor="end">60%</text><rect x="57.45454545454545" y="60.7" width="17.81818181818182" height="149.3" fill="#2ea043" rx="2"/><rect x="80.36363636363637" y="106.3" width="17.81818181818182" height="103.7" fill="#8b949e" opacity="0.6" rx="2"/><text x="77.8" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2025-10</text><rect x="121.09090909090908" y="63.5" width="17.81818181818182" height="146.5" fill="#2ea043" rx="2"/><rect x="144.0" y="102.0" width="17.81818181818182" height="108.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="184.7272727272727" y="57.9" width="17.81818181818182" height="152.1" fill="#2ea043" rx="2"/><rect x="207.63636363636363" y="120.2" width="17.81818181818182" height="89.8" fill="#8b949e" opacity="0.6" rx="2"/><text x="205.1" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2025-12</text><rect x="248.36363636363637" y="51.5" width="17.81818181818182" height="158.5" fill="#2ea043" rx="2"/><rect x="271.27272727272725" y="95.9" width="17.81818181818182" height="114.1" fill="#8b949e" opacity="0.6" rx="2"/><rect x="311.99999999999994" y="51.0" width="17.81818181818182" height="159.0" fill="#2ea043" rx="2"/><rect x="334.9090909090909" y="97.1" width="17.81818181818182" height="112.9" fill="#8b949e" opacity="0.6" rx="2"/><text x="332.4" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-02</text><rect x="375.6363636363636" y="50.1" width="17.81818181818182" height="159.9" fill="#2ea043" rx="2"/><rect x="398.54545454545456" y="111.7" width="17.81818181818182" height="98.3" fill="#8b949e" opacity="0.6" rx="2"/><rect x="439.27272727272725" y="37.0" width="17.81818181818182" height="173.0" fill="#2ea043" rx="2"/><rect x="462.1818181818182" y="81.4" width="17.81818181818182" height="128.6" fill="#8b949e" opacity="0.6" rx="2"/><text x="459.6" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-04</text><rect x="502.9090909090909" y="44.2" width="17.81818181818182" height="165.8" fill="#2ea043" rx="2"/><rect x="525.8181818181818" y="93.0" width="17.81818181818182" height="117.0" fill="#8b949e" opacity="0.6" rx="2"/><rect x="566.5454545454545" y="52.9" width="17.81818181818182" height="157.1" fill="#2ea043" rx="2"/><rect x="589.4545454545454" y="78.9" width="17.81818181818182" height="131.1" fill="#8b949e" opacity="0.6" rx="2"/><text x="586.9" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-06</text><rect x="630.1818181818182" y="55.5" width="17.81818181818182" height="154.5" fill="#2ea043" rx="2"/><rect x="653.0909090909091" y="95.8" width="17.81818181818182" height="114.2" fill="#8b949e" opacity="0.6" rx="2"/><rect x="693.8181818181819" y="56.9" width="17.81818181818182" height="153.1" fill="#2ea043" rx="2"/><rect x="716.7272727272727" y="106.9" width="17.81818181818182" height="103.1" fill="#8b949e" opacity="0.6" rx="2"/><text x="714.2" y="232.0" fill="#8b949e" font-size="9.5" font-family="Verdana" text-anchor="middle">2026-08</text></svg>
+    
+    <details open style="background:#161b22;border:1px solid #30363d;border-radius:14px;margin-bottom:14px;overflow:hidden">
+      <summary style="list-style:none;cursor:pointer;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span style="font-size:22px;font-weight:800;color:#e6edf3">CRWD</span>
+          <span style="background:#12261a;color:#56d364;border:1px solid #238636;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700">TOP 1 • 0.468</span>
+          <span style="color:#8b949e;font-size:12px">CrowdStrike Holdings, Inc.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="text-align:right">
+            <div style="font-size:18px;font-weight:800;color:#e6edf3">$231.02</div>
+            <div style="font-size:11px;color:#2ea043">+5.8%</div>
+          </div>
+          <div style="color:#8b949e;font-size:18px">⌄</div>
+        </div>
+      </summary>
+      <div style="padding:0 20px 20px;border-top:1px solid #21262d">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вероятность +2% за 48ч</div><div style="font-size:20px;font-weight:800;color:#56d364;margin:4px 0">46%</div><div style="background:#21262d;border-radius:6px;height:10px;width:100%"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:47%;height:100%;border-radius:6px"></div></div><div style="color:#8b949e;font-size:10px;margin-top:4px">скор 0.468</div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Уровни (вход=закрытие)</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Вход</span><b>$231.02</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +2%</span><b style="color:#56d364">$235.65</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +5%</span><b style="color:#2ea043">$242.58</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Стоп -3%</span><b style="color:#f85149">$224.09</b></div></div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Для слежения</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">P(гэп↑)</span><b style="color:#2ea043">57%</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">RSI</span><b>63.01</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Объем</span><b>1.10×</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Капа</span><b>$223.6B</b></div></div></div>
+        </div>
+        <div style="margin-top:14px"><svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="10" y1="236.0" x2="640" y2="236.0" stroke="#21262d" stroke-width="1"/><text x="646" y="240.0" fill="#8b949e" font-size="10" font-family="Verdana">153</text><line x1="10" y1="180.0" x2="640" y2="180.0" stroke="#21262d" stroke-width="1"/><text x="646" y="184.0" fill="#8b949e" font-size="10" font-family="Verdana">176</text><line x1="10" y1="124.0" x2="640" y2="124.0" stroke="#21262d" stroke-width="1"/><text x="646" y="128.0" fill="#8b949e" font-size="10" font-family="Verdana">199</text><line x1="10" y1="68.0" x2="640" y2="68.0" stroke="#21262d" stroke-width="1"/><text x="646" y="72.0" fill="#8b949e" font-size="10" font-family="Verdana">222</text><line x1="10" y1="12.0" x2="640" y2="12.0" stroke="#21262d" stroke-width="1"/><text x="646" y="16.0" fill="#8b949e" font-size="10" font-family="Verdana">245</text><line x1="15.2" y1="178.5" x2="15.2" y2="200.4" stroke="#f85149" stroke-width="1.2"/><rect x="12.0" y="184.2" width="6.5" height="15.6" fill="#f85149" rx="1"/><line x1="25.8" y1="192.0" x2="25.8" y2="211.4" stroke="#f85149" stroke-width="1.2"/><rect x="22.5" y="198.3" width="6.5" height="8.9" fill="#f85149" rx="1"/><line x1="36.2" y1="203.6" x2="36.2" y2="232.2" stroke="#f85149" stroke-width="1.2"/><rect x="33.0" y="207.3" width="6.5" height="8.4" fill="#f85149" rx="1"/><line x1="46.8" y1="205.3" x2="46.8" y2="221.2" stroke="#2ea043" stroke-width="1.2"/><rect x="43.5" y="214.0" width="6.5" height="5.3" fill="#2ea043" rx="1"/><line x1="57.2" y1="184.4" x2="57.2" y2="218.1" stroke="#2ea043" stroke-width="1.2"/><rect x="54.0" y="187.4" width="6.5" height="28.1" fill="#2ea043" rx="1"/><line x1="67.8" y1="180.9" x2="67.8" y2="195.6" stroke="#f85149" stroke-width="1.2"/><rect x="64.5" y="187.9" width="6.5" height="4.8" fill="#f85149" rx="1"/><line x1="78.2" y1="183.8" x2="78.2" y2="201.2" stroke="#2ea043" stroke-width="1.2"/><rect x="75.0" y="186.5" width="6.5" height="1.0" fill="#2ea043" rx="1"/><line x1="88.8" y1="181.7" x2="88.8" y2="202.9" stroke="#f85149" stroke-width="1.2"/><rect x="85.5" y="186.4" width="6.5" height="8.3" fill="#f85149" rx="1"/><line x1="99.2" y1="187.7" x2="99.2" y2="199.9" stroke="#2ea043" stroke-width="1.2"/><rect x="96.0" y="192.6" width="6.5" height="1.8" fill="#2ea043" rx="1"/><line x1="109.8" y1="184.7" x2="109.8" y2="206.0" stroke="#f85149" stroke-width="1.2"/><rect x="106.5" y="190.3" width="6.5" height="1.1" fill="#f85149" rx="1"/><line x1="120.2" y1="174.8" x2="120.2" y2="198.5" stroke="#f85149" stroke-width="1.2"/><rect x="117.0" y="191.3" width="6.5" height="5.9" fill="#f85149" rx="1"/><line x1="130.8" y1="187.8" x2="130.8" y2="205.3" stroke="#2ea043" stroke-width="1.2"/><rect x="127.5" y="193.8" width="6.5" height="7.2" fill="#2ea043" rx="1"/><line x1="141.2" y1="190.0" x2="141.2" y2="201.1" stroke="#f85149" stroke-width="1.2"/><rect x="138.0" y="194.1" width="6.5" height="4.5" fill="#f85149" rx="1"/><line x1="151.8" y1="186.6" x2="151.8" y2="200.5" stroke="#f85149" stroke-width="1.2"/><rect x="148.5" y="194.2" width="6.5" height="1.1" fill="#f85149" rx="1"/><line x1="162.2" y1="179.3" x2="162.2" y2="198.3" stroke="#2ea043" stroke-width="1.2"/><rect x="159.0" y="181.6" width="6.5" height="9.1" fill="#2ea043" rx="1"/><line x1="172.8" y1="148.2" x2="172.8" y2="179.7" stroke="#2ea043" stroke-width="1.2"/><rect x="169.5" y="156.1" width="6.5" height="20.3" fill="#2ea043" rx="1"/><line x1="183.2" y1="142.5" x2="183.2" y2="162.8" stroke="#2ea043" stroke-width="1.2"/><rect x="180.0" y="143.8" width="6.5" height="16.2" fill="#2ea043" rx="1"/><line x1="193.8" y1="129.9" x2="193.8" y2="142.7" stroke="#f85149" stroke-width="1.2"/><rect x="190.5" y="136.6" width="6.5" height="1.4" fill="#f85149" rx="1"/><line x1="204.2" y1="122.6" x2="204.2" y2="144.3" stroke="#2ea043" stroke-width="1.2"/><rect x="201.0" y="136.1" width="6.5" height="6.6" fill="#2ea043" rx="1"/><line x1="214.8" y1="98.3" x2="214.8" y2="149.3" stroke="#2ea043" stroke-width="1.2"/><rect x="211.5" y="122.9" width="6.5" height="24.0" fill="#2ea043" rx="1"/><line x1="225.2" y1="118.1" x2="225.2" y2="140.4" stroke="#f85149" stroke-width="1.2"/><rect x="222.0" y="119.8" width="6.5" height="14.8" fill="#f85149" rx="1"/><line x1="235.8" y1="132.0" x2="235.8" y2="157.2" stroke="#f85149" stroke-width="1.2"/><rect x="232.5" y="137.2" width="6.5" height="5.8" fill="#f85149" rx="1"/><line x1="246.2" y1="124.5" x2="246.2" y2="153.1" stroke="#2ea043" stroke-width="1.2"/><rect x="243.0" y="125.3" width="6.5" height="24.5" fill="#2ea043" rx="1"/><line x1="256.8" y1="126.3" x2="256.8" y2="154.3" stroke="#f85149" stroke-width="1.2"/><rect x="253.5" y="129.7" width="6.5" height="22.9" fill="#f85149" rx="1"/><line x1="267.2" y1="147.6" x2="267.2" y2="167.6" stroke="#2ea043" stroke-width="1.2"/><rect x="264.0" y="150.8" width="6.5" height="2.6" fill="#2ea043" rx="1"/><line x1="277.8" y1="94.7" x2="277.8" y2="147.1" stroke="#2ea043" stroke-width="1.2"/><rect x="274.5" y="95.3" width="6.5" height="48.0" fill="#2ea043" rx="1"/><line x1="288.2" y1="78.9" x2="288.2" y2="109.0" stroke="#f85149" stroke-width="1.2"/><rect x="285.0" y="91.3" width="6.5" height="13.6" fill="#f85149" rx="1"/><line x1="298.8" y1="102.7" x2="298.8" y2="121.3" stroke="#f85149" stroke-width="1.2"/><rect x="295.5" y="104.0" width="6.5" height="8.3" fill="#f85149" rx="1"/><line x1="309.2" y1="98.3" x2="309.2" y2="122.6" stroke="#2ea043" stroke-width="1.2"/><rect x="306.0" y="113.9" width="6.5" height="6.5" fill="#2ea043" rx="1"/><line x1="319.8" y1="101.4" x2="319.8" y2="126.7" stroke="#f85149" stroke-width="1.2"/><rect x="316.5" y="113.9" width="6.5" height="11.2" fill="#f85149" rx="1"/><line x1="330.2" y1="121.4" x2="330.2" y2="146.5" stroke="#f85149" stroke-width="1.2"/><rect x="327.0" y="121.9" width="6.5" height="21.1" fill="#f85149" rx="1"/><line x1="340.8" y1="137.3" x2="340.8" y2="157.8" stroke="#f85149" stroke-width="1.2"/><rect x="337.5" y="139.5" width="6.5" height="10.1" fill="#f85149" rx="1"/><line x1="351.2" y1="145.3" x2="351.2" y2="165.8" stroke="#f85149" stroke-width="1.2"/><rect x="348.0" y="146.9" width="6.5" height="14.8" fill="#f85149" rx="1"/><line x1="361.8" y1="155.9" x2="361.8" y2="165.6" stroke="#f85149" stroke-width="1.2"/><rect x="358.5" y="157.9" width="6.5" height="4.2" fill="#f85149" rx="1"/><line x1="372.2" y1="149.4" x2="372.2" y2="171.3" stroke="#f85149" stroke-width="1.2"/><rect x="369.0" y="150.9" width="6.5" height="19.0" fill="#f85149" rx="1"/><line x1="382.8" y1="158.7" x2="382.8" y2="184.3" stroke="#2ea043" stroke-width="1.2"/><rect x="379.5" y="165.7" width="6.5" height="1.1" fill="#2ea043" rx="1"/><line x1="393.2" y1="154.5" x2="393.2" y2="178.7" stroke="#f85149" stroke-width="1.2"/><rect x="390.0" y="163.7" width="6.5" height="7.9" fill="#f85149" rx="1"/><line x1="403.8" y1="156.8" x2="403.8" y2="175.6" stroke="#2ea043" stroke-width="1.2"/><rect x="400.5" y="157.4" width="6.5" height="11.3" fill="#2ea043" rx="1"/><line x1="414.3" y1="141.8" x2="414.3" y2="160.0" stroke="#2ea043" stroke-width="1.2"/><rect x="411.0" y="143.7" width="6.5" height="8.9" fill="#2ea043" rx="1"/><line x1="424.8" y1="113.7" x2="424.8" y2="139.4" stroke="#2ea043" stroke-width="1.2"/><rect x="421.5" y="115.3" width="6.5" height="20.7" fill="#2ea043" rx="1"/><line x1="435.2" y1="90.7" x2="435.2" y2="112.9" stroke="#2ea043" stroke-width="1.2"/><rect x="432.0" y="94.2" width="6.5" height="13.2" fill="#2ea043" rx="1"/><line x1="445.8" y1="74.4" x2="445.8" y2="98.2" stroke="#f85149" stroke-width="1.2"/><rect x="442.5" y="88.5" width="6.5" height="9.0" fill="#f85149" rx="1"/><line x1="456.2" y1="102.9" x2="456.2" y2="117.2" stroke="#2ea043" stroke-width="1.2"/><rect x="453.0" y="103.5" width="6.5" height="10.7" fill="#2ea043" rx="1"/><line x1="466.8" y1="81.1" x2="466.8" y2="101.5" stroke="#2ea043" stroke-width="1.2"/><rect x="463.5" y="86.4" width="6.5" height="1.4" fill="#2ea043" rx="1"/><line x1="477.2" y1="56.0" x2="477.2" y2="86.1" stroke="#2ea043" stroke-width="1.2"/><rect x="474.0" y="60.3" width="6.5" height="24.0" fill="#2ea043" rx="1"/><line x1="487.8" y1="59.4" x2="487.8" y2="74.6" stroke="#f85149" stroke-width="1.2"/><rect x="484.5" y="63.1" width="6.5" height="5.1" fill="#f85149" rx="1"/><line x1="498.2" y1="60.8" x2="498.2" y2="77.9" stroke="#2ea043" stroke-width="1.2"/><rect x="495.0" y="68.5" width="6.5" height="4.5" fill="#2ea043" rx="1"/><line x1="508.8" y1="56.5" x2="508.8" y2="72.2" stroke="#2ea043" stroke-width="1.2"/><rect x="505.5" y="59.4" width="6.5" height="1.3" fill="#2ea043" rx="1"/><line x1="519.2" y1="54.6" x2="519.2" y2="81.4" stroke="#f85149" stroke-width="1.2"/><rect x="516.0" y="56.7" width="6.5" height="23.6" fill="#f85149" rx="1"/><line x1="529.8" y1="74.8" x2="529.8" y2="89.8" stroke="#f85149" stroke-width="1.2"/><rect x="526.5" y="81.2" width="6.5" height="6.4" fill="#f85149" rx="1"/><line x1="540.2" y1="82.4" x2="540.2" y2="99.4" stroke="#f85149" stroke-width="1.2"/><rect x="537.0" y="89.8" width="6.5" height="1.0" fill="#f85149" rx="1"/><line x1="550.8" y1="87.4" x2="550.8" y2="128.1" stroke="#f85149" stroke-width="1.2"/><rect x="547.5" y="88.9" width="6.5" height="28.6" fill="#f85149" rx="1"/><line x1="561.2" y1="119.6" x2="561.2" y2="145.9" stroke="#f85149" stroke-width="1.2"/><rect x="558.0" y="128.0" width="6.5" height="16.9" fill="#f85149" rx="1"/><line x1="571.8" y1="138.8" x2="571.8" y2="153.0" stroke="#2ea043" stroke-width="1.2"/><rect x="568.5" y="141.0" width="6.5" height="2.5" fill="#2ea043" rx="1"/><line x1="582.2" y1="132.6" x2="582.2" y2="149.6" stroke="#2ea043" stroke-width="1.2"/><rect x="579.0" y="144.1" width="6.5" height="2.8" fill="#2ea043" rx="1"/><line x1="592.8" y1="134.8" x2="592.8" y2="164.4" stroke="#f85149" stroke-width="1.2"/><rect x="589.5" y="141.8" width="6.5" height="15.2" fill="#f85149" rx="1"/><line x1="603.2" y1="142.5" x2="603.2" y2="167.1" stroke="#2ea043" stroke-width="1.2"/><rect x="600.0" y="147.8" width="6.5" height="15.6" fill="#2ea043" rx="1"/><line x1="613.8" y1="50.7" x2="613.8" y2="106.6" stroke="#2ea043" stroke-width="1.2"/><rect x="610.5" y="53.4" width="6.5" height="47.9" fill="#2ea043" rx="1"/><line x1="624.2" y1="51.7" x2="624.2" y2="95.8" stroke="#f85149" stroke-width="1.2"/><rect x="621.0" y="52.8" width="6.5" height="23.9" fill="#f85149" rx="1"/><line x1="634.8" y1="39.0" x2="634.8" y2="70.4" stroke="#2ea043" stroke-width="1.2"/><rect x="631.5" y="46.0" width="6.5" height="23.4" fill="#2ea043" rx="1"/><line x1="529.8" y1="145.0" x2="540.2" y2="142.8" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="540.2" y1="142.8" x2="550.8" y2="141.0" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="550.8" y1="141.0" x2="561.2" y2="139.6" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="561.2" y1="139.6" x2="571.8" y2="138.1" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="571.8" y1="138.1" x2="582.2" y2="137.2" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="582.2" y1="137.2" x2="592.8" y2="136.5" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="592.8" y1="136.5" x2="603.2" y2="135.8" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="603.2" y1="135.8" x2="613.8" y2="132.9" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="613.8" y1="132.9" x2="624.2" y2="130.6" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="624.2" y1="130.6" x2="634.8" y2="127.7" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="10" y1="46.0" x2="640" y2="46.0" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/><text x="14" y="42.0" fill="#ffffff" font-size="9" font-family="Verdana">вход 231.02</text><line x1="10" y1="17.9" x2="640" y2="17.9" stroke="#2ea043" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="13.9" fill="#2ea043" font-size="9" font-family="Verdana">+5% 242.58</text><line x1="10" y1="34.8" x2="640" y2="34.8" stroke="#56d364" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="30.8" fill="#56d364" font-size="9" font-family="Verdana">+2% 235.65</text><line x1="10" y1="62.8" x2="640" y2="62.8" stroke="#f85149" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="58.8" fill="#f85149" font-size="9" font-family="Verdana">стоп 224.09</text></svg></div>
+        <div style="color:#8b949e;font-size:10px;margin-top:4px">Свеча 2026-08-31 до 15:30 ET (неполная). Вход по закрытию.</div>
+      </div>
+    </details>
+    
+    <details  style="background:#161b22;border:1px solid #30363d;border-radius:14px;margin-bottom:14px;overflow:hidden">
+      <summary style="list-style:none;cursor:pointer;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span style="font-size:22px;font-weight:800;color:#e6edf3">CRDO</span>
+          <span style="background:#12261a;color:#56d364;border:1px solid #238636;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700">TOP 2 • 0.461</span>
+          <span style="color:#8b949e;font-size:12px"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="text-align:right">
+            <div style="font-size:18px;font-weight:800;color:#e6edf3">$224.39</div>
+            <div style="font-size:11px;color:#f85149">-3.6%</div>
+          </div>
+          <div style="color:#8b949e;font-size:18px">⌄</div>
+        </div>
+      </summary>
+      <div style="padding:0 20px 20px;border-top:1px solid #21262d">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Вероятность +2% за 48ч</div><div style="font-size:20px;font-weight:800;color:#56d364;margin:4px 0">46%</div><div style="background:#21262d;border-radius:6px;height:10px;width:100%"><div style="background:linear-gradient(90deg,#2ea043,#56d364);width:46%;height:100%;border-radius:6px"></div></div><div style="color:#8b949e;font-size:10px;margin-top:4px">скор 0.461</div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Уровни (вход=закрытие)</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Вход</span><b>$224.39</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +2%</span><b style="color:#56d364">$228.88</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Цель +5%</span><b style="color:#2ea043">$235.61</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Стоп -3%</span><b style="color:#f85149">$217.66</b></div></div></div>
+          <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px"><div style="color:#8b949e;font-size:10px;text-transform:uppercase">Для слежения</div><div style="font-size:13px;margin-top:6px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">P(гэп↑)</span><b style="color:#2ea043">53%</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">RSI</span><b>46.23</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Объем</span><b>0.62×</b></div><div style="display:flex;justify-content:space-between"><span style="color:#8b949e">Капа</span><b>—</b></div></div></div>
+        </div>
+        <div style="margin-top:14px"><svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0d1117;border-radius:10px;display:block"><line x1="10" y1="236.0" x2="640" y2="236.0" stroke="#21262d" stroke-width="1"/><text x="646" y="240.0" fill="#8b949e" font-size="10" font-family="Verdana">175</text><line x1="10" y1="180.0" x2="640" y2="180.0" stroke="#21262d" stroke-width="1"/><text x="646" y="184.0" fill="#8b949e" font-size="10" font-family="Verdana">209</text><line x1="10" y1="124.0" x2="640" y2="124.0" stroke="#21262d" stroke-width="1"/><text x="646" y="128.0" fill="#8b949e" font-size="10" font-family="Verdana">243</text><line x1="10" y1="68.0" x2="640" y2="68.0" stroke="#21262d" stroke-width="1"/><text x="646" y="72.0" fill="#8b949e" font-size="10" font-family="Verdana">278</text><line x1="10" y1="12.0" x2="640" y2="12.0" stroke="#21262d" stroke-width="1"/><text x="646" y="16.0" fill="#8b949e" font-size="10" font-family="Verdana">312</text><line x1="15.2" y1="139.2" x2="15.2" y2="191.0" stroke="#f85149" stroke-width="1.2"/><rect x="12.0" y="182.0" width="6.5" height="2.0" fill="#f85149" rx="1"/><line x1="25.8" y1="150.2" x2="25.8" y2="176.5" stroke="#2ea043" stroke-width="1.2"/><rect x="22.5" y="158.8" width="6.5" height="8.3" fill="#2ea043" rx="1"/><line x1="36.2" y1="108.9" x2="36.2" y2="179.7" stroke="#2ea043" stroke-width="1.2"/><rect x="33.0" y="139.1" width="6.5" height="12.4" fill="#2ea043" rx="1"/><line x1="46.8" y1="94.7" x2="46.8" y2="153.7" stroke="#2ea043" stroke-width="1.2"/><rect x="43.5" y="133.5" width="6.5" height="15.9" fill="#2ea043" rx="1"/><line x1="57.2" y1="83.5" x2="57.2" y2="126.5" stroke="#2ea043" stroke-width="1.2"/><rect x="54.0" y="89.1" width="6.5" height="34.6" fill="#2ea043" rx="1"/><line x1="67.8" y1="80.2" x2="67.8" y2="127.9" stroke="#f85149" stroke-width="1.2"/><rect x="64.5" y="80.5" width="6.5" height="31.5" fill="#f85149" rx="1"/><line x1="78.2" y1="89.9" x2="78.2" y2="124.3" stroke="#f85149" stroke-width="1.2"/><rect x="75.0" y="92.0" width="6.5" height="5.9" fill="#f85149" rx="1"/><line x1="88.8" y1="99.6" x2="88.8" y2="131.4" stroke="#f85149" stroke-width="1.2"/><rect x="85.5" y="103.3" width="6.5" height="27.8" fill="#f85149" rx="1"/><line x1="99.2" y1="93.8" x2="99.2" y2="124.7" stroke="#f85149" stroke-width="1.2"/><rect x="96.0" y="113.7" width="6.5" height="1.0" fill="#f85149" rx="1"/><line x1="109.8" y1="72.5" x2="109.8" y2="108.9" stroke="#2ea043" stroke-width="1.2"/><rect x="106.5" y="77.5" width="6.5" height="21.5" fill="#2ea043" rx="1"/><line x1="120.2" y1="17.1" x2="120.2" y2="52.2" stroke="#2ea043" stroke-width="1.2"/><rect x="117.0" y="27.2" width="6.5" height="19.3" fill="#2ea043" rx="1"/><line x1="130.8" y1="57.5" x2="130.8" y2="87.8" stroke="#f85149" stroke-width="1.2"/><rect x="127.5" y="68.0" width="6.5" height="9.2" fill="#f85149" rx="1"/><line x1="141.2" y1="57.5" x2="141.2" y2="97.4" stroke="#f85149" stroke-width="1.2"/><rect x="138.0" y="62.2" width="6.5" height="19.9" fill="#f85149" rx="1"/><line x1="151.8" y1="47.0" x2="151.8" y2="98.6" stroke="#f85149" stroke-width="1.2"/><rect x="148.5" y="50.1" width="6.5" height="33.6" fill="#f85149" rx="1"/><line x1="162.2" y1="92.7" x2="162.2" y2="144.4" stroke="#f85149" stroke-width="1.2"/><rect x="159.0" y="94.9" width="6.5" height="38.2" fill="#f85149" rx="1"/><line x1="172.8" y1="117.6" x2="172.8" y2="153.3" stroke="#2ea043" stroke-width="1.2"/><rect x="169.5" y="120.4" width="6.5" height="7.4" fill="#2ea043" rx="1"/><line x1="183.2" y1="71.6" x2="183.2" y2="123.1" stroke="#2ea043" stroke-width="1.2"/><rect x="180.0" y="77.3" width="6.5" height="37.0" fill="#2ea043" rx="1"/><line x1="193.8" y1="78.9" x2="193.8" y2="107.5" stroke="#f85149" stroke-width="1.2"/><rect x="190.5" y="94.4" width="6.5" height="4.0" fill="#f85149" rx="1"/><line x1="204.2" y1="67.2" x2="204.2" y2="140.9" stroke="#f85149" stroke-width="1.2"/><rect x="201.0" y="96.9" width="6.5" height="29.7" fill="#f85149" rx="1"/><line x1="214.8" y1="63.3" x2="214.8" y2="116.6" stroke="#2ea043" stroke-width="1.2"/><rect x="211.5" y="87.8" width="6.5" height="21.4" fill="#2ea043" rx="1"/><line x1="225.2" y1="107.2" x2="225.2" y2="137.0" stroke="#f85149" stroke-width="1.2"/><rect x="222.0" y="113.6" width="6.5" height="5.7" fill="#f85149" rx="1"/><line x1="235.8" y1="90.0" x2="235.8" y2="128.9" stroke="#2ea043" stroke-width="1.2"/><rect x="232.5" y="99.1" width="6.5" height="27.2" fill="#2ea043" rx="1"/><line x1="246.2" y1="65.4" x2="246.2" y2="94.7" stroke="#f85149" stroke-width="1.2"/><rect x="243.0" y="73.7" width="6.5" height="14.0" fill="#f85149" rx="1"/><line x1="256.8" y1="82.8" x2="256.8" y2="107.7" stroke="#f85149" stroke-width="1.2"/><rect x="253.5" y="90.8" width="6.5" height="9.7" fill="#f85149" rx="1"/><line x1="267.2" y1="108.7" x2="267.2" y2="137.1" stroke="#f85149" stroke-width="1.2"/><rect x="264.0" y="115.8" width="6.5" height="19.1" fill="#f85149" rx="1"/><line x1="277.8" y1="109.2" x2="277.8" y2="137.3" stroke="#f85149" stroke-width="1.2"/><rect x="274.5" y="109.2" width="6.5" height="26.8" fill="#f85149" rx="1"/><line x1="288.2" y1="130.0" x2="288.2" y2="166.8" stroke="#f85149" stroke-width="1.2"/><rect x="285.0" y="133.0" width="6.5" height="18.5" fill="#f85149" rx="1"/><line x1="298.8" y1="158.7" x2="298.8" y2="192.2" stroke="#f85149" stroke-width="1.2"/><rect x="295.5" y="164.6" width="6.5" height="17.7" fill="#f85149" rx="1"/><line x1="309.2" y1="179.0" x2="309.2" y2="218.6" stroke="#2ea043" stroke-width="1.2"/><rect x="306.0" y="191.0" width="6.5" height="15.0" fill="#2ea043" rx="1"/><line x1="319.8" y1="160.2" x2="319.8" y2="178.7" stroke="#f85149" stroke-width="1.2"/><rect x="316.5" y="173.2" width="6.5" height="2.3" fill="#f85149" rx="1"/><line x1="330.2" y1="153.0" x2="330.2" y2="168.5" stroke="#f85149" stroke-width="1.2"/><rect x="327.0" y="155.3" width="6.5" height="1.0" fill="#f85149" rx="1"/><line x1="340.8" y1="143.1" x2="340.8" y2="171.6" stroke="#2ea043" stroke-width="1.2"/><rect x="337.5" y="149.0" width="6.5" height="19.2" fill="#2ea043" rx="1"/><line x1="351.2" y1="127.9" x2="351.2" y2="157.2" stroke="#2ea043" stroke-width="1.2"/><rect x="348.0" y="135.5" width="6.5" height="20.6" fill="#2ea043" rx="1"/><line x1="361.8" y1="144.0" x2="361.8" y2="179.7" stroke="#f85149" stroke-width="1.2"/><rect x="358.5" y="144.0" width="6.5" height="29.8" fill="#f85149" rx="1"/><line x1="372.2" y1="162.5" x2="372.2" y2="200.3" stroke="#f85149" stroke-width="1.2"/><rect x="369.0" y="167.5" width="6.5" height="14.5" fill="#f85149" rx="1"/><line x1="382.8" y1="196.8" x2="382.8" y2="220.5" stroke="#f85149" stroke-width="1.2"/><rect x="379.5" y="198.6" width="6.5" height="9.5" fill="#f85149" rx="1"/><line x1="393.2" y1="205.9" x2="393.2" y2="233.1" stroke="#f85149" stroke-width="1.2"/><rect x="390.0" y="212.5" width="6.5" height="19.9" fill="#f85149" rx="1"/><line x1="403.8" y1="193.1" x2="403.8" y2="217.5" stroke="#2ea043" stroke-width="1.2"/><rect x="400.5" y="193.6" width="6.5" height="22.9" fill="#2ea043" rx="1"/><line x1="414.3" y1="167.5" x2="414.3" y2="196.4" stroke="#f85149" stroke-width="1.2"/><rect x="411.0" y="169.3" width="6.5" height="14.6" fill="#f85149" rx="1"/><line x1="424.8" y1="162.9" x2="424.8" y2="202.9" stroke="#2ea043" stroke-width="1.2"/><rect x="421.5" y="165.3" width="6.5" height="27.6" fill="#2ea043" rx="1"/><line x1="435.2" y1="125.6" x2="435.2" y2="155.1" stroke="#2ea043" stroke-width="1.2"/><rect x="432.0" y="133.1" width="6.5" height="13.0" fill="#2ea043" rx="1"/><line x1="445.8" y1="118.6" x2="445.8" y2="156.7" stroke="#f85149" stroke-width="1.2"/><rect x="442.5" y="139.9" width="6.5" height="15.0" fill="#f85149" rx="1"/><line x1="456.2" y1="131.8" x2="456.2" y2="178.3" stroke="#2ea043" stroke-width="1.2"/><rect x="453.0" y="145.4" width="6.5" height="23.7" fill="#2ea043" rx="1"/><line x1="466.8" y1="113.3" x2="466.8" y2="144.1" stroke="#2ea043" stroke-width="1.2"/><rect x="463.5" y="113.5" width="6.5" height="14.4" fill="#2ea043" rx="1"/><line x1="477.2" y1="89.5" x2="477.2" y2="130.1" stroke="#f85149" stroke-width="1.2"/><rect x="474.0" y="105.5" width="6.5" height="24.4" fill="#f85149" rx="1"/><line x1="487.8" y1="117.0" x2="487.8" y2="133.6" stroke="#2ea043" stroke-width="1.2"/><rect x="484.5" y="117.1" width="6.5" height="7.7" fill="#2ea043" rx="1"/><line x1="498.2" y1="68.6" x2="498.2" y2="105.8" stroke="#2ea043" stroke-width="1.2"/><rect x="495.0" y="83.5" width="6.5" height="6.3" fill="#2ea043" rx="1"/><line x1="508.8" y1="54.6" x2="508.8" y2="93.6" stroke="#2ea043" stroke-width="1.2"/><rect x="505.5" y="87.1" width="6.5" height="1.6" fill="#2ea043" rx="1"/><line x1="519.2" y1="86.1" x2="519.2" y2="107.2" stroke="#f85149" stroke-width="1.2"/><rect x="516.0" y="87.9" width="6.5" height="9.2" fill="#f85149" rx="1"/><line x1="529.8" y1="53.9" x2="529.8" y2="76.7" stroke="#2ea043" stroke-width="1.2"/><rect x="526.5" y="59.5" width="6.5" height="13.7" fill="#2ea043" rx="1"/><line x1="540.2" y1="81.6" x2="540.2" y2="129.7" stroke="#f85149" stroke-width="1.2"/><rect x="537.0" y="85.6" width="6.5" height="34.4" fill="#f85149" rx="1"/><line x1="550.8" y1="113.3" x2="550.8" y2="147.5" stroke="#f85149" stroke-width="1.2"/><rect x="547.5" y="119.9" width="6.5" height="18.4" fill="#f85149" rx="1"/><line x1="561.2" y1="135.5" x2="561.2" y2="151.7" stroke="#f85149" stroke-width="1.2"/><rect x="558.0" y="137.3" width="6.5" height="6.7" fill="#f85149" rx="1"/><line x1="571.8" y1="135.7" x2="571.8" y2="157.5" stroke="#f85149" stroke-width="1.2"/><rect x="568.5" y="141.1" width="6.5" height="4.1" fill="#f85149" rx="1"/><line x1="582.2" y1="156.7" x2="582.2" y2="176.5" stroke="#f85149" stroke-width="1.2"/><rect x="579.0" y="158.0" width="6.5" height="1.0" fill="#f85149" rx="1"/><line x1="592.8" y1="142.9" x2="592.8" y2="157.6" stroke="#f85149" stroke-width="1.2"/><rect x="589.5" y="147.7" width="6.5" height="4.2" fill="#f85149" rx="1"/><line x1="603.2" y1="151.5" x2="603.2" y2="163.0" stroke="#2ea043" stroke-width="1.2"/><rect x="600.0" y="151.9" width="6.5" height="5.7" fill="#2ea043" rx="1"/><line x1="613.8" y1="122.4" x2="613.8" y2="139.9" stroke="#2ea043" stroke-width="1.2"/><rect x="610.5" y="129.3" width="6.5" height="1.8" fill="#2ea043" rx="1"/><line x1="624.2" y1="128.9" x2="624.2" y2="148.4" stroke="#f85149" stroke-width="1.2"/><rect x="621.0" y="132.1" width="6.5" height="9.5" fill="#f85149" rx="1"/><line x1="634.8" y1="132.4" x2="634.8" y2="157.1" stroke="#f85149" stroke-width="1.2"/><rect x="631.5" y="142.9" width="6.5" height="12.5" fill="#f85149" rx="1"/><line x1="529.8" y1="128.6" x2="540.2" y2="127.3" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="540.2" y1="127.3" x2="550.8" y2="126.9" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="550.8" y1="126.9" x2="561.2" y2="127.0" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="561.2" y1="127.0" x2="571.8" y2="127.2" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="571.8" y1="127.2" x2="582.2" y2="128.6" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="582.2" y1="128.6" x2="592.8" y2="129.4" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="592.8" y1="129.4" x2="603.2" y2="130.5" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="603.2" y1="130.5" x2="613.8" y2="130.5" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="613.8" y1="130.5" x2="624.2" y2="131.0" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="624.2" y1="131.0" x2="634.8" y2="132.6" stroke="#d29922" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.8"/><line x1="10" y1="155.3" x2="640" y2="155.3" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/><text x="14" y="151.3" fill="#ffffff" font-size="9" font-family="Verdana">вход 224.39</text><line x1="10" y1="136.9" x2="640" y2="136.9" stroke="#2ea043" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="132.9" fill="#2ea043" font-size="9" font-family="Verdana">+5% 235.61</text><line x1="10" y1="148.0" x2="640" y2="148.0" stroke="#56d364" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="144.0" fill="#56d364" font-size="9" font-family="Verdana">+2% 228.88</text><line x1="10" y1="166.4" x2="640" y2="166.4" stroke="#f85149" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="14" y="162.4" fill="#f85149" font-size="9" font-family="Verdana">стоп 217.66</text></svg></div>
+        <div style="color:#8b949e;font-size:10px;margin-top:4px">Свеча 2026-08-31 до 15:30 ET (неполная). Вход по закрытию.</div>
+      </div>
+    </details>
+    
   </div>
-
-  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-    <h2 style="margin:0 0 12px;font-size:20px">Как работает сканер</h2>
-    <ol style="color:#c9d1d9;font-size:13.5px;line-height:1.7;padding-left:20px;margin:0">
-      <li><b>Тайминг:</b> запуск в 15:30 ET, за 30 минут до закрытия. Свеча текущего дня строится из 30-минутных баров до 15:30 — она <b>неполная</b>, но валидация показывает: сигнал сохраняет ~98% качества (корреляция 0,98 с сигналом по полной свече).</li>
-      <li><b>Юниверс:</b> 1500+ ликвидных акций NASDAQ (цена ≥ $5, оборот ≥ $5 млн/день).</li>
-      <li><b>Признаки (24 шт.):</b> моментум, свечная геометрия, RSI(14), положение к SMA50/SMA200, тренд EMA20/50, ATR/ADR, объём vs 20-дневный, 52-недельные экстремумы, серии дней, ликвидность.</li>
-      <li><b>Модель:</b> градиентный бустинг, ~450 тыс. примеров. Метка: «выросла ≥2% хотя бы в один из 2 следующих дней».</li>
-      <li><b>Вход:</b> по цене закрытия (15:55–16:00). Цель — +2%/+5% за 24–48ч, стоп −3%.</li>
-      <li><b>Дополнительно:</b> историческая вероятность положительного гэпа следующего дня по каждому тикеру (вне выборки) и медианный размер гэпа.</li>
-    </ol>
-  </div>
-
-  <div style="background:#2d1415;border:1px solid #da3633;border-radius:12px;padding:14px 18px;margin-top:28px;font-size:12.5px;color:#e6b9b9;line-height:1.6">
-    ⚠️ <b>Дисклеймер.</b> Никакой алгоритм не может <i>гарантировать</i> рост на 2–5% за 24–48 часов и положительный гэп —
-    рынок стохастичен. Приведённые вероятности — статистические оценки на исторических данных; они ухудшаются при смене
-    рыночного режима. Позиция 1–2% капитала, стоп −3% обязателен. Историческая точность 49–57% означает, что почти
-    каждая вторая сделка цели не достигнет. Это исследовательский инструмент, а не индивидуальная инвестиционная рекомендация.
-  </div>
-
-  
-  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-    <h2 style="margin:0 0 12px;font-size:20px">🗂 История запусков (последние 1)</h2>
-    <div style="overflow-x:auto">
-    <table style="border-collapse:collapse;width:100%;font-size:13px;min-width:480px">
-      <thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d">
-        <th style="padding:8px 10px">Коммит</th><th style="padding:8px 10px">Дата</th><th style="padding:8px 10px">Событие</th>
-      </tr></thead>
-      <tbody><tr><td style="padding:6px 10px;color:#8b949e;font-family:monospace">c80a11e</td><td style="padding:6px 10px;color:#e6edf3">2026-08-31</td><td style="padding:6px 10px;color:#c9d1d9">FIX: auto TOP2 COIN/CRWD (was hardcoded MRNA/IREN) + SECURITY no PAT + accordion + 2026-08-31</td></tr></tbody>
-    </table>
+  <details style="background:#161b22;border:1px solid #30363d;border-radius:12px;margin-top:14px">
+    <summary style="padding:14px 16px;cursor:pointer;font-weight:700;display:flex;justify-content:space-between;align-items:center"><span>📊 Топ-5 рейтинга (гармошка)</span><span style="color:#8b949e">⌄</span></summary>
+    <div style="padding:0 16px 16px;border-top:1px solid #21262d">
+      <table style="border-collapse:collapse;width:100%;font-size:13px;margin-top:10px"><thead><tr style="color:#8b949e;text-align:left;border-bottom:1px solid #30363d"><th>#</th><th>Тикер</th><th style="text-align:right">Цена</th><th style="text-align:right">Скор</th><th style="text-align:right">P(+2%)</th></tr></thead><tbody><tr style='background:#12261a;'><td style='padding:6px 8px'>1</td><td style='padding:6px 8px;font-weight:700'>CRWD</td><td style='padding:6px 8px;text-align:right'>$231.02</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>0.468</td><td style='padding:6px 8px;text-align:right'>46%</td></tr><tr style='background:#12261a;'><td style='padding:6px 8px'>2</td><td style='padding:6px 8px;font-weight:700'>CRDO</td><td style='padding:6px 8px;text-align:right'>$224.39</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>0.461</td><td style='padding:6px 8px;text-align:right'>46%</td></tr><tr style=''><td style='padding:6px 8px'>3</td><td style='padding:6px 8px;font-weight:700'>AXTI</td><td style='padding:6px 8px;text-align:right'>$60.69</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>0.450</td><td style='padding:6px 8px;text-align:right'>46%</td></tr><tr style=''><td style='padding:6px 8px'>4</td><td style='padding:6px 8px;font-weight:700'>MRNA</td><td style='padding:6px 8px;text-align:right'>$137.95</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>0.443</td><td style='padding:6px 8px;text-align:right'>46%</td></tr><tr style=''><td style='padding:6px 8px'>5</td><td style='padding:6px 8px;font-weight:700'>SNDK</td><td style='padding:6px 8px;text-align:right'>$1475.17</td><td style='padding:6px 8px;text-align:right;color:#56d364;font-weight:700'>0.435</td><td style='padding:6px 8px;text-align:right'>42%</td></tr></tbody></table>
+      <div style="margin-top:10px;font-size:12px"><a href="dashboard.html">Полный дашборд →</a> | <a href="scan_results.csv">CSV →</a></div>
     </div>
-    <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (15:30 ET) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни 15:30 ET (зимой сдвигается на 20:30 UTC в workflow).</div>
-  </div>
-
-  <div style="color:#8b949e;font-size:12px;margin-top:20px;text-align:center">
-    EOD Momentum Scanner · скан 2026-08-31 15:30 ET · данные: Nasdaq.com + Yahoo Finance · автоматический запуск: будни 15:30 ET (GitHub Actions)
-  </div>
-</div>
-</body>
-</html>
+  </details>
+  <details style="background:#0d1117;border:1px solid #21262d;border-radius:12px;margin-top:10px">
+    <summary style="padding:12px 16px;cursor:pointer;color:#8b949e;font-size:12px">ℹ️ Как следить + время сканирования</summary>
+    <div style="padding:0 16px 16px;font-size:12px;color:#8b949e;line-height:1.6;border-top:1px solid #21262d;margin-top:0;padding-top:12px">
+      Автоскан: <b style="color:#e6edf3">будни 15:30 ET = 22:30 Тель-Авив = 19:30 UTC</b> (зимой 21:30 UTC). Сигнал по неполной свече до 15:30, вход по закрытию 16:00 ET. Цель +2%/+5% за 24-48ч, стоп -3%. Следи за уровнями в карточках выше. Кнопка "Сканировать" теперь ведёт на Actions и автоматом открывает Runs (running) страницу.
+    </div>
+  </details>
+  <div style="background:#2d1415;border:1px solid #da3633;border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:#e6b9b9">⚠️ Не гарантия роста. P ~49% исторически, стоп -3%, позиция 1-2%. Не финсовет.</div>
+</div></body></html>

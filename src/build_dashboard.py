@@ -13,11 +13,11 @@ DATA = os.path.join(ROOT, "data")
 OUT = os.path.join(ROOT, "output")
 
 # Ручная курация топ-2 (модель ранжирует в таблице; аналитик выбирает сценарии)
-PICKS = ['MRNA', 'IREN']
 
 scan = pd.read_csv(os.path.join(OUT, "scan_results.csv"))
 LAST = str(scan["date"].iloc[0])
 scan = scan.sort_values("prob", ascending=False)
+PICKS = scan.head(2)["ticker"].tolist()  # AUTO TOP2
 
 # метаданные (вселенная, время)
 META = {}
@@ -34,8 +34,7 @@ def last_runs(n=8):
 
 RUNS = last_runs()
 
-# токен для кнопки ручного запуска (подставляется в CI из секрета; локально — пусто)
-SCAN_TOKEN = os.environ.get("SCAN_TRIGGER_TOKEN", "")
+# token removed - no PAT in HTML
 
 fund = {}
 if os.path.exists(os.path.join(DATA, "fundamentals.json")):
