@@ -34,3 +34,25 @@ python src/build_dashboard.py   # 2) свежий дашборд
 
 - Приватный ключ в `deploy/keys/` — он в `.gitignore`, никогда не коммитится.
 - Деплой-ключ привязан только к одному репозиторию.
+
+## Восстановление ключа после перезапуска песочницы
+
+Приватная часть deploy-ключа хранится в **двух** местах:
+- `deploy/keys/agent_deploy` (этот каталог — в .gitignore, не пушится)
+- `/home/user/deploy_key/agent_deploy` (корень workspace — переживает перезапуски)
+
+Если после перезапуска ключа нет (push даёт `Permission denied (publickey)`):
+```bash
+cp /home/user/deploy_key/agent_deploy* deploy/keys/ 2>/dev/null || true
+cat > ~/.ssh/config <<'CFG'
+Host github.com
+  IdentityFile /home/user/deploy_key/agent_deploy
+  IdentitiesOnly yes
+  StrictHostKeyChecking no
+CFG
+```
+Если приватная часть потеряна полностью (в обоих местах) — сгенерировать новый ключ
+(`ssh-keygen -t ed25519 -f /home/user/deploy_key/agent_deploy -N ""`), на GitHub удалить старый
+deploy key и добавить новый с **Allow write access**. Текущий публичный ключ
+(agent-push-3, fingerprint SHA256:umDutdQgk5/wtL7spw+8ZXpysEuhXUGV8i1VXpZ7tyw)
+добавлен в Settings → Deploy keys 01.09.2026.
