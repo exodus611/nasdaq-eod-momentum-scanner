@@ -18,7 +18,12 @@ PICKS = []  # placeholder will be overwritten
 scan = pd.read_csv(os.path.join(OUT, "scan_results.csv"))
 LAST = str(scan["date"].iloc[0])
 scan = scan.sort_values("prob", ascending=False)
-PICKS = scan.head(2)["ticker"].tolist()  # AUTO TOP2 FIX - was hardcoded
+# фавориты = pre-move слой (акции ПЕРЕД движением); фолбэк — топ по скору
+if "tier" in scan.columns:
+    _pm = scan[scan["tier"] == "pre_move"].sort_values("prob", ascending=False)
+    PICKS = _pm.head(2)["ticker"].tolist() if len(_pm) >= 2 else scan.head(2)["ticker"].tolist()
+else:
+    PICKS = scan.head(2)["ticker"].tolist()  # AUTO TOP2 FIX - was hardcoded
 
 # метаданные (вселенная, время)
 META = {}
@@ -211,11 +216,12 @@ def generic_narrative(t):
     r = row(t)
     f = fund.get(t, {})
     rec = f.get("recommendationKey") or "—"
-    story = (f"<b>Сигнал в 15:30 ET: {t} — высокий скор модели.</b> "
-             f"Изменение за день {pct(r.get('ret_1'))}, объём {num(r.get('vol_ratio'))}× от среднего, "
-             f"RSI {num(r.get('rsi14'))}, позиция в диапазоне дня {r.get('close_pos', 0):.0%}. "
-             f"Вероятность роста ≥2% за 48ч — {r['hit']:.0%}, положительный гэп следующего дня — "
-             f"{r.get('gap_sig_p', float('nan')):.0%} случаев.")
+    gp = r.get("gap_sig_p")
+    gp_s = f"{gp:.0%}" if gp is not None and not np.isnan(gp) else "н/д (мало OOS-сигналов)"
+    story = (f"<b>Сигнал в 15:30 ET: {t} — {('высокий скор модели в pre-move слое' if r.get('tier') == 'pre_move' else 'высокий скор модели')}.</b> "
+             f"Изменение за день {pct(r.get('ret_1'))}, за 5 дней {pct(r.get('ret_5'))}, объём {num(r.get('vol_ratio'))}× от среднего, "
+             f"RSI {num(r.get('rsi14'))}, от максимума 52 недель {pct(r.get('dist_52w_high'))}. "
+             f"Вероятность роста ≥2% за 48ч — {r['hit']:.0%}, положительный гэп следующего дня — {gp_s} случаев.")
     if f.get("longName"):
         story += f" {f['longName']} ({f.get('sector','')}). Рекомендация: {rec}, средний таргет ${num(f.get('targetMeanPrice'))}."
     return {
@@ -241,7 +247,9 @@ def build():
     rec_extra = ""
     for t in PICKS:
         r = row(t)
-        rec_extra += f"<b>{t}</b> — P(рост ≥2% за 48ч) {r['hit']:.0%}, P(положительный гэп) {r.get('gap_sig_p', float('nan')):.0%}; "
+        gp = r.get("gap_sig_p")
+        gp_s = f"{gp:.0%}" if gp is not None and not np.isnan(gp) else "—"
+        rec_extra += f"<b>{t}</b> — P(рост ≥2% за 48ч) {r['hit']:.0%}, P(положительный гэп) {gp_s}; "
 
     cards_html = ""
     for t in PICKS:
@@ -291,7 +299,7 @@ def build():
           <table style="width:100%;font-size:13px;margin-top:6px">
             <tr><td style="color:#8b949e">P(гэп вверх)</td><td style="text-align:right;color:#2ea043;font-weight:700">{gap_sig_p_s}</td></tr>
             <tr><td style="color:#8b949e">Медианный гэп</td><td style="text-align:right;color:#e6edf3;font-weight:700">{gap_sig_med_s}</td></tr>
-            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">{int(r.get("gap_sig_n", 0))}</td></tr>
+            <tr><td style="color:#8b949e">Кол-во наблюдений</td><td style="text-align:right;color:#8b949e;font-weight:700">{int(r["gap_sig_n"]) if pd.notna(r.get("gap_sig_n")) else "—"}</td></tr>
             <tr><td style="color:#8b949e">Контекст: после распрод. дней</td><td style="text-align:right;color:#e6edf3;font-weight:700">{pct(r.get("gap_down_med"))}</td></tr>
           </table>
         </div>
@@ -354,16 +362,22 @@ def build():
       <div style="color:#8b949e;font-size:11px;margin-top:4px">Последняя свеча — {LAST} до 15:30 ET (неполная, на момент скана). Уровни от цены 15:30; вход — по фактическому закрытию.</div>
     </div>"""
 
-    # top-10 table
-    top10 = scan.head(10)
+    # top-10 table: pre-move слой сверху, затем momentum
+    if "tier" in scan.columns:
+        _order = scan.copy()
+        _order["_t"] = (_order["tier"] != "pre_move").astype(int)
+        top10 = _order.sort_values(["_t", "prob"], ascending=[True, False]).head(10)
+    else:
+        top10 = scan.head(10)
     rows_html = ""
     for i, (_, r) in enumerate(top10.iterrows(), 1):
         hl = "background:#12261a;" if r["ticker"] in PICKS else ""
         gp = r.get("gap_sig_p")
         gp_s = f"{gp:.0%}" if gp is not None and not np.isnan(gp) else "—"
+        badge = ' <span style="background:#12261a;color:#56d364;border:1px solid #238636;border-radius:5px;padding:1px 5px;font-size:10px">PRE-MOVE</span>' if r.get("tier") == "pre_move" else ""
         rows_html += f"""<tr style="{hl}">
       <td style="padding:8px 10px;color:#8b949e">{i}</td>
-      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">{r["ticker"]}</td>
+      <td style="padding:8px 10px;font-weight:700;color:#e6edf3">{r["ticker"]}{badge}</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">${r["close"]:.2f}</td>
       <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">{r["prob"]:.3f}</td>
       <td style="padding:8px 10px;color:#2ea043;text-align:right">{r["hit"]:.0%}</td>
@@ -486,12 +500,50 @@ def build():
     <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (15:30 ET) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни 15:30 ET (зимой сдвигается на 20:30 UTC в workflow).</div>
   </div>"""
 
+    # pre-move tier OOS stats (from backtest)
+    tier_html = ""
+    ts = META.get("tier_summary")
+    if ts:
+        pm = ts.get("pre_move", {})
+        mom = ts.get("momentum", {})
+        op = ts.get("oos_period", ["?", "?"])
+        tier_html = f"""
+    <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;margin-top:16px">
+      <div style="color:#58a6ff;font-size:13px;font-weight:700;margin-bottom:8px">🧵 Pre-move слой — «акции перед движением» (вне выборки {op[0]} – {op[1]})</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+        <div style="background:#161b22;border-radius:8px;padding:12px;text-align:center">
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Попадание +2%/48ч</div>
+          <div style="font-size:22px;font-weight:800;color:#56d364">{pm.get('hit', 0):.0%}</div>
+          <div style="color:#8b949e;font-size:11px">рынок: {ts.get('base_hit', 0):.0%}</div>
+        </div>
+        <div style="background:#161b22;border-radius:8px;padding:12px;text-align:center">
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Худшее за 48ч (ср.)</div>
+          <div style="font-size:22px;font-weight:800;color:#e6edf3">{pm.get('avg_worst', 0):+.1%}</div>
+          <div style="color:#8b949e;font-size:11px">у momentum: {mom.get('avg_worst', 0):+.1%}</div>
+        </div>
+        <div style="background:#161b22;border-radius:8px;padding:12px;text-align:center">
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Лучше рынка в</div>
+          <div style="font-size:22px;font-weight:800;color:#56d364">{pm.get('months_beat_base', '—')}</div>
+          <div style="color:#8b949e;font-size:11px">месяцев вне выборки</div>
+        </div>
+        <div style="background:#161b22;border-radius:8px;padding:12px;text-align:center">
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Кандидатов/день</div>
+          <div style="font-size:22px;font-weight:800;color:#e6edf3">{pm.get('per_day', '—')}</div>
+          <div style="color:#8b949e;font-size:11px">фильтр + ранжирование по скору</div>
+        </div>
+      </div>
+      <div style="color:#8b949e;font-size:12px;margin-top:10px;line-height:1.5">
+        Pre-move = аптренд (выше SMA50 и SMA200) + в пределах 15% от максимума 52 недель + |день| &lt; 3% + нет дня с |движением| &gt; 4% за неделю.
+        Вход ДО начала движения: худшее 2-дневное движение вдвое меньше, чем у «уже движущихся», при попадании выше базы.
+      </div>
+    </div>"""
+
     html = f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EOD Momentum Scanner — NASDAQ · сигнал {last_date} (15:30 ET)</title>
+<title>EOD Pre-Move Scanner — NASDAQ · сигнал {last_date} (15:30 ET)</title>
 </head>
 <body style="margin:0;background:#0d1117;color:#e6edf3;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 <div style="max-width:1080px;margin:0 auto;padding:28px 18px 60px">
@@ -499,7 +551,7 @@ def build():
   <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:1px solid #30363d;padding-bottom:18px">
     <div>
       <div style="color:#58a6ff;font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase">Algotrading · NASDAQ</div>
-      <h1 style="margin:6px 0 2px;font-size:30px;font-weight:800">EOD Momentum Scanner</h1>
+      <h1 style="margin:6px 0 2px;font-size:30px;font-weight:800">EOD Pre-Move Scanner</h1>
       <div style="color:#8b949e;font-size:14px">Скан в <b style="color:#e6edf3">15:30 ET</b> (за 30 мин до закрытия) → вход на закрытии → цель <b style="color:#e6edf3">+2…+5%</b> за 24–48 часов</div>
     </div>
     <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
@@ -577,17 +629,19 @@ def build():
     </div>
     <div style="color:#c9d1d9;font-size:13px;margin:10px 0 6px">Точность стратегии по месяцам (зелёный — стратегия, серый — база рынка):</div>
     {svg_monthly()}
+    {tier_html}
   </div>
 
   <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
     <h2 style="margin:0 0 12px;font-size:20px">Как работает сканер</h2>
     <ol style="color:#c9d1d9;font-size:13.5px;line-height:1.7;padding-left:20px;margin:0">
-      <li><b>Тайминг:</b> запуск в 15:30 ET, за 30 минут до закрытия. Свеча текущего дня строится из 30-минутных баров до 15:30 — она <b>неполная</b>, но валидация показывает: сигнал сохраняет ~98% качества (корреляция 0,98 с сигналом по полной свече).</li>
-      <li><b>Юниверс:</b> 1500+ ликвидных акций NASDAQ (цена ≥ $5, оборот ≥ $5 млн/день).</li>
-      <li><b>Признаки (24 шт.):</b> моментум, свечная геометрия, RSI(14), положение к SMA50/SMA200, тренд EMA20/50, ATR/ADR, объём vs 20-дневный, 52-недельные экстремумы, серии дней, ликвидность.</li>
-      <li><b>Модель:</b> градиентный бустинг, ~450 тыс. примеров. Метка: «выросла ≥2% хотя бы в один из 2 следующих дней».</li>
+      <li><b>Тайминг:</b> запуск в 15:30 ET, за 30 минут до закрытия (cron в таймзоне America/New_York — одинаково зимой и летом). Свеча текущего дня строится из 30-минутных баров до 15:30 — она <b>неполная</b>, объём масштабируется на полный день; валидация показывает: сигнал сохраняет ~98% качества (корреляция 0,98 с сигналом по полной свече).</li>
+      <li><b>Юниверс:</b> 1500+ акций NASDAQ (цена ≥ $3, капа ≥ $500 млн); сканируется топ-200 по обороту (оборот ≥ $5 млн/день).</li>
+      <li><b>Признаки (36 шт.):</b> 24 базовых (моментум, свечная геометрия, RSI(14), положение к SMA50/SMA200, тренд EMA20/50, ATR/ADR, объём, 52-недельные экстремумы, серии) + 12 «койл»-признаков (сжатие BB(20) в перцентилях 120д, сужение диапазона ADR 5д/21д, высыхание объёма 5д, компактность колеи, тихие дни, близость к вершине 10-дневной базы, детектор всплесков).</li>
+      <li><b>Модель:</b> градиентный бустинг. Метка: «выросла ≥2% хотя бы в один из 2 следующих дней».</li>
+      <li><b>Слои:</b> <b>pre-move</b> (главный) — аптренд (выше SMA50 и SMA200) + в пределах 15% от максимума 52 недель + тихий день (&lt;3%) + нет дня с |движением| &gt; 4% за неделю → акции, у которых движение ещё не началось. <b>momentum</b> — все имена по скору (уже движутся, для сравнения).</li>
       <li><b>Вход:</b> по цене закрытия (15:55–16:00). Цель — +2%/+5% за 24–48ч, стоп −3%.</li>
-      <li><b>Дополнительно:</b> историческая вероятность положительного гэпа следующего дня по каждому тикеру (вне выборки) и медианный размер гэпа.</li>
+      <li><b>Дополнительно:</b> историческая вероятность положительного гэпа следующего дня по каждому тикеру (вне выборки) и медианный размер гэпа; калибровка вероятностей по OOS-предсказаниям.</li>
     </ol>
   </div>
 

@@ -1,9 +1,32 @@
 {
  "last_scan": "2026-09-01",
- "signal_time": "15:30 ET SAFE",
+ "signal_time": "15:30 ET",
  "universe_total": 1504,
- "scanned": 3,
- "generated_utc": "2026-09-01T18:49:41.145246+00:00",
- "filter": "SAFE v3 TREND: atr<5% close_pos>0.2 rsi 35-70 dist52w>-12% px_sma50>1% px_sma200>0 ret5>-2.5% ret21>0 dist20>-4% prob_safe>0.55 big_drop<0.35",
- "note": "v3 avoids correction: only near 20d high, above SMA50/200, within 12% of 52w high - MSFT/AAPL/AMGN near highs not DASH/ABNB"
+ "scanned": 200,
+ "pre_move_n": 31,
+ "pre_move_mask_level": 1,
+ "calibration_source": "OOS",
+ "tier_summary": {
+  "oos_period": [
+   "2025-10-01",
+   "2026-08-28"
+  ],
+  "base_hit": 0.3086,
+  "pre_move": {
+   "hit": 0.3715,
+   "avg_best": 0.0156,
+   "avg_fwd2": 0.0061,
+   "avg_worst": -0.0064,
+   "per_day": 5.2,
+   "months_beat_base": "10/11"
+  },
+  "momentum": {
+   "hit": 0.4785,
+   "avg_best": 0.0253,
+   "avg_worst": -0.0131
+  }
+ },
+ "generated_utc": "2026-09-01T19:40:03.558405+00:00",
+ "universe_note": "Состав вселенной обновляется автоматически при каждом прогоне (Nasdaq.com screener): новые IPO добавляются, делистинги/банкротства удаляются, акции переходят границы по цене ≥$3 и капитализации ≥$500 млн.",
+ "pre_move_note": "pre_move = аптренд (выше SMA50 и SMA200) + в пределах 15% от 52-нед максимума + тихий день (<3%) + нет всплеска за неделю (<4%). Вход ДО движения."
 }

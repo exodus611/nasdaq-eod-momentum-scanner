@@ -89,6 +89,32 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
         df["dollar_vol21"] = (df["close"] * df["volume"]).rolling(21).mean()
     except:
         df["dollar_vol21"] = 1e6
+    # ---- pre-move / coil features: is the stock COILING before a move? ----
+    try:
+        sma20c = c.rolling(20).mean()
+        sd20 = c.rolling(20).std()
+        df["bbw"] = (4 * sd20) / sma20c                       # Bollinger width (20,2)
+        df["bbw_pct120"] = df["bbw"].rolling(120, min_periods=60).rank(pct=True)  # low = squeeze
+        rngc = (df["high"] - df["low"]) / c
+        df["adr_ratio_5_21"] = rngc.rolling(5).mean() / rngc.rolling(21).mean()   # <1 = range contracting
+        v2 = df["volume"].replace(0, np.nan)
+        vr2 = v2 / v2.rolling(20).mean().shift(1)
+        df["vol_dry5"] = vr2.rolling(5).mean()                # <1 = volume drying up
+        r1c = c.pct_change()
+        df["ret5_std"] = r1c.rolling(5).std()                 # tightness of the coil
+        df["ret5_std_atr"] = df["ret5_std"] / df["atr14_pct"].replace(0, np.nan)
+        df["quiet10"] = (r1c.abs() < 0.015).rolling(10).sum() # quiet days in last 10
+        df["close_to_10d_high"] = c / c.rolling(10).max() - 1 # coiling near top of base
+        df["range10_pct"] = (df["high"].rolling(10).max() - df["low"].rolling(10).min()) / c
+        df["range10_pct120"] = df["range10_pct"].rolling(120, min_periods=60).rank(pct=True)
+        df["sma20_slope5"] = sma20c / sma20c.shift(5) - 1     # gentle upward base slope
+        df["max_abs_ret10"] = r1c.abs().rolling(10).max()     # <4% = no spike in the coil
+    except:
+        for col in ["bbw","bbw_pct120","adr_ratio_5_21","vol_dry5","ret5_std","ret5_std_atr",
+                    "quiet10","close_to_10d_high","range10_pct","range10_pct120",
+                    "sma20_slope5","max_abs_ret10"]:
+            if col not in df.columns:
+                df[col] = np.nan
     try:
         df["touch_high_5d"] = (c.rolling(5).max() - df["sma20"]) / df["sma20"]
     except:
@@ -104,3 +130,11 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
         df["fwd1"] = 0; df["fwd2"] = 0; df["best_fwd"] = 0; df["worst_fwd"] = 0; df["target_2pct"] = 0
     return df
 FEATURES = ["ret_1", "ret_2", "ret_3", "ret_5", "ret_10", "ret_21", "vol_ratio", "close_pos", "upper_shadow", "lower_shadow", "body_pct", "gap", "rsi14", "px_sma50", "px_sma200", "trend_sma20_50", "trend_ema20_50", "atr14_pct", "adr10", "range_ratio", "dist_52w_high", "dist_52w_low", "streak", "touch_high_5d"]
+
+# Pre-move / coil features: volatility contraction + base structure (stocks "before the move")
+COIL_FEATURES = ["bbw", "bbw_pct120", "adr_ratio_5_21", "vol_dry5", "ret5_std", "ret5_std_atr",
+                 "quiet10", "close_to_10d_high", "range10_pct", "range10_pct120",
+                 "sma20_slope5", "max_abs_ret10"]
+
+# Full feature set used by the model (base momentum + coil)
+ALL_FEATURES = FEATURES + COIL_FEATURES

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Walk-forward backtest - ROBUST v3 FIXED."""
-import os, sys, warnings, numpy as np, pandas as pd
+import os, sys, json, warnings, numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
-from features import FEATURES
+from features import FEATURES, COIL_FEATURES, ALL_FEATURES
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -86,6 +86,16 @@ def build_featured_panel(panel, min_rows=250, min_dollar_vol=2e6):
     ticker_count = feats["ticker"].nunique() if "ticker" in feats.columns else 0
     print(f"featured panel: {len(feats):,} rows, {ticker_count} tickers, base hit-rate = {hit_rate:.3f} ({time.time()-t0:.0f}s)")
     return feats
+def pre_move_mask(feats):
+    """Structural 'before the move' conditions (validated OOS, top-2/day 37.8% vs base 30.9%):
+    uptrend above SMA50 AND SMA200, within 15% of 52w high, quiet today, no spike this week."""
+    m = (feats["px_sma50"] > 0)
+    m &= (feats["px_sma200"] > 0)
+    m &= (feats["dist_52w_high"] > -0.15)
+    m &= (feats["ret_1"].abs() < 0.03)
+    m &= (feats["max_abs_ret10"] < 0.04)
+    return m.fillna(False)
+
 def walk_forward(feats, warmup_months=8):
     feats = feats.copy()
     feats["ym"] = feats["date"].dt.to_period("M")
@@ -101,9 +111,9 @@ def walk_forward(feats, warmup_months=8):
         if len(train) < 5000:
             continue
         try:
-            Xtr = train[FEATURES].values
+            Xtr = train[ALL_FEATURES].values
             ytr = train["target_2pct"].values
-            Xte = test[FEATURES].values
+            Xte = test[ALL_FEATURES].values
             model = HistGradientBoostingClassifier(max_iter=250, learning_rate=0.05, max_depth=5, min_samples_leaf=200, l2_regularization=1.0, random_state=42)
             model.fit(Xtr, ytr)
             test = test.copy()
@@ -139,6 +149,37 @@ def monthly_hits(oos, top_frac=0.10):
     m = sel.groupby(sel["date"].dt.to_period("M")).agg(n=("ticker", "count"), hit=("target_2pct", "mean"), avg_best=("best_fwd", "mean"))
     b = ev.groupby(ev["date"].dt.to_period("M"))["target_2pct"].mean().rename("base_hit")
     return m.join(b)
+def tier_report(oos):
+    """Pre-move tier (strict structural mask) vs momentum tier, both ranked by OOS prob."""
+    o = oos.copy()
+    o["s"] = o.groupby("model_idx")["prob"].rank(pct=True) >= 0.90
+    mom = o[o["s"]]
+    sub = o[pre_move_mask(o)].copy()
+    sub["sel"] = sub.groupby("model_idx")["prob"].rank(pct=True) >= 0.90
+    top = sub[sub["sel"]]
+    per_day = top.groupby("date").size().mean()
+    months = top["date"].dt.to_period("M")
+    base_m = oos.groupby(oos["date"].dt.to_period("M"))["target_2pct"].mean()
+    top_m = top.groupby(months)["target_2pct"].mean()
+    beat = int((top_m.reindex(base_m.index).fillna(0) >= base_m).sum())
+    return {
+        "oos_period": [str(oos["date"].min().date()), str(oos["date"].max().date())],
+        "base_hit": round(float(oos["target_2pct"].mean()), 4),
+        "pre_move": {
+            "hit": round(float(top["target_2pct"].mean()), 4),
+            "avg_best": round(float(top["best_fwd"].mean()), 4),
+            "avg_fwd2": round(float(top["fwd2"].mean()), 4),
+            "avg_worst": round(float(top["worst_fwd"].mean()), 4),
+            "per_day": round(float(per_day), 1),
+            "months_beat_base": f"{beat}/{len(base_m)}",
+        },
+        "momentum": {
+            "hit": round(float(mom["target_2pct"].mean()), 4),
+            "avg_best": round(float(mom["best_fwd"].mean()), 4),
+            "avg_worst": round(float(mom["worst_fwd"].mean()), 4),
+        },
+    }
+
 if __name__ == "__main__":
     print("=== BACKTEST START ===")
     try:
@@ -151,11 +192,19 @@ if __name__ == "__main__":
         oos, models = walk_forward(feats)
         oos_path = os.path.join(ROOT, "data", "oos_predictions.parquet")
         oos.to_parquet(oos_path)
+        json.dump({"n_features": len(ALL_FEATURES),
+                   "features_version": "pre-move-v1",
+                   "built_utc": pd.Timestamp.utcnow().isoformat()},
+                  open(os.path.join(ROOT, "data", "oos_model_version.json"), "w"), indent=1)
         print(f"Saved {oos_path}: {len(oos):,}")
         strat, base = eval_strategy(oos, top_frac=0.10)
         print("\n", pd.DataFrame([strat, base]).T)
         mh = monthly_hits(oos, top_frac=0.10)
         print("\nmonthly:", mh.round(3).to_string())
+        tr = tier_report(oos)
+        json.dump(tr, open(os.path.join(ROOT, "data", "tier_summary.json"), "w"), indent=1)
+        print("\n=== TIER REPORT (pre-move vs momentum) ===")
+        print(json.dumps(tr, indent=1))
         print("\n=== BACKTEST DONE ===")
     except Exception as e:
         print(f"\n[ERROR] {e}")
