@@ -2,8 +2,8 @@
  "last_scan": "2026-09-01",
  "signal_time": "15:30 ET SAFE",
  "universe_total": 1504,
- "scanned": 19,
- "generated_utc": "2026-09-01T17:06:24.305360+00:00",
- "filter": "SAFE: atr<5% close_pos>0.2 vol<2.5 rsi 30-75 ret -5%..+7% prob_safe>0.55 prob_big_drop<0.35 final=up*safe*(1-drop)",
- "note": "SAFE mode avoids -7% drops, allows -2..-3% max"
+ "scanned": 3,
+ "generated_utc": "2026-09-01T18:49:41.145246+00:00",
+ "filter": "SAFE v3 TREND: atr<5% close_pos>0.2 rsi 35-70 dist52w>-12% px_sma50>1% px_sma200>0 ret5>-2.5% ret21>0 dist20>-4% prob_safe>0.55 big_drop<0.35",
+ "note": "v3 avoids correction: only near 20d high, above SMA50/200, within 12% of 52w high - MSFT/AAPL/AMGN near highs not DASH/ABNB"
 }

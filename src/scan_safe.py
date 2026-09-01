@@ -111,13 +111,18 @@ def main():
         if f[FEATURES].isna().any():
             continue
 
-        # HARD FILTERS to avoid -7% drops
+        # HARD FILTERS to avoid -7% drops + trend filters
         atr = f.get("atr14_pct")
         close_pos = f.get("close_pos")
         vol_ratio = f.get("vol_ratio")
         rsi = f.get("rsi14")
         ret1 = f.get("ret_1")
+        ret5 = f.get("ret_5")
+        ret21 = f.get("ret_21")
         dollar_vol = f.get("dollar_vol21")
+        dist52 = f.get("dist_52w_high")
+        px_sma50 = f.get("px_sma50")
+        px_sma200 = f.get("px_sma200")
 
         # Filter 1: ATR <5% (if daily ATR 8%, 7% drop is normal)
         if atr is not None and not np.isnan(atr) and atr > 0.05:
@@ -128,18 +133,43 @@ def main():
         # Filter 3: volume spike <2.5x (avoid news-driven)
         if vol_ratio is not None and vol_ratio > 2.5:
             continue
-        # Filter 4: RSI 30-70 (avoid overbought/oversold)
-        if rsi is not None and (rsi < 30 or rsi > 75):
+        # Filter 4: RSI 35-70 (avoid overbought/oversold) - tighter
+        if rsi is not None and (rsi < 35 or rsi > 70):
             continue
-        # Filter 5: not already up >7% today (chasing)
-        if ret1 is not None and ret1 > 0.07:
+        # Filter 5: not already up >6% today (chasing)
+        if ret1 is not None and ret1 > 0.06:
             continue
-        # Filter 6: not down >5% today (free fall)
-        if ret1 is not None and ret1 < -0.05:
+        # Filter 6: not down >4% today (free fall)
+        if ret1 is not None and ret1 < -0.04:
             continue
         # Filter 7: dollar vol >5M
         if dollar_vol is not None and dollar_vol < 5e6:
             continue
+        # === NEW TREND FILTERS - user correct: avoid picking correction after high ===
+        # Filter 8: must be within 12% of 52w high (not -19% like DASH)
+        if dist52 is not None and dist52 < -0.12:
+            continue
+        # Filter 9: must be above SMA50 by at least 1% (uptrend)
+        if px_sma50 is not None and px_sma50 < 0.01:
+            continue
+        # Filter 10: must be above SMA200 (long uptrend)
+        if px_sma200 is not None and px_sma200 < 0.0:
+            continue
+        # Filter 11: ret_5 not worse than -2.5% (avoid -4% correction like ABNB)
+        if ret5 is not None and ret5 < -0.025:
+            continue
+        # Filter 12: ret_21 positive (up last month)
+        if ret21 is not None and ret21 < 0.0:
+            continue
+        # Filter 13: distance from 20d high - compute quickly
+        # we have full df, compute high20
+        try:
+            high20 = full["high"].rolling(20).max().iloc[-2]  # prev day high20 to avoid today
+            dist20 = f["close"]/high20 -1 if high20 else 0
+            if dist20 < -0.04:  # more than 4% off 20d high = correction
+                continue
+        except:
+            pass
 
         prob_up = float(m_up.predict_proba([f[FEATURES].values])[0,1])
         prob_safe = float(m_safe.predict_proba([f[FEATURES].values])[0,1])  # prob worst > -3%
