@@ -87,8 +87,10 @@ def build_featured_panel(panel, min_rows=250, min_dollar_vol=2e6):
     print(f"featured panel: {len(feats):,} rows, {ticker_count} tickers, base hit-rate = {hit_rate:.3f} ({time.time()-t0:.0f}s)")
     return feats
 def pre_move_mask(feats):
-    """Structural 'before the move' conditions (validated OOS, top-2/day 37.8% vs base 30.9%):
-    uptrend above SMA50 AND SMA200, within 15% of 52w high, quiet today, no spike this week."""
+    """Structural 'before the move' conditions. Validated OOS FULL NASDAQ (13m, 1453 tickers,
+    strict top-2/day): P(+2%/48h)=40%, P(-3% stop)=23%, avg worst48h=-0.97% vs unmasked model
+    48%/41%/-1.92% -> mask trades ~8pp hit-rate for 1.8x fewer stops; EV of a +2/-3 trade is
+    positive only with the mask. (Old 37.8%/30.9% figures were a 271-ticker liquid subset.)"""
     m = (feats["px_sma50"] > 0)
     m &= (feats["px_sma200"] > 0)
     m &= (feats["dist_52w_high"] > -0.15)
