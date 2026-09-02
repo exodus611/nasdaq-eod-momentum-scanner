@@ -17,1489 +17,1492 @@ ASML,ASML Holding N.V. New York Registry Shares
 GOOGM,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock
 GOOGN,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series B Mandatory Convertible Preferred Stock
 INTC,Intel Corporation Common Stock
-PLTR,Palantir Technologies Inc. Class A Common Stock
 CSCO,"Cisco Systems, Inc. Common Stock (DE)"
 COST,Costco Wholesale Corporation Common Stock
+PLTR,Palantir Technologies Inc. Class A Common Stock
 LRCX,Lam Research Corporation Common Stock
 AMAT,"Applied Materials, Inc. Common Stock"
 NFLX,"Netflix, Inc. Common Stock"
 PANW,"Palo Alto Networks, Inc. Common Stock"
 ARM,Arm Holdings plc American Depositary Shares
-TXN,Texas Instruments Incorporated Common Stock
-CRWD,"CrowdStrike Holdings, Inc. Class A Common Stock"
 AMGN,Amgen Inc. Common Stock
+TXN,Texas Instruments Incorporated Common Stock
 SNDK,Sandisk Corporation Common Stock
-KLAC,KLA Corporation Common Stock
 LIN,Linde plc Ordinary Shares
+KLAC,KLA Corporation Common Stock
+CRWD,"CrowdStrike Holdings, Inc. Class A Common Stock"
 TMUS,"T-Mobile US, Inc. Common Stock"
 PEP,"PepsiCo, Inc. Common Stock"
-SHOP,Shopify Inc. Class A Subordinate Voting Shares
+GILD,"Gilead Sciences, Inc. Common Stock"
 STX,Seagate Technology Holdings PLC Ordinary Shares (Ireland)
 MRVL,"Marvell Technology, Inc. Common Stock"
-GILD,"Gilead Sciences, Inc. Common Stock"
+SHOP,Shopify Inc. Class A Subordinate Voting Shares
 QCOM,QUALCOMM Incorporated Common Stock
 ADI,"Analog Devices, Inc. Common Stock"
 WDC,Western Digital Corporation Common Stock
 BKNG,Booking Holdings Inc. Common Stock
 VRTX,Vertex Pharmaceuticals Incorporated Common Stock
-MNST,Monster Beverage Corporation
 ISRG,"Intuitive Surgical, Inc. Common Stock"
-FTNT,"Fortinet, Inc. Common Stock"
+MNST,Monster Beverage Corporation
 SBUX,Starbucks Corporation Common Stock
 PDD,PDD Holdings Inc. American Depositary Shares
-ADBE,Adobe Inc. Common Stock
+FTNT,"Fortinet, Inc. Common Stock"
 ADP,"Automatic Data Processing, Inc. Common Stock"
+ADBE,Adobe Inc. Common Stock
 ABNB,"Airbnb, Inc. Class A Common Stock"
 SNY,Sanofi ADS
 APP,Applovin Corporation Class A Common Stock
+CEG,Constellation Energy Corporation Common Stock 
+MELI,"MercadoLibre, Inc. Common Stock"
 EQIX,"Equinix, Inc. Common Stock REIT"
 CME,CME Group Inc. Class A Common Stock
 DASH,"DoorDash, Inc. Class A Common Stock"
-INTU,Intuit Inc. Common Stock
-MELI,"MercadoLibre, Inc. Common Stock"
-CEG,Constellation Energy Corporation Common Stock 
-CMCSA,Comcast Corporation Class A Common Stock
 HOOD,"Robinhood Markets, Inc. Class A Common Stock"
+CMCSA,Comcast Corporation Class A Common Stock
+INTU,Intuit Inc. Common Stock
 CSX,CSX Corporation Common Stock
-CDNS,"Cadence Design Systems, Inc. Common Stock"
-MAR,Marriott International Class A Common Stock
-DDOG,"Datadog, Inc. Class A Common Stock"
-SNPS,"Synopsys, Inc. Common Stock"
 REGN,"Regeneron Pharmaceuticals, Inc. Common Stock"
-LITE,Lumentum Holdings Inc. Common Stock
-CTAS,Cintas Corporation Common Stock
+MAR,Marriott International Class A Common Stock
+CDNS,"Cadence Design Systems, Inc. Common Stock"
 MDLZ,"Mondelez International, Inc. Class A Common Stock"
+CTAS,Cintas Corporation Common Stock
+SNPS,"Synopsys, Inc. Common Stock"
+LITE,Lumentum Holdings Inc. Common Stock
 NTES,"NetEase, Inc. American Depositary Shares"
+DDOG,"Datadog, Inc. Class A Common Stock"
 ROST,"Ross Stores, Inc. Common Stock"
-ORLY,"O'Reilly Automotive, Inc. Common Stock"
 WBD,"Warner Bros. Discovery, Inc. Series A Common Stock "
-HON,Honeywell International Inc. Common Stock
+ORLY,"O'Reilly Automotive, Inc. Common Stock"
 AEP,"American Electric Power Company, Inc. Common Stock"
-PCAR,PACCAR Inc. Common Stock
 BRKRP,"Bruker Corporation 6.375% Mandatory Convertible Preferred Stock, Series A"
+HON,Honeywell International Inc. Common Stock
 ARGX,argenx SE American Depositary Shares
+PCAR,PACCAR Inc. Common Stock
 BKR,Baker Hughes Company Class A Common Stock
 MPWR,"Monolithic Power Systems, Inc. Common Stock"
+MRNA,"Moderna, Inc. Common Stock"
 NXPI,NXP Semiconductors N.V. Common Stock
-FAST,Fastenal Company Common Stock
 FANG,"Diamondback Energy, Inc. Common Stock"
 NBIS,Nebius Group N.V. Class A Ordinary Shares
-MRNA,"Moderna, Inc. Common Stock"
+FAST,Fastenal Company Common Stock
 NDAQ,"Nasdaq, Inc. Common Stock"
 TER,"Teradyne, Inc. Common Stock"
-ADSK,"Autodesk, Inc. Common Stock"
-ALAB,"Astera Labs, Inc. Common Stock"
-MSTR,Strategy Inc Common Stock Class A
 HBANL,"Huntington Bancshares Incorporated Depositary Shares, Each Representing a 1/40th Interest in a Share of 6.875% Series J Non-Cumulative Perpetual Preferred Stock"
-HONA,Honeywell Aerospace Inc. Common Stock 
-COIN,"Coinbase Global, Inc. Class A Common Stock"
-TEAM,Atlassian Corporation Class A Common Stock
+ADSK,"Autodesk, Inc. Common Stock"
 CCEP,Coca-Cola Europacific Partners plc Ordinary Shares
+HONA,Honeywell Aerospace Inc. Common Stock 
 WDAY,"Workday, Inc. Class A Common Stock"
-XEL,Xcel Energy Inc. Common Stock
-CRWV,"CoreWeave, Inc. Class A Common Stock"
-TRI,Thomson Reuters Corporation Common Shares
-NTRA,"Natera, Inc. Common Stock"
-EBAY,eBay Inc. Common Stock
+ALAB,"Astera Labs, Inc. Common Stock"
+TEAM,Atlassian Corporation Class A Common Stock
 MDLN,Medline Inc. Class A Common Stock
-AXON,"Axon Enterprise, Inc. Common Stock"
-PAYX,"Paychex, Inc. Common Stock"
-EXC,Exelon Corporation Common Stock
+EBAY,eBay Inc. Common Stock
+XEL,Xcel Energy Inc. Common Stock
+MSTR,Strategy Inc Common Stock Class A
+NTRA,"Natera, Inc. Common Stock"
+COIN,"Coinbase Global, Inc. Class A Common Stock"
 PYPL,"PayPal Holdings, Inc. Common Stock"
-IBKR,"Interactive Brokers Group, Inc. Class A Common Stock"
+TRI,Thomson Reuters Corporation Common Shares
+EXC,Exelon Corporation Common Stock
 RVMD,"Revolution Medicines, Inc. Common Stock"
-IDXX,"IDEXX Laboratories, Inc. Common Stock"
-CBRS,Cerebras Systems Inc. Class A Common Stock
+CRWV,"CoreWeave, Inc. Class A Common Stock"
 KDP,Keurig Dr Pepper Inc. Common Stock
-CRDO,Credo Technology Group Holding Ltd Ordinary Shares
-FER,Ferrovial N.V. Ordinary Shares
+PAYX,"Paychex, Inc. Common Stock"
+CBRS,Cerebras Systems Inc. Class A Common Stock
+IDXX,"IDEXX Laboratories, Inc. Common Stock"
 HBANM,Huntington Bancshares Incorporated Depositary Shares each representing a 1/1000th interest in a share of Huntington Series I Preferred Stock
+FER,Ferrovial N.V. Ordinary Shares
+AXON,"Axon Enterprise, Inc. Common Stock"
 ROP,"Roper Technologies, Inc. Common Stock"
-ODFL,"Old Dominion Freight Line, Inc. Common Stock"
-TTWO,"Take-Two Interactive Software, Inc. Common Stock"
 ONC,BeOne Medicines Ltd. American Depositary Shares
+TTWO,"Take-Two Interactive Software, Inc. Common Stock"
+IBKR,"Interactive Brokers Group, Inc. Class A Common Stock"
 SMCIP,"Super Micro Computer, Inc. Depositary Shares representing a 1/20th Interest in a Share of 7% Series A Mandatory Convertible Preferred Stock"
-FLEX,Flex Ltd. Ordinary Shares
-MCHP,Microchip Technology Incorporated Common Stock
 STRF,Strategy Inc 10.00% Series A Perpetual Strife Preferred Stock
-HBANZ,"Huntington Bancshares Incorporated Depositary Shares, Each Representing a 1/1000th Interest in a Share of 5.50% Series L Non-Cumulative Perpetual Preferred Stock"
-RKLB,Rocket Lab Corporation Common Stock
-VOD,Vodafone Group Plc American Depositary Shares
+MCHP,Microchip Technology Incorporated Common Stock
+FLEX,Flex Ltd. Ordinary Shares
 BTSGU,"BrightSpring Health Services, Inc. Tangible Equity Unit"
+HBANZ,"Huntington Bancshares Incorporated Depositary Shares, Each Representing a 1/1000th Interest in a Share of 5.50% Series L Non-Cumulative Perpetual Preferred Stock"
+ODFL,"Old Dominion Freight Line, Inc. Common Stock"
+VOD,Vodafone Group Plc American Depositary Shares
+RKLB,Rocket Lab Corporation Common Stock
 JD,"JD.com, Inc. American Depositary Shares"
 STRC,Strategy Inc Variable Rate Series A Perpetual Stretch Preferred Stock
-MDB,"MongoDB, Inc. Class A Common Stock"
-NTAP,"NetApp, Inc. Common Stock"
-EXPE,"Expedia Group, Inc. Common Stock"
 KMB,Kimberly-Clark Corporation Common Stock
 RPRX,Royalty Pharma plc Class A Ordinary Shares 
+ALNY,"Alnylam Pharmaceuticals, Inc. Common Stock"
+NTAP,"NetApp, Inc. Common Stock"
+STLD,"Steel Dynamics, Inc."
 UAL,"United Airlines Holdings, Inc. Common Stock"
+EXPE,"Expedia Group, Inc. Common Stock"
+HBAN,Huntington Bancshares Incorporated Common Stock
 MCHPP,Microchip Technology Incorporated Depositary Shares Each Representing a 1/20th Interest in a Share of 7.50% Series A Mandatory Convertible Preferred Stock
 DXCM,"DexCom, Inc. Common Stock"
 ERIC,Ericsson American Depositary Shares
 NTRS,Northern Trust Corporation Common Stock
-HBAN,Huntington Bancshares Incorporated Common Stock
 ACGL,Arch Capital Group Ltd. Common Stock
-HBANP,Huntington Bancshares Incorporated Depositary Shares 4.500% Series H Non-Cumulative Perpetual Preferred Stock
-STLD,"Steel Dynamics, Inc."
+BIIB,Biogen Inc. Common Stock
 ESLT,Elbit Systems Ltd. Ordinary Shares
+HBANP,Huntington Bancshares Incorporated Depositary Shares 4.500% Series H Non-Cumulative Perpetual Preferred Stock
 BIDU,"Baidu, Inc. ADS"
 ILMN,"Illumina, Inc. Common Stock"
-ALNY,"Alnylam Pharmaceuticals, Inc. Common Stock"
 GEHC,GE HealthCare Technologies Inc. Common Stock 
-BIIB,Biogen Inc. Common Stock
 WTW,Willis Towers Watson Public Limited Company Ordinary Shares
-AGNCN,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 7.00% Series C Fixed-To-Floating Rate Cumulative Redeemable Preferred Stock"
-CPRT,"Copart, Inc. (DE) Common Stock"
-AGNCO,"AGNC Investment Corp. Depositary Shares, each representing a 1/1,000th interest in a share of 6.50% Series E Fixed-to-Floating Cumulative Redeemable Preferred Stock"
-ZS,"Zscaler, Inc. Common Stock"
 KHC,The Kraft Heinz Company Common Stock
+CRDO,Credo Technology Group Holding Ltd Ordinary Shares
+AGNCN,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 7.00% Series C Fixed-To-Floating Rate Cumulative Redeemable Preferred Stock"
+AGNCO,"AGNC Investment Corp. Depositary Shares, each representing a 1/1,000th interest in a share of 6.50% Series E Fixed-to-Floating Cumulative Redeemable Preferred Stock"
 AGNCZ,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 8.75% Series H Fixed-Rate Cumulative Redeemable Preferred Stock"
-OKTA,"Okta, Inc. Class A Common Stock"
-AGNCL,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 7.75% Series G Fixed-Rate Reset Cumulative Redeemable Preferred Stock"
 AGNCP,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 6.125% Series F Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock"
+AGNCL,"AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 7.75% Series G Fixed-Rate Reset Cumulative Redeemable Preferred Stock"
+MDB,"MongoDB, Inc. Class A Common Stock"
 AGNCM,AGNC Investment Corp. Depositary Shares rep 6.875% Series D Fixed-to-Floating Cumulative Redeemable Preferred Stock
-LPLA,LPL Financial Holdings Inc. Common Stock
+CPRT,"Copart, Inc. (DE) Common Stock"
 RYAAY,Ryanair Holdings plc American Depositary Shares
 CTSH,Cognizant Technology Solutions Corporation Class A Common Stock
-ON,ON Semiconductor Corporation Common Stock
-BSP,Bending Spoons S.p.A. Ordinary Shares
-FISV,"Fiserv, Inc. Common Stock"
 FOXA,Fox Corporation Class A Common Stock
-ZM,"Zoom Communications, Inc. Class A Common Stock"
-TCOM,Trip.com Group Limited American Depositary Shares
+OKTA,"Okta, Inc. Class A Common Stock"
 STRK,Strategy Inc 8.00% Series A Perpetual Strike Preferred Stock
+LPLA,LPL Financial Holdings Inc. Common Stock
 STRD,Strategy Inc 10.00% Series A Perpetual Stride Preferred Stock
+ON,ON Semiconductor Corporation Common Stock
+ZS,"Zscaler, Inc. Common Stock"
+BSP,Bending Spoons S.p.A. Ordinary Shares
 CASY,"Casey's General Stores, Inc. Common Stock"
+ZM,"Zoom Communications, Inc. Class A Common Stock"
+FISV,"Fiserv, Inc. Common Stock"
+TCOM,Trip.com Group Limited American Depositary Shares
 INSM,Insmed Incorporated Common Stock
 CINF,Cincinnati Financial Corporation Common Stock
+INCY,Incyte Corp. Common Stock
 VRSN,"VeriSign, Inc. Common Stock"
 BNTX,BioNTech SE American Depositary Share
 FOX,Fox Corporation Class B Common Stock
-VRSK,"Verisk Analytics, Inc. Common Stock"
-TW,Tradeweb Markets Inc. Class A Common Stock
-AFRM,"Affirm Holdings, Inc. Class A Common Stock"
 ECHO,EchoStar  Corporation Common Stock
-FWONK,Liberty Media Corporation Series C Liberty Formula One Common Stock
-ROIV,Roivant Sciences Ltd. Common Shares
-INCY,Incyte Corp. Common Stock
-JBHT,"J.B. Hunt Transport Services, Inc. Common Stock"
-GFS,GlobalFoundries Inc. Ordinary Shares
-FCNCA,"First Citizens BancShares, Inc. Class A Common Stock"
-SMCI,"Super Micro Computer, Inc. Common Stock"
-SYM,Symbotic Inc. Class A Common Stock
+AFRM,"Affirm Holdings, Inc. Class A Common Stock"
 DLTR,Dollar Tree Inc. Common Stock
-TROW,"T. Rowe Price Group, Inc. Common Stock"
+FCNCA,"First Citizens BancShares, Inc. Class A Common Stock"
+GFS,GlobalFoundries Inc. Ordinary Shares
+ROIV,Roivant Sciences Ltd. Common Shares
+FWONK,Liberty Media Corporation Series C Liberty Formula One Common Stock
+ASTS,"AST SpaceMobile, Inc. Class A Common Stock"
+VRSK,"Verisk Analytics, Inc. Common Stock"
+JBHT,"J.B. Hunt Transport Services, Inc. Common Stock"
+TW,Tradeweb Markets Inc. Class A Common Stock
+SYM,Symbotic Inc. Class A Common Stock
 PFG,Principal Financial Group Inc Common Stock
-ROKU,"Roku, Inc. Class A Common Stock"
-RIVN,"Rivian Automotive, Inc. Class A Common Stock"
+SMCI,"Super Micro Computer, Inc. Common Stock"
+ULTA,"Ulta Beauty, Inc. Common Stock"
 TSEM,Tower Semiconductor Ltd. Ordinary Shares
+ROKU,"Roku, Inc. Class A Common Stock"
+TROW,"T. Rowe Price Group, Inc. Common Stock"
+EXE,Expand Energy Corporation Common Stock
 SOFI,"SoFi Technologies, Inc. Common Stock  "
 FWONA,Liberty Media Corporation Series A Liberty Formula One Common Stock
+RIVN,"Rivian Automotive, Inc. Class A Common Stock"
 FFIV,"F5, Inc. Common Stock"
-ASTS,"AST SpaceMobile, Inc. Class A Common Stock"
-ULTA,"Ulta Beauty, Inc. Common Stock"
-EXE,Expand Energy Corporation Common Stock
-RGLD,"Royal Gold, Inc. Common Stock"
-UTHR,United Therapeutics Corporation Common Stock
 FSLR,"First Solar, Inc. Common Stock"
-ARXS,"Arxis, Inc. Class A Common Stock"
 GH,"Guardant Health, Inc. Common Stock"
+RGLD,"Royal Gold, Inc. Common Stock"
+ARXS,"Arxis, Inc. Class A Common Stock"
+UTHR,United Therapeutics Corporation Common Stock
 BPYPM,"Brookfield Property Partners L.P. 6.25% Class A Cumulative Redeemable Preferred Units, Series 1"
+KSPI,Joint Stock Company Kaspi.kz American Depository Shares
 ENTG,"Entegris, Inc. Common Stock"
 TPG,TPG Inc. Class A Common Stock
 BPYPP,Brookfield Property Partners L.P. 6.50% Class A Cumulative Redeemable Perpetual Preferred Units
-MTSI,"MACOM Technology Solutions Holdings, Inc. Common Stock"
 SBAC,SBA Communications Corporation Class A Common Stock
 WWD,"Woodward, Inc. Common Stock"
-KSPI,Joint Stock Company Kaspi.kz American Depository Shares
-FTAI,FTAI Aviation Ltd. Common Stock
-SSNC,"SS&C Technologies Holdings, Inc. Common Stock"
-BPYPO,"Brookfield Property Partners L.P. 6.375% Class A Cumulative Redeemable Perpetual Preferred Units, Series 2"
 VTRS,Viatris Inc. Common Stock
+MTSI,"MACOM Technology Solutions Holdings, Inc. Common Stock"
+SSNC,"SS&C Technologies Holdings, Inc. Common Stock"
+FTAI,FTAI Aviation Ltd. Common Stock
 CDW,CDW Corporation Common Stock
-EVRG,"Evergy, Inc. Common Stock"
+BPYPO,"Brookfield Property Partners L.P. 6.375% Class A Cumulative Redeemable Perpetual Preferred Units, Series 2"
 NWS,News Corporation Class B Common Stock
+EVRG,"Evergy, Inc. Common Stock"
 GEN,Gen Digital Inc. Common Stock
-NTNX,"Nutanix, Inc. Class A Common Stock"
-TSCO,Tractor Supply Company Common Stock
 PAA,"Plains All American Pipeline, L.P. Common Units representing Limited Partner Interests"
-NDSN,Nordson Corporation Common Stock
-LNT,Alliant Energy Corporation Common Stock
-CHRW,"C.H. Robinson Worldwide, Inc. Common Stock"
 CHTR,"Charter Communications, Inc. Class A Common Stock New"
-BPYPN,"Brookfield Property Partners L.P. 5.750% Class A Cumulative Redeemable Perpetual Preferred Units, Series 3"
+TSCO,Tractor Supply Company Common Stock
+NTNX,"Nutanix, Inc. Class A Common Stock"
+NDSN,Nordson Corporation Common Stock
 EWBC,"East West Bancorp, Inc. Common Stock"
-MKSI,MKS Inc. Common Stock
 ASND,Ascendis Pharma A/S Ordinary Share
-CG,The Carlyle Group Inc. Common Stock
-FUTU,Futu Holdings Limited American Depositary Shares
+LNT,Alliant Energy Corporation Common Stock
+BPYPN,"Brookfield Property Partners L.P. 5.750% Class A Cumulative Redeemable Perpetual Preferred Units, Series 3"
 SITM,SiTime Corporation Common Stock
-PTC,PTC Inc. Common Stock
+MKSI,MKS Inc. Common Stock
+CHRW,"C.H. Robinson Worldwide, Inc. Common Stock"
+CG,The Carlyle Group Inc. Common Stock
 ZBRA,Zebra Technologies Corporation Class A Common Stock
+FUTU,Futu Holdings Limited American Depositary Shares
 NWSA,News Corporation Class A Common Stock
 MEDP,"Medpace Holdings, Inc. Common Stock"
-LSCC,Lattice Semiconductor Corporation Common Stock
-JAZZ,Jazz Pharmaceuticals plc Common Stock (Ireland)
-WSE,Wise Group plc Class A Ordinary Shares
 VNOM,"Viper Energy, Inc. Class A Common Stock"
-TIGO,Millicom International Cellular S.A. Common Stock
+PTC,PTC Inc. Common Stock
+LSCC,Lattice Semiconductor Corporation Common Stock
+WSE,Wise Group plc Class A Ordinary Shares
 NBIX,"Neurocrine Biosciences, Inc. Common Stock"
-AKAM,"Akamai Technologies, Inc. Common Stock"
-LECO,"Lincoln Electric Holdings, Inc. Common Shares"
-INIO,INNIO N.V. Ordinary Shares
-LAMR,Lamar Advertising Company Class A Common Stock
+TIGO,Millicom International Cellular S.A. Common Stock
+JAZZ,Jazz Pharmaceuticals plc Common Stock (Ireland)
 APA,APA Corporation Common Stock
-HST,"Host Hotels & Resorts, Inc. Common Stock"
-BBIO,"BridgeBio Pharma, Inc. Common Stock"
-WMG,Warner Music Group Corp. Class A Common Stock
 IREN,IREN Limited Ordinary Shares
-HTHT,H World Group Limited American Depositary Shares
-GRAB,Grab Holdings Limited Class A Ordinary Shares
-ARCC,Ares Capital Corporation Common Stock
-STRL,"Sterling Infrastructure, Inc. Common Stock"
-VLYPN,"Valley National Bancorp 8.250% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series C"
-CHKP,Check Point Software Technologies Ltd. Ordinary Shares
+LAMR,Lamar Advertising Company Class A Common Stock
+HST,"Host Hotels & Resorts, Inc. Common Stock"
+AKAM,"Akamai Technologies, Inc. Common Stock"
+BBIO,"BridgeBio Pharma, Inc. Common Stock"
+INIO,INNIO N.V. Ordinary Shares
+LECO,"Lincoln Electric Holdings, Inc. Common Shares"
+WMG,Warner Music Group Corp. Class A Common Stock
+EXEL,"Exelixis, Inc. Common Stock"
 TLN,Talen Energy Corporation Common Stock
-SLMBP,"SLM Corporation Floating Rate Non-Cumulative Preferred Stock, Series B"
+ARCC,Ares Capital Corporation Common Stock
+HTHT,H World Group Limited American Depositary Shares
+VLYPN,"Valley National Bancorp 8.250% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series C"
+GRAB,Grab Holdings Limited Class A Ordinary Shares
 LOGI,Logitech International S.A. Ordinary Shares
-TRMB,Trimble Inc. Common Stock
+SLMBP,"SLM Corporation Floating Rate Non-Cumulative Preferred Stock, Series B"
 VLYPP,"Valley National Bancorp 6.25% Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series A"
-VLYPO,"Valley National Bancorp 5.50% Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series B"
+STRL,"Sterling Infrastructure, Inc. Common Stock"
 REG,Regency Centers Corporation Common Stock
+VLYPO,"Valley National Bancorp 5.50% Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series B"
+TRMB,Trimble Inc. Common Stock
+CHKP,Check Point Software Technologies Ltd. Ordinary Shares
 COO,"The Cooper Companies, Inc. Common Stock"
 FIVE,"Five Below, Inc. Common Stock"
-EXEL,"Exelixis, Inc. Common Stock"
 SEIC,SEI Investments Company Common Stock
 HAS,"Hasbro, Inc. Common Stock"
-QNT,Quantinuum Inc. Class A Common Stock
 LULU,lululemon athletica inc. Common Stock
 COKE,"Coca-Cola Consolidated, Inc. Common Stock"
-MANH,"Manhattan Associates, Inc. Common Stock"
-CSGP,"CoStar Group, Inc. Common Stock"
-TXRH,"Texas Roadhouse, Inc. Common Stock"
-AGNC,AGNC Investment Corp. Common Stock
-DOCU,"DocuSign, Inc. Common Stock"
-ICLR,ICON plc Ordinary Shares
 BMRN,BioMarin Pharmaceutical Inc. Common Stock
-CHYM,"Chime Financial, Inc. Class A Common Stock"
-TTMI,"TTM Technologies, Inc. Common Stock"
+CSGP,"CoStar Group, Inc. Common Stock"
+MANH,"Manhattan Associates, Inc. Common Stock"
 MDGL,"Madrigal Pharmaceuticals, Inc. Common Stock"
+QNT,Quantinuum Inc. Class A Common Stock
+AGNC,AGNC Investment Corp. Common Stock
+TXRH,"Texas Roadhouse, Inc. Common Stock"
 NXT,Nextpower Inc. Common Stock
+CHYM,"Chime Financial, Inc. Class A Common Stock"
 SMTC,Semtech Corporation Common Stock
-FROG,JFrog Ltd. Ordinary Shares
-CORT,Corcept Therapeutics Incorporated Common Stock
-PSKY,Paramount Skydance Corporation Class B Common Stock
-GLPI,"Gaming and Leisure Properties, Inc. Common Stock"
+DOCU,"DocuSign, Inc. Common Stock"
 HALO,"Halozyme Therapeutics, Inc. Common Stock"
+ICLR,ICON plc Ordinary Shares
+GLPI,"Gaming and Leisure Properties, Inc. Common Stock"
+PSKY,Paramount Skydance Corporation Class B Common Stock
 DKNG,DraftKings Inc. Class A Common Stock
-JKHY,"Jack Henry & Associates, Inc. Common Stock"
+TTMI,"TTM Technologies, Inc. Common Stock"
+CORT,Corcept Therapeutics Incorporated Common Stock
 ERIE,Erie Indemnity Company Class A Common Stock
-AMKR,"Amkor Technology, Inc. Common Stock"
-CART,Maplebear Inc. Common Stock
-SAIL,"SailPoint, Inc. Common Stock"
-ARWR,"Arrowhead Pharmaceuticals, Inc. Common Stock"
 BTSG,"BrightSpring Health Services, Inc. Common Stock"
-TEM,"Tempus AI, Inc. Class A Common Stock"
-ALGN,"Align Technology, Inc. Common Stock"
-TECH,Bio-Techne Corp Common Stock
-DPZ,Domino's Pizza Inc Common Stock
+CART,Maplebear Inc. Common Stock
+ARWR,"Arrowhead Pharmaceuticals, Inc. Common Stock"
+AMKR,"Amkor Technology, Inc. Common Stock"
+JKHY,"Jack Henry & Associates, Inc. Common Stock"
 AUR,"Aurora Innovation, Inc. Class A Common Stock"
-FRHC,Freedom Holding Corp. Common Stock
-BSY,"Bentley Systems, Incorporated Class B Common Stock"
-AEIS,"Advanced Energy Industries, Inc. Common Stock"
-NVMI,Nova Ltd. Ordinary Shares
-LI,Li Auto Inc. American Depositary Shares
-ENLT,Enlight Renewable Energy Ltd. Ordinary Shares
 SMMT,Summit Therapeutics Inc. Common Stock 
-UMBF,UMB Financial Corporation Common Stock
-BPOP,"Popular, Inc. Common Stock"
-KRYS,"Krystal Biotech, Inc. Common Stock"
-GSAT,"Globalstar, Inc. Common Stock"
-SANM,Sanmina Corporation Common Stock
-LFUS,"Littelfuse, Inc. Common Stock"
+DPZ,Domino's Pizza Inc Common Stock
+TECH,Bio-Techne Corp Common Stock
+FROG,JFrog Ltd. Ordinary Shares
+ALGN,"Align Technology, Inc. Common Stock"
+TEM,"Tempus AI, Inc. Class A Common Stock"
+NVMI,Nova Ltd. Ordinary Shares
 AXSM,"Axsome Therapeutics, Inc. Common Stock"
-PODD,Insulet Corporation Common Stock
-CGNX,Cognex Corporation Common Stock
-PAYP,PayPay Corporation American Depository Shares
-APGE,"Apogee Therapeutics, Inc. Common Stock"
-RGEN,Repligen Corporation Common Stock
-WTFC,Wintrust Financial Corporation Common Stock
-DRS,"Leonardo DRS, Inc. Common Stock"
+KRYS,"Krystal Biotech, Inc. Common Stock"
+FRHC,Freedom Holding Corp. Common Stock
+BPOP,"Popular, Inc. Common Stock"
+LI,Li Auto Inc. American Depositary Shares
 SWKS,"Skyworks Solutions, Inc. Common Stock"
-SOLS,Solstice Advanced Materials Inc. Common Stock 
-ENSG,"The Ensign Group, Inc. Common Stock"
+UMBF,UMB Financial Corporation Common Stock
+AEIS,"Advanced Energy Industries, Inc. Common Stock"
+ENLT,Enlight Renewable Energy Ltd. Ordinary Shares
+BSY,"Bentley Systems, Incorporated Class B Common Stock"
+PAYP,PayPay Corporation American Depository Shares
+GSAT,"Globalstar, Inc. Common Stock"
+SAIL,"SailPoint, Inc. Common Stock"
+LFUS,"Littelfuse, Inc. Common Stock"
+XP,XP Inc. Class A Common Stock
+WTFC,Wintrust Financial Corporation Common Stock
+PODD,Insulet Corporation Common Stock
+APGE,"Apogee Therapeutics, Inc. Common Stock"
 IONS,"Ionis Pharmaceuticals, Inc. Common Stock"
 HSIC,"Henry Schein, Inc. Common Stock"
+CGNX,Cognex Corporation Common Stock
+ENSG,"The Ensign Group, Inc. Common Stock"
+SIRI,SiriusXM Holdings Inc. Common Stock
+SANM,Sanmina Corporation Common Stock
+PRAX,"Praxis Precision Medicines, Inc. Common Stock"
+ZION,Zions Bancorporation N.A. Common Stock
+DRS,"Leonardo DRS, Inc. Common Stock"
+HUT,Hut 8 Corp. Common Stock
 KYMR,"Kymera Therapeutics, Inc. Common Stock"
 CYTK,"Cytokinetics, Incorporated Common Stock"
 ONB,Old National Bancorp Common Stock
-PRAX,"Praxis Precision Medicines, Inc. Common Stock"
-ZION,Zions Bancorporation N.A. Common Stock
-HUT,Hut 8 Corp. Common Stock
+RGEN,Repligen Corporation Common Stock
+MTCH,"Match Group, Inc. Common Stock"
+SOLS,Solstice Advanced Materials Inc. Common Stock 
 ABVX,Abivax SA American Depositary Shares
-GLXY,Galaxy Digital Inc. Class A Common Stock
-KTOS,"Kratos Defense & Security Solutions, Inc. Common Stock"
+VSAT,"ViaSat, Inc. Common Stock"
+ONBPO,"Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series C Preferred Stock"
+FCFS,"FirstCash Holdings, Inc. Common Stock"
+ONBPP,"Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series A Preferred Stock"
+WYNN,"Wynn Resorts, Limited Common stock"
 PTGX,"Protagonist Therapeutics, Inc. Common Stock"
 LLYVK,"Liberty Live Holdings, Inc. Series C Liberty Live Group Common Stock"
-ONBPO,"Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series C Preferred Stock"
-SIRI,SiriusXM Holdings Inc. Common Stock
-ONBPP,"Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series A Preferred Stock"
-SAIA,"Saia, Inc. Common Stock"
-XP,XP Inc. Class A Common Stock
-RMBS,Rambus Inc. Common Stock
-WYNN,"Wynn Resorts, Limited Common stock"
-TTAN,"ServiceTitan, Inc. Class A Common Stock"
-MTCH,"Match Group, Inc. Common Stock"
-FCFS,"FirstCash Holdings, Inc. Common Stock"
-VSAT,"ViaSat, Inc. Common Stock"
+GLXY,Galaxy Digital Inc. Class A Common Stock
 TTEK,"Tetra Tech, Inc. Common Stock"
-TWST,Twist Bioscience Corporation Common Stock
-LLYVA,"Liberty Live Holdings, Inc. Series A Liberty Live Group Common Stock"
-AAOI,"Applied Optoelectronics, Inc. Common Stock"
 PCVX,"Vaxcyte, Inc. Common Stock"
-CRNX,"Crinetics Pharmaceuticals, Inc. Common Stock"
+RMBS,Rambus Inc. Common Stock
+LLYVA,"Liberty Live Holdings, Inc. Series A Liberty Live Group Common Stock"
+KTOS,"Kratos Defense & Security Solutions, Inc. Common Stock"
 SATA,"Strive, Inc. Variable Rate Series A Perpetual Preferred Stock"
-VIAV,Viavi Solutions Inc. Common Stock
-LINE,"Lineage, Inc. Common Stock"
-AAL,American Airlines Group Inc. Common Stock
 BRKR,Bruker Corporation Common Stock
-VICR,Vicor Corporation Common Stock
-IDCC,"InterDigital, Inc. Common Stock"
-SFD,"Smithfield Foods, Inc. Common Stock"
-PCTY,Paylocity Holding Corporation Common Stock
 QRVO,"Qorvo, Inc. Common Stock"
-IMVT,"Immunovant, Inc. Common Stock"
-IBRX,"ImmunityBio, Inc. Common Stock"
-COLB,"Columbia Banking System, Inc. Common Stock"
-SIMO,Silicon Motion Technology Corporation American Depositary Shares
+SAIA,"Saia, Inc. Common Stock"
+SFD,"Smithfield Foods, Inc. Common Stock"
+LINE,"Lineage, Inc. Common Stock"
 TGTX,"TG Therapeutics, Inc. Common Stock"
-APPF,"AppFolio, Inc. Class A Common Stock"
+TTAN,"ServiceTitan, Inc. Class A Common Stock"
+AAOI,"Applied Optoelectronics, Inc. Common Stock"
+AAL,American Airlines Group Inc. Common Stock
+TWST,Twist Bioscience Corporation Common Stock
+COLB,"Columbia Banking System, Inc. Common Stock"
+VIAV,Viavi Solutions Inc. Common Stock
+IDCC,"InterDigital, Inc. Common Stock"
+GTLB,GitLab Inc. Class A Common Stock
+IBRX,"ImmunityBio, Inc. Common Stock"
 CBSH,"Commerce Bancshares, Inc. Common Stock"
 BOKF,BOK Financial Corporation Common Stock
+CHRD,Chord Energy Corporation Common Stock
+PCTY,Paylocity Holding Corporation Common Stock
+SIMO,Silicon Motion Technology Corporation American Depositary Shares
+IMVT,"Immunovant, Inc. Common Stock"
+HQY,"HealthEquity, Inc. Common Stock"
+VICR,Vicor Corporation Common Stock
 SNEX,StoneX Group Inc. Common Stock
-FIGR,"Figure Technology Solutions, Inc. Class A Common Stock"
+BZ,KANZHUN LIMITED American Depository Shares
+TXG,"10x Genomics, Inc. Class A Common Stock"
+ALKS,Alkermes plc Ordinary Shares
+APPF,"AppFolio, Inc. Class A Common Stock"
+ZG,"Zillow Group, Inc. Class A Common Stock"
 TPGXL,"TPG Operating Group II, L.P. 6.950% Fixed-Rate Junior Subordinated Notes due 2064"
 MORN,"Morningstar, Inc. Common Stock"
-TXG,"10x Genomics, Inc. Class A Common Stock"
-ZG,"Zillow Group, Inc. Class A Common Stock"
-CHRD,Chord Energy Corporation Common Stock
-BZ,KANZHUN LIMITED American Depository Shares
-HQY,"HealthEquity, Inc. Common Stock"
+MAAS,Maase Inc. Class A Ordinary Shares
 CELH,"Celsius Holdings, Inc. Common Stock"
 DBX,"Dropbox, Inc. Class A Common Stock"
-ALKS,Alkermes plc Ordinary Shares
-SYRE,"Spyre Therapeutics, Inc. Common Stock"
 Z,"Zillow Group, Inc. Class C Capital Stock"
-GTLB,GitLab Inc. Class A Common Stock
-FORM,"FormFactor, Inc. FormFactor, Inc. Common Stock"
-CAE,CAE Inc. Common Shares
 CBC,"Central Bancompany, Inc. Class A Common Stock"
+SYRE,"Spyre Therapeutics, Inc. Common Stock"
 SSRM,SSR Mining Inc. Common Stock
-SFM,"Sprouts Farmers Market, Inc. Common Stock"
-WULF,TeraWulf Inc. Common Stock
-AVAV,"AeroVironment, Inc. Common Stock"
 VLY,Valley National Bancorp Common Stock
-XE,"X-Energy, Inc. Class A Common Stock"
+CAE,CAE Inc. Common Shares
+FORM,"FormFactor, Inc. FormFactor, Inc. Common Stock"
+WULF,TeraWulf Inc. Common Stock
 PPC,Pilgrim's Pride Corporation Common Stock
-APLD,Applied Digital Corporation Common Stock
-NAVN,"Navan, Inc. Class A Common Stock"
-VFS,VinFast Auto Ltd. Ordinary Shares
+FIGR,"Figure Technology Solutions, Inc. Class A Common Stock"
+AVAV,"AeroVironment, Inc. Common Stock"
 AVT,"Avnet, Inc. Common Stock"
+SFM,"Sprouts Farmers Market, Inc. Common Stock"
 SLAB,"Silicon Laboratories, Inc. Common Stock"
-RYTM,"Rhythm Pharmaceuticals, Inc. Common Stock"
-VCTR,"Victory Capital Holdings, Inc. Class A Common Stock"
+DUOL,"Duolingo, Inc. Class A Common Stock"
+XE,"X-Energy, Inc. Class A Common Stock"
+VFS,VinFast Auto Ltd. Ordinary Shares
 MBLY,Mobileye Global Inc. Class A Common Stock
-MAAS,Maase Inc. Class A Ordinary Shares
-CAI,"Caris Life Sciences, Inc. Common Stock"
-RIOT,"Riot Platforms, Inc. Common Stock "
-CPB,The Campbell's Company Common Stock
+APLD,Applied Digital Corporation Common Stock
 GGAL,Grupo Financiero Galicia S.A. American Depositary Shares
+RYTM,"Rhythm Pharmaceuticals, Inc. Common Stock"
+CPB,The Campbell's Company Common Stock
 WFRD,Weatherford International plc Ordinary Shares
 AUGO,Aura Minerals Inc. Common Shares
-DUOL,"Duolingo, Inc. Class A Common Stock"
+RIOT,"Riot Platforms, Inc. Common Stock "
+CAI,"Caris Life Sciences, Inc. Common Stock"
+VCTR,"Victory Capital Holdings, Inc. Class A Common Stock"
+NAVN,"Navan, Inc. Class A Common Stock"
 SRRK,Scholar Rock Holding Corporation Common Stock
-DSGX,Descartes Systems Group Inc. (The) Common Stock
-URBN,"Urban Outfitters, Inc. Common Stock"
-DOX,Amdocs Limited Ordinary Shares
-POOL,Pool Corporation Common Stock
-ALGM,"Allegro MicroSystems, Inc. Common Stock"
-BILI,Bilibili Inc. American Depositary Shares
-CGON,"CG Oncology, Inc. Common stock"
-ACT,"Enact Holdings, Inc. Common Stock"
-LNTH,"Lantheus Holdings, Inc. Common Stock"
-POWL,"Powell Industries, Inc. Common Stock"
-NICE,NICE Ltd American Depositary Shares
-ACGLO,"Arch Capital Group Ltd. Depositary Shares Each Representing 1/1,000th Interest in a Share of 5.45% Non-Cumulative Preferred Shares, Series F"
 TTD,"The Trade Desk, Inc. Class A Common Stock"
-QLYS,"Qualys, Inc. Common Stock"
-CIFR,Cipher Digital Inc. Common Stock
-UBSI,"United Bankshares, Inc. Common Stock"
-LYFT,"Lyft, Inc. Class A Common Stock"
-PLXS,Plexus Corp. Common Stock
-GDS,GDS Holdings Limited ADS
-MIRM,"Mirum Pharmaceuticals, Inc. Common Stock"
-QBTS,D-Wave Quantum Inc. Common Stock
-LKQ,LKQ Corporation Common Stock
-STEP,StepStone Group Inc. Class A Common Stock
-BLTE,"Belite Bio, Inc American Depositary Shares"
-AAON,"AAON, Inc. Common Stock"
-GLBE,Global-E Online Ltd. Ordinary Shares
-ERAS,"Erasca, Inc. Common Stock"
-TVTX,"Travere Therapeutics, Inc. Common Stock"
-OTEX,Open Text Corporation Common Shares
-CAMT,Camtek Ltd. Ordinary Shares
-CACC,Credit Acceptance Corporation Common Stock
-NTSK,"Netskope, Inc. Class A Common Stock"
-KNSA,"Kiniksa Pharmaceuticals International, plc Class A Ordinary Shares"
-ORKA,"Oruka Therapeutics, Inc. Common Stock"
-LSTR,"Landstar System, Inc. Common Stock"
-LQDA,Liquidia Corporation Common Stock
-CHDN,"Churchill Downs, Incorporated Common Stock"
-ROAD,"Construction Partners, Inc. Class A Common Stock"
-FSV,FirstService Corporation Common Shares
-AMRX,"Amneal Pharmaceuticals, Inc. Class A Common Stock"
-COGT,"Cogent Biosciences, Inc. Common Stock"
-PEGA,Pegasystems Inc. Common Stock
-CZR,"Caesars Entertainment, Inc. Common Stock"
-RUSHB,"Rush Enterprises, Inc. Class B"
-IESC,"IES Holdings, Inc. Common Stock"
-HLNE,Hamilton Lane Incorporated Class A Common Stock
-RUSHA,"Rush Enterprises, Inc. Common Stock Cl A"
-HWC,Hancock Whitney Corporation Common Stock
-RDNT,"RadNet, Inc. Common Stock"
-DNTH,"Dianthus Therapeutics, Inc. Common Stock"
-RRR,"Red Rock Resorts, Inc. Class A Common Stock"
-CWST,"Casella Waste Systems, Inc. Class A Common Stock"
-VSEC,VSE Corporation Common Stock
-XENE,Xenon Pharmaceuticals Inc. Common Shares
-PTCT,"PTC Therapeutics, Inc. Common Stock"
-LGN,Legence Corp. Class A Common stock
-CGABL,The Carlyle Group Inc. 4.625% Subordinated Notes due 2061
-EXLS,"ExlService Holdings, Inc. Common Stock"
-CROX,"Crocs, Inc. Common Stock"
-MKTX,"MarketAxess Holdings, Inc. Common Stock"
-BGC,"BGC Group, Inc. Class A Common Stock"
-VSNT,"Versant Media Group, Inc. Class A Common Stock "
+DOX,Amdocs Limited Ordinary Shares
+URBN,"Urban Outfitters, Inc. Common Stock"
+DSGX,Descartes Systems Group Inc. (The) Common Stock
+ACT,"Enact Holdings, Inc. Common Stock"
+POOL,Pool Corporation Common Stock
+CGON,"CG Oncology, Inc. Common stock"
 MMED,"MiniMed Group, Inc. Common Stock"
-CVLT,"Commvault Systems, Inc. Common Stock"
+LNTH,"Lantheus Holdings, Inc. Common Stock"
+ALGM,"Allegro MicroSystems, Inc. Common Stock"
+LYFT,"Lyft, Inc. Class A Common Stock"
+MIRM,"Mirum Pharmaceuticals, Inc. Common Stock"
+ACGLO,"Arch Capital Group Ltd. Depositary Shares Each Representing 1/1,000th Interest in a Share of 5.45% Non-Cumulative Preferred Shares, Series F"
+GLBE,Global-E Online Ltd. Ordinary Shares
+BLTE,"Belite Bio, Inc American Depositary Shares"
+UBSI,"United Bankshares, Inc. Common Stock"
+BILI,Bilibili Inc. American Depositary Shares
+PLXS,Plexus Corp. Common Stock
+AMRX,"Amneal Pharmaceuticals, Inc. Class A Common Stock"
+NICE,NICE Ltd American Depositary Shares
+LKQ,LKQ Corporation Common Stock
+CIFR,Cipher Digital Inc. Common Stock
+TVTX,"Travere Therapeutics, Inc. Common Stock"
+CACC,Credit Acceptance Corporation Common Stock
+CHDN,"Churchill Downs, Incorporated Common Stock"
+LQDA,Liquidia Corporation Common Stock
+POWL,"Powell Industries, Inc. Common Stock"
+KNSA,"Kiniksa Pharmaceuticals International, plc Class A Ordinary Shares"
+GDS,GDS Holdings Limited ADS
+AAON,"AAON, Inc. Common Stock"
+CAMT,Camtek Ltd. Ordinary Shares
+QBTS,D-Wave Quantum Inc. Common Stock
+PEGA,Pegasystems Inc. Common Stock
+ORKA,"Oruka Therapeutics, Inc. Common Stock"
+STEP,StepStone Group Inc. Class A Common Stock
+CZR,"Caesars Entertainment, Inc. Common Stock"
+IESC,"IES Holdings, Inc. Common Stock"
+RRR,"Red Rock Resorts, Inc. Class A Common Stock"
+HWC,Hancock Whitney Corporation Common Stock
+CWST,"Casella Waste Systems, Inc. Class A Common Stock"
+RDNT,"RadNet, Inc. Common Stock"
+FSV,FirstService Corporation Common Shares
+COGT,"Cogent Biosciences, Inc. Common Stock"
+PTCT,"PTC Therapeutics, Inc. Common Stock"
+QLYS,"Qualys, Inc. Common Stock"
+DNTH,"Dianthus Therapeutics, Inc. Common Stock"
+LSTR,"Landstar System, Inc. Common Stock"
+OTEX,Open Text Corporation Common Shares
+XENE,Xenon Pharmaceuticals Inc. Common Shares
+VSNT,"Versant Media Group, Inc. Class A Common Stock "
+ROAD,"Construction Partners, Inc. Class A Common Stock"
+CGABL,The Carlyle Group Inc. 4.625% Subordinated Notes due 2061
+RUSHB,"Rush Enterprises, Inc. Class B"
 LGND,Ligand Pharmaceuticals Incorporated Common Stock
+HLNE,Hamilton Lane Incorporated Class A Common Stock
+ERAS,"Erasca, Inc. Common Stock"
+MKTX,"MarketAxess Holdings, Inc. Common Stock"
+RUSHA,"Rush Enterprises, Inc. Common Stock Cl A"
 RELY,"Remitly Global, Inc. Common Stock"
-NXST,"Nexstar Media Group, Inc. Common Stock"
-BCPC,Balchem Corporation Common Stock
+CRUS,"Cirrus Logic, Inc. Common Stock"
+BGC,"BGC Group, Inc. Class A Common Stock"
 PAGP,"Plains GP Holdings, L.P. Class A Units representing Limited Partner Interests"
 FTDR,"Frontdoor, Inc. Common Stock"
+NTSK,"Netskope, Inc. Class A Common Stock"
+CROX,"Crocs, Inc. Common Stock"
+EXLS,"ExlService Holdings, Inc. Common Stock"
 OZK,Bank OZK Common Stock
-NOVT,Novanta Inc. Common Stock
-CRSP,CRISPR Therapeutics AG Common Shares
-CRUS,"Cirrus Logic, Inc. Common Stock"
-MMYT,MakeMyTrip Limited Ordinary Shares
-CAKE,Cheesecake Factory Incorporated (The) Common Stock
+BCPC,Balchem Corporation Common Stock
+LGN,Legence Corp. Class A Common stock
+VSEC,VSE Corporation Common Stock
+FRVO,Fervo Energy Company Class A common stock
 SIGI,"Selective Insurance Group, Inc. Common Stock"
+CRSP,CRISPR Therapeutics AG Common Shares
+NOVT,Novanta Inc. Common Stock
+NXST,"Nexstar Media Group, Inc. Common Stock"
+CAKE,Cheesecake Factory Incorporated (The) Common Stock
 MXL,"MaxLinear, Inc. Common Stock"
-SAIC,Science Applications International Corporation Common Stock
-MMSI,"Merit Medical Systems, Inc. Common Stock"
-ACGLN,"Arch Capital Group Ltd. Depositary Shares, each Representing a 1/1,000th Interest in a 4.550% Non-Cumulative Preferred Share, Series G"
 SHC,Sotera Health Company Common Stock
-ACIW,"ACI Worldwide, Inc. Common Stock"
-MRX,Marex Group Limited Ordinary Shares
-OCTV,Octave Intelligence plc Class B Ordinary Shares
-DFTX,"Definium Therapeutics, Inc. Common Shares"
-PI,"Impinj, Inc. Common Stock"
-XMTR,"Xometry, Inc. Class A Common Stock"
+CVLT,"Commvault Systems, Inc. Common Stock"
+MMYT,MakeMyTrip Limited Ordinary Shares
+MMSI,"Merit Medical Systems, Inc. Common Stock"
+VRNS,"Varonis Systems, Inc. Common Stock"
+SAIC,Science Applications International Corporation Common Stock
 GRFS,"Grifols, S.A. American Depositary Shares"
-MRCY,Mercury Systems Inc Common Stock
-PSMT,"PriceSmart, Inc. Common Stock"
-CORZ,"Core Scientific, Inc. Common Stock"
 GLNG,Golar Lng Ltd
-RGTI,"Rigetti Computing, Inc. Common Stock"
-CORZZ,"Core Scientific, Inc. Tranche 2 Warrants"
-CAR,"Avis Budget Group, Inc. Common Stock"
+CORZ,"Core Scientific, Inc. Common Stock"
+PI,"Impinj, Inc. Common Stock"
+ACGLN,"Arch Capital Group Ltd. Depositary Shares, each Representing a 1/1,000th Interest in a 4.550% Non-Cumulative Preferred Share, Series G"
+PSMT,"PriceSmart, Inc. Common Stock"
 SBRA,"Sabra Health Care REIT, Inc. Common Stock"
+XMTR,"Xometry, Inc. Class A Common Stock"
+MRX,Marex Group Limited Ordinary Shares
+ACIW,"ACI Worldwide, Inc. Common Stock"
+DFTX,"Definium Therapeutics, Inc. Common Shares"
+CORZZ,"Core Scientific, Inc. Tranche 2 Warrants"
+OCTV,Octave Intelligence plc Class B Ordinary Shares
+MIDD,Middleby Corporation (The) Common Stock
+PTEN,"Patterson-UTI Energy, Inc. Common Stock"
+PECO,"Phillips Edison & Company, Inc. Common Stock"
+EBC,"Eastern Bankshares, Inc. Common Stock"
+ACAD,ACADIA Pharmaceuticals Inc. Common Stock
 LAUR,"Laureate Education, Inc. Common Stock"
-MWH,"SOLV Energy, Inc. Class A Common Stock"
+RGTI,"Rigetti Computing, Inc. Common Stock"
+GTX,Garrett Motion Inc. Common Stock
+SLM,SLM Corporation Common Stock
+IRDM,Iridium Communications Inc Common Stock
+WAY,Waystar Holding Corp. Common Stock
 CIGI,Colliers International Group Inc. Subordinate Voting Shares
 ALM,Almonty Industries Inc. Common Shares
-ACMR,"ACM Research, Inc. Class A Common Stock"
-VRNS,"Varonis Systems, Inc. Common Stock"
-GTX,Garrett Motion Inc. Common Stock
-BULL,Webull Corporation Class A Ordinary Shares
-WAY,Waystar Holding Corp. Common Stock
-EBC,"Eastern Bankshares, Inc. Common Stock"
-MIDD,Middleby Corporation (The) Common Stock
-ACAD,ACADIA Pharmaceuticals Inc. Common Stock
-IRDM,Iridium Communications Inc Common Stock
-PECO,"Phillips Edison & Company, Inc. Common Stock"
-TFSL,TFS Financial Corporation Common Stock
-SLM,SLM Corporation Common Stock
-REYN,Reynolds Consumer Products Inc. Common Stock
-IEP,"Icahn Enterprises, L.P. Common Stock"
-PTEN,"Patterson-UTI Energy, Inc. Common Stock"
-ENPH,"Enphase Energy, Inc. Common Stock"
-OMAB,Grupo Aeroportuario del Centro Norte S.A.B. de C.V. ADS
-FFIN,"First Financial Bankshares, Inc. Common Stock"
-ATAT,Atour Lifestyle Holdings Limited American Depositary Shares
-PBLS,"Parabilis Medicines, Inc. Common Stock"
-DYN,"Dyne Therapeutics, Inc. Common Stock"
+MRCY,Mercury Systems Inc Common Stock
+CAR,"Avis Budget Group, Inc. Common Stock"
 LFST,"LifeStance Health Group, Inc. Common Stock"
+MWH,"SOLV Energy, Inc. Class A Common Stock"
+TFSL,TFS Financial Corporation Common Stock
+IEP,"Icahn Enterprises, L.P. Common Stock"
+OMAB,Grupo Aeroportuario del Centro Norte S.A.B. de C.V. ADS
+PBLS,"Parabilis Medicines, Inc. Common Stock"
+ACMR,"ACM Research, Inc. Class A Common Stock"
 GNTX,Gentex Corporation Common Stock
-UFPI,"UFP Industries, Inc. Common Stock"
-DHCNL,Diversified Healthcare Trust 6.25% Senior Notes Due 2046
-NSIT,"Insight Enterprises, Inc. Common Stock"
-CHEF,"The Chefs' Warehouse, Inc. Common Stock"
-DAVE,Dave Inc. Class A Common Stock
-DOO,BRP Inc. Common Subordinate Voting Shares
+ATAT,Atour Lifestyle Holdings Limited American Depositary Shares
+FFIN,"First Financial Bankshares, Inc. Common Stock"
+BULL,Webull Corporation Class A Ordinary Shares
+REYN,Reynolds Consumer Products Inc. Common Stock
+ENPH,"Enphase Energy, Inc. Common Stock"
+CLMT,"Calumet, Inc. Common Stock"
 MEOH,Methanex Corporation Common Stock
-OLLI,"Ollie's Bargain Outlet Holdings, Inc. Common Stock"
-MYRG,"MYR Group, Inc. Common Stock"
-EWTX,"Edgewise Therapeutics, Inc. Common Stock"
-FRVO,Fervo Energy Company Class A common stock
 CENX,Century Aluminum Company Common Stock
+DYN,"Dyne Therapeutics, Inc. Common Stock"
+DAVE,Dave Inc. Class A Common Stock
+CELC,Celcuity Inc. Common Stock
+CHEF,"The Chefs' Warehouse, Inc. Common Stock"
+DOO,BRP Inc. Common Subordinate Voting Shares
+DHCNL,Diversified Healthcare Trust 6.25% Senior Notes Due 2046
+UFPI,"UFP Industries, Inc. Common Stock"
+DLO,DLocal Limited Class A Common Shares
+LIVN,LivaNova PLC Ordinary Shares
+BLLN,"BillionToOne, Inc. Class A Common Stock"
 FULT,Fulton Financial Corporation Common Stock
-DHCNI,Diversified Healthcare Trust 5.625% Senior Notes due 2042
+EWTX,"Edgewise Therapeutics, Inc. Common Stock"
+NSIT,"Insight Enterprises, Inc. Common Stock"
+VEON,VEON Ltd. ADS
 EQPT,EquipmentShare.com Inc Class A Common Stock
 RUM,RUM Group Inc. Class A Common Stock
-FELE,"Franklin Electric Co., Inc. Common Stock"
-LIVN,LivaNova PLC Ordinary Shares
-CCC,CCC Intelligent Solutions Holdings Inc. Common Stock
-HTFL,"Heartflow, Inc. Common Stock"
-DLO,DLocal Limited Class A Common Shares
-CLMT,"Calumet, Inc. Common Stock"
-ONDS,Ondas Inc. Common Stock
+DHCNI,Diversified Healthcare Trust 5.625% Senior Notes due 2042
+OLLI,"Ollie's Bargain Outlet Holdings, Inc. Common Stock"
 IBOC,International Bancshares Corporation Common Stock
-USAR,"USA Rare Earth, Inc. Class A Common Stock"
-INDV,"Indivior Pharmaceuticals, Inc. Common Stock"
-CELC,Celcuity Inc. Common Stock
+GMAB,Genmab A/S ADS
+MYRG,"MYR Group, Inc. Common Stock"
+AMLX,"Amylyx Pharmaceuticals, Inc. Common Stock"
+HTFL,"Heartflow, Inc. Common Stock"
 OXLCM,"Oxford Lane Capital Corp. Preferred Stock Shares, 8.25% Series 2031"
-MNDY,monday.com Ltd. Ordinary Shares
+USAR,"USA Rare Earth, Inc. Class A Common Stock"
+NWE,"NorthWestern Energy Group, Inc. Common Stock"
 OXLCZ,Oxford Lane Capital Corp. 5.00% Notes due 2027
-ICUI,"ICU Medical, Inc. Common Stock"
-BWIN,"The Baldwin Insurance Group, Inc. Class A Common Stock"
+ELVN,"Enliven Therapeutics, Inc. Common Stock"
+ONDS,Ondas Inc. Common Stock
+FELE,"Franklin Electric Co., Inc. Common Stock"
 CVCO,"Cavco Industries, Inc. Common Stock When Issued"
+BWIN,"The Baldwin Insurance Group, Inc. Class A Common Stock"
+OXLCN,Oxford Lane Capital Corp. 7.125% Series 2029 Term Preferred Stock
 REGCP,Regency Centers Corporation 6.25% Series A Cumulative Redeemable Preferred Stock
 LBTYB,Liberty Global Ltd. Class B Common Shares
-BLLN,"BillionToOne, Inc. Class A Common Stock"
-MAT,"Mattel, Inc. Common Stock"
-OXLCN,Oxford Lane Capital Corp. 7.125% Series 2029 Term Preferred Stock
-VEON,VEON Ltd. ADS
-GMAB,Genmab A/S ADS
-NWE,"NorthWestern Energy Group, Inc. Common Stock"
-ITRI,"Itron, Inc. Common Stock"
-ELVN,"Enliven Therapeutics, Inc. Common Stock"
-AMLX,"Amylyx Pharmaceuticals, Inc. Common Stock"
 OXLCL,Oxford Lane Capital Corp. 6.75% Notes due 2031
+ICUI,"ICU Medical, Inc. Common Stock"
+CCC,CCC Intelligent Solutions Holdings Inc. Common Stock
 TCBI,"Texas Capital Bancshares, Inc. Common Stock"
-TENB,"Tenable Holdings, Inc. Common Stock"
-KLIC,"Kulicke and Soffa Industries, Inc. Common Stock"
-DIOD,Diodes Incorporated Common Stock
-BRZE,"Braze, Inc. Class A Common Stock"
+ITRI,"Itron, Inc. Common Stock"
 CECO,CECO Environmental Corp. Common Stock
-OXLCO,"Oxford Lane Capital Corp. Preferred Stock Shares, 6.00% Series 2029"
-MARA,"MARA Holdings, Inc. Common Stock"
-LILAP,Liberty Latin America Ltd. 9.0% Fixed Rate Cumulative Perpetual Redeemable Series A Preference Shares
-CATY,Cathay General Bancorp Common Stock
-SEZL,Sezzle Inc. Common Stock
-REGCO,Regency Centers Corporation 5.875% Series B Cumulative Redeemable Preferred Stock
 LEGN,Legend Biotech Corporation American Depositary Shares
-RLAY,"Relay Therapeutics, Inc. Common Stock"
+MAT,"Mattel, Inc. Common Stock"
+OXLCO,"Oxford Lane Capital Corp. Preferred Stock Shares, 6.00% Series 2029"
+INDV,"Indivior Pharmaceuticals, Inc. Common Stock"
+CATY,Cathay General Bancorp Common Stock
+DIOD,Diodes Incorporated Common Stock
+KLIC,"Kulicke and Soffa Industries, Inc. Common Stock"
+LILAP,Liberty Latin America Ltd. 9.0% Fixed Rate Cumulative Perpetual Redeemable Series A Preference Shares
+SEZL,Sezzle Inc. Common Stock
 AYA,Aya Gold & Silver Inc. Common Shares
-ADPT,Adaptive Biotechnologies Corporation Common Stock
-AXTI,AXT Inc Common Stock
-WSFS,WSFS Financial Corporation Common Stock
-IRTC,"iRhythm Holdings, Inc. Common Stock"
-CVBF,CVB Financial Corporation Common Stock
+MNDY,monday.com Ltd. Ordinary Shares
+RLAY,"Relay Therapeutics, Inc. Common Stock"
+BRZE,"Braze, Inc. Class A Common Stock"
 SRAD,Sportradar Group AG Class A Ordinary Shares
-IDYA,"IDEAYA Biosciences, Inc. Common Stock"
+IRTC,"iRhythm Holdings, Inc. Common Stock"
+WSFS,WSFS Financial Corporation Common Stock
+MARA,"MARA Holdings, Inc. Common Stock"
+REGCO,Regency Centers Corporation 5.875% Series B Cumulative Redeemable Preferred Stock
+ADPT,Adaptive Biotechnologies Corporation Common Stock
 LOPE,"Grand Canyon Education, Inc. Common Stock"
-JOYY,JOYY Inc. American Depositary Shares
-TNGX,"Tango Therapeutics, Inc."
-INDB,Independent Bank Corp. Common Stock
-WSBC,"WesBanco, Inc. Common Stock"
+CVBF,CVB Financial Corporation Common Stock
 VKTX,"Viking Therapeutics, Inc. Common Stock"
-DORM,"Dorman Products, Inc. Common Stock"
-OLED,Universal Display Corporation Common Stock
-OTTR,Otter Tail Corporation Common Stock
-DNLI,Denali Therapeutics Inc. Common Stock
-SYNA,Synaptics Incorporated Common Stock $0.001 Par Value
-IPAR,"Interparfums, Inc. Common Stock"
+WSBC,"WesBanco, Inc. Common Stock"
 TLX,Telix Pharmaceuticals Limited American Depositary Shares
-WSC,WillScot Holdings Corporation Class A Common Stock
-CALM,"Cal-Maine Foods, Inc. Common Stock"
 IOVA,"Iovance Biotherapeutics, Inc. Common Stock"
+IDYA,"IDEAYA Biosciences, Inc. Common Stock"
+INDB,Independent Bank Corp. Common Stock
+JOYY,JOYY Inc. American Depositary Shares
+OLED,Universal Display Corporation Common Stock
+DORM,"Dorman Products, Inc. Common Stock"
+TENB,"Tenable Holdings, Inc. Common Stock"
+TNGX,"Tango Therapeutics, Inc."
+SYNA,Synaptics Incorporated Common Stock $0.001 Par Value
+PLSE,"Pulse Biosciences, Inc Common Stock (DE)"
+AXTI,AXT Inc Common Stock
+IPAR,"Interparfums, Inc. Common Stock"
+BANF,BancFirst Corporation Common Stock
+OTTR,Otter Tail Corporation Common Stock
+CALM,"Cal-Maine Foods, Inc. Common Stock"
+SKYW,"SkyWest, Inc. Common Stock"
+LBTYA,Liberty Global Ltd. Class A Common Shares
+DNLI,Denali Therapeutics Inc. Common Stock
+GRAL,"GRAIL, Inc. Common Stock "
 WIX,Wix.com Ltd. Ordinary Shares
 PTRN,Pattern Group Inc. Series A Common Stock
-SKYW,"SkyWest, Inc. Common Stock"
-BANF,BancFirst Corporation Common Stock
-LBTYA,Liberty Global Ltd. Class A Common Shares
-FRSH,Freshworks Inc. Class A Common Stock
-FSLY,"Fastly, Inc. Class A Common Stock"
-FA,First Advantage Corporation Common Stock
-BELFB,Bel Fuse Inc. Class B Common Stock
-PLSE,"Pulse Biosciences, Inc Common Stock (DE)"
 LBTYK,Liberty Global Ltd. Class C Common Shares
-ACLS,"Axcelis Technologies, Inc. Common Stock"
-GRAL,"GRAIL, Inc. Common Stock "
-NESR,National Energy Services Reunited Corp Ordinary Shares
-FLY,Firefly Aerospace Inc. Common Stock
 BATRA,"Atlanta Braves Holdings, Inc. Series A Common Stock"
-LUNR,"Intuitive Machines, Inc. Class A Common Stock"
+VCYT,"Veracyte, Inc. Common Stock"
+MGNI,"Magnite, Inc. Common Stock"
 OPCH,"Option Care Health, Inc. Common Stock"
+WSC,WillScot Holdings Corporation Class A Common Stock
+SBLK,Star Bulk Carriers Corp. Common Shares
+FLY,Firefly Aerospace Inc. Common Stock
+CRVL,CorVel Corp. Common Stock
 FIBK,"First Interstate BancSystem, Inc. Common Stock (DE)"
+TARS,"Tarsus Pharmaceuticals, Inc. Common Stock"
+NESR,National Energy Services Reunited Corp Ordinary Shares
 LIF,"Life360, Inc. Common Stock"
 PLMR,"Palomar Holdings, Inc. Common stock"
-CRVL,CorVel Corp. Common Stock
-VCYT,"Veracyte, Inc. Common Stock"
 MCHB,Mechanics Bancorp Class A Common Stock
-NTRSO,"Northern Trust Corporation Depositary Shares Each Representing a 1/1,000th Interest in a Share of Series E Non-Cumulative Perpetual Preferred Stock"
-QS,QuantumScape Corporation Class A Common Stock
-COCO,"The Vita Coco Company, Inc. Common Stock"
-SBLK,Star Bulk Carriers Corp. Common Shares
+BELFB,Bel Fuse Inc. Class B Common Stock
+FRSH,Freshworks Inc. Class A Common Stock
+FA,First Advantage Corporation Common Stock
+ACLS,"Axcelis Technologies, Inc. Common Stock"
 FFBC,First Financial Bancorp. Common Stock
-GBDC,"Golub Capital BDC, Inc. Common Stock"
+LUNR,"Intuitive Machines, Inc. Class A Common Stock"
+FRPT,"Freshpet, Inc. Common Stock"
+TRMD,TORM plc Class A Common Stock
+NTRSO,"Northern Trust Corporation Depositary Shares Each Representing a 1/1,000th Interest in a Share of Series E Non-Cumulative Perpetual Preferred Stock"
 ARLP,"Alliance Resource Partners, L.P. Common Units representing Limited Partners Interests"
+QS,QuantumScape Corporation Class A Common Stock
 FULTP,"Fulton Financial Corporation Depositary Shares, Each Representing a 1/40th Interest in a Share of Fixed Rate Non-Cumulative Perpetual Preferred Stock, Series A"
+COCO,"The Vita Coco Company, Inc. Common Stock"
+NMIH,NMI Holdings Inc. Common Stock
+GBDC,"Golub Capital BDC, Inc. Common Stock"
+EXPO,"Exponent, Inc. Common Stock"
+GPCR,Structure Therapeutics Inc. American Depositary Shares
 USLM,"United States Lime & Minerals, Inc. Common Stock"
 ABCL,AbCellera Biologics Inc. Common Shares
-QURE,uniQure N.V. Ordinary Shares
-EXPO,"Exponent, Inc. Common Stock"
-MGNI,"Magnite, Inc. Common Stock"
-FRPT,"Freshpet, Inc. Common Stock"
-NMIH,NMI Holdings Inc. Common Stock
 CSQ,Calamos Strategic Total Return Common Stock
-TRMD,TORM plc Class A Common Stock
-INTA,"Intapp, Inc. Common Stock"
-OSIS,"OSI Systems, Inc. Common Stock (DE)"
 SBCF,Seacoast Banking Corporation of Florida Common Stock
-AGYS,"Agilysys, Inc. Common Stock (DE)"
-GPCR,Structure Therapeutics Inc. American Depositary Shares
-XNDU,Xanadu Quantum Technologies Limited Class B Subordinate Voting Shares
+OSIS,"OSI Systems, Inc. Common Stock (DE)"
+FSLY,"Fastly, Inc. Class A Common Stock"
 SFNC,Simmons First National Corporation Class A Common Stock
-TARS,"Tarsus Pharmaceuticals, Inc. Common Stock"
-IPGP,IPG Photonics Corporation Common Stock
 IOND,Ionic Digital Inc. Class A Common Stock
-FRMI,Fermi Inc. Common Stock
 BATRK,"Atlanta Braves Holdings, Inc. Series C Common Stock"
-SOUN,"SoundHound AI, Inc Class A Common Stock"
-CARG,"CarGurus, Inc. Class A Common Stock "
-ATRO,Astronics Corporation Common Stock
-SHOO,"Steven Madden, Ltd. Common Stock"
+QURE,uniQure N.V. Ordinary Shares
+IPGP,IPG Photonics Corporation Common Stock
+INTA,"Intapp, Inc. Common Stock"
 LFTO,"Liftoff Mobile, Inc. Common Stock"
 CORZW,"Core Scientific, Inc. Tranche 1 Warrants"
-PPTA,Perpetua Resources Corp. Common Shares
+AGYS,"Agilysys, Inc. Common Stock (DE)"
+PSQL,Pasqal Holding SA Ordinary Share
+VCRE,Vicore Pharma Holding AB American Depositary Shares
+ATRO,Astronics Corporation Common Stock
+RGC,Regencell Bioscience Holdings Limited Ordinary Shares
+KYIV,Kyivstar Group Ltd. Common Shares
 FHB,"First Hawaiian, Inc. Common Stock"
 IMNM,"Immunome, Inc. Common Stock"
-GENVR,Gen Digital Inc. Contingent Value Rights
-CLDX,"Celldex Therapeutics, Inc."
-VCRE,Vicore Pharma Holding AB American Depositary Shares
-OPEN,Opendoor Technologies Inc Common Stock
-KYIV,Kyivstar Group Ltd. Common Shares
-SLNHP,"Soluna Holdings, Inc 9.0% Series A Cumulative Perpetual Preferred Stock "
-ARCB,ArcBest Corporation Common Stock
-APPN,Appian Corporation Class A Common Stock
-SPSC,"SPS Commerce, Inc. Common Stock"
-MZTI,The Marzetti Company Common Stock
-PONY,Pony AI Inc. American Depositary Shares 
-UCTT,"Ultra Clean Holdings, Inc. Common Stock"
-KC,Kingsoft Cloud Holdings Limited American Depositary Shares
 BHF,"Brighthouse Financial, Inc. Common Stock"
-AMBA,"Ambarella, Inc. Ordinary Shares"
-BEAM,Beam Therapeutics Inc. Common Stock
-NAMS,NewAmsterdam Pharma Company N.V. Ordinary Shares
-NVTS,Navitas Semiconductor Corporation Common Stock
+CARG,"CarGurus, Inc. Class A Common Stock "
 IRON,"Disc Medicine, Inc. Common Stock"
-ARQT,"Arcutis Biotherapeutics, Inc. Common Stock"
-CLBT,Cellebrite DI Ltd. Ordinary Shares
-CLSK,"CleanSpark, Inc. Common Stock"
+KC,Kingsoft Cloud Holdings Limited American Depositary Shares
+CLDX,"Celldex Therapeutics, Inc."
+FRMI,Fermi Inc. Common Stock
+MZTI,The Marzetti Company Common Stock
+SHOO,"Steven Madden, Ltd. Common Stock"
+NAMS,NewAmsterdam Pharma Company N.V. Ordinary Shares
+PPTA,Perpetua Resources Corp. Common Shares
 WING,Wingstop Inc. Common Stock
-MBX,"MBX Biosciences, Inc. Common Stock"
+SOUN,"SoundHound AI, Inc Class A Common Stock"
 FIZZ,National Beverage Corp. Common Stock
-BELFA,Bel Fuse Inc. Class A Common Stock
+PONY,Pony AI Inc. American Depositary Shares 
+SLNHP,"Soluna Holdings, Inc 9.0% Series A Cumulative Perpetual Preferred Stock "
+UCTT,"Ultra Clean Holdings, Inc. Common Stock"
+BEAM,Beam Therapeutics Inc. Common Stock
+ARQT,"Arcutis Biotherapeutics, Inc. Common Stock"
+ARCB,ArcBest Corporation Common Stock
+OPEN,Opendoor Technologies Inc Common Stock
+GENVR,Gen Digital Inc. Contingent Value Rights
+XNDU,Xanadu Quantum Technologies Limited Class B Subordinate Voting Shares
+SPSC,"SPS Commerce, Inc. Common Stock"
+ZLAB,Zai Lab Limited American Depositary Shares
 BTDR,Bitdeer Technologies Group Class A Ordinary Shares
-AVPT,"AvePoint, Inc. Class A Common Stock"
-TMDX,"TransMedics Group, Inc. Common Stock"
-COLM,Columbia Sportswear Company Common Stock
+AMBA,"Ambarella, Inc. Ordinary Shares"
+CLBT,Cellebrite DI Ltd. Ordinary Shares
+NVTS,Navitas Semiconductor Corporation Common Stock
 MGEE,"MGE Energy, Inc"
+COLM,Columbia Sportswear Company Common Stock
+BELFA,Bel Fuse Inc. Class A Common Stock
+CLSK,"CleanSpark, Inc. Common Stock"
+MBX,"MBX Biosciences, Inc. Common Stock"
+TMDX,"TransMedics Group, Inc. Common Stock"
+PPLI,People Incorporated Common Stock
 EXTR,"Extreme Networks, Inc. Common Stock"
 AVAH,Aveanna Healthcare Holdings Inc. Common Stock
-DXPE,"DXP Enterprises, Inc. Common Stock"
+ALHC,"Alignment Healthcare, Inc. Common Stock"
 WDFC,WD-40 Company Common Stock
+APPN,Appian Corporation Class A Common Stock
+AVPT,"AvePoint, Inc. Class A Common Stock"
+SLS,"SELLAS Life Sciences Group, Inc. Common Stock"
+DXPE,"DXP Enterprises, Inc. Common Stock"
+SLDE,"Slide Insurance Holdings, Inc. Common Stock"
+CHRN,ChronoScale Holdings Corporation Common Stock
 POWI,"Power Integrations, Inc. Common Stock"
-ZLAB,Zai Lab Limited American Depositary Shares
-PPLI,People Incorporated Common Stock
-DGII,Digi International Inc. Common Stock
 FTAIM,FTAI Aviation Ltd. 9.500% Fixed-Rate Reset Series D Cumulative Perpetual Redeemable Preferred Shares
+TOWN,TowneBank Common Stock
 ALRM,"Alarm.com Holdings, Inc. Common Stock"
-NTCT,"NetScout Systems, Inc. Common Stock"
-ALMS,Alumis Inc. Common Stock
-GCMG,GCM Grosvenor Inc. Class A Common Stock
-UPST,"Upstart Holdings, Inc. Common stock"
 POWWP,Outdoor Holding Company 8.75% Series A Cumulative Redeemable Perpetual Preferred Stock
 ADEA,Adeia Inc. Common Stock
-ALHC,"Alignment Healthcare, Inc. Common Stock"
-TOWN,TowneBank Common Stock
-NMRK,"Newmark Group, Inc. Class A Common Stock"
-MGRC,McGrath RentCorp Common Stock
-AXGN,"Axogen, Inc. Common Stock"
-RGC,Regencell Bioscience Holdings Limited Ordinary Shares
+NTCT,"NetScout Systems, Inc. Common Stock"
+UPST,"Upstart Holdings, Inc. Common stock"
 ATAI,AtaiBeckley Inc. Common Stock
+EEFT,"Euronet Worldwide, Inc. Common Stock"
 VC,Visteon Corporation Common Stock
-SLDE,"Slide Insurance Holdings, Inc. Common Stock"
-DJT,Trump Media & Technology Group Corp. Common Stock
-VECO,Veeco Instruments Inc. Common Stock
-SLS,"SELLAS Life Sciences Group, Inc. Common Stock"
-CENT,Central Garden & Pet Company Common Stock
+ASO,"Academy Sports and Outdoors, Inc. Common Stock"
+TBBK,The Bancorp Inc Common Stock
+MGRC,McGrath RentCorp Common Stock
 NMFCZ,New Mountain Finance Corporation 8.250% Notes due 2028
+GCMG,GCM Grosvenor Inc. Class A Common Stock
+NRIX,"Nurix Therapeutics, Inc. Common stock"
+WAFD,"WaFd, Inc. Common Stock"
+TRMK,Trustmark Corporation Common Stock
+VECO,Veeco Instruments Inc. Common Stock
+DGII,Digi International Inc. Common Stock
+NBTB,NBT Bancorp Inc. Common Stock
+LIME,"Neutron Holdings, Inc. Common Stock"
+CENT,Central Garden & Pet Company Common Stock
+FBNC,First Bancorp Common Stock
+KALU,Kaiser Aluminum Corporation Common Stock
+ATRC,"AtriCure, Inc. Common Stock"
+HWKN,"Hawkins, Inc. Common Stock"
+HTO,H2O America Common Stock
+PATK,"Patrick Industries, Inc. Common Stock"
+NMRK,"Newmark Group, Inc. Class A Common Stock"
+AXGN,"Axogen, Inc. Common Stock"
+PRVA,"Privia Health Group, Inc. Common Stock"
 NN,NextNav Inc. Common Stock
 CHTRP,"Charter Communications, Inc. Series A Cumulative Redeemable Preferred Stock"
-NRIX,"Nurix Therapeutics, Inc. Common stock"
-NBTB,NBT Bancorp Inc. Common Stock
-TRMK,Trustmark Corporation Common Stock
-ASO,"Academy Sports and Outdoors, Inc. Common Stock"
-NWL,Newell Brands Inc. Common Stock
-HTO,H2O America Common Stock
-TBBK,The Bancorp Inc Common Stock
-CHRN,ChronoScale Holdings Corporation Common Stock
-WAFD,"WaFd, Inc. Common Stock"
-ZIONP,"Zions Bancorporation, N.A. Depositary Shares (Each representing 1/40th Interest in a Share of Series A Floating-Rate Non-Cumulative Perpetual Preferred Stock)"
-PATK,"Patrick Industries, Inc. Common Stock"
-FBNC,First Bancorp Common Stock
-LIME,"Neutron Holdings, Inc. Common Stock"
-VRDN,"Viridian Therapeutics, Inc. Common Stock"
-PRVA,"Privia Health Group, Inc. Common Stock"
 FRME,First Merchants Corporation Common Stock
-EEFT,"Euronet Worldwide, Inc. Common Stock"
-KALU,Kaiser Aluminum Corporation Common Stock
-CDNA,"CareDx, Inc. Common Stock"
+HSAI,Hesai Group American Depositary Share
 AEHR,Aehr Test Systems Common Stock
-FIVN,"Five9, Inc. Common Stock"
-ETOR,eToro Group Ltd. Class A Common Shares
-SUPN,"Supernus Pharmaceuticals, Inc. Common Stock"
-ACHC,"Acadia Healthcare Company, Inc. Common Stock"
-SKWD,"Skyward Specialty Insurance Group, Inc. Common Stock"
-HURN,Huron Consulting Group Inc. Common Stock
-WGS,GeneDx Holdings Corp. Class A Common Stock
-NEOG,Neogen Corporation Common Stock
-OSW,OneSpaWorld Holdings Limited Common Shares
-DRH,Diamondrock Hospitality Company Common Stock
-PENG,"Penguin Solutions, Inc. Common Stock"
-HWKN,"Hawkins, Inc. Common Stock"
-BUSE,First Busey Corporation Class A Common Stock
-RARE,Ultragenyx Pharmaceutical Inc. Common Stock
-OUST,"Ouster, Inc. Common Stock"
-PGEN,"Precigen, Inc. Common Stock"
 BCRX,"BioCryst Pharmaceuticals, Inc. Common Stock"
-RNW,ReNew Energy Global plc Class A Ordinary Shares
-WSBCO,"WesBanco, Inc. Depositary Shares each representing 1/40th interest in a share of 7.375% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B"
-SYBT,"Stock Yards Bancorp, Inc. Common Stock"
-ATRC,"AtriCure, Inc. Common Stock"
+NEOG,Neogen Corporation Common Stock
+INTR,Inter & Co. Inc. Class A Common Shares
+ZIONP,"Zions Bancorporation, N.A. Depositary Shares (Each representing 1/40th Interest in a Share of Series A Floating-Rate Non-Cumulative Perpetual Preferred Stock)"
+ACHC,"Acadia Healthcare Company, Inc. Common Stock"
+WGS,GeneDx Holdings Corp. Class A Common Stock
+ETOR,eToro Group Ltd. Class A Common Shares
+MLYS,"Mineralys Therapeutics, Inc. Common Stock"
+CDNA,"CareDx, Inc. Common Stock"
+RARE,Ultragenyx Pharmaceutical Inc. Common Stock
+NWL,Newell Brands Inc. Common Stock
+VRDN,"Viridian Therapeutics, Inc. Common Stock"
+SUPN,"Supernus Pharmaceuticals, Inc. Common Stock"
+STNE,StoneCo Ltd. Class A Common Shares
+DJT,Trump Media & Technology Group Corp. Common Stock
 RVMDW,"Revolution Medicines, Inc. Warrant"
 VERA,"Vera Therapeutics, Inc. Class A Common Stock"
-LASR,"nLIGHT, Inc. Common Stock"
-HUBG,"Hub Group, Inc. Class A Common Stock"
-GSHD,"Goosehead Insurance, Inc. Class A Common Stock"
-NKTR,Nektar Therapeutics  Common Stock
-PURR,Hyperliquid Strategies Inc Common Stock
-MBIN,Merchants Bancorp Common Stock
-PHVS,Pharvaris N.V. Ordinary Shares
-PAYO,Payoneer Global Inc. Common Stock
-UNIT,Uniti Group Inc. Common Stock
-EMAT,Evolution Metals & Technologies Corp. Common Stock
-STNE,StoneCo Ltd. Class A Common Shares
-HIMX,"Himax Technologies, Inc. American Depositary Shares"
-NCNO,"nCino, Inc. Common Stock"
-MFICL,MidCap Financial Investment Corporation 8.00% Notes due 2028
-INTR,Inter & Co. Inc. Class A Common Shares
-BANR,Banner Corporation Common Stock
-TRVI,"Trevi Therapeutics, Inc. Common Stock"
-NOVTU,Novanta Inc. Tangible Equity Units
-PTON,"Peloton Interactive, Inc. Class A Common Stock"
-WERN,"Werner Enterprises, Inc. Common Stock"
-KOD,Kodiak Sciences Inc Common Stock
-RAPP,"Rapport Therapeutics, Inc. Common Stock"
-CENTA,Central Garden & Pet Company Class A Common Stock Nonvoting
-LIFE,Ethos Technologies Inc. Class A Common Stock
-IOSP,Innospec Inc. Common Stock
-ADAMM,"Adamas Trust, Inc. 7.875% Series E Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock"
-UFPT,"UFP Technologies, Inc. Common Stock"
-OCUL,"Ocular Therapeutix, Inc. Common Stock"
-NEO,"NeoGenomics, Inc. Common Stock"
-FLYW,Flywire Corporation Voting Common Stock
-VERX,"Vertex, Inc. Class A Common Stock"
-ADAMI,"Adamas Trust, Inc. 9.125% Senior Notes Due 2029"
-PLUS,ePlus inc. Common Stock
+BUSE,First Busey Corporation Class A Common Stock
+FIVN,"Five9, Inc. Common Stock"
+DRH,Diamondrock Hospitality Company Common Stock
+SKWD,"Skyward Specialty Insurance Group, Inc. Common Stock"
+PGEN,"Precigen, Inc. Common Stock"
 HRMY,"Harmony Biosciences Holdings, Inc. Common Stock"
-EFSC,Enterprise Financial Services Corporation Common Stock
+HURN,Huron Consulting Group Inc. Common Stock
+OUST,"Ouster, Inc. Common Stock"
+RNW,ReNew Energy Global plc Class A Ordinary Shares
+SYBT,"Stock Yards Bancorp, Inc. Common Stock"
+WSBCO,"WesBanco, Inc. Depositary Shares each representing 1/40th interest in a share of 7.375% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B"
+NKTR,Nektar Therapeutics  Common Stock
 BVC,BitVentures Limited Ordinary Shares
-MLYS,"Mineralys Therapeutics, Inc. Common Stock"
-ADAML,"Adamas Trust, Inc. 6.875% Series F Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock, $0.01 par value per share"
-ADAMN,"Adamas Trust, Inc. 8.00% Series D Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock"
-PENN,"PENN Entertainment, Inc. Common Stock"
-PRCH,"Porch Group, Inc. Common Stock"
-NWBI,"Northwest Bancshares, Inc. Common Stock"
-XRAY,DENTSPLY SIRONA Inc. Common Stock
+PHVS,Pharvaris N.V. Ordinary Shares
 SRPT,"Sarepta Therapeutics, Inc. Common Stock (DE)"
-CHA,Chagee Holdings Limited American Depositary Shares
-ADBT,"Advasa Holdings, Inc. Common Stock"
-PCTTU,"PureCycle Technologies, Inc. Unit"
-CLOV,"Clover Health Investments, Corp. Class A Common Stock"
+GSHD,"Goosehead Insurance, Inc. Class A Common Stock"
+MBIN,Merchants Bancorp Common Stock
+PENG,"Penguin Solutions, Inc. Common Stock"
+TRVI,"Trevi Therapeutics, Inc. Common Stock"
+PAYO,Payoneer Global Inc. Common Stock
 ANDE,"Andersons, Inc. (The) Common Stock"
-PVLA,"Palvella Therapeutics, Inc. Common Stock"
-RGTIW,"Rigetti Computing, Inc. Warrants"
-TILE,"Interface, Inc. Common Stock"
-HYMC,Hycroft Mining Holding Corporation Class A Common Stock
-COHU,"Cohu, Inc. Common Stock"
-ALKT,"Alkami Technology, Inc. Common Stock"
-BLKB,"Blackbaud, Inc. Common Stock"
+NCNO,"nCino, Inc. Common Stock"
+OCUL,"Ocular Therapeutix, Inc. Common Stock"
+UNIT,Uniti Group Inc. Common Stock
+BANR,Banner Corporation Common Stock
+LIFE,Ethos Technologies Inc. Class A Common Stock
+HIMX,"Himax Technologies, Inc. American Depositary Shares"
+KOD,Kodiak Sciences Inc Common Stock
+PRCH,"Porch Group, Inc. Common Stock"
+RAPP,"Rapport Therapeutics, Inc. Common Stock"
+PTON,"Peloton Interactive, Inc. Class A Common Stock"
+MFICL,MidCap Financial Investment Corporation 8.00% Notes due 2028
+IOSP,Innospec Inc. Common Stock
+NOVTU,Novanta Inc. Tangible Equity Units
+EFSC,Enterprise Financial Services Corporation Common Stock
+ADAMM,"Adamas Trust, Inc. 7.875% Series E Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock"
+CENTA,Central Garden & Pet Company Class A Common Stock Nonvoting
+ADAMI,"Adamas Trust, Inc. 9.125% Senior Notes Due 2029"
+FLYW,Flywire Corporation Voting Common Stock
+CLOV,"Clover Health Investments, Corp. Class A Common Stock"
+PENN,"PENN Entertainment, Inc. Common Stock"
+WERN,"Werner Enterprises, Inc. Common Stock"
+PLUS,ePlus inc. Common Stock
+UFPT,"UFP Technologies, Inc. Common Stock"
+XRAY,DENTSPLY SIRONA Inc. Common Stock
+NWBI,"Northwest Bancshares, Inc. Common Stock"
+LASR,"nLIGHT, Inc. Common Stock"
+ADAMN,"Adamas Trust, Inc. 8.00% Series D Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock"
+ADAML,"Adamas Trust, Inc. 6.875% Series F Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock, $0.01 par value per share"
 MESO,Mesoblast Limited American Depositary Shares
-ASST,"Strive, Inc. Class A Common Stock"
-CMPR,Cimpress plc Ordinary Shares (Ireland)
-MCRI,"Monarch Casino & Resort, Inc. Common Stock"
-AUPH,Aurinia Pharmaceuticals Inc Ordinary Shares
-ADUS,Addus HomeCare Corporation Common Stock
-COAG,"Hemab Therapeutics Holdings, Inc. Common Stock"
-BUSEP,"First Busey Corporation Depositary Shares, Each Representing a 1/40thInterest in a Share of 8.25% Fixed-Rate Series B Non-Cumulative Perpetual Preferred Stock, $0.001 par value"
-STGW,Stagwell Inc. Class A Common Stock
-MFP,"Midera Food Processing, Inc. Common Stock"
-ALMR,"Alamar Biosciences, Inc. Common Stock"
-HCM,HUTCHMED (China) Limited American Depositary Shares
-ZBIO,"Zenas BioPharma, Inc. Common Stock"
-URGN,UroGen Pharma Ltd. Ordinary Shares
-TMC,TMC the metals company Inc. Common Stock
-ADMA,ADMA Biologics Inc Common Stock
-TOP,TOP Financial Group Limited Class A Ordinary Shares
-ZYME,Zymeworks Inc. Common Stock
-PRDO,Perdoceo Education Corporation Common Stock
-ALGT,Allegiant Travel Company Common Stock
-PLBL,Polibeli Group Ltd Class A Ordinary Shares
-PSNY,Polestar Automotive Holding UK PLC Class A ADS
+NEO,"NeoGenomics, Inc. Common Stock"
+OSW,OneSpaWorld Holdings Limited Common Shares
+PURR,Hyperliquid Strategies Inc Common Stock
 ESTA,Establishment Labs Holdings Inc. Common Shares
-NBTX,Nanobiotix S.A. American Depositary Shares
+HUBG,"Hub Group, Inc. Class A Common Stock"
+CMPR,Cimpress plc Ordinary Shares (Ireland)
+CHA,Chagee Holdings Limited American Depositary Shares
+PCTTU,"PureCycle Technologies, Inc. Unit"
+PVLA,"Palvella Therapeutics, Inc. Common Stock"
+ADUS,Addus HomeCare Corporation Common Stock
+VERX,"Vertex, Inc. Class A Common Stock"
+ZYME,Zymeworks Inc. Common Stock
+URGN,UroGen Pharma Ltd. Ordinary Shares
+AUPH,Aurinia Pharmaceuticals Inc Ordinary Shares
+ASST,"Strive, Inc. Class A Common Stock"
 RUN,Sunrun Inc. Common Stock
-SRCE,1st Source Corporation Common Stock
-ECPG,Encore Capital Group Inc Common Stock
-NVCR,NovoCure Limited Ordinary Shares
-KARO,Karooooo Ltd. Ordinary Shares
+COHU,"Cohu, Inc. Common Stock"
+TILE,"Interface, Inc. Common Stock"
+BLKB,"Blackbaud, Inc. Common Stock"
+BUSEP,"First Busey Corporation Depositary Shares, Each Representing a 1/40thInterest in a Share of 8.25% Fixed-Rate Series B Non-Cumulative Perpetual Preferred Stock, $0.001 par value"
+MCRI,"Monarch Casino & Resort, Inc. Common Stock"
+HYMC,Hycroft Mining Holding Corporation Class A Common Stock
+ADMA,ADMA Biologics Inc Common Stock
+STGW,Stagwell Inc. Class A Common Stock
 DRVN,Driven Brands Holdings Inc. Common Stock
+ALMR,"Alamar Biosciences, Inc. Common Stock"
+NBTX,Nanobiotix S.A. American Depositary Shares
+ALKT,"Alkami Technology, Inc. Common Stock"
+EMAT,Evolution Metals & Technologies Corp. Common Stock
+ZBIO,"Zenas BioPharma, Inc. Common Stock"
+SEDG,"SolarEdge Technologies, Inc. Common Stock"
+HCM,HUTCHMED (China) Limited American Depositary Shares
+COAG,"Hemab Therapeutics Holdings, Inc. Common Stock"
 VCEL,Vericel Corporation Common Stock
-HAPN,"Happen, Inc. Common Stock"
-XNCR,"Xencor, Inc. Common Stock"
 ALVO,Alvotech Ordinary Shares
-CNXN,"PC Connection, Inc. Common Stock"
-STOK,"Stoke Therapeutics, Inc. Common Stock"
-UMBFO,"UMB Financial Corporation Depositary Shares Each Representing a 1/400th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B"
-AGIO,"Agios Pharmaceuticals, Inc. Common Stock"
-CHCO,City Holding Company Common Stock
-NEXT,NextDecade Corporation Common Stock
-ICHR,Ichor Holdings Ordinary Shares
+PLBL,Polibeli Group Ltd Class A Ordinary Shares
+NVCR,NovoCure Limited Ordinary Shares
+PRDO,Perdoceo Education Corporation Common Stock
+SRCE,1st Source Corporation Common Stock
+RGTIW,"Rigetti Computing, Inc. Warrants"
+GENB,"Generate Biomedicines, Inc. Common Stock"
 MLCO,Melco Resorts & Entertainment Limited American Depositary Shares
+KARD,"Kardigan, Inc. Common Stock"
 KLRA,"Kailera Therapeutics, Inc. Common Stock"
+ALGT,Allegiant Travel Company Common Stock
+ECPG,Encore Capital Group Inc Common Stock
+AGIO,"Agios Pharmaceuticals, Inc. Common Stock"
+CNXN,"PC Connection, Inc. Common Stock"
+CHCO,City Holding Company Common Stock
+PGNY,"Progyny, Inc. Common Stock"
+TMC,TMC the metals company Inc. Common Stock
+MFP,"Midera Food Processing, Inc. Common Stock"
+EZPW,"EZCORP, Inc. Class A Non Voting Common Stock"
+HAPN,"Happen, Inc. Common Stock"
+NYAX,Nayax Ltd. Ordinary Shares
+NEXT,NextDecade Corporation Common Stock
+XNCR,"Xencor, Inc. Common Stock"
+UMBFO,"UMB Financial Corporation Depositary Shares Each Representing a 1/400th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B"
+PSNY,Polestar Automotive Holding UK PLC Class A ADS
+ICHR,Ichor Holdings Ordinary Shares
+KARO,Karooooo Ltd. Ordinary Shares
+NAMSW,NewAmsterdam Pharma Company N.V. Warrant
+CNXC,Concentrix Corporation Common Stock
+STOK,"Stoke Therapeutics, Inc. Common Stock"
+BRVE,"Braveheart Bio, Inc. Common Stock"
 FLNC,"Fluence Energy, Inc. Class A Common Stock"
 IQMX,IQM Quantum Computers Oyj American Depositary Shares
-EZPW,"EZCORP, Inc. Class A Non Voting Common Stock"
-MRVI,"Maravai LifeSciences Holdings, Inc. Class A Common Stock"
-SEDG,"SolarEdge Technologies, Inc. Common Stock"
-SHAZ,"SharonAI Holdings, Inc. Class A Common Stock"
-PGNY,"Progyny, Inc. Common Stock"
-GENB,"Generate Biomedicines, Inc. Common Stock"
-PLPC,Preformed Line Products Company Common Stock
-KEEL,Keel Infrastructure Corp. Common Stock
-NYAX,Nayax Ltd. Ordinary Shares
-INOD,Innodata Inc. Common Stock
-WRD,WeRide Inc. American Depositary Shares
-BL,"BlackLine, Inc. Common Stock"
-FORTY,Formula Systems (1985) Ltd. American Depositary Shares
 IMOS,ChipMOS TECHNOLOGIES INC. American Depositary Shares
-LCID,"Lucid Group, Inc. Common Stock"
-PRGS,Progress Software Corporation Common Stock (DE)
-ZD,"Ziff Davis, Inc. Common Stock"
-ASTH,Astrana Health Inc. Common Stock
-KARD,"Kardigan, Inc. Common Stock"
-PDFS,"PDF Solutions, Inc. Common Stock"
-LKFT,Lakefront Biotherapeutics American Depositary Shares
-SBET,"Sharplink, Inc. Common Stock"
-BRVE,"Braveheart Bio, Inc. Common Stock"
-CMPS,COMPASS Pathways Plc American Depository Shares
-IMCR,Immunocore Holdings plc American Depositary Shares
-INBX,"Inhibrx Biosciences, Inc. Common Stock"
-FSUN,FirstSun Capital Bancorp Common Stock
-CDZIP,"Cadiz, Inc. Depositary Shares"
-QUBT,Quantum Computing Inc. Common Stock
-NHPBP,"National Healthcare Properties, Inc. 7.125% Series B Cumulative Redeemable Perpetual Preferred Stock"
-TSHA,"Taysha Gene Therapies, Inc. Common Stock"
-GABC,"German American Bancorp, Inc. Common Stock"
-VIR,"Vir Biotechnology, Inc. Common Stock"
-GHRS,GH Research PLC Ordinary Shares
-SONO,"Sonos, Inc. Common Stock"
-TH,Target Hospitality Corp. Common Stock
-HWCPZ,Hancock Whitney Corporation 6.25% Subordinated Notes due 2060
 BLBD,Blue Bird Corporation Common Stock
+TOP,TOP Financial Group Limited Class A Ordinary Shares
+ZD,"Ziff Davis, Inc. Common Stock"
+VIR,"Vir Biotechnology, Inc. Common Stock"
+SHAZ,"SharonAI Holdings, Inc. Class A Common Stock"
+WRD,WeRide Inc. American Depositary Shares
+KEEL,Keel Infrastructure Corp. Common Stock
+FORTY,Formula Systems (1985) Ltd. American Depositary Shares
+MRVI,"Maravai LifeSciences Holdings, Inc. Class A Common Stock"
+ASTH,Astrana Health Inc. Common Stock
+GHRS,GH Research PLC Ordinary Shares
+LKFT,Lakefront Biotherapeutics American Depositary Shares
+IMCR,Immunocore Holdings plc American Depositary Shares
+PLPC,Preformed Line Products Company Common Stock
+SONO,"Sonos, Inc. Common Stock"
+RBCAA,"Republic Bancorp, Inc. Class A Common Stock"
+FSUN,FirstSun Capital Bancorp Common Stock
+LCID,"Lucid Group, Inc. Common Stock"
+INOD,Innodata Inc. Common Stock
+GABC,"German American Bancorp, Inc. Common Stock"
+BL,"BlackLine, Inc. Common Stock"
+LMAT,"LeMaitre Vascular, Inc. Common Stock"
+CDZIP,"Cadiz, Inc. Depositary Shares"
+SGRY,"Surgery Partners, Inc. Common Stock"
+OCFC,OceanFirst Financial Corp. Common Stock
+SNDX,"Syndax Pharmaceuticals, Inc. Common Stock"
+NHPBP,"National Healthcare Properties, Inc. 7.125% Series B Cumulative Redeemable Perpetual Preferred Stock"
 PAX,Patria Investments Limited Class A Common Shares
 STRA,"Strategic Education, Inc. Common Stock"
+INBX,"Inhibrx Biosciences, Inc. Common Stock"
 NHPAP,"National Healthcare Properties, Inc. 7.375% Series A Cumulative Redeemable Perpetual Preferred Stock"
-CNXC,Concentrix Corporation Common Stock
-RBCAA,"Republic Bancorp, Inc. Class A Common Stock"
-LMAT,"LeMaitre Vascular, Inc. Common Stock"
+CMPS,COMPASS Pathways Plc American Depository Shares
 DHC,Diversified Healthcare Trust Common Shares of Beneficial Interest
+TH,Target Hospitality Corp. Common Stock
+TSHA,"Taysha Gene Therapies, Inc. Common Stock"
+PGY,Pagaya Technologies Ltd. Class A Ordinary Shares
+HWCPZ,Hancock Whitney Corporation 6.25% Subordinated Notes due 2060
 JSM,"Navient Corporation 6% Senior Notes due December 15, 2043"
 OZKAP,Bank OZK 4.625% Series A Non-Cumulative Perpetual Preferred Stock
-OCFC,OceanFirst Financial Corp. Common Stock
-RXRX,"Recursion Pharmaceuticals, Inc. Class A Common Stock"
-SGRY,"Surgery Partners, Inc. Common Stock"
-PGY,Pagaya Technologies Ltd. Class A Ordinary Shares
-BLFS,"BioLife Solutions, Inc. Common Stock"
-GT,The Goodyear Tire & Rubber Company Common Stock
 PSNL,"Personalis, Inc. Common Stock"
-BULLW,Webull Corporation Warrants
-NTLA,"Intellia Therapeutics, Inc. Common Stock"
-ATEX,Anterix Inc. Common Stock
-SEPN,"Septerna, Inc. Common Stock"
-WTFCN,"Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 7.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred StocK"
-HOPE,"Hope Bancorp, Inc. Common Stock"
-AMPL,"Amplitude, Inc. Class A Common Stock"
-CDNL,Cardinal Infrastructure Group Inc. Class A Common Stock
-FTRE,Fortrea Holdings Inc. Common Stock
-STBA,"S&T Bancorp, Inc. Common Stock"
-LIND,Lindblad Expeditions Holdings Inc. Common Stock
-DMRA,"Damora Therapeutics, Inc. Ordinary Shares"
-JBLU,JetBlue Airways Corporation Common Stock
+QUBT,Quantum Computing Inc. Common Stock
 GCT,GigaCloud Technology Inc Class A Ordinary Shares
-OPRA,Opera Limited American Depositary Shares
+RXRX,"Recursion Pharmaceuticals, Inc. Class A Common Stock"
+HOPE,"Hope Bancorp, Inc. Common Stock"
+PRGS,Progress Software Corporation Common Stock (DE)
 ETON,"Eton Pharmaceuticals, Inc. Common Stock"
-VNET,"VNET Group, Inc. American Depositary Shares"
-SNDX,"Syndax Pharmaceuticals, Inc. Common Stock"
+NTLA,"Intellia Therapeutics, Inc. Common Stock"
+PDFS,"PDF Solutions, Inc. Common Stock"
+WTFCN,"Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 7.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred StocK"
+SBET,"Sharplink, Inc. Common Stock"
+BLFS,"BioLife Solutions, Inc. Common Stock"
+STBA,"S&T Bancorp, Inc. Common Stock"
+SEPN,"Septerna, Inc. Common Stock"
+JBLU,JetBlue Airways Corporation Common Stock
+DMRA,"Damora Therapeutics, Inc. Ordinary Shares"
+FTRE,Fortrea Holdings Inc. Common Stock
+GT,The Goodyear Tire & Rubber Company Common Stock
 MQ,"Marqeta, Inc. Class A Common Stock"
+ATEX,Anterix Inc. Common Stock
+VNET,"VNET Group, Inc. American Depositary Shares"
+LILA,Liberty Latin America Ltd. Class A Common Stock
 CNOB,"ConnectOne Bancorp, Inc. Common Stock"
 TCBK,TriCo Bancshares Common Stock
+FRNM,"Freenome, Inc. Common stock"
+LILAK,Liberty Latin America Ltd. Class C Common Stock
+BFC,Bank First Corporation Common Stock
 CASH,"Pathward Financial, Inc. Common Stock"
-ANAB,"AnaptysBio, Inc. Common Stock"
-LILA,Liberty Latin America Ltd. Class A Common Stock
+CDNL,Cardinal Infrastructure Group Inc. Class A Common Stock
+NVAX,"Novavax, Inc. Common Stock"
 OXLC,Oxford Lane Capital Corp. Common Stock
 ANIP,"ANI Pharmaceuticals, Inc."
 WB,Weibo Corporation American Depositary Share
-LILAK,Liberty Latin America Ltd. Class C Common Stock
-BFC,Bank First Corporation Common Stock
-PLAB,"Photronics, Inc. Common Stock"
-JJSF,J & J Snack Foods Corp. Common Stock
-CSWC,Capital Southwest Corporation Common Stock
+AMPL,"Amplitude, Inc. Class A Common Stock"
 QCRH,"QCR Holdings, Inc. Common Stock"
-BPOPM,"Popular, Inc. Popular Capital Trust II - 6.125% Cumulative Monthly Income Trust Preferred Securities"
-ADAMZ,"Adamas Trust, Inc. 7.000% Series G Cumulative Redeemable Preferred Stock, $0.01 par value per share"
-DSGR,"Distribution Solutions Group, Inc. Common Stock"
-OMCL,"Omnicell, Inc. Common Stock ($0.001 par value)"
-ALNT,Allient Inc. Common Stock
-ICFI,"ICF International, Inc. Common Stock"
-AAPG,Ascentage Pharma Group International American Depository Shares
-FRNM,"Freenome, Inc. Common stock"
-FRMEP,First Merchants Corporation Depository Shares
-WEN,Wendy's Company (The) Common Stock
-YSWY,"Yesway, Inc. Class A Common Stock"
-TSAT,Telesat Corporation Class A Common Shares and Class B Variable Voting Shares 
-XNET,Xunlei Limited American Depositary Shares
-EVCM,EverCommerce Inc. Common Stock
-PWP,Perella Weinberg Partners Class A Common Stock
-BAND,Bandwidth Inc. Class A Common Stock
-TWFG,"TWFG, Inc. Class A Common Stock"
-IMKTA,"Ingles Markets, Incorporated Class A Common Stock"
-ABSI,Absci Corporation Common Stock
-NVAX,"Novavax, Inc. Common Stock"
-AVLN,Avalyn Pharma Inc. Common Stock
-MLKN,"MillerKnoll, Inc. Common Stock"
-XERS,"Xeris Biopharma Holdings, Inc. Common Stock"
-OXSQG,Oxford Square Capital Corp. 5.50% Notes due 2028
-PAHC,Phibro Animal Health Corporation Class A Common Stock
-TNDM,"Tandem Diabetes Care, Inc. Common Stock"
-BCAX,Bicara Therapeutics Inc. Common Stock
-LBRX,LB Pharmaceuticals Inc Common Stock
-SAFT,"Safety Insurance Group, Inc. Common Stock"
-ITG,"ITG, Inc. Class A Common Stock"
-HCSG,"Healthcare Services Group, Inc. Common Stock"
-VSECU,VSE Corporation Tangible Equity Units
-KMTS,"Kestra Medical Technologies, Ltd. Common Stock"
-OMDA,"Omada Health, Inc. Common Stock"
-INVA,"Innoviva, Inc. Common Stock"
-HLMN,Hillman Solutions Corp. Common Stock
+OPRA,Opera Limited American Depositary Shares
+LIND,Lindblad Expeditions Holdings Inc. Common Stock
+ANAB,"AnaptysBio, Inc. Common Stock"
+PLAB,"Photronics, Inc. Common Stock"
 TRAX,"First Tracks Biotherapeutics, Inc. Ordinary Shares "
-TYRA,"Tyra Biosciences, Inc. Common Stock"
-AVBP,"ArriVent BioPharma, Inc. Common Stock"
-MAZE,"Maze Therapeutics, Inc. Common Stock"
-PFBC,Preferred Bank Common Stock
-LKFN,Lakeland Financial Corporation Common Stock
-INNV,InnovAge Holding Corp. Common Stock
+PAHC,Phibro Animal Health Corporation Class A Common Stock
+JJSF,J & J Snack Foods Corp. Common Stock
+ADAMZ,"Adamas Trust, Inc. 7.000% Series G Cumulative Redeemable Preferred Stock, $0.01 par value per share"
+BULLW,Webull Corporation Warrants
+BPOPM,"Popular, Inc. Popular Capital Trust II - 6.125% Cumulative Monthly Income Trust Preferred Securities"
+DSGR,"Distribution Solutions Group, Inc. Common Stock"
+TWFG,"TWFG, Inc. Class A Common Stock"
+ITG,"ITG, Inc. Class A Common Stock"
+ICFI,"ICF International, Inc. Common Stock"
+OMCL,"Omnicell, Inc. Common Stock ($0.001 par value)"
+LBRX,LB Pharmaceuticals Inc Common Stock
+CSWC,Capital Southwest Corporation Common Stock
+TSAT,Telesat Corporation Class A Common Shares and Class B Variable Voting Shares 
+FRMEP,First Merchants Corporation Depository Shares
+AVLN,Avalyn Pharma Inc. Common Stock
+WEN,Wendy's Company (The) Common Stock
+XERS,"Xeris Biopharma Holdings, Inc. Common Stock"
+IMKTA,"Ingles Markets, Incorporated Class A Common Stock"
+BCAX,Bicara Therapeutics Inc. Common Stock
+AAPG,Ascentage Pharma Group International American Depository Shares
+PWP,Perella Weinberg Partners Class A Common Stock
+MLKN,"MillerKnoll, Inc. Common Stock"
 SDGR,"Schrodinger, Inc. Common Stock"
-VISN,"Vistance Networks, Inc. Common Stock"
-ATEC,"Alphatec Holdings, Inc. Common Stock"
+OXSQG,Oxford Square Capital Corp. 5.50% Notes due 2028
+INVA,"Innoviva, Inc. Common Stock"
+BAND,Bandwidth Inc. Class A Common Stock
+YSWY,"Yesway, Inc. Class A Common Stock"
+XNET,Xunlei Limited American Depositary Shares
+KMTS,"Kestra Medical Technologies, Ltd. Common Stock"
+SAFT,"Safety Insurance Group, Inc. Common Stock"
 REPL,"Replimune Group, Inc. Common Stock"
-AKTS,"Aktis Oncology, Inc. Common stock"
-BHRB,Burke & Herbert Financial Services Corp. Common Stock
-AMAL,Amalgamated Financial Corp. Common Stock (DE)
-WBTN,WEBTOON Entertainment Inc. Common stock
-AZTA,"Azenta, Inc."
-IMTX,Immatics N.V. Ordinary Shares
-SGML,Sigma Lithium Corporation Common Shares
-CGEM,"Cullinan Therapeutics, Inc. Common Stock"
-DMLP,"Dorchester Minerals, L.P. Common Units Representing Limited Partnership Interests"
-PEBO,Peoples Bancorp Inc. Common Stock
+HCSG,"Healthcare Services Group, Inc. Common Stock"
+VISN,"Vistance Networks, Inc. Common Stock"
 CNL,Collective Mining Ltd. Common Shares
-LTGO,"Latigo Biotherapeutics, Inc. Common Stock"
-TRS,TriMas Corporation Common Stock
-AMSC,American Superconductor Corporation Common Stock
-BRUN,Boost Run Inc. Class A Common Stock
-UFCS,"United Fire Group, Inc. Common Stock"
-ELE,Elemental Royalty Corporation Common Stock
-HROW,"Harrow, Inc. Common Stock"
-CTBI,"Community Trust Bancorp, Inc. Common Stock"
-CCEC,Capital Clean Energy Carriers Corp. Common Share
-FCEL,"FuelCell Energy, Inc. Common Stock"
-WLTH,Wealthfront Corporation Common Stock
-GIII,"G-III Apparel Group, LTD. Common Stock"
-PICS,PicS N.V. Class A Common Shares
-CNOBP,"ConnectOne Bancorp, Inc. Depositary Shares, each representing a 1/40th interest in a share of 5.25% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series A"
-ATLC,Atlanticus Holdings Corporation Common Stock
-AFYA,Afya Limited Class A Common Shares
-OMER,Omeros Corporation Common Stock
-JBIO,"Jade Biosciences, Inc. Common Stock"
-XPEL,"XPEL, Inc. Common Stock"
-BJRI,"BJ's Restaurants, Inc. Common Stock"
-ESQ,"Esquire Financial Holdings, Inc. Common Stock"
-EYE,"National Vision Holdings, Inc. Common Stock"
+ABSI,Absci Corporation Common Stock
+AVBP,"ArriVent BioPharma, Inc. Common Stock"
+PFBC,Preferred Bank Common Stock
+HLMN,Hillman Solutions Corp. Common Stock
+TYRA,"Tyra Biosciences, Inc. Common Stock"
+LKFN,Lakeland Financial Corporation Common Stock
+ALNT,Allient Inc. Common Stock
+AKTS,"Aktis Oncology, Inc. Common stock"
 MGRT,Mega Fortune Company Limited Ordinary Shares
-ORIC,"Oric Pharmaceuticals, Inc. Common Stock"
+MAZE,"Maze Therapeutics, Inc. Common Stock"
+VOR,Vor Biopharma Inc. Common Stock
+HROW,"Harrow, Inc. Common Stock"
+INNV,InnovAge Holding Corp. Common Stock
+BHRB,Burke & Herbert Financial Services Corp. Common Stock
+PICS,PicS N.V. Class A Common Shares
+SGML,Sigma Lithium Corporation Common Shares
+VSECU,VSE Corporation Tangible Equity Units
+DMLP,"Dorchester Minerals, L.P. Common Units Representing Limited Partnership Interests"
+AMAL,Amalgamated Financial Corp. Common Stock (DE)
+TNDM,"Tandem Diabetes Care, Inc. Common Stock"
+CGEM,"Cullinan Therapeutics, Inc. Common Stock"
+ATLC,Atlanticus Holdings Corporation Common Stock
+PEBO,Peoples Bancorp Inc. Common Stock
+ATEC,"Alphatec Holdings, Inc. Common Stock"
+EVCM,EverCommerce Inc. Common Stock
+OMDA,"Omada Health, Inc. Common Stock"
+IMTX,Immatics N.V. Ordinary Shares
+UFCS,"United Fire Group, Inc. Common Stock"
 SENEA,Seneca Foods Corp. Class A Common Stock
+TRS,TriMas Corporation Common Stock
+CTBI,"Community Trust Bancorp, Inc. Common Stock"
+SENEB,Seneca Foods Corp. Class B Common Stock
+LTGO,"Latigo Biotherapeutics, Inc. Common Stock"
+AFYA,Afya Limited Class A Common Shares
+AZTA,"Azenta, Inc."
+ESQ,"Esquire Financial Holdings, Inc. Common Stock"
+WBTN,WEBTOON Entertainment Inc. Common stock
+XPEL,"XPEL, Inc. Common Stock"
+CNOBP,"ConnectOne Bancorp, Inc. Depositary Shares, each representing a 1/40th interest in a share of 5.25% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series A"
+AMSC,American Superconductor Corporation Common Stock
+OMER,Omeros Corporation Common Stock
+CCEC,Capital Clean Energy Carriers Corp. Common Share
+ORIC,"Oric Pharmaceuticals, Inc. Common Stock"
+ELE,Elemental Royalty Corporation Common Stock
+WLTH,Wealthfront Corporation Common Stock
 WABC,Westamerica Bancorporation Common Stock
 WLDN,"Willdan Group, Inc. Common Stock"
-ROCK,"Gibraltar Industries, Inc. Common Stock"
-VOR,Vor Biopharma Inc. Common Stock
+FMBH,"First Mid Bancshares, Inc. Common Stock"
 DJTWW,Trump Media & Technology Group Corp. Warrants
 MGTX,MeiraGTx Holdings plc Ordinary Shares
-FMBH,"First Mid Bancshares, Inc. Common Stock"
-IART,Integra LifeSciences Holdings Corporation Common Stock
-CRSR,"Corsair Gaming, Inc. Common Stock"
-ULCC,"Frontier Group Holdings, Inc. Common Stock"
-PCT,"PureCycle Technologies, Inc. Common stock"
-RCAT,"Red Cat Holdings, Inc. Common Stock"
-SENEB,Seneca Foods Corp. Class B Common Stock
-HLIT,Harmonic Inc. Common Stock
-LQDT,"Liquidity Services, Inc. Common Stock"
-DRTS,Alpha Tau Medical Ltd. Ordinary Shares
-HBNB,Hotel101 Global Holdings Corp. Class A Ordinary Shares
-APPS,"Digital Turbine, Inc. Common Stock"
-LGIH,"LGI Homes, Inc. Common Stock"
-NSSC,"NAPCO Security Technologies, Inc. Common Stock"
-NUTX,Nutex Health Inc. Common Stock
-POET,POET Technologies Inc. Common Shares
-HBT,"HBT Financial, Inc. Common Stock"
-MNKD,MannKind Corporation Common Stock
-PNTG,"The Pennant Group, Inc. Common Stock "
-MLTX,MoonLake Immunotherapeutics Class A Ordinary Shares
-TRUP,"Trupanion, Inc. Common Stock"
-OSBC,"Old Second Bancorp, Inc. Common Stock"
+JBIO,"Jade Biosciences, Inc. Common Stock"
 SPTX,"Seaport Therapeutics, Inc. Common Stock"
+ALMS,Alumis Inc. Common Stock
+EYE,"National Vision Holdings, Inc. Common Stock"
+DRTS,Alpha Tau Medical Ltd. Ordinary Shares
+NUTX,Nutex Health Inc. Common Stock
+EOSE,"Eos Energy Enterprises, Inc. Class A Common Stock"
+PNTG,"The Pennant Group, Inc. Common Stock "
+HBT,"HBT Financial, Inc. Common Stock"
+ROCK,"Gibraltar Industries, Inc. Common Stock"
+CRSR,"Corsair Gaming, Inc. Common Stock"
+OSBC,"Old Second Bancorp, Inc. Common Stock"
+IART,Integra LifeSciences Holdings Corporation Common Stock
+MNKD,MannKind Corporation Common Stock
+ULCC,"Frontier Group Holdings, Inc. Common Stock"
+BJRI,"BJ's Restaurants, Inc. Common Stock"
+MLTX,MoonLake Immunotherapeutics Class A Ordinary Shares
+NSSC,"NAPCO Security Technologies, Inc. Common Stock"
+BRUN,Boost Run Inc. Class A Common Stock
+HLIT,Harmonic Inc. Common Stock
+ODTX,"Odyssey Therapeutics, Inc. Common Stock"
+PCT,"PureCycle Technologies, Inc. Common stock"
+HBNB,Hotel101 Global Holdings Corp. Class A Ordinary Shares
+LGIH,"LGI Homes, Inc. Common Stock"
+RCAT,"Red Cat Holdings, Inc. Common Stock"
 CERT,"Certara, Inc. Common Stock"
-RMIX,"Suncrete, Inc. Class A Common Stock"
+POET,POET Technologies Inc. Common Shares
+PRCT,PROCEPT BioRobotics Corporation Common Stock
+TRUP,"Trupanion, Inc. Common Stock"
+LQDT,"Liquidity Services, Inc. Common Stock"
+CBRL,"Cracker Barrel Old Country Store, Inc Common Stock"
 REAL,"The RealReal, Inc. Common Stock"
-CRON,Cronos Group Inc. Common Share
 WAFDP,"WaFd, Inc. Depositary Shares"
 CRCT,"Cricut, Inc. Class A Common Stock"
-CBRL,"Cracker Barrel Old Country Store, Inc Common Stock"
-ARHS,"Arhaus, Inc. Class A Common Stock"
-GTM,ZoomInfo Technologies Inc Common Stock
-RDWR,Radware Ltd. Ordinary Shares
-PRCT,PROCEPT BioRobotics Corporation Common Stock
-CLBK,"Columbia Financial, Inc. Common Stock"
+BVS,Bioventus Inc. Class A Common Stock
 THRM,Gentherm Inc Common Stock
-AIIR,Air Global PLC Ordinary Shares
-WINA,Winmark Corporation Common Stock
+CLBK,"Columbia Financial, Inc. Common Stock"
+GIII,"G-III Apparel Group, LTD. Common Stock"
 JCAP,"Jefferson Capital, Inc. Common Stock"
-GDRX,"GoodRx Holdings, Inc. Class A Common Stock"
+JANX,"Janux Therapeutics, Inc. Common Stock"
 GLUE,"Monte Rosa Therapeutics, Inc. Common Stock"
-GO,Grocery Outlet Holding Corp. Common Stock
-CRVS,"Corvus Pharmaceuticals, Inc. Common Stock"
-ODTX,"Odyssey Therapeutics, Inc. Common Stock"
-MRTN,"Marten Transport, Ltd. Common Stock"
-KYIVW,Kyivstar Group Ltd. Warrant
-MBINM,"Merchants Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.25% Fixed-Rate Reset Series D Non-Cumulative Perpetual Preferred Stock"
-RDVT,"Red Violet, Inc. Common Stock "
-EOSE,"Eos Energy Enterprises, Inc. Class A Common Stock"
-NHP,"National Healthcare Properties, Inc. Class A Common Stock"
+GDRX,"GoodRx Holdings, Inc. Class A Common Stock"
+AIIR,Air Global PLC Ordinary Shares
+CRON,Cronos Group Inc. Common Share
 HFWA,Heritage Financial Corporation Common Stock
-OCSL,Oaktree Specialty Lending Corporation Common Stock
-SHLS,"Shoals Technologies Group, Inc. Class A Common Stock"
-IMPPP,Imperial Petroleum Inc. 8.75% Series A Cumulative Redeemable Perpetual Preferred Shares
+ARHS,"Arhaus, Inc. Class A Common Stock"
+GO,Grocery Outlet Holding Corp. Common Stock
+GTM,ZoomInfo Technologies Inc Common Stock
+APPS,"Digital Turbine, Inc. Common Stock"
+CRVS,"Corvus Pharmaceuticals, Inc. Common Stock"
+BRAI,Braiin Limited Common Stock
+RMIX,"Suncrete, Inc. Class A Common Stock"
+MBINM,"Merchants Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.25% Fixed-Rate Reset Series D Non-Cumulative Perpetual Preferred Stock"
+KYIVW,Kyivstar Group Ltd. Warrant
+RDWR,Radware Ltd. Ordinary Shares
+NHP,"National Healthcare Properties, Inc. Class A Common Stock"
+EOSEW,"Eos Energy Enterprises, Inc. Warrant"
+STAA,STAAR Surgical Company Common Stock
 SANA,"Sana Biotechnology, Inc. Common Stock"
+OCSL,Oaktree Specialty Lending Corporation Common Stock
+IMPPP,Imperial Petroleum Inc. 8.75% Series A Cumulative Redeemable Perpetual Preferred Shares
+KURA,"Kura Oncology, Inc. Common Stock"
+WINA,Winmark Corporation Common Stock
+WLFC,Willis Lease Finance Corporation Common Stock
+RDVT,"Red Violet, Inc. Common Stock "
+UVSP,Univest Financial Corporation Common Stock
+IVA,Inventiva S.A. American Depository Shares
 MBINL,"Merchants Bancorp Depositary Shares, Each Representing a 1/40thInterest in a Share of 7.25% Fixed Rate Series E Non-CumulativePerpetual Preferred Stock, without par value"
 SCSC,"ScanSource, Inc. Common Stock"
-BVS,Bioventus Inc. Class A Common Stock
-UVSP,Univest Financial Corporation Common Stock
-WLFC,Willis Lease Finance Corporation Common Stock
-GOODN,Gladstone Commercial Corporation 6.625% Series E Cumulative Redeemable Preferred Stock
-IGIC,International General Insurance Holdings Ltd. Ordinary Share
-STAA,STAAR Surgical Company Common Stock
-BRAI,Braiin Limited Common Stock
-UPWK,Upwork Inc. Common Stock
-KURA,"Kura Oncology, Inc. Common Stock"
 FSBC,Five Star Bancorp Common Stock
+MRTN,"Marten Transport, Ltd. Common Stock"
+FCEL,"FuelCell Energy, Inc. Common Stock"
+UPWK,Upwork Inc. Common Stock
+SHLS,"Shoals Technologies Group, Inc. Class A Common Stock"
+TRIP,"TripAdvisor, Inc. Common Stock"
+IGIC,International General Insurance Holdings Ltd. Ordinary Share
 AVO,"Mission Produce, Inc. Common Stock"
 LMRI,"Lumexa Imaging Holdings, Inc. Common Stock"
-LFMDP,"LifeMD, Inc. 8.875% Series A Cumulative Perpetual Preferred Stock"
-TRIP,"TripAdvisor, Inc. Common Stock"
+GOODN,Gladstone Commercial Corporation 6.625% Series E Cumulative Redeemable Preferred Stock
 VMET,Versamet Royalties Corporation Common Stock
-JANX,"Janux Therapeutics, Inc. Common Stock"
-QNST,"QuinStreet, Inc. Common Stock"
+LFMDP,"LifeMD, Inc. 8.875% Series A Cumulative Perpetual Preferred Stock"
 SVRA,Savara Inc. Common Stock
-IVA,Inventiva S.A. American Depository Shares
-IRMD,iRadimed Corporation Common Stock
-CRAI,"CRA International, Inc. Common Stock"
-MSEX,Middlesex Water Company Common Stock
-AEVA,"Aeva Technologies, Inc. Common Stock"
-FBYD,"Falcon's Beyond Global, Inc. Class A Common Stock"
-CFFN,"Capitol Federal Financial, Inc. Common Stock"
-OBX,"Obsidian Therapeutics, Inc. Common Stock"
-SIFY,Sify Technologies Limited American Depositary Shares
-AIP,"Arteris, Inc. Common Stock"
 LZ,"LegalZoom.com, Inc. Common Stock"
+IRMD,iRadimed Corporation Common Stock
+QNST,"QuinStreet, Inc. Common Stock"
 UPBD,"Upbound Group, Inc. Common Stock"
-GLIBA,Liberty Capital Corporation Series A GCI Group Common Stock
-NWPX,"NWPX Infrastructure, Inc. Common Stock"
-CRML,Critical Metals Corp. Ordinary Shares
-QFIN,"Qfin Holdings, Inc. American Depositary Shares"
-NNNN,Anbio Biotechnology Class A Ordinary Shares
-GLIBK,Liberty Capital Corporation Series C GCI Group Common Stock
-AVTX,"Avalo Therapeutics, Inc. Common Stock"
-HPK,"HighPeak Energy, Inc. Common Stock"
-MBWM,Mercantile Bank Corporation Common Stock
-PCRX,"Pacira BioSciences, Inc. Common Stock"
+CFFN,"Capitol Federal Financial, Inc. Common Stock"
+CRAI,"CRA International, Inc. Common Stock"
 SLDB,Solid Biosciences Inc. Common Stock
-NBN,Northeast Bank Common Stock
-GOODO,"Gladstone Commercial Corporation 6.00% Series G Cumulative Redeemable Preferred Stock, par value $0.001 per share"
-SBGI,"Sinclair, Inc. Class A Common Stock"
-ITRN,Ituran Location and Control Ltd. Ordinary Shares
-GPRE,Green Plains Inc. Common Stock
-SMPL,The Simply Good Foods Company Common Stock
-SVC,Service Properties Trust Common Shares of Beneficial Interest
-BFST,"Business First Bancshares, Inc. Common Stock"
-CSTL,"Castle Biosciences, Inc. Common Stock"
-ABUS,Arbutus Biopharma Corporation Common Stock
-ELVR,Elevra Lithium Limited American Depository Shares
-IMMX,"Immix Biopharma, Inc. Common Stock"
-MCBS,"MetroCity Bankshares, Inc. Common Stock"
-CCNE,CNB Financial Corporation Common Stock
-CADL,"Candel Therapeutics, Inc. Common Stock"
+MSEX,Middlesex Water Company Common Stock
+OBX,"Obsidian Therapeutics, Inc. Common Stock"
+CRML,Critical Metals Corp. Ordinary Shares
 APMD,"Apnimed, Inc. Common Stock"
-HBNC,"Horizon Bancorp, Inc. Common Stock"
-QDEL,QuidelOrtho Corporation Common Stock
-NNE,Nano Nuclear Energy Inc. Common Stock
-AEBI,Aebi Schmidt Holding AG Common Stock 
-ASTE,"Astec Industries, Inc. Common Stock"
-NBBK,"NB Bancorp, Inc. Common Stock"
+GLIBA,Liberty Capital Corporation Series A GCI Group Common Stock
+GPRE,Green Plains Inc. Common Stock
+PCRX,"Pacira BioSciences, Inc. Common Stock"
+AEVA,"Aeva Technologies, Inc. Common Stock"
+NWPX,"NWPX Infrastructure, Inc. Common Stock"
 ATTO,"Attovia Therapeutics, Inc. Common Stock"
-TRST,TrustCo Bank Corp NY Common Stock
-WVE,"Wave Life Sciences, Inc. Common Stock"
-QMCO,Quantum Corporation Common Stock
+MBWM,Mercantile Bank Corporation Common Stock
+NBN,Northeast Bank Common Stock
+HPK,"HighPeak Energy, Inc. Common Stock"
+GLIBK,Liberty Capital Corporation Series C GCI Group Common Stock
+QFIN,"Qfin Holdings, Inc. American Depositary Shares"
+AVTX,"Avalo Therapeutics, Inc. Common Stock"
+SIFY,Sify Technologies Limited American Depositary Shares
+BFST,"Business First Bancshares, Inc. Common Stock"
+ITRN,Ituran Location and Control Ltd. Ordinary Shares
+CSTL,"Castle Biosciences, Inc. Common Stock"
+MCBS,"MetroCity Bankshares, Inc. Common Stock"
+AIP,"Arteris, Inc. Common Stock"
+ELVR,Elevra Lithium Limited American Depository Shares
+FTH,"Faeth Therapeutics, Inc. Common Stock"
+ABUS,Arbutus Biopharma Corporation Common Stock
+HBNC,"Horizon Bancorp, Inc. Common Stock"
+GOODO,"Gladstone Commercial Corporation 6.00% Series G Cumulative Redeemable Preferred Stock, par value $0.001 per share"
+SMPL,The Simply Good Foods Company Common Stock
+CCNE,CNB Financial Corporation Common Stock
 AMPH,"Amphastar Pharmaceuticals, Inc. Common Stock"
-HTLD,"Heartland Express, Inc. Common Stock"
-CAC,Camden National Corporation Common Stock
-KRT,Karat Packaging Inc. Common Stock
-PSNYW,Polestar Automotive Holding UK PLC Class C-1 ADS (ADW)
-DSGN,"Design Therapeutics, Inc. Common Stock"
-EVLV,"Evolv Technologies Holdings, Inc. Class A Common Stock"
-DAKT,"Daktronics, Inc. Common Stock"
-ARDX,"Ardelyx, Inc. Common Stock"
-TBLA,Taboola.com Ltd. Ordinary Shares
+SBGI,"Sinclair, Inc. Class A Common Stock"
+IMMX,"Immix Biopharma, Inc. Common Stock"
+NBBK,"NB Bancorp, Inc. Common Stock"
+CADL,"Candel Therapeutics, Inc. Common Stock"
 BXBL,"BOXABL, Inc. Common stock"
-ANNX,"Annexon, Inc. Common Stock"
-THFF,First Financial Corporation Common Stock
-ACDC,ProFrac Holding Corp. Class A Common Stock
-FRBT,"Forbright, Inc. Class A Common Stock"
-FMNB,Farmers National Banc Corp. Common Stock
-BANFP,BancFirst Corporation - BFC Capital Trust II Cumulative Trust Preferred Securities
-GAINZ,Gladstone Investment Corporation 4.875% Notes due 2028
-MPB,Mid Penn Bancorp Common Stock
-CBLL,"CeriBell, Inc. Common Stock"
-SIGIP,"Selective Insurance Group, Inc. Depositary Shares, each representing a 1/1,000th interest in a share of 4.60% Non-Cumulative Preferred Stock, Series B"
-HAFC,Hanmi Financial Corporation Common Stock
-FCBC,"First Community Bankshares, Inc. (VA) Common Stock"
-MBINN,Merchants Bancorp Depositary Shares Preferred Series C
-ANL,Adlai Nortye Group Ltd. American Depositary Shares
-OLMA,"Olema Pharmaceuticals, Inc. Common Stock"
-RWAYL,Runway Growth Finance Corp. 7.50% Notes due 2027
-LANDO,Gladstone Land Corporation 6.00% Series B Cumulative Redeemable Preferred Stock
-RPD,"Rapid7, Inc. Common Stock"
-BHFAL,"Brighthouse Financial, Inc. 6.25% Junior Subordinated Debentures due 2058"
-METC,"Ramaco Resources, Inc. Class A Common Stock"
-TIGR,UP Fintech Holding Ltd American Depositary Share representing fifteen Class A Ordinary Shares
-BBNX,"Beta Bionics, Inc. Common Stock"
-EVER,"EverQuote, Inc. Class A Common Stock"
-TCBIO,"Texas Capital Bancshares, Inc. Depositary Shares 5.75% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series B"
-NAVI,Navient Corporation Common Stock
-ACRS,"Aclaris Therapeutics, Inc. Common Stock"
-LANDP,Gladstone Land Corporation 6.00% Series C Cumulative Redeemable Preferred Stock
-TBPH,"Theravance Biopharma, Inc. Ordinary Shares"
-ADSE,ADS-TEC ENERGY PLC Ordinary Shares
-BLMN,"Bloomin' Brands, Inc. Common Stock"
-MAKO,Mako Mining Corp Common Stock
-ADAM,"Adamas Trust, Inc. Common Stock"
-BLZE,"Backblaze, Inc. Class A Common Stock"
+SVC,Service Properties Trust Common Shares of Beneficial Interest
+AEBI,Aebi Schmidt Holding AG Common Stock 
+NNNN,Anbio Biotechnology Class A Ordinary Shares
+TRST,TrustCo Bank Corp NY Common Stock
+TBLA,Taboola.com Ltd. Ordinary Shares
+CAC,Camden National Corporation Common Stock
+DSGN,"Design Therapeutics, Inc. Common Stock"
+ASTE,"Astec Industries, Inc. Common Stock"
+WVE,"Wave Life Sciences, Inc. Common Stock"
 SGP,"SpyGlass Pharma, Inc. Common Stock"
 SCZM,Santacruz Silver Mining Ltd. Common Shares
-CRTO,Criteo S.A. Ordinary Shares
-CCBG,Capital City Bank Group Common Stock
-HDL,SUPER HI INTERNATIONAL HOLDING LTD. American Depositary Shares
+QDEL,QuidelOrtho Corporation Common Stock
+KRT,Karat Packaging Inc. Common Stock
+OLMA,"Olema Pharmaceuticals, Inc. Common Stock"
+NNE,Nano Nuclear Energy Inc. Common Stock
+HTLD,"Heartland Express, Inc. Common Stock"
+THFF,First Financial Corporation Common Stock
+HAFC,Hanmi Financial Corporation Common Stock
+CBLL,"CeriBell, Inc. Common Stock"
+MPB,Mid Penn Bancorp Common Stock
+ARDX,"Ardelyx, Inc. Common Stock"
+FMNB,Farmers National Banc Corp. Common Stock
+PSNYW,Polestar Automotive Holding UK PLC Class C-1 ADS (ADW)
+ACDC,ProFrac Holding Corp. Class A Common Stock
+FRBT,"Forbright, Inc. Class A Common Stock"
+ANNX,"Annexon, Inc. Common Stock"
+GAINZ,Gladstone Investment Corporation 4.875% Notes due 2028
+EVLV,"Evolv Technologies Holdings, Inc. Class A Common Stock"
+DAKT,"Daktronics, Inc. Common Stock"
+SIGIP,"Selective Insurance Group, Inc. Depositary Shares, each representing a 1/1,000th interest in a share of 4.60% Non-Cumulative Preferred Stock, Series B"
+BANFP,BancFirst Corporation - BFC Capital Trust II Cumulative Trust Preferred Securities
 RIGL,"Rigel Pharmaceuticals, Inc. Common Stock"
-JBSS,"John B. Sanfilippo & Son, Inc. Common Stock"
-INDI,"indie Semiconductor, Inc. Class A Common Stock"
-DGICB,"Donegal Group, Inc. Class B Common Stock"
-INMD,InMode Ltd. Ordinary Shares
-ROOT,"Root, Inc. Class A Common Stock"
-FOXF,Fox Factory Holding Corp. Common Stock
-DJCO,Daily Journal Corp. (S.C.) Common Stock
-WRLD,World Acceptance Corporation Common Stock
+MBINN,Merchants Bancorp Depositary Shares Preferred Series C
+METC,"Ramaco Resources, Inc. Class A Common Stock"
+FCBC,"First Community Bankshares, Inc. (VA) Common Stock"
+FBYD,"Falcon's Beyond Global, Inc. Class A Common Stock"
+RWAYL,Runway Growth Finance Corp. 7.50% Notes due 2027
+QMCO,Quantum Corporation Common Stock
+EVER,"EverQuote, Inc. Class A Common Stock"
+NAVI,Navient Corporation Common Stock
+LANDO,Gladstone Land Corporation 6.00% Series B Cumulative Redeemable Preferred Stock
+CSIQ,Canadian Solar Inc. Common Shares (ON)
+ACRS,"Aclaris Therapeutics, Inc. Common Stock"
+CRTO,Criteo S.A. Ordinary Shares
 DSP,Viant Technology Inc. Class A Common Stock
-GSBC,"Great Southern Bancorp, Inc. Common Stock"
-SIBN,"SI-BONE, Inc. Common Stock"
+ANL,Adlai Nortye Group Ltd. American Depositary Shares
+TBPH,"Theravance Biopharma, Inc. Ordinary Shares"
+WRLD,World Acceptance Corporation Common Stock
+LANDP,Gladstone Land Corporation 6.00% Series C Cumulative Redeemable Preferred Stock
 HSTM,"HealthStream, Inc. Common Stock"
-FTH,"Faeth Therapeutics, Inc. Common Stock"
 HMH,HMH Holding Inc. Class A Common Stock
+CCBG,Capital City Bank Group Common Stock
+BBNX,"Beta Bionics, Inc. Common Stock"
+ACHV,"Achieve Life Sciences, Inc. Common Shares"
+BHFAL,"Brighthouse Financial, Inc. 6.25% Junior Subordinated Debentures due 2058"
+JBSS,"John B. Sanfilippo & Son, Inc. Common Stock"
+TCBIO,"Texas Capital Bancshares, Inc. Depositary Shares 5.75% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series B"
+GSBC,"Great Southern Bancorp, Inc. Common Stock"
+CRESY,Cresud S.A.C.I.F. y A. American Depositary Shares
+ADAM,"Adamas Trust, Inc. Common Stock"
+CLYM,"Climb Bio, Inc. Common Stock"
+TIGR,UP Fintech Holding Ltd American Depositary Share representing fifteen Class A Ordinary Shares
+INMD,InMode Ltd. Ordinary Shares
+DGICB,"Donegal Group, Inc. Class B Common Stock"
+SIBN,"SI-BONE, Inc. Common Stock"
+MAKO,Mako Mining Corp Common Stock
+FOXF,Fox Factory Holding Corp. Common Stock
+BLMN,"Bloomin' Brands, Inc. Common Stock"
+ROOT,"Root, Inc. Class A Common Stock"
+DJCO,Daily Journal Corp. (S.C.) Common Stock
+EGBN,"Eagle Bancorp, Inc. Common Stock"
+AVR,Anteris Technologies Global Corp. Common Stock
+SPFI,"South Plains Financial, Inc. Common Stock"
+ADSE,ADS-TEC ENERGY PLC Ordinary Shares
 BHFAO,"Brighthouse Financial, Inc. Depositary Shares 6.75% Non-Cumulative Preferred Stock, Series B"
 KELYB,"Kelly Services, Inc. Class B Common Stock"
-AVR,Anteris Technologies Global Corp. Common Stock
-PSIX,"Power Solutions International, Inc. Common Stock"
-LWLG,"Lightwave Logic, Inc. Common Stock"
-CSIQ,Canadian Solar Inc. Common Shares (ON)
+INDI,"indie Semiconductor, Inc. Class A Common Stock"
 APEI,"American Public Education, Inc. Common Stock"
-BBSI,"Barrett Business Services, Inc. Common Stock"
-MITK,"Mitek Systems, Inc. Common Stock"
-EGBN,"Eagle Bancorp, Inc. Common Stock"
-SWIM,"Latham Group, Inc. Common Stock"
-BHFAP,"Brighthouse Financial, Inc. Depositary Shares 6.6% Non-Cumulative Preferred Stock, Series A"
-KOPN,Kopin Corporation Common Stock
-CGBD,"Carlyle Secured Lending, Inc. Common Stock"
-SPFI,"South Plains Financial, Inc. Common Stock"
-ORRF,"Orrstown Financial Services, Inc. Common Stock"
+GSM,Ferroglobe PLC Ordinary Shares
+AHCO,AdaptHealth Corp. Common Stock
 ALRS,Alerus Financial Corporation Common Stock
+ORRF,"Orrstown Financial Services, Inc. Common Stock"
+HDL,SUPER HI INTERNATIONAL HOLDING LTD. American Depositary Shares
+PSIX,"Power Solutions International, Inc. Common Stock"
+BBSI,"Barrett Business Services, Inc. Common Stock"
+BHFAP,"Brighthouse Financial, Inc. Depositary Shares 6.6% Non-Cumulative Preferred Stock, Series A"
+MITK,"Mitek Systems, Inc. Common Stock"
+IBCP,Independent Bank Corporation Common Stock
+BLZE,"Backblaze, Inc. Class A Common Stock"
+CTMX,"CytomX Therapeutics, Inc. Common Stock"
+SWIM,"Latham Group, Inc. Common Stock"
+RJET,Republic Airways Holdings Inc. Common Stock
+ODD,ODDITY Tech Ltd. Class A Ordinary Shares
+FDMT,"4D Molecular Therapeutics, Inc. Common Stock"
 MOMO,Hello Group Inc. American Depositary Shares
 DBVT,DBV Technologies S.A. American Depositary Shares
-ACHV,"Achieve Life Sciences, Inc. Common Shares"
-ODD,ODDITY Tech Ltd. Class A Ordinary Shares
-CRESY,Cresud S.A.C.I.F. y A. American Depositary Shares
-RJET,Republic Airways Holdings Inc. Common Stock
-APOG,"Apogee Enterprises, Inc. Common Stock"
-PHAR,"Pharming Group N.V. ADS, each representing 10 ordinary shares"
-SMBC,"Southern Missouri Bancorp, Inc. Common Stock"
-CYRX,"CryoPort, Inc. Common Stock"
-IBCP,Independent Bank Corporation Common Stock
 TRNS,"Transcat, Inc. Common Stock"
-MFIC,MidCap Financial Investment Corporation Common Stock
-COLL,"Collegium Pharmaceutical, Inc. Common Stock"
-HQ,Horizon Quantum Holdings Ltd. Class A Ordinary Shares
-CSHR,CoinShares PLC Ordinary Shares
-FISI,"Financial Institutions, Inc. Common Stock"
-LINC,Lincoln Educational Services Corporation Common Stock
-RXT,"Rackspace Technology, Inc. Common Stock"
 PGC,Peapack-Gladstone Financial Corporation Common Stock
-CLYM,"Climb Bio, Inc. Common Stock"
-FWRG,"First Watch Restaurant Group, Inc. Common Stock"
-HNRG,Hallador Energy Company Common Stock
-GRPN,"Groupon, Inc. Common Stock"
-FDMT,"4D Molecular Therapeutics, Inc. Common Stock"
-VREX,Varex Imaging Corporation Common Stock
-PHAT,"Phathom Pharmaceuticals, Inc. Common Stock"
-PZZA,"Papa John's International, Inc. Common Stock"
-GSM,Ferroglobe PLC Ordinary Shares
-RILYN,"BRC Group Holdings, Inc. 6.50% Senior Notes Due 2026"
-SHBI,Shore Bancshares Inc Common Stock
-AHCO,AdaptHealth Corp. Common Stock
-CEVA,"CEVA, Inc. Common Stock"
-WEST,Westrock Coffee Company Common Stock
-KDK,"Kodiak AI, Inc. Common Stock "
-RILYG,"BRC Group Holdings, Inc. 5.00% Senior Notes due 2026"
+FISI,"Financial Institutions, Inc. Common Stock"
+APOG,"Apogee Enterprises, Inc. Common Stock"
+SMBC,"Southern Missouri Bancorp, Inc. Common Stock"
+CGBD,"Carlyle Secured Lending, Inc. Common Stock"
+CYRX,"CryoPort, Inc. Common Stock"
+MFIC,MidCap Financial Investment Corporation Common Stock
 PUBM,"PubMatic, Inc. Class A Common Stock"
-TASK,"TaskUs, Inc. Class A Common Stock"
-MAMA,"Mama's Creations, Inc. Common Stock"
-FDUS,Fidus Investment Corporation Common Stock
+PHAR,"Pharming Group N.V. ADS, each representing 10 ordinary shares"
+COLL,"Collegium Pharmaceutical, Inc. Common Stock"
+KOPN,Kopin Corporation Common Stock
+LINC,Lincoln Educational Services Corporation Common Stock
 MNPR,Monopar Therapeutics Inc. Common Stock
-SATL,Satellogic Inc. Class A Common Stock
+NVCT,"Nuvectis Pharma, Inc. Common Stock"
+GRPN,"Groupon, Inc. Common Stock"
+LWLG,"Lightwave Logic, Inc. Common Stock"
+RXT,"Rackspace Technology, Inc. Common Stock"
+VREX,Varex Imaging Corporation Common Stock
+AURA,"Aura Biosciences, Inc. Common Stock"
+HQ,Horizon Quantum Holdings Ltd. Class A Ordinary Shares
+WEST,Westrock Coffee Company Common Stock
+SHBI,Shore Bancshares Inc Common Stock
+HNRG,Hallador Energy Company Common Stock
+NGNE,Neurogene Inc. Common Stock 
+RILYN,"BRC Group Holdings, Inc. 6.50% Senior Notes Due 2026"
 GILT,Gilat Satellite Networks Ltd. Ordinary Shares
+RPD,"Rapid7, Inc. Common Stock"
+CSHR,CoinShares PLC Ordinary Shares
+RILYG,"BRC Group Holdings, Inc. 5.00% Senior Notes due 2026"
 WASH,"Washington Trust Bancorp, Inc. Common Stock"
 AOSL,Alpha and Omega Semiconductor Limited Common Shares
-AURA,"Aura Biosciences, Inc. Common Stock"
-IPX,IperionX Limited American Depositary Share
-ENVX,Enovix Corporation Common Stock
-NVCT,"Nuvectis Pharma, Inc. Common Stock"
-BWMN,Bowman Consulting Group Ltd. Common Stock
-WYFI,"WhiteFiber, Inc. Ordinary Shares"
-CCNEP,"CNB Financial Corporation Depositary Shares, each representing a 1/40th ownership interest in a share of 7.125% Series A Fixed-Rate Non-Cumulative Perpetual Preferred Stock"
-GYRE,"Gyre Therapeutics, Inc. Common Stock"
-CTMX,"CytomX Therapeutics, Inc. Common Stock"
-HELP,Cybin Inc. Common Stock
-SCHL,Scholastic Corporation Common Stock
-RCBC,River City Bank Common stock
-NGNE,Neurogene Inc. Common Stock 
-KRNT,Kornit Digital Ltd. Ordinary Shares
-ENRD,Einride AB American Depositary Shares
-NEWTP,"NewtekOne, Inc. Depositary Shares, Non-Cumulative Perpetual Preferred Stock, Series B"
-NMFC,New Mountain Finance Corporation Common Stock
+OABI,"OmniAb, Inc. Common Stock"
+FDUS,Fidus Investment Corporation Common Stock
 CCB,Coastal Financial Corporation Common Stock
-GEGGL,"Great Elm Group, Inc.  7.25% Notes due 2027"
-LYTS,LSI Industries Inc. Common Stock
-CASS,"Cass Information Systems, Inc Common Stock"
-TBLD,Thornburg Income Builder Opportunities Trust Common Stock
-MLAB,"Mesa Laboratories, Inc. Common Stock"
-SOPH,SOPHiA GENETICS SA Ordinary Shares
-ALOY,REalloys Inc. Common Stock
-OCS,Oculis Holding AG Ordinary shares
-DGICA,"Donegal Group, Inc. Class A Common Stock"
-PRAA,"PRA Group, Inc. Common Stock"
-DRUG,Bright Minds Biosciences Inc. Common Stock
-BBOT,"BridgeBio Oncology Therapeutics, Inc. Common Stock  "
-STTK,"Shattuck Labs, Inc. Common Stock"
-PAYS,"Paysign, Inc. Common Stock"
-CWBC,Community West Bancshares Common Stock
-IRWD,"Ironwood Pharmaceuticals, Inc. Class A Common Stock"
-HELE,Helen of Troy Limited Common Stock
-CCSI,"Consensus Cloud Solutions, Inc. Common Stock"
-AROW,Arrow Financial Corporation Common Stock
-ZVRA,"Zevra Therapeutics, Inc. Common Stock"
-SLRC,SLR Investment Corp. Common Stock
-CARE,"Carter Bankshares, Inc. Common Stock"
-EFSCP,"Enterprise Financial Services Corporation Depositary Shares Each Representing a 1/40th Interest in a Share of 5% Fixed Rate Non-Cumulative Perpetual Preferred Stock, Series A"
-TIPT,Tiptree Inc. Common Stock
-SPT,"Sprout Social, Inc Class A Common Stock"
-AGNT,"AGNT, Inc. Common Stock"
-PFIS,Peoples Financial Services Corp. Common Stock
 ASMB,"Assembly Biosciences, Inc. Common Stock"
-BCAL,California BanCorp Common Stock
-SSII,SS Innovations International Inc. Common Stock
+PHAT,"Phathom Pharmaceuticals, Inc. Common Stock"
+PZZA,"Papa John's International, Inc. Common Stock"
+TASK,"TaskUs, Inc. Class A Common Stock"
+FWRG,"First Watch Restaurant Group, Inc. Common Stock"
+HELP,Cybin Inc. Common Stock
+RCBC,River City Bank Common stock
+BWMN,Bowman Consulting Group Ltd. Common Stock
+ENVX,Enovix Corporation Common Stock
+SATL,Satellogic Inc. Class A Common Stock
+CEVA,"CEVA, Inc. Common Stock"
+IRWD,"Ironwood Pharmaceuticals, Inc. Class A Common Stock"
+CCNEP,"CNB Financial Corporation Depositary Shares, each representing a 1/40th ownership interest in a share of 7.125% Series A Fixed-Rate Non-Cumulative Perpetual Preferred Stock"
+MLAB,"Mesa Laboratories, Inc. Common Stock"
+LYTS,LSI Industries Inc. Common Stock
+MAMA,"Mama's Creations, Inc. Common Stock"
+SCHL,Scholastic Corporation Common Stock
+ZVRA,"Zevra Therapeutics, Inc. Common Stock"
+AROW,Arrow Financial Corporation Common Stock
+VSTM,"Verastem, Inc. Common Stock"
+CASS,"Cass Information Systems, Inc Common Stock"
+NEWTP,"NewtekOne, Inc. Depositary Shares, Non-Cumulative Perpetual Preferred Stock, Series B"
+IPX,IperionX Limited American Depositary Share
+DGICA,"Donegal Group, Inc. Class A Common Stock"
+GEGGL,"Great Elm Group, Inc.  7.25% Notes due 2027"
+TBLD,Thornburg Income Builder Opportunities Trust Common Stock
+GYRE,"Gyre Therapeutics, Inc. Common Stock"
+BBOT,"BridgeBio Oncology Therapeutics, Inc. Common Stock  "
+PAYS,"Paysign, Inc. Common Stock"
+KDK,"Kodiak AI, Inc. Common Stock "
+CWBC,Community West Bancshares Common Stock
+PFIS,Peoples Financial Services Corp. Common Stock
+DRUG,Bright Minds Biosciences Inc. Common Stock
 ARRY,"Array Technologies, Inc. Common Stock"
+PRAA,"PRA Group, Inc. Common Stock"
+NMFC,New Mountain Finance Corporation Common Stock
+SOPH,SOPHiA GENETICS SA Ordinary Shares
+CARE,"Carter Bankshares, Inc. Common Stock"
+STTK,"Shattuck Labs, Inc. Common Stock"
+OCS,Oculis Holding AG Ordinary shares
+SLRC,SLR Investment Corp. Common Stock
+SPT,"Sprout Social, Inc Class A Common Stock"
+KRNT,Kornit Digital Ltd. Ordinary Shares
+ALOY,REalloys Inc. Common Stock
+BCAL,California BanCorp Common Stock
+CBIO,"Crescent Biopharma, Inc. Common Stock"
 MSBI,"Midland States Bancorp, Inc. Common Stock"
-BHFAN,"Brighthouse Financial, Inc. Depositary shares, each representing a 1/1,000th interest in a share of 5.375% Non-Cumulative Preferred Stock, Series C"
-VRRM,Verra Mobility Corporation Class A Common Stock
+SSII,SS Innovations International Inc. Common Stock
+TIPT,Tiptree Inc. Common Stock
+SLN,Silence Therapeutics Plc American Depository Share
+RRBI,"Red River Bancshares, Inc. Common Stock"
+VALN,Valneva SE American Depositary Shares
+SHEN,Shenandoah Telecommunications Co Common Stock
+WYFI,"WhiteFiber, Inc. Ordinary Shares"
+AGMB,AgomAb Therapeutics NV American Depositary Shares
+AQST,"Aquestive Therapeutics, Inc. Common Stock"
 NSLRL,Neostellar Capital Corp. 6.00% Notes due 2026
-LEGH,Legacy Housing Corporation Common Stock (TX)
-SSYS,"Stratasys, Ltd. Ordinary Shares (Israel)"
-NEWTG,"NewtekOne, Inc. 8.50% Fixed Rate Senior Notes due 2029"
-ANGO,"AngioDynamics, Inc. Common Stock"
+BHFAN,"Brighthouse Financial, Inc. Depositary shares, each representing a 1/1,000th interest in a share of 5.375% Non-Cumulative Preferred Stock, Series C"
+EFSCP,"Enterprise Financial Services Corporation Depositary Shares Each Representing a 1/40th Interest in a Share of 5% Fixed Rate Non-Cumulative Perpetual Preferred Stock, Series A"
+HELE,Helen of Troy Limited Common Stock
+ACNB,ACNB Corporation Common Stock
 RILYT,"BRC Group Holdings, Inc. 6.00% Senior Notes Due 2028"
+AGNT,"AGNT, Inc. Common Stock"
+NEWTG,"NewtekOne, Inc. 8.50% Fixed Rate Senior Notes due 2029"
 MDXG,"MiMedx Group, Inc Common Stock"
 NEWTI,"NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028"
-ACNB,ACNB Corporation Common Stock
-DCBO,Docebo Inc. Common Shares
-SHEN,Shenandoah Telecommunications Co Common Stock
+CRMD,CorMedix Inc. Common Stock
+LEGH,Legacy Housing Corporation Common Stock (TX)
+PRME,"Prime Medicine, Inc. Common Stock"
+SGMT,Sagimet Biosciences Inc. Series A Common Stock
 FEIM,"Frequency Electronics, Inc. Common Stock"
 GAIN,Gladstone Investment Corporation Business Development Company
-RRBI,"Red River Bancshares, Inc. Common Stock"
-CGNT,Cognyte Software Ltd. Ordinary Shares
-PKOH,Park-Ohio Holdings Corp. Common Stock
-VSTM,"Verastem, Inc. Common Stock"
-PRME,"Prime Medicine, Inc. Common Stock"
-AGMB,AgomAb Therapeutics NV American Depositary Shares
-MATW,Matthews International Corporation Class A Common Stock
-GDYN,"Grid Dynamics Holdings, Inc. Class A Common Stock"
-CRMD,CorMedix Inc. Common Stock
-AQST,"Aquestive Therapeutics, Inc. Common Stock"
-VLGEA,"Village Super Market, Inc. Class A Common Stock"
 KRNY,Kearny Financial Corp Common Stock
-VINP,Vinci Compass Investments Ltd. Class A Common Shares
-YB,Yuanbao Inc. American Depositary Shares
-RSVR,"Reservoir Media, Inc. Common Stock"
-OABI,"OmniAb, Inc. Common Stock"
-BMM,Blue Moon Metals Inc. Common Shares
-SLN,Silence Therapeutics Plc American Depository Share
-SGMT,Sagimet Biosciences Inc. Series A Common Stock
-LPTH,"LightPath Technologies, Inc. Class A Common Stock"
-NRDS,"NerdWallet, Inc. Class A Common Stock"
-ADTN,"ADTRAN Holdings, Inc. Common Stock"
-DDI,"DoubleDown Interactive Co., Ltd. American Depository Shares"
-RILYZ,"BRC Group Holdings, Inc. 5.25% Senior Notes due 2028"
-GOOD,Gladstone Commercial Corporation Real Estate Investment Trust
-RGNX,REGENXBIO Inc. Common Stock
-FBIOP,"Fortress Biotech, Inc. 9.375% Series A Cumulative Redeemable Perpetual Preferred Stock"
-VBNK,VersaBank Common Shares
-CTKB,"Cytek Biosciences, Inc. Common Stock"
-RMR,The RMR Group Inc. Class A Common Stock
-HIFS,Hingham Institution for Savings Common Stock
-UROY,Uranium Royalty Corp. Common Stock
-CBIO,"Crescent Biopharma, Inc. Common Stock"
-ASPI,ASP Isotopes Inc. Common Stock
-HNST,"The Honest Company, Inc. Common Stock"
+SSYS,"Stratasys, Ltd. Ordinary Shares (Israel)"
+MATW,Matthews International Corporation Class A Common Stock
 CTNM,"Contineum Therapeutics, Inc. Class A Common Stock"
-NB,NioCorp Developments Ltd. Common Stock
-OSPN,OneSpan Inc. Common Stock
-KIDS,OrthoPediatrics Corp. Common Stock
-ALTI,"AlTi Global, Inc. Class A Common Stock"
+VINP,Vinci Compass Investments Ltd. Class A Common Shares
+PKOH,Park-Ohio Holdings Corp. Common Stock
+ANGO,"AngioDynamics, Inc. Common Stock"
+RSVR,"Reservoir Media, Inc. Common Stock"
+NRDS,"NerdWallet, Inc. Class A Common Stock"
+GDYN,"Grid Dynamics Holdings, Inc. Class A Common Stock"
+VRRM,Verra Mobility Corporation Class A Common Stock
+RILYZ,"BRC Group Holdings, Inc. 5.25% Senior Notes due 2028"
+VLGEA,"Village Super Market, Inc. Class A Common Stock"
+RGNX,REGENXBIO Inc. Common Stock
+HIFS,Hingham Institution for Savings Common Stock
+ENRD,Einride AB American Depositary Shares
+UROY,Uranium Royalty Corp. Common Stock
+GOOD,Gladstone Commercial Corporation Real Estate Investment Trust
+DDI,"DoubleDown Interactive Co., Ltd. American Depository Shares"
 ALT,"Altimmune, Inc. Common Stock"
-STLN,"Starling Oncology, Inc. Common Stock"
+YB,Yuanbao Inc. American Depositary Shares
+FBIOP,"Fortress Biotech, Inc. 9.375% Series A Cumulative Redeemable Perpetual Preferred Stock"
+RMR,The RMR Group Inc. Class A Common Stock
+BMM,Blue Moon Metals Inc. Common Shares
+DCBO,Docebo Inc. Common Shares
 ARVN,"Arvinas, Inc. Common Stock"
-EOLS,"Evolus, Inc. Common Stock"
-VALN,Valneva SE American Depositary Shares
-KELYA,"Kelly Services, Inc. Class A Common Stock"
-SPRY,"ARS Pharmaceuticals, Inc. Common Stock"
-NKLR,Terra Innovatum Global N.V. Ordinary shares
+VBNK,VersaBank Common Shares
+CGNT,Cognyte Software Ltd. Ordinary Shares
+STLN,"Starling Oncology, Inc. Common Stock"
+HNST,"The Honest Company, Inc. Common Stock"
+EIKN,"Eikon Therapeutics, Inc. Common Stock"
+ADTN,"ADTRAN Holdings, Inc. Common Stock"
+CCSI,"Consensus Cloud Solutions, Inc. Common Stock"
+ALTI,"AlTi Global, Inc. Class A Common Stock"
 DNUT,"Krispy Kreme, Inc. Common Stock"
-WHFCL,"WhiteHorse Finance, Inc. 7.875% Notes due 2028"
-CBNK,"Capital Bancorp, Inc. Common Stock"
-ABTC,American Bitcoin Corp. Class A Common Stock
-BWB,"Bridgewater Bancshares, Inc. Common Stock"
-BHFAM,"Brighthouse Financial, Inc. Depositary shares each representing a 1/1,000th Interest in a Share of 4.625% Non-Cumulative Preferred Stock, Series D"
-GCBC,"Greene County Bancorp, Inc. Common Stock"
-TECX,"Tectonic Therapeutic, Inc. Common Stock"
+ASPI,ASP Isotopes Inc. Common Stock
+CTKB,"Cytek Biosciences, Inc. Common Stock"
+CABA,"Cabaletta Bio, Inc. Common Stock"
+NB,NioCorp Developments Ltd. Common Stock
 FBIZ,"First Business Financial Services, Inc. Common Stock"
-GEMI,"Gemini Space Station, Inc. Class A Common Stock"
+BWB,"Bridgewater Bancshares, Inc. Common Stock"
+KIDS,OrthoPediatrics Corp. Common Stock
+TECX,"Tectonic Therapeutic, Inc. Common Stock"
+EOLS,"Evolus, Inc. Common Stock"
+GCBC,"Greene County Bancorp, Inc. Common Stock"
+OSPN,OneSpan Inc. Common Stock
 UNTY,"Unity Bancorp, Inc. Common Stock"
-BWAY,BrainsWay Ltd. American Depositary Shares
+CBNK,"Capital Bancorp, Inc. Common Stock"
 SFST,"Southern First Bancshares, Inc. Common Stock"
-XMAX,"XMAX, Inc. Common Stock"
-CAPR,"Capricor Therapeutics, Inc. Common Stock"
+LPTH,"LightPath Technologies, Inc. Class A Common Stock"
 SCTX,Scribe Therapeutics Inc. Common Stock
-NTGR,"NETGEAR, Inc. Common Stock"
-FWRD,Forward Air Corporation Common Stock
-DCTH,"Delcath Systems, Inc. Common Stock"
+KE,"Kimball Electronics, Inc. Common Stock"
+WHFCL,"WhiteHorse Finance, Inc. 7.875% Notes due 2028"
+BHFAM,"Brighthouse Financial, Inc. Depositary shares each representing a 1/1,000th Interest in a Share of 4.625% Non-Cumulative Preferred Stock, Series D"
+ABTC,American Bitcoin Corp. Class A Common Stock
+BLSM,"BlossomHill Therapeutics, Inc. Common Stock"
+SPRY,"ARS Pharmaceuticals, Inc. Common Stock"
 SWBI,"Smith & Wesson Brands, Inc. Common Stock"
 NRIM,Northrim BanCorp Inc Common Stock
-CTRN,"Citi Trends, Inc. Common Stock"
-EIKN,"Eikon Therapeutics, Inc. Common Stock"
-MPLT,"MapLight Therapeutics, Inc. Common Stock"
-KE,"Kimball Electronics, Inc. Common Stock"
+LMB,"Limbach Holdings, Inc. Common Stock"
+KELYA,"Kelly Services, Inc. Class A Common Stock"
+NTGR,"NETGEAR, Inc. Common Stock"
+DCTH,"Delcath Systems, Inc. Common Stock"
 CIVB,"Civista Bancshares, Inc. Common Stock"
+XMAX,"XMAX, Inc. Common Stock"
+BWAY,BrainsWay Ltd. American Depositary Shares
+MPLT,"MapLight Therapeutics, Inc. Common Stock"
+NKLR,Terra Innovatum Global N.V. Ordinary shares
+CAPR,"Capricor Therapeutics, Inc. Common Stock"
+CTRN,"Citi Trends, Inc. Common Stock"
+GEMI,"Gemini Space Station, Inc. Class A Common Stock"
+BRBI,BRBI BR Partners S.A. ADSs
+BWBBP,"Bridgewater Bancshares, Inc. Depositary Shares, Each Representing a 1/100th Interest in a Share of 5.875% Non-Cumulative Perpetual Preferred Stock, Series A"
 ITIC,Investors Title Company Common Stock
-KRUS,"Kura Sushi USA, Inc. Class A Common Stock"
-BLSM,"BlossomHill Therapeutics, Inc. Common Stock"
 YORW,York Water Company (The) Common Stock
 ARTV,"Artiva Biotherapeutics, Inc. Common Stock"
 ILPT,Industrial Logistics Properties Trust Common Shares of Beneficial Interest
-BWBBP,"Bridgewater Bancshares, Inc. Depositary Shares, Each Representing a 1/100th Interest in a Share of 5.875% Non-Cumulative Perpetual Preferred Stock, Series A"
-IMSR,Terrestrial Energy Inc. Common Stock  
-AGCC,Agencia Comercial Spirits Ltd Class A Ordinary Shares
+FLGT,"Fulgent Genetics, Inc. Common Stock"
+KRUS,"Kura Sushi USA, Inc. Class A Common Stock"
+NUAI,"New Era Energy & Digital, Inc. Common Stock"
+PANL,Pangaea Logistics Solutions Ltd. Common Shares
+HBCP,"Home Bancorp, Inc. Common Stock"
 NEXN,Nexxen International Ltd. Ordinary Shares
 ESEA,Euroseas Ltd. Common Stock (Marshall Islands)
-RILYL,"BRC Group Holdings, Inc. Depositary Shares each representing 1/1000th in a share of 7.375% Series B Cumulative Perpetual Preferred Stock, par value $0.0001"
-HBCP,"Home Bancorp, Inc. Common Stock"
-FAC,Factorial Energy Inc. Class A Common Stock
-FLGT,"Fulgent Genetics, Inc. Common Stock"
-TLRY,"Tilray Brands, Inc. Common Stock "
-CLMB,"Climb Global Solutions, Inc. Common Stock"
-PANL,Pangaea Logistics Solutions Ltd. Common Shares
+FWRD,Forward Air Corporation Common Stock
+AGCC,Agencia Comercial Spirits Ltd Class A Ordinary Shares
+TITN,Titan Machinery Inc. Common Stock
+IMSR,Terrestrial Energy Inc. Common Stock  
 ZURA,Zura Bio Limited Class A Ordinary Shares
 MBUU,"Malibu Boats, Inc. Class A Common Stock"
-ROMA,Roma Green Finance Limited Class A Ordinary Shares
-SWMR,"Swarmer, Inc Common Stock"
-CABA,"Cabaletta Bio, Inc. Common Stock"
-MSBIP,"Midland States Bancorp, Inc. Depositary Shares Each Representing a 1/40th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series A"
 KYTX,"Kyverna Therapeutics, Inc. Common Stock"
-BWFG,"Bankwell Financial Group, Inc. Common Stock"
-RMNI,"Rimini Street, Inc. (DE) Common Stock"
-TCMD,"Tactile Systems Technology, Inc. Common Stock"
-AMCX,AMC Global Media Inc. Class A Common Stock
-IBEX,IBEX Limited Common Shares
-GFUZ,General Fusion Group Ltd. Common Shares
-BSRR,Sierra Bancorp Common Stock
-RILYP,"BRC Group Holdings, Inc. Depositary Shares, each representing a 1/1000th fractional interest in a share of Series A Cumulative Perpetual Preferred Stock"
+FAC,Factorial Energy Inc. Class A Common Stock
 ARKO,ARKO Corp. Common Stock
-GRVY,"GRAVITY Co., Ltd. American Depository Shares"
-BUUU,BUUU Group Limited Class A Ordinary Share
-CMCO,Columbus McKinnon Corporation Common Stock
-OBT,"Orange County Bancorp, Inc. Common Stock"
-PBAM,"Private Bancorp of America, Inc. Common Stock"
-NUAI,"New Era Energy & Digital, Inc. Common Stock"
-VOGX,Vogenx Inc Common Stock
+RILYL,"BRC Group Holdings, Inc. Depositary Shares each representing 1/1000th in a share of 7.375% Series B Cumulative Perpetual Preferred Stock, par value $0.0001"
 NPCE,"Neuropace, Inc. Common Stock"
-SRTA,"Strata Critical Medical, Inc. Class A Common Stock"
+BWFG,"Bankwell Financial Group, Inc. Common Stock"
+TLRY,"Tilray Brands, Inc. Common Stock "
+CCOI,"Cogent Communications Holdings, Inc."
+AMCX,AMC Global Media Inc. Class A Common Stock
+MSBIP,"Midland States Bancorp, Inc. Depositary Shares Each Representing a 1/40th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series A"
+BSRR,Sierra Bancorp Common Stock
+SENS,"Senseonics Holdings, Inc. Common Stock"
+RILYP,"BRC Group Holdings, Inc. Depositary Shares, each representing a 1/1000th fractional interest in a share of Series A Cumulative Perpetual Preferred Stock"
+IBEX,IBEX Limited Common Shares
+TCMD,"Tactile Systems Technology, Inc. Common Stock"
+ROMA,Roma Green Finance Limited Class A Ordinary Shares
+OBT,"Orange County Bancorp, Inc. Common Stock"
+CLMB,"Climb Global Solutions, Inc. Common Stock"
+SWMR,"Swarmer, Inc Common Stock"
+CMCO,Columbus McKinnon Corporation Common Stock
+PBAM,"Private Bancorp of America, Inc. Common Stock"
+COFS,"ChoiceOne Financial Services, Inc. Common Stock"
+GRVY,"GRAVITY Co., Ltd. American Depository Shares"

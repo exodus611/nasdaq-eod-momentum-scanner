@@ -1,0 +1,20 @@
+{
+ "oos_period": [
+  "2025-10-01",
+  "2026-08-31"
+ ],
+ "base_hit": 0.3411,
+ "pre_move": {
+  "hit": 0.352,
+  "avg_best": 0.0128,
+  "avg_fwd2": 0.0022,
+  "avg_worst": -0.0094,
+  "per_day": 18.3,
+  "months_beat_base": "8/11"
+ },
+ "momentum": {
+  "hit": 0.4866,
+  "avg_best": 0.029,
+  "avg_worst": -0.0153
+ }
+}
