@@ -1,10 +1,20 @@
 name: EOD Scanner (15:30 ET)
 on:
+  # 8 cron-слотов по UTC, каждые 15 минут. Без поля timezone (оно на этом
+  # аккаунте не отрабатывает — проверено через API 02.09: scheduled-ран отсутствовал).
+  # 19:00-20:45 UTC перекрывает окно 15:00-16:00 ET И в EDT (лето) и в EST (зима).
+  # Остальные слоты для "не того" сезона гасятся Guard-шагом за ~20 секунд.
+  # Каждый слот — отдельная очередь GitHub: даже при лагах планировщика
+  # (на free-плане зафиксирован лаг 3ч47м) шанс, что один слот добежит вовремя, высокий.
   schedule:
-    - cron: "30 15 * * 1-5"
-      # cron в Нью-Йоркском времени — 15:30 ET и летом, и зимой
-      # (ранее было "30 19 * * 1-5" = UTC: зимой это 14:30 ET, час раньше!)
-      timezone: "America/New_York"
+    - cron: "0 19 * * 1-5"   # 15:00 EDT / 14:00 EST
+    - cron: "15 19 * * 1-5"  # 15:15 EDT / 14:15 EST
+    - cron: "30 19 * * 1-5"  # 15:30 EDT / 14:30 EST
+    - cron: "45 19 * * 1-5"  # 15:45 EDT / 14:45 EST
+    - cron: "0 20 * * 1-5"   # 16:00 EDT / 15:00 EST
+    - cron: "15 20 * * 1-5"  # 16:15 EDT / 15:15 EST
+    - cron: "30 20 * * 1-5"  # 16:30 EDT / 15:30 EST
+    - cron: "45 20 * * 1-5"  # 16:45 EDT / 15:45 EST
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -16,9 +26,24 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - name: "Guard (schedule only): ET window + dedup"
+        if: github.event_name == 'schedule'
+        run: |
+          TODAY=$(TZ="America/New_York" date +%Y-%m-%d)
+          ET_HM=$(TZ="America/New_York" date +%H%M)
+          echo "Schedule event at $(TZ='America/New_York' date +%H:%M) ET ($TODAY)"
+          if [ "$ET_HM" -lt 1500 ] || [ "$ET_HM" -gt 1610 ]; then
+            echo "Outside 15:00-16:10 ET window (other season) -> skipping in ~0s"
+            exit 0
+          fi
+          if git log --oneline -30 | grep -q "scan $TODAY "; then
+            echo "Scan for $TODAY already committed -> skipping (dedup)"
+            exit 0
+          fi
+          echo "Window OK and no scan for $TODAY yet -> proceeding"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -60,7 +85,7 @@ jobs:
         run: |
           python src/prep_panel.py
           ls -lh data/*.parquet
-          python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')"
+          python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')\"
       - name: Backtest if no OOS (or stale feature set)
         run: |
           python - <<'PY'
