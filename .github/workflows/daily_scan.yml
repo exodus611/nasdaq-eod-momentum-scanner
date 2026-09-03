@@ -1,20 +1,22 @@
-name: EOD Scanner (15:30 ET)
+name: EOD Scanner (after close, entry next open)
 on:
-  # 8 cron-слотов по UTC, каждые 15 минут. Без поля timezone (оно на этом
-  # аккаунте не отрабатывает — проверено через API 02.09: scheduled-ран отсутствовал).
-  # 19:00-20:45 UTC перекрывает окно 15:00-16:00 ET И в EDT (лето) и в EST (зима).
-  # Остальные слоты для "не того" сезона гасятся Guard-шагом за ~20 секунд.
-  # Каждый слот — отдельная очередь GitHub: даже при лагах планировщика
-  # (на free-плане зафиксирован лаг 3ч47м) шанс, что один слот добежит вовремя, высокий.
+  # СКАН ПОСЛЕ ЗАКРЫТИЯ. Окно 16:10-17:10 ET = 23:10-00:10 TLV (летом 23:10-24:10).
+  # EDT (лето, UTC-4): 16:10-17:10 ET = 20:10-21:10 UTC
+  # EST (зима, UTC-5): 16:10-17:10 ET = 21:10-22:10 UTC
+  # 8 слотов каждые 15 минут; guard гасит слоты "не того" сезона (выборка:
+  # proceed=no -> все остальные шаги пропускаются, ран кончается за ~30 сек).
+  # Каждый слот — отдельная очередь GitHub Actions: при лагах планировщика
+  # (на free-плане фиксирован лаг до 3ч47м) шанс, что один слот дойдёт в
+  # окно, гораздо выше, чем у одиночного cron.
   schedule:
-    - cron: "0 19 * * 1-5"   # 15:00 EDT / 14:00 EST
-    - cron: "15 19 * * 1-5"  # 15:15 EDT / 14:15 EST
-    - cron: "30 19 * * 1-5"  # 15:30 EDT / 14:30 EST
-    - cron: "45 19 * * 1-5"  # 15:45 EDT / 14:45 EST
-    - cron: "0 20 * * 1-5"   # 16:00 EDT / 15:00 EST
     - cron: "15 20 * * 1-5"  # 16:15 EDT / 15:15 EST
     - cron: "30 20 * * 1-5"  # 16:30 EDT / 15:30 EST
     - cron: "45 20 * * 1-5"  # 16:45 EDT / 15:45 EST
+    - cron: "0 21 * * 1-5"   # 17:00 EDT / 16:00 EST
+    - cron: "15 21 * * 1-5"  # 17:15 EDT / 16:15 EST
+    - cron: "30 21 * * 1-5"  # 17:30 EDT / 16:30 EST
+    - cron: "45 21 * * 1-5"  # 17:45 EDT / 16:45 EST
+    - cron: "0 22 * * 1-5"   # 18:00 EDT / 17:00 EST
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -29,49 +31,62 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: "Guard (schedule only): ET window + dedup"
+        with:
+          fetch-depth: 30
+      - name: "Guard (schedule only): ET window 16:10-17:10 + same-day dedup"
         if: github.event_name == 'schedule'
+        id: guard
         run: |
           TODAY=$(TZ="America/New_York" date +%Y-%m-%d)
           ET_HM=$(TZ="America/New_York" date +%H%M)
+          ET_HM=${ET_HM:-0}
           echo "Schedule event at $(TZ='America/New_York' date +%H:%M) ET ($TODAY)"
-          if [ "$ET_HM" -lt 1500 ] || [ "$ET_HM" -gt 1610 ]; then
-            echo "Outside 15:00-16:10 ET window (other season) -> skipping in ~0s"
-            exit 0
+          if [ "$ET_HM" -lt 1610 ] || [ "$ET_HM" -gt 1710 ]; then
+            echo "Outside 16:10-17:10 ET window (other season) -> skip"
+            echo "proceed=no" >> "$GITHUB_OUTPUT"
+          elif git log --oneline -30 | grep -q "scan $TODAY "; then
+            echo "Scan for $TODAY already committed -> skip (dedup)"
+            echo "proceed=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "Window OK and no scan for $TODAY -> proceed"
+            echo "proceed=yes" >> "$GITHUB_OUTPUT"
           fi
-          if git log --oneline -30 | grep -q "scan $TODAY "; then
-            echo "Scan for $TODAY already committed -> skipping (dedup)"
-            exit 0
-          fi
-          echo "Window OK and no scan for $TODAY yet -> proceeding"
       - uses: actions/setup-python@v5
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         with:
           python-version: "3.12"
       - name: Cache pip
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: pip-${{ hashFiles('requirements.txt') }}
       - name: Install deps
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: pip install -r requirements.txt
       - name: Month tag
         id: month
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
       - name: Cache market data
         id: cache-data
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         uses: actions/cache@v4
         with:
           path: data
           key: nasdaq-data-${{ steps.month.outputs.month }}
           restore-keys: nasdaq-data-
       - name: Diagnostics
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           ls -lh data/ | head -30
           echo "Hist: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
           free -h; df -h
       - name: Update universe
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: python src/update_universe.py
       - name: Download history
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           echo "Incremental..."
           INCREMENTAL=1 python src/download_history.py || echo "incremental failed"
@@ -81,12 +96,14 @@ jobs:
             python src/download_history.py
           fi
           echo "Final: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
-      - name: Prep panel (robust v3 fixed)
+      - name: Prep panel (chunked, memory-safe, 1 retry)
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
-          python src/prep_panel.py
-          ls -lh data/*.parquet
+          python src/prep_panel.py || { echo "prep failed, retrying once..."; rm -f data/_feat_tmp*.parquet; python src/prep_panel.py; }
+          ls -lh data/featured_panel.parquet
           python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')\"
-      - name: Backtest if no OOS (or stale feature set)
+      - name: Backtest if no OOS (or stale feature/label set)
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           python - <<'PY'
           import json, os, sys
@@ -96,14 +113,16 @@ jobs:
           stale = True
           if os.path.exists(vp) and os.path.exists("data/oos_predictions.parquet"):
               try:
-                  stale = json.load(open(vp)).get("n_features") != len(ALL_FEATURES)
+                  ver = json.load(open(vp))
+                  stale = (ver.get("n_features") != len(ALL_FEATURES)
+                           or ver.get("label_version") != "path_win_v1")
               except Exception:
                   stale = True
           if stale:
               for f in ("data/oos_predictions.parquet",):
                   if os.path.exists(f):
                       os.remove(f)
-              print("OOS missing or stale (feature set changed) -> will rebuild")
+              print("OOS missing or stale (feature/label set changed) -> will rebuild")
           PY
           if [ ! -f data/oos_predictions.parquet ]; then
             echo "No OOS cache, running backtest..."
@@ -112,8 +131,10 @@ jobs:
             echo "OOS cached $(du -h data/oos_predictions.parquet)"
           fi
       - name: Scan
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: python src/scan.py
       - name: Build dashboard (full + simple TOP2 accordion)
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           python src/build_dashboard.py
           python src/build_simple_dashboard.py
@@ -121,29 +142,34 @@ jobs:
           echo "Dashboards: full=dashboard.html simple=index.html (TOP2 auto)"
           ls -lh output/
       - name: Check result
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           test -f output/scan_results.csv && echo "scan OK: $(wc -l < output/scan_results.csv)"
           test -f output/index.html && echo "dashboard OK: $(du -h output/index.html)"
           head -3 output/scan_results.csv
       - name: Enable Pages auto
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         continue-on-error: true
         uses: actions/configure-pages@v4
         with:
           enablement: 'true'
       - name: Commit push
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
           git config user.name "eod-scanner-bot"
           git config user.email "eod-scanner-bot@users.noreply.github.com"
           git add output data/nasdaq_universe.csv data/fundamentals.json data/tier_summary.json
           if ! git diff --cached --quiet; then
-            git commit -m "scan $(date -u +%F) 15:30 ET"
+            git commit -m "scan $(TZ='America/New_York' date +%F) after-close"
             git push
           else
             echo "no changes"
           fi
       - name: Upload Pages artifact
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         uses: actions/upload-pages-artifact@v3
         with:
           path: output
       - name: Deploy Pages
+        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         uses: actions/deploy-pages@v4

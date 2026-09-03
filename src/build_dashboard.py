@@ -51,13 +51,13 @@ try:
     oos = pd.read_parquet(os.path.join(DATA, "oos_predictions.parquet"))
     oos["selected"] = oos.groupby("model_idx")["prob"].rank(pct=True) >= 0.90
     _sel = oos[oos["selected"]]
-    _selm = _sel.groupby(_sel["date"].dt.to_period("M"))["target_2pct"].mean()
-    _basem = oos.groupby(oos["date"].dt.to_period("M"))["target_2pct"].mean()
+    _selm = _sel.groupby(_sel["date"].dt.to_period("M"))["path_win"].mean()
+    _basem = oos.groupby(oos["date"].dt.to_period("M"))["path_win"].mean()
     BT = {
-        "hit": float(_sel["target_2pct"].mean()), "base_hit": float(oos["target_2pct"].mean()),
-        "avg_best": float(_sel["best_fwd"].mean()), "base_best": float(oos["best_fwd"].mean()),
-        "avg_fwd2": float(_sel["fwd2"].mean()), "base_fwd2": float(oos["fwd2"].mean()),
-        "avg_worst": float(_sel["worst_fwd"].mean()),
+        "hit": float(_sel["path_win"].mean()), "base_hit": float(oos["path_win"].mean()),
+        "avg_best": float(_sel["best_fwdo"].mean()), "base_best": float(oos["best_fwdo"].mean()),
+        "avg_fwd2": float(_sel["fwd2o"].mean()), "base_fwd2": float(oos["fwd2o"].mean()),
+        "avg_worst": float(_sel["worst_fwdo"].mean()),
         "monthly": [(str(m), float(_selm.loc[m]), float(_basem.loc[m])) for m in _selm.index],
         "n_months": int(oos["model_idx"].nunique()),
     }
@@ -165,7 +165,7 @@ def svg_candles(t, n_bars=64):
         if prev is not None:
             parts.append(f'<line x1="{prev[0]:.1f}" y1="{prev[1]:.1f}" x2="{X(i):.1f}" y2="{y:.1f}" stroke="#d29922" stroke-width="1.4" stroke-dasharray="3 2" opacity="0.9"/>')
         prev = (X(i), y)
-    for (v, col, lab, dash) in [(entry, "#ffffff", "вход (закр.)", "2 2"), (t5, "#2ea043", "+5%", "4 3"),
+    for (v, col, lab, dash) in [(entry, "#ffffff", "ориентир", "2 2"), (t5, "#2ea043", "+5%", "4 3"),
                                 (t2, "#56d364", "+2%", "4 3"), (stop, "#f85149", "стоп −3%", "4 3")]:
         y = Y(v)
         parts.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{W - pad_r}" y2="{y:.1f}" stroke="{col}" stroke-width="1.1" stroke-dasharray="{dash}" opacity="0.85"/>')
@@ -218,10 +218,10 @@ def generic_narrative(t):
     rec = f.get("recommendationKey") or "—"
     gp = r.get("gap_sig_p")
     gp_s = f"{gp:.0%}" if gp is not None and not np.isnan(gp) else "н/д (мало OOS-сигналов)"
-    story = (f"<b>Сигнал в 15:30 ET: {t} — {('высокий скор модели в pre-move слое' if r.get('tier') == 'pre_move' else 'высокий скор модели')}.</b> "
+    story = (f"<b>Сигнал после закрытия {r.get('date', '')}: {t} — {('высокий скор модели в pre-move слое' if r.get('tier') == 'pre_move' else 'высокий скор модели')}.</b> "
              f"Изменение за день {pct(r.get('ret_1'))}, за 5 дней {pct(r.get('ret_5'))}, объём {num(r.get('vol_ratio'))}× от среднего, "
              f"RSI {num(r.get('rsi14'))}, от максимума 52 недель {pct(r.get('dist_52w_high'))}. "
-             f"Вероятность роста ≥2% за 48ч — {r['hit']:.0%}, положительный гэп следующего дня — {gp_s} случаев.")
+             f"Win (цель +2% раньше стопа −3%, 48ч) — {r['win']:.0%}, положительный гэп следующего дня — {gp_s} случаев.")
     if f.get("longName"):
         story += f" {f['longName']} ({f.get('sector','')}). Рекомендация: {rec}, средний таргет ${num(f.get('targetMeanPrice'))}."
     return {
@@ -249,7 +249,7 @@ def build():
         r = row(t)
         gp = r.get("gap_sig_p")
         gp_s = f"{gp:.0%}" if gp is not None and not np.isnan(gp) else "—"
-        rec_extra += f"<b>{t}</b> — P(рост ≥2% за 48ч) {r['hit']:.0%}, P(положительный гэп) {gp_s}; "
+        rec_extra += f"<b>{t}</b> — Win (цель до стопа) {r['win']:.0%}, P(положительный гэп) {gp_s}; "
 
     cards_html = ""
     for t in PICKS:
@@ -273,7 +273,7 @@ def build():
         </div>
         <div style="text-align:right">
           <span style="font-size:28px;font-weight:700;color:#e6edf3">${num(r["close"])}</span>
-          <span style="font-size:13px;color:#8b949e"> сигнал 15:30 ET</span>
+          <span style="font-size:13px;color:#8b949e"> сигнал после закрытия</span>
           <div style="font-size:12px;color:#f85149">{pct(r.get("ret_1"))} (за день)</div>
         </div>
       </div>
@@ -283,14 +283,14 @@ def build():
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Скор модели (0–1)</div>
           <div style="font-size:22px;font-weight:700;color:#56d364;margin:4px 0">{r["prob"]:.3f}</div>
           {score_bar(r["prob"])}
-          <div style="color:#8b949e;font-size:11px;margin-top:6px">P(рост ≥2% за 48ч)</div>
+          <div style="color:#8b949e;font-size:11px;margin-top:6px">Win (цель до стопа)</div>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Ожидания на 48ч (калибровка)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Попадание ≥2%</td><td style="text-align:right;color:#2ea043;font-weight:700">{r["hit"]:.0%}</td></tr>
+            <tr><td style="color:#8b949e">Win: +2% до стопа</td><td style="text-align:right;color:#2ea043;font-weight:700">{r["win"]:.0%}</td></tr>
+            <tr><td style="color:#8b949e">Stop (48ч)</td><td style="text-align:right;color:#f85149;font-weight:700">{r["loss"]:.0%}</td></tr>
             <tr><td style="color:#8b949e">Среднее лучшее движение</td><td style="text-align:right;color:#2ea043;font-weight:700">{pct(r["avg_best"])}</td></tr>
-            <tr><td style="color:#8b949e">Средний результат 2-го дня</td><td style="text-align:right;color:#e6edf3;font-weight:700">{pct(r["avg_fwd2"])}</td></tr>
             <tr><td style="color:#8b949e">Худший случай (средн.)</td><td style="text-align:right;color:#f85149;font-weight:700">{pct(r["avg_worst"])}</td></tr>
           </table>
         </div>
@@ -304,16 +304,16 @@ def build():
           </table>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Уровни (вход = закрытие)</div>
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Уровни (вход = открытие завтра; ориентир — закрытие)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
-            <tr><td style="color:#8b949e">Вход (закрытие)</td><td style="text-align:right;color:#e6edf3;font-weight:700">≈${entry:.2f}</td></tr>
+            <tr><td style="color:#8b949e">Ориентир (закрытие)</td><td style="text-align:right;color:#e6edf3;font-weight:700">${entry:.2f}</td></tr>
             <tr><td style="color:#8b949e">Цель 1 (+2%)</td><td style="text-align:right;color:#56d364;font-weight:700">${t2:.2f}</td></tr>
             <tr><td style="color:#8b949e">Цель 2 (+5%)</td><td style="text-align:right;color:#2ea043;font-weight:700">${t5:.2f}</td></tr>
             <tr><td style="color:#8b949e">Стоп (−3%)</td><td style="text-align:right;color:#f85149;font-weight:700">${stop:.2f}</td></tr>
           </table>
         </div>
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px">
-          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Техническое состояние (до 15:30)</div>
+          <div style="color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:0.5px">Техническое состояние (полная свеча)</div>
           <table style="width:100%;font-size:13px;margin-top:6px">
             <tr><td style="color:#8b949e">RSI(14)</td><td style="text-align:right;color:#e6edf3;font-weight:700">{num(r.get("rsi14"))}</td></tr>
             <tr><td style="color:#8b949e">Объём vs 20д</td><td style="text-align:right;color:#d29922;font-weight:700">{num(r.get("vol_ratio"))}×</td></tr>
@@ -359,7 +359,7 @@ def build():
       </div>
 
       <div style="margin-top:14px">{svg_candles(t)}</div>
-      <div style="color:#8b949e;font-size:11px;margin-top:4px">Последняя свеча — {LAST} до 15:30 ET (неполная, на момент скана). Уровни от цены 15:30; вход — по фактическому закрытию.</div>
+      <div style="color:#8b949e;font-size:11px;margin-top:4px">Полная свеча {LAST} (рынок закрыт на момент скана). Уровни от закрытия как ориентира; фактический вход — по открытию следующего дня 09:30 ET (12:30 TLV).</div>
     </div>"""
 
     # top-10 table: pre-move слой сверху, затем momentum
@@ -380,7 +380,7 @@ def build():
       <td style="padding:8px 10px;font-weight:700;color:#e6edf3">{r["ticker"]}{badge}</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">${r["close"]:.2f}</td>
       <td style="padding:8px 10px;color:#56d364;text-align:right;font-weight:700">{r["prob"]:.3f}</td>
-      <td style="padding:8px 10px;color:#2ea043;text-align:right">{r["hit"]:.0%}</td>
+      <td style="padding:8px 10px;color:#2ea043;text-align:right">{r["win"]:.0%}</td>
       <td style="padding:8px 10px;color:#e6edf3;text-align:right">{pct(r["avg_best"])}</td>
       <td style="padding:8px 10px;color:#58a6ff;text-align:right">{gp_s}</td>
       <td style="padding:8px 10px;color:{'#f85149' if (r.get('ret_1') or 0) < 0 else '#2ea043'};text-align:right">{pct(r.get("ret_1"))}</td>
@@ -416,8 +416,8 @@ def build():
     if stab:
         stab_html = f"""
     <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:22px;margin-top:28px">
-      <h2 style="margin:0 0 8px;font-size:20px">Валидация: сигнал в 15:30 vs сигнал по закрытию</h2>
-      <div style="color:#8b949e;font-size:13px;margin-bottom:14px">Проверено на {stab['days']} торговых днях × 60 ликвидных акций: свеча на 15:30 (неполная) vs полная свеча дня. Модель обучена на полных свечах, но применяется к данным 15:30.</div>
+      <h2 style="margin:0 0 8px;font-size:20px">Контекст: сигнал 15:30 ≈ сигнал по закрытию</h2>
+      <div style="color:#8b949e;font-size:13px;margin-bottom:14px">Проверено на {stab['days']} торговых днях × 60 ликвидных акций: неполная свеча на 15:30 и полная свеча дают почти одинаковый скор модели. Скан теперь идёт ПОСЛЕ закрытия — модель применяется к полной свече, ровно как в обучении.</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
         <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
           <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Корреляция скоров</div>
@@ -442,7 +442,7 @@ def build():
       </div>
       <div style="color:#c9d1d9;font-size:13px;margin-top:12px;line-height:1.6">
         Вывод: сканирование за 30 минут до закрытия по неполной свече сохраняет почти весь сигнал — потеря точности
-        всего ~1,5–2 п.п. Поэтому план работает: <b>сигнал в 15:30 → вход на закрытии → цель +2/+5% за 24–48ч</b>.
+        всего ~1,5–2 п.п. Схема: <b>сигнал после закрытия → вход по открытию следующего дня → цель +2/+5% за 24–48ч, стоп −3%</b>.
       </div>
     </div>"""
 
@@ -497,7 +497,7 @@ def build():
       <tbody>{rows_r}</tbody>
     </table>
     </div>
-    <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (15:30 ET) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни 15:30 ET — 8 cron-слотов 19:00-20:45 UTC (лето/зима), guard: только окно 15:00-16:10 ET и без дублей. Если скан не пришёл к 15:55 ET — кнопка «Сканировать сейчас» на главной.</div>
+    <div style="color:#8b949e;font-size:12px;margin-top:10px">Каждый авто-скан (после закрытия) и ручной запуск оставляют коммит — видно всю историю. Автозапуск: будни ~16:15-16:45 ET (23:15-23:45 TLV) — 8 cron-слотов 20:15-22:00 UTC (лето/зима), guard: только окно 16:10-17:10 ET и без дублей. Если скан не пришёл к ~00:00 TLV — кнопка «Сканировать сейчас» на главной.</div>
   </div>"""
 
     # pre-move tier OOS stats (from backtest)
@@ -534,7 +534,7 @@ def build():
       </div>
       <div style="color:#8b949e;font-size:12px;margin-top:10px;line-height:1.5">
         Pre-move = аптренд (выше SMA50 и SMA200) + в пределах 15% от максимума 52 недель + |день| &lt; 3% + нет дня с |движением| &gt; 4% за неделю.
-        Вход ДО начала движения: худшее 2-дневное движение вдвое меньше, чем у «уже движущихся», при попадании выше базы.
+        Win 57% / stop 34% (OOS 13 мес, весь NASDAQ, вход по открытию, цель +2% раньше стопа −3%): EV +0.15%/трейд; без маски EV отрицательный.
       </div>
     </div>"""
 
@@ -543,7 +543,7 @@ def build():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EOD Pre-Move Scanner — NASDAQ · сигнал {last_date} (15:30 ET)</title>
+<title>EOD Pre-Move Scanner — NASDAQ · сигнал {last_date} (после закрытия)</title>
 </head>
 <body style="margin:0;background:#0d1117;color:#e6edf3;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 <div style="max-width:1080px;margin:0 auto;padding:28px 18px 60px">
@@ -552,7 +552,7 @@ def build():
     <div>
       <div style="color:#58a6ff;font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase">Algotrading · NASDAQ</div>
       <h1 style="margin:6px 0 2px;font-size:30px;font-weight:800">EOD Pre-Move Scanner</h1>
-      <div style="color:#8b949e;font-size:14px">Скан в <b style="color:#e6edf3">15:30 ET</b> (за 30 мин до закрытия) → вход на закрытии → цель <b style="color:#e6edf3">+2…+5%</b> за 24–48 часов</div>
+      <div style="color:#8b949e;font-size:14px">Скан <b style="color:#e6edf3">после закрытия</b> (~16:15 ET / 23:15 TLV) → вход по открытию следующего дня 09:30 ET → цель <b style="color:#e6edf3">+2…+5%</b> за 24–48 часов, стоп −3%</div>
     </div>
     <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
       <div style="text-align:right">
@@ -569,10 +569,10 @@ def build():
   {univ_html}
 
   <div style="background:#1c2a12;border:1px solid #238636;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:13.5px;color:#c9d1d9;line-height:1.6">
-    <b style="color:#56d364">Рекомендация на эту сессию:</b> {rec_extra}
-    Сигнал сформирован по данным до 15:30 ET, вход — по цене закрытия. Гэп следующего дня — статистически ~50/50
-    с лёгким положительным смещением у лидеров; <b>основной заработок — движение внутри 24–48ч к целям +2/+5%</b>,
-    поэтому выход по открытию не рекомендуется, стоп −3% обязателен.
+    <b style="color:#56d364">Рекомендация на СЛЕДУЮЩУЮ сессию:</b> {rec_extra}
+    Сигнал сформирован по полной свече (рынок закрыт на момент скана). <b>Вход — по открытию следующего дня 09:30 ET (12:30 TLV)</b>.
+    Гэп открытия — статистически ~50/50, поэтому <b>основной заработок — движение внутри 24–48ч к целям +2/+5%</b>;
+    стоп −3% от цены входа обязателен.
   </div>
 
   {cards_html}
@@ -607,7 +607,7 @@ def build():
     <div style="color:#8b949e;font-size:13px;margin-bottom:14px">Walk-forward: модель обучается на прошлом, тестируется на следующем месяце. {bt['n_months']} месяцев вне выборки (окт 2025 – авг 2026), ~1500 акций NASDAQ.</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
       <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center">
-        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Попадание ≥2% за 48ч</div>
+        <div style="color:#8b949e;font-size:11px;text-transform:uppercase">Win: цель +2% раньше стопа</div>
         <div style="font-size:26px;font-weight:800;color:#2ea043">{bt['hit']:.1%}</div>
         <div style="color:#8b949e;font-size:12px">база рынка: {bt['base_hit']:.1%}</div>
       </div>

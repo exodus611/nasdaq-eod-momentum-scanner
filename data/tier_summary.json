@@ -3,18 +3,21 @@
   "2025-10-01",
   "2026-08-31"
  ],
- "base_hit": 0.3411,
+ "base_win": 0.6097,
  "pre_move": {
-  "hit": 0.352,
-  "avg_best": 0.0128,
-  "avg_fwd2": 0.0022,
-  "avg_worst": -0.0094,
-  "per_day": 18.3,
+  "win": 0.6983,
+  "loss": 0.3017,
+  "neutral": 0.0,
+  "avg_best": 0.0262,
+  "avg_worst": -0.0178,
+  "ev_per_trade": 0.0049,
+  "per_day": 6.2,
   "months_beat_base": "8/11"
  },
  "momentum": {
-  "hit": 0.4866,
-  "avg_best": 0.029,
-  "avg_worst": -0.0153
+  "win": 0.6817,
+  "loss": 0.3183,
+  "avg_best": 0.0288,
+  "avg_worst": -0.0219
  }
 }

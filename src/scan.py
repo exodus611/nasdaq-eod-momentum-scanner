@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Live EOD scanner — signal 30 min before close (15:30 ET).
+"""Live EOD scanner — signal AFTER market close (~16:15 ET), entry NEXT session open.
 
-Builds the CURRENT day candle from intraday bars up to 15:30 ET (incomplete candle,
-volume scaled to full-day), scores the universe with the base+coil model, and outputs
+The market is closed at scan time: the CURRENT day candle is COMPLETE (all intraday
+bars, no volume scaling). Scores the universe with the base+coil model (trained on
+open-entry targets: fwd returns measured from the NEXT session's open) and outputs
 TWO tiers:
 
   * pre_move  — structural "before the move" mask (uptrend, near 52w high, quiet today,
                 no spike this week) ranked by model prob. This is the MAIN list.
   * momentum  — all liquid names ranked by model prob (already-moving names; for reference).
 
-Entry at the close; target +2..+5% in 24-48h; stop -3%.
-Calibration and gap stats come from the OUT-OF-SAMPLE walk-forward predictions
-(data/oos_predictions.parquet) when available.
+Entry at the next trading day's open (09:30 ET); target +2..+5% in 24-48h from entry;
+stop -3%. Calibration and gap stats come from the OUT-OF-SAMPLE walk-forward
+predictions (data/oos_predictions.parquet) when available.
 """
 import os, json, time
 import numpy as np
@@ -26,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 OUT = os.path.join(ROOT, "output")
 NY = "America/New_York"
-SCAN_HR = "15:30"  # ET — за 30 минут до закрытия
+SCAN_HR = "after close"  # ET — после закрытия рынка (~16:15 ET)
 MINUTES_OPEN = 390  # 09:30-16:00
 
 PROBES = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL"]  # fallback chain for session detection
@@ -137,7 +138,7 @@ def model_gap_stats(ticker, oos, threshold=0.45, min_n=12):
 # ---------------------------------------------------------------- model + calibration
 def train_final_model(feats):
     X = feats[ALL_FEATURES].values
-    y = feats["target_2pct"].values
+    y = feats["path_win"].values
     m = HistGradientBoostingClassifier(
         max_iter=250, learning_rate=0.05, max_depth=5,
         min_samples_leaf=200, l2_regularization=1.0, random_state=42)
@@ -155,9 +156,10 @@ def calibrate(feats, model, oos, bins=10):
         d["prob"] = model.predict_proba(feats[ALL_FEATURES].values)[:, 1]
     d["pbin"] = pd.qcut(d["prob"], bins, duplicates="drop")
     cal = d.groupby("pbin", observed=True).agg(
-        prob=("prob", "mean"), hit=("target_2pct", "mean"),
-        avg_best=("best_fwd", "mean"), avg_fwd2=("fwd2", "mean"),
-        avg_worst=("worst_fwd", "mean"), n=("prob", "size")).reset_index()
+        prob=("prob", "mean"), win=("path_win", "mean"),
+        loss=("path_loss", "mean"),
+        avg_best=("best_fwdo", "mean"), avg_worst=("worst_fwdo", "mean"),
+        n=("prob", "size")).reset_index()
     cal["pbin"] = cal["prob"].map(lambda p: f"{p:.2f}")
     return cal, ("OOS" if (oos is not None and len(oos)) else "INSAMPLE")
 
@@ -165,23 +167,24 @@ def calibrate(feats, model, oos, bins=10):
 def expected_move(prob, cal):
     idx = (cal["prob"] - prob).abs().idxmin()
     row = cal.loc[idx]
-    return dict(hit=float(row["hit"]), avg_best=float(row["avg_best"]),
-                avg_fwd2=float(row["avg_fwd2"]), avg_worst=float(row["avg_worst"]))
+    return dict(win=float(row["win"]), loss=float(row["loss"]),
+                avg_best=float(row["avg_best"]), avg_worst=float(row["avg_worst"]))
 
 
 # ---------------------------------------------------------------- pre-move mask
 def pre_move_tier(scored):
     """Apply the validated 'before the move' structural mask with a relaxation ladder.
     Returns (tiered_df, level_used). Level 1 = strict; relax one condition at a time."""
+    # Relaxation ladder: level 1 = strict production mask (validated OOS: win 57.5%,
+    # loss 33.5%, EV +0.15%/trade); relax trend/vol-coil first, then quiet/spike.
+    up = (scored["px_sma50"] > 0) & (scored["px_sma200"] > 0) & (scored["dist_52w_high"] > -0.15)
+    quiet = (scored["ret_1"].abs() < 0.03) & (scored["max_abs_ret10"] < 0.04)
+    coil = (scored["trend_sma20_50"] > 0) & (scored["vol_dry5"] < 1.0)
     levels = [
-        (1, (scored["px_sma50"] > 0) & (scored["px_sma200"] > 0)
-             & (scored["dist_52w_high"] > -0.15)
-             & (scored["ret_1"].abs() < 0.03) & (scored["max_abs_ret10"] < 0.04)),
-        (2, (scored["px_sma50"] > 0) & (scored["px_sma200"] > 0)
-             & (scored["dist_52w_high"] > -0.15)
-             & (scored["ret_1"].abs() < 0.03)),
-        (3, (scored["px_sma50"] > 0) & (scored["px_sma200"] > 0)
-             & (scored["dist_52w_high"] > -0.15)),
+        (1, up & quiet & coil),
+        (2, up & quiet),
+        (3, up & (scored["ret_1"].abs() < 0.03)),
+        (4, up),
     ]
     for level, mask in levels:
         sub = scored[mask.fillna(False)].copy()
@@ -206,7 +209,7 @@ def main():
     # ---- последняя сессия + 30-мин бары ----
     import yfinance as yf
     last_session, prev_session = detect_last_sessions()
-    print(f"last session: {last_session} | prev: {prev_session.date()} | scan as-of {SCAN_HR} ET (неполная свеча)")
+    print(f"last session: {last_session} | prev: {prev_session.date()} | scan {SCAN_HR} (полная свеча, вход по открытию след. сессии)")
 
     t0 = time.time()
     intra = yf.download(shortlist, period="5d", interval="30m", group_by="ticker",
@@ -227,7 +230,7 @@ def main():
                 continue
         except Exception:
             continue
-        day = day_candle_from_bars(sub, last_session, partial=True)
+        day = day_candle_from_bars(sub, last_session, partial=False)
         if day is None:
             continue
         hist = pd.read_csv(os.path.join(DATA, f"hist_{t}.csv"), parse_dates=["date"])
@@ -249,7 +252,7 @@ def main():
         em = expected_move(prob, cal)
         gs = gap_stats(t) or {}
         mg = (model_gap_stats(t, oos) or {}) if len(oos) else {}
-        rec = dict(ticker=t, date=last_session, signal_time=f"{SCAN_HR} ET",
+        rec = dict(ticker=t, date=last_session, signal_time=f"{SCAN_HR} ET", entry="next_session_open",
                    prob=prob, **em, **mg, **gs,
                    open=day["open"], high=day["high"], low=day["low"],
                    close=day["close"], volume=day["volume"],
@@ -308,21 +311,22 @@ def main():
                          "новые IPO добавляются, делистинги/банкротства удаляются, "
                          "акции переходят границы по цене ≥$3 и капитализации ≥$500 млн.",
         "pre_move_note": "pre_move = аптренд (выше SMA50 и SMA200) + в пределах 15% от 52-нед максимума + "
-                         "тихий день (<3%) + нет всплеска за неделю (<4%). Вход ДО движения.",
+                         "тихий день (<3%) + нет всплеска за неделю (<4%). Сигнал после закрытия, "
+                         "вход по открытию следующей сессии 09:30 ET.",
     }
     json.dump(meta, open(os.path.join(OUT, "meta.json"), "w"), indent=1, ensure_ascii=False)
     print(f"\nsaved output/scan_results.csv ({len(scan)} rows) + meta.json")
 
     pm_show = scan[scan["tier"] == "pre_move"].head(12)
-    cols = ["ticker", "close", "prob", "hit", "avg_best", "avg_worst",
+    cols = ["ticker", "close", "prob", "win", "loss", "avg_best", "avg_worst",
             "gap_sig_p", "ret_1", "ret_5", "dist_52w_high", "bbw_pct120", "vol_dry5"]
     pd.set_option("display.width", 220)
-    print("\n=== PRE-MOVE TIER (top 12, сигнал 15:30 ET, вход ДО движения) ===")
+    print("\n=== PRE-MOVE TIER (top 12, сигнал после закрытия, вход по открытию завтра) ===")
     print(pm_show[cols].round(4).to_string(index=False))
     mom = scan[scan["tier"] == "momentum"].head(5)
     print("\n=== MOMENTUM TIER (top 5, для справки) ===")
-    print(mom[["ticker", "close", "prob", "hit"]].round(4).to_string(index=False))
-    print("\n'close' = цена на 15:30 ET (вход по закрытию ≈ этой цене)")
+    print(mom[["ticker", "close", "prob", "win"]].round(4).to_string(index=False))
+    print("\n'close' = закрытие последней сессии (ОРИЕНТИР); фактический вход — по открытию следующего дня")
 
 
 if __name__ == "__main__":

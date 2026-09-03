@@ -43,7 +43,9 @@ def _apply_features(group):
     except Exception as e:
         print(f"[add_indicators] Failed: {e}")
         return group
-def build_featured_panel(panel, min_rows=250, min_dollar_vol=2e6):
+def build_featured_panel(panel, min_rows=250, min_dollar_vol=2e6, chunk=250):
+    """Chunked build (250 tickers at a time) — memory-safe on 2-8GB runners.
+    Features are per-ticker, so chunking does not change results."""
     import time
     t0 = time.time()
     if len(panel) == 0:
@@ -58,44 +60,62 @@ def build_featured_panel(panel, min_rows=250, min_dollar_vol=2e6):
         print(f"[build_featured] Fallback {len(tickers_ok)}")
         if len(tickers_ok) == 0:
             raise ValueError("No tickers")
-    panel = panel[panel["ticker"].isin(tickers_ok)].copy()
-    print(f"[build_featured] Applying indicators to {panel['ticker'].nunique()} tickers...")
-    feats = panel.groupby("ticker", sort=False, group_keys=False).apply(_apply_features)
-    if "ticker" not in feats.columns:
-        print(f"[build_featured] WARNING: ticker missing, restoring...")
-        if len(feats) == len(panel):
-            feats["ticker"] = panel["ticker"].values
-        else:
-            raise ValueError(f"ticker missing, cols: {feats.columns.tolist()}")
-    before = len(feats)
-    feats = feats.dropna(subset=FEATURES + ["fwd1", "fwd2"])
-    print(f"[build_featured] After dropna: {len(feats):,}/{before:,}")
-    if len(feats) == 0:
-        raise ValueError("All dropped")
+    sub = panel[panel["ticker"].isin(tickers_ok)]
+    tmp = os.path.join(ROOT, "data", "_feat_tmp.parquet")
+    tmp_parts = []
+    tot = 0
+    tickers_all = sorted(sub["ticker"].unique())
+    for i in range(0, len(tickers_all), chunk):
+        ct = tickers_all[i:i + chunk]
+        cs = sub[sub["ticker"].isin(ct)]
+        cf = cs.groupby("ticker", sort=False, group_keys=False).apply(_apply_features)
+        if "ticker" not in cf.columns:
+            cf["ticker"] = cs["ticker"].values if len(cf) == len(cs) else "UNKNOWN"
+        cf = cf.dropna(subset=FEATURES + ["fwd1", "fwd2", "fwd2o", "path_win"])
+        cf = cf[cf["dollar_vol21"] >= min_dollar_vol] if "dollar_vol21" in cf.columns else cf
+
+        cf.to_parquet(tmp.replace(".parquet", f".{i}.parquet"))
+        tmp_parts.append(tmp.replace(".parquet", f".{i}.parquet"))
+        tot += len(cf)
+        print(f"[build_featured] chunk {i // chunk + 1}/{(len(tickers_all) - 1) // chunk + 1}: +{len(cf):,} (total {tot:,})")
+        del cf, cs
+    feats = pd.concat([pd.read_parquet(p) for p in tmp_parts], ignore_index=True)
+    for p in tmp_parts:
+        os.remove(p)
+    feats = feats.sort_values(["ticker", "date"]).reset_index(drop=True)
     before_liq = len(feats)
-    feats = feats[feats["dollar_vol21"] >= min_dollar_vol]
-    print(f"[build_featured] After liquidity ${min_dollar_vol}: {len(feats):,}/{before_liq:,}")
+    print(f"[build_featured] After dropna+liquidity ${min_dollar_vol}: {len(feats):,}/{before_liq:,}")
     if len(feats) == 0:
-        feats = panel.groupby("ticker", sort=False, group_keys=False).apply(_apply_features)
-        if "ticker" not in feats.columns:
-            feats["ticker"] = panel["ticker"].values if len(feats) == len(panel) else "UNKNOWN"
-        feats = feats.dropna(subset=FEATURES + ["fwd1", "fwd2"])
-        feats = feats[feats["dollar_vol21"] >= 5e5]
+        # liquidity fallback: rebuild once with $500k
+        for i in range(0, len(tickers_all), chunk):
+            ct = tickers_all[i:i + chunk]
+            cs = sub[sub["ticker"].isin(ct)]
+            cf = cs.groupby("ticker", sort=False, group_keys=False).apply(_apply_features)
+            if "ticker" not in cf.columns:
+                cf["ticker"] = cs["ticker"].values if len(cf) == len(cs) else "UNKNOWN"
+            cf = cf.dropna(subset=FEATURES + ["fwd1", "fwd2", "fwd2o", "path_win"])
+            cf = cf[cf["dollar_vol21"] >= 5e5] if "dollar_vol21" in cf.columns else cf
+    
+            feats = pd.concat([feats, cf], ignore_index=True)
         print(f"[build_featured] Fallback $500k: {len(feats):,}")
-    hit_rate = feats["target_2pct"].mean() if "target_2pct" in feats.columns else 0
+    hit_rate = feats["path_win"].mean() if "path_win" in feats.columns else 0
     ticker_count = feats["ticker"].nunique() if "ticker" in feats.columns else 0
-    print(f"featured panel: {len(feats):,} rows, {ticker_count} tickers, base hit-rate = {hit_rate:.3f} ({time.time()-t0:.0f}s)")
+    print(f"featured panel: {len(feats):,} rows, {ticker_count} tickers, base win rate = {hit_rate:.3f} ({time.time()-t0:.0f}s)")
     return feats
 def pre_move_mask(feats):
-    """Structural 'before the move' conditions. Validated OOS FULL NASDAQ (13m, 1453 tickers,
-    strict top-2/day): P(+2%/48h)=40%, P(-3% stop)=23%, avg worst48h=-0.97% vs unmasked model
-    48%/41%/-1.92% -> mask trades ~8pp hit-rate for 1.8x fewer stops; EV of a +2/-3 trade is
-    positive only with the mask. (Old 37.8%/30.9% figures were a 271-ticker liquid subset.)"""
+    """Structural 'before the move' conditions, strict level (production).
+    Validated OOS full NASDAQ (13m, ~1500 tickers, strict top-2/day, path labels:
+    entry at next open, +2% target vs -3% stop, 48h): win=57.5%, loss=33.5%,
+    EV=+0.15%/trade vs 54.4%/-0.09% without the mask.
+    Conditions: uptrend above SMA50 & SMA200, within 15% of 52w high, quiet today
+    (<3%), no spike this week (<4%), gently rising SMA20 slope, low 5d volume."""
     m = (feats["px_sma50"] > 0)
     m &= (feats["px_sma200"] > 0)
     m &= (feats["dist_52w_high"] > -0.15)
     m &= (feats["ret_1"].abs() < 0.03)
     m &= (feats["max_abs_ret10"] < 0.04)
+    m &= (feats["trend_sma20_50"] > 0)
+    m &= (feats["vol_dry5"] < 1.0)
     return m.fillna(False)
 
 def walk_forward(feats, warmup_months=8):
@@ -114,7 +134,7 @@ def walk_forward(feats, warmup_months=8):
             continue
         try:
             Xtr = train[ALL_FEATURES].values
-            ytr = train["target_2pct"].values
+            ytr = train["path_win"].values
             Xte = test[ALL_FEATURES].values
             model = HistGradientBoostingClassifier(max_iter=250, learning_rate=0.05, max_depth=5, min_samples_leaf=200, l2_regularization=1.0, random_state=42)
             model.fit(Xtr, ytr)
@@ -122,8 +142,8 @@ def walk_forward(feats, warmup_months=8):
             test["prob"] = model.predict_proba(Xte)[:, 1]
             test["model_idx"] = i
             results.append(test)
-            top_hit = test.nlargest(int(len(test)*0.10),'prob')['target_2pct'].mean() if len(test) >= 10 else 0
-            print(f"  OOS {test_m}: rows={len(test)}, base={test['target_2pct'].mean():.3f}, top10%={top_hit:.3f}")
+            top_hit = test.nlargest(int(len(test)*0.10),'prob')['path_win'].mean() if len(test) >= 10 else 0
+            print(f"  OOS {test_m}: rows={len(test)}, base_win={test['path_win'].mean():.3f}, top10%={top_hit:.3f}")
         except Exception as e:
             print(f"  Failed {test_m}: {e}")
             continue
@@ -142,14 +162,14 @@ def eval_strategy(oos, top_frac=0.10, min_prob=None):
     base = ev
     def stats(d, label):
         n = len(d)
-        return {"label": label, "n": n, "hit_rate_2pct": float(d["target_2pct"].mean()) if n else 0, "avg_best_move": float(d["best_fwd"].mean()) if n else 0, "avg_fwd2": float(d["fwd2"].mean()) if n else 0, "avg_worst": float(d["worst_fwd"].mean()) if n else 0, "p95_best": float(d["best_fwd"].quantile(0.95)) if n else 0}
+        return {"label": label, "n": n, "win_rate": float(d["path_win"].mean()) if n else 0, "avg_best_move": float(d["best_fwdo"].mean()) if n else 0, "avg_fwd2": float(d["fwd2o"].mean()) if n else 0, "avg_worst": float(d["worst_fwdo"].mean()) if n else 0, "p95_best": float(d["best_fwdo"].quantile(0.95)) if n else 0}
     return stats(sel, "STRATEGY"), stats(base, "BASE_ALL")
 def monthly_hits(oos, top_frac=0.10):
     ev = oos.copy()
     ev["selected"] = ev.groupby("model_idx")["prob"].rank(pct=True) >= (1 - top_frac)
     sel = ev[ev["selected"]]
-    m = sel.groupby(sel["date"].dt.to_period("M")).agg(n=("ticker", "count"), hit=("target_2pct", "mean"), avg_best=("best_fwd", "mean"))
-    b = ev.groupby(ev["date"].dt.to_period("M"))["target_2pct"].mean().rename("base_hit")
+    m = sel.groupby(sel["date"].dt.to_period("M")).agg(n=("ticker", "count"), hit=("path_win", "mean"), avg_best=("best_fwdo", "mean"))
+    b = ev.groupby(ev["date"].dt.to_period("M"))["path_win"].mean().rename("base_win")
     return m.join(b)
 def tier_report(oos):
     """Pre-move tier (strict structural mask) vs momentum tier, both ranked by OOS prob."""
@@ -161,41 +181,55 @@ def tier_report(oos):
     top = sub[sub["sel"]]
     per_day = top.groupby("date").size().mean()
     months = top["date"].dt.to_period("M")
-    base_m = oos.groupby(oos["date"].dt.to_period("M"))["target_2pct"].mean()
-    top_m = top.groupby(months)["target_2pct"].mean()
+    base_m = oos.groupby(oos["date"].dt.to_period("M"))["path_win"].mean()
+    top_m = top.groupby(months)["path_win"].mean()
     beat = int((top_m.reindex(base_m.index).fillna(0) >= base_m).sum())
     return {
         "oos_period": [str(oos["date"].min().date()), str(oos["date"].max().date())],
-        "base_hit": round(float(oos["target_2pct"].mean()), 4),
+        "base_win": round(float(oos["path_win"].mean()), 4),
         "pre_move": {
-            "hit": round(float(top["target_2pct"].mean()), 4),
-            "avg_best": round(float(top["best_fwd"].mean()), 4),
-            "avg_fwd2": round(float(top["fwd2"].mean()), 4),
-            "avg_worst": round(float(top["worst_fwd"].mean()), 4),
+            "win": round(float(top["path_win"].mean()), 4),
+            "loss": round(float(top["path_loss"].mean()), 4),
+            "neutral": round(float(top["path_neutral"].mean()), 4),
+            "avg_best": round(float(top["best_fwdo"].mean()), 4),
+            "avg_worst": round(float(top["worst_fwdo"].mean()), 4),
+            "ev_per_trade": round(float((top["path_win"] * 0.02 - top["path_loss"] * 0.03).mean()), 4),
             "per_day": round(float(per_day), 1),
             "months_beat_base": f"{beat}/{len(base_m)}",
         },
         "momentum": {
-            "hit": round(float(mom["target_2pct"].mean()), 4),
-            "avg_best": round(float(mom["best_fwd"].mean()), 4),
-            "avg_worst": round(float(mom["worst_fwd"].mean()), 4),
+            "win": round(float(mom["path_win"].mean()), 4),
+            "loss": round(float(mom["path_loss"].mean()), 4),
+            "avg_best": round(float(mom["best_fwdo"].mean()), 4),
+            "avg_worst": round(float(mom["worst_fwdo"].mean()), 4),
         },
     }
 
 if __name__ == "__main__":
     print("=== BACKTEST START ===")
     try:
-        panel = load_panel()
-        feats = build_featured_panel(panel)
+        import time as _t
         out_path = os.path.join(ROOT, "data", "featured_panel.parquet")
-        feats.to_parquet(out_path)
-        print(f"Saved {out_path}: {len(feats):,}")
+        fresh = os.path.exists(out_path) and _t.time() - os.path.getmtime(out_path) < 3 * 3600
+        if fresh:
+            feats = pd.read_parquet(out_path)
+            if "path_win" not in feats.columns:
+                fresh = False
+                print("featured panel lacks path_win -> rebuild")
+        if fresh:
+            print(f"Reusing fresh {out_path}: {len(feats):,} rows")
+        else:
+            panel = load_panel()
+            feats = build_featured_panel(panel)
+            feats.to_parquet(out_path)
+            print(f"Saved {out_path}: {len(feats):,}")
         print("\n=== WALK-FORWARD BACKTEST ===")
         oos, models = walk_forward(feats)
         oos_path = os.path.join(ROOT, "data", "oos_predictions.parquet")
         oos.to_parquet(oos_path)
         json.dump({"n_features": len(ALL_FEATURES),
                    "features_version": "pre-move-v1",
+                   "label_version": "path_win_v1",
                    "built_utc": pd.Timestamp.utcnow().isoformat()},
                   open(os.path.join(ROOT, "data", "oos_model_version.json"), "w"), indent=1)
         print(f"Saved {oos_path}: {len(oos):,}")

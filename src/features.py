@@ -128,6 +128,55 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
         df["target_2pct"] = (df["best_fwd"] >= 0.02).astype(float)
     except:
         df["fwd1"] = 0; df["fwd2"] = 0; df["best_fwd"] = 0; df["worst_fwd"] = 0; df["target_2pct"] = 0
+    # ---- open-entry targets (signal AFTER close, entry at NEXT session open) ----
+    # fwd1o = T+1 close vs T+1 open; fwd2o = T+2 close vs T+1 open;
+    # best/worst = intraday extremes over T+1..T+2 vs T+1 open.
+    try:
+        o1 = df["open"].shift(-1)
+        h1, l1 = df["high"].shift(-1), df["low"].shift(-1)
+        h2, l2 = df["high"].shift(-2), df["low"].shift(-2)
+        c2 = c.shift(-2)
+        df["fwd1o"] = c.shift(-1) / o1 - 1
+        df["fwd2o"] = c2 / o1 - 1
+        df["best_fwdo"] = pd.concat([h1, h2], axis=1).max(axis=1) / o1 - 1
+        df["worst_fwdo"] = pd.concat([l1, l2], axis=1).min(axis=1) / o1 - 1
+        df["target_2pcto"] = (df["best_fwdo"] >= 0.02).astype(float)
+    except:
+        for col in ["fwd1o", "fwd2o", "best_fwdo", "worst_fwdo", "target_2pcto"]:
+            df[col] = np.nan
+    # ---- path-aware label: entry at T+1 open, target +2%, stop -3%, 48h. ----
+    # Daily OHLC cannot reveal the intraday order; the classic 'open position in
+    # range' heuristic decides which level is hit first when both are in range.
+    # path_win/path_loss/path_neutral are NaN when T+1/T+2 are unknown.
+    try:
+        o1 = df["open"].shift(-1); h1 = df["high"].shift(-1); l1 = df["low"].shift(-1)
+        o2 = df["open"].shift(-2); h2 = df["high"].shift(-2); l2 = df["low"].shift(-2)
+        tgt, stp = o1 * 1.02, o1 * 0.97
+
+        def _day_res(o, h, l):
+            r = pd.Series(np.nan, index=df.index)
+            r = r.mask(o >= tgt, 1.0)
+            r = r.mask(o <= stp, -1.0)
+            both = ((l <= stp) & (h >= tgt)).fillna(False)
+            # NaN comparisons evaluate False -> clean bools
+            low_open = ((o - l) / (h - l).replace(0, np.nan) < 0.5).fillna(False)
+            r = r.mask(both & low_open, 1.0)
+            r = r.mask(both & ~low_open, -1.0)
+            r = r.mask(r.isna() & (l <= stp), -1.0)
+            r = r.mask(r.isna() & (h >= tgt), 1.0)
+            return r
+
+        res = _day_res(o1, h1, l1).fillna(_day_res(o2, h2, l2))
+        valid = o1.notna() & o2.notna() & res.notna()
+        win_b = (res == 1) & valid
+        loss_b = (res == -1) & valid
+        neut_b = valid & ~win_b & ~loss_b
+        df["path_win"] = win_b.astype("float64").where(valid, other=np.nan)
+        df["path_loss"] = loss_b.astype("float64").where(valid, other=np.nan)
+        df["path_neutral"] = neut_b.astype("float64").where(valid, other=np.nan)
+    except:
+        for col in ["path_win", "path_loss", "path_neutral"]:
+            df[col] = np.nan
     return df
 FEATURES = ["ret_1", "ret_2", "ret_3", "ret_5", "ret_10", "ret_21", "vol_ratio", "close_pos", "upper_shadow", "lower_shadow", "body_pct", "gap", "rsi14", "px_sma50", "px_sma200", "trend_sma20_50", "trend_ema20_50", "atr14_pct", "adr10", "range_ratio", "dist_52w_high", "dist_52w_low", "streak", "touch_high_5d"]
 
