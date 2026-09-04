@@ -96,12 +96,22 @@ jobs:
             python src/download_history.py
           fi
           echo "Final: $(ls data/hist_*.csv 2>/dev/null | wc -l)"
-      - name: Prep panel (chunked, memory-safe, 1 retry)
+      - name: Prep panel (chunked, memory-safe, self-diagnosing)
         if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |
-          python src/prep_panel.py || { echo "prep failed, retrying once..."; rm -f data/_feat_tmp*.parquet; python src/prep_panel.py; }
+          if ! python src/prep_panel.py 2>&1 | tee /tmp/prep.log; then
+            echo "========== PREP PANEL FAILED — DIAGNOSTICS =========="
+            tail -50 /tmp/prep.log
+            echo "---- python versions ----"
+            python -c "import pandas, numpy, pyarrow, sklearn; print('pandas', pandas.__version__, '| numpy', numpy.__version__, '| pyarrow', pyarrow.__version__, '| sklearn', sklearn.__version__)" 2>&1
+            echo "---- memory ----"; free -h
+            echo "---- disk ----"; df -h /home/runner /tmp
+            echo "---- data ----"; echo "hist: $(ls data/hist_*.csv 2>/dev/null | wc -l)"; ls -lh data/ | head -15
+            echo "========================================================="
+            exit 1
+          fi
           ls -lh data/featured_panel.parquet
-          python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')\"
+          python -c "import pandas as pd; df=pd.read_parquet('data/featured_panel.parquet'); print(f'{len(df)} rows, {df[\"ticker\"].nunique()} tickers')\" || exit 1
       - name: Backtest if no OOS (or stale feature/label set)
         if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'yes'
         run: |

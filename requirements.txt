@@ -1,5 +1,7 @@
+# Pinned: verified working set (local e2e 09-03, 1462 tickers)
 yfinance>=1.7.0
-pandas>=2.0
-numpy>=1.24
-scikit-learn>=1.4
+pandas==2.2.3
+numpy==2.3.5
+scikit-learn==1.6.1
+scipy==1.17.1
 pyarrow>=14.0
