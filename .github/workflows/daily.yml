@@ -70,7 +70,8 @@ jobs:
         env:
           CAPITAL: ${{ vars.CAPITAL || '100000' }}
           PER_NAME: ${{ vars.PER_NAME || '0.10' }}
-          RSI_THR: ${{ vars.RSI_THR || '10' }}
+          TIER_A: ${{ vars.TIER_A || '10' }}
+          TIER_B: ${{ vars.TIER_B || '30' }}
           TOP_N: ${{ vars.TOP_N || '2' }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
           PAGES_URL: ${{ vars.PAGES_URL || '' }}
