@@ -1,6 +1,4 @@
+.env
 __pycache__/
 *.pyc
-data/hist_*.csv
-data/*.parquet
-data/history_index.json
-deploy/keys/
+research/data/

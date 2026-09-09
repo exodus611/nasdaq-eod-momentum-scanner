@@ -1,0 +1,107 @@
+name: Dip-Buyer daily scan (after close)
+
+# One run per trading day after the US close. No secrets needed: the job commits the journal + dashboard
+# with the built-in GITHUB_TOKEN and publishes docs/ to GitHub Pages (Pages source = GitHub Actions).
+# Two cron slots because GitHub cron is UTC and the US switches DST:
+#   16:40 ET = 20:40 UTC (EDT, Mar-Nov) / 21:40 UTC (EST, Nov-Mar)
+# The early slot is skipped by the gate step when it is before 16:15 ET; the bot never processes the same day twice.
+# A push to main also runs the job (smoke test + Pages redeploy); the bot's own commits do not re-trigger it.
+on:
+  schedule:
+    - cron: "40 20 * * 1-5"
+    - cron: "40 21 * * 1-5"
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run | test | rebuild-page | refresh-universe"
+        default: "run"
+      asof:
+        description: "optional YYYY-MM-DD — replay a past session (marked 'replay' in the journal)"
+        default: ""
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: dip-buyer
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gate (skip the early DST slot before the close)
+        id: gate
+        run: |
+          HM=$(TZ=America/New_York date +%H%M); echo "ET now: $HM"
+          if [ "${{ github.event_name }}" != "schedule" ] || [ "$HM" -ge 1615 ]; then
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=no" >> "$GITHUB_OUTPUT"; echo "before 16:15 ET -> skip this slot"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'yes'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        if: steps.gate.outputs.go == 'yes'
+        run: pip install -q -r requirements.txt
+
+      - name: Refresh universe (Mondays)
+        if: steps.gate.outputs.go == 'yes' && github.event_name == 'schedule'
+        run: |
+          if [ "$(TZ=America/New_York date +%u)" = "1" ]; then python bot.py refresh-universe || true; fi
+
+      - name: Scan
+        if: steps.gate.outputs.go == 'yes'
+        env:
+          CAPITAL: ${{ vars.CAPITAL || '100000' }}
+          PER_NAME: ${{ vars.PER_NAME || '0.10' }}
+          RSI_THR: ${{ vars.RSI_THR || '10' }}
+          TOP_N: ${{ vars.TOP_N || '2' }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          PAGES_URL: ${{ vars.PAGES_URL || '' }}
+        run: |
+          MODE="${{ github.event.inputs.mode || 'run' }}"
+          ASOF="${{ github.event.inputs.asof }}"
+          if [ -n "$ASOF" ]; then python bot.py "$MODE" --asof "$ASOF"; else python bot.py "$MODE"; fi
+
+      - name: Commit journal + dashboard
+        if: steps.gate.outputs.go == 'yes'
+        run: |
+          git config user.name "dip-buyer-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add state docs README.md data/universe_nasdaq.csv || true
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "scan: $(TZ=America/New_York date '+%Y-%m-%d %H:%M') ET"
+          git pull --rebase || true
+          git push
+
+      - name: Configure Pages
+        if: steps.gate.outputs.go == 'yes'
+        continue-on-error: true
+        uses: actions/configure-pages@v5
+
+      - name: Upload dashboard
+        if: steps.gate.outputs.go == 'yes'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy dashboard to GitHub Pages
+        id: deployment
+        if: steps.gate.outputs.go == 'yes'
+        uses: actions/deploy-pages@v4

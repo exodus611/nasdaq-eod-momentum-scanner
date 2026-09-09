@@ -1,0 +1,103 @@
+{
+ "cohorts": [
+  {
+   "signal_date": "2026-08-18",
+   "status": "closed",
+   "q_rsi": 9.94,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MU",
+     "signal_close": 940.76,
+     "ret_1": -0.0702,
+     "dvol_M": 36827,
+     "entry_date": "2026-08-19",
+     "entry_px": 959.3599853515625,
+     "shares": 10,
+     "exit_px": 974.33,
+     "ret_net": 0.0141,
+     "pnl_usd": 135.31
+    },
+    {
+     "ticker": "SNDK",
+     "signal_close": 1625.78,
+     "ret_1": -0.0901,
+     "dvol_M": 22917,
+     "entry_date": "2026-08-19",
+     "entry_px": 1682.405029296875,
+     "shares": 5,
+     "exit_px": 1600.62,
+     "ret_net": -0.05011,
+     "pnl_usd": -421.54
+    }
+   ],
+   "exit_date": "2026-08-20"
+  },
+  {
+   "signal_date": "2026-08-19",
+   "status": "closed",
+   "q_rsi": 8.33,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "SNDK",
+     "signal_close": 1568.87,
+     "ret_1": -0.035,
+     "dvol_M": 23528,
+     "entry_date": "2026-08-20",
+     "entry_px": 1569.0,
+     "shares": 6,
+     "exit_px": 1596.08,
+     "ret_net": 0.01576,
+     "pnl_usd": 148.36
+    },
+    {
+     "ticker": "AMD",
+     "signal_close": 466.42,
+     "ret_1": -0.0371,
+     "dvol_M": 13883,
+     "entry_date": "2026-08-20",
+     "entry_px": 465.6700134277344,
+     "shares": 21,
+     "exit_px": 473.25,
+     "ret_net": 0.01478,
+     "pnl_usd": 144.51
+    }
+   ],
+   "exit_date": "2026-08-21"
+  },
+  {
+   "signal_date": "2026-08-20",
+   "status": "closed",
+   "q_rsi": 3.85,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRNA",
+     "signal_close": 133.32,
+     "ret_1": -0.2355,
+     "dvol_M": 1954,
+     "entry_date": "2026-08-21",
+     "entry_px": 133.11000061035156,
+     "shares": 75,
+     "exit_px": 138.89,
+     "ret_net": 0.04192,
+     "pnl_usd": 418.53
+    },
+    {
+     "ticker": "CRWD",
+     "signal_close": 190.34,
+     "ret_1": -0.056,
+     "dvol_M": 1514,
+     "entry_date": "2026-08-21",
+     "entry_px": 190.94000244140625,
+     "shares": 52,
+     "exit_px": 190.68,
+     "ret_net": -0.00286,
+     "pnl_usd": -28.41
+    }
+   ],
+   "exit_date": "2026-08-24"
+  }
+ ]
+}
