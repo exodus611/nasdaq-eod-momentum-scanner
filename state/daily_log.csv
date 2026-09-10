@@ -21,3 +21,4 @@ date,mode,q_close,q_ret,q_rsi,tier,status,picks,n_candidates
 2026-09-04,replay,718.96,0.0018,82.4,C,C,PLTR DASH,36
 2026-09-08,replay,718.36,-0.0008,70.9,C,C,MRNA HOOD,90
 2026-09-09,replay,716.31,-0.0029,36.3,C,C,MRNA CRWV,61
+2026-09-10,live,708.69,-0.0106,7.8,A,A,MU SNDK,81

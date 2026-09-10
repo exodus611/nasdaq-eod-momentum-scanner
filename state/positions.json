@@ -702,7 +702,7 @@
   },
   {
    "signal_date": "2026-09-08",
-   "status": "open",
+   "status": "closed",
    "tier": "C",
    "trade": false,
    "q_rsi": 70.9,
@@ -715,7 +715,10 @@
      "dvol_M": 4738,
      "entry_date": "2026-09-09",
      "entry_px": 140.2949981689453,
-     "shares": 71
+     "shares": 71,
+     "exit_px": 136.62,
+     "ret_net": -0.02769,
+     "pnl_usd": -275.87
     },
     {
      "ticker": "HOOD",
@@ -724,13 +727,17 @@
      "dvol_M": 2165,
      "entry_date": "2026-09-09",
      "entry_px": 120.7750015258789,
-     "shares": 82
+     "shares": 82,
+     "exit_px": 113.33,
+     "ret_net": -0.06314,
+     "pnl_usd": -625.35
     }
-   ]
+   ],
+   "exit_date": "2026-09-10"
   },
   {
    "signal_date": "2026-09-09",
-   "status": "pending",
+   "status": "open",
    "tier": "C",
    "trade": false,
    "q_rsi": 36.31,
@@ -740,13 +747,41 @@
      "ticker": "MRNA",
      "signal_close": 135.61,
      "ret_1": -0.0336,
-     "dvol_M": 4788
+     "dvol_M": 4788,
+     "entry_date": "2026-09-10",
+     "entry_px": 134.86000061035156,
+     "shares": 74
     },
     {
      "ticker": "CRWV",
      "signal_close": 94.94,
      "ret_1": -0.049,
-     "dvol_M": 2708
+     "dvol_M": 2708,
+     "entry_date": "2026-09-10",
+     "entry_px": 89.91000366210938,
+     "shares": 111
+    }
+   ]
+  },
+  {
+   "signal_date": "2026-09-10",
+   "status": "pending",
+   "tier": "A",
+   "trade": true,
+   "q_rsi": 7.85,
+   "mode": "live",
+   "names": [
+    {
+     "ticker": "MU",
+     "signal_close": 977.41,
+     "ret_1": -0.049,
+     "dvol_M": 26195
+    },
+    {
+     "ticker": "SNDK",
+     "signal_close": 1692.59,
+     "ret_1": -0.0406,
+     "dvol_M": 20722
     }
    ]
   }
