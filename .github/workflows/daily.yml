@@ -8,8 +8,19 @@ name: Dip-Buyer daily scan (after close)
 # A push to main also runs the job (smoke test + Pages redeploy); the bot's own commits do not re-trigger it.
 on:
   schedule:
-    - cron: "40 20 * * 1-5"
-    - cron: "40 21 * * 1-5"
+    # GitHub delays scheduled runs (yesterday: ~2 h). Each cron line is a separate queue, so we fire one every 15 min
+    # across the window; the FIRST one to actually start after 16:15 ET does the scan, the rest exit in seconds.
+    #   20:15-22:00 UTC = 16:15-18:00 EDT (summer) / 15:15-17:00 EST (winter; the <16:15 ET ones skip themselves)
+    - cron: "17 20 * * 1-5"
+    - cron: "32 20 * * 1-5"
+    - cron: "47 20 * * 1-5"
+    - cron: "2 21 * * 1-5"
+    - cron: "17 21 * * 1-5"
+    - cron: "32 21 * * 1-5"
+    - cron: "47 21 * * 1-5"
+    - cron: "2 22 * * 1-5"
+    - cron: "32 22 * * 1-5"
+    - cron: "2 23 * * 1-5"
   push:
     branches: [main]
   workflow_dispatch:
@@ -40,14 +51,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gate (skip the early DST slot before the close)
+      - name: Gate (run only after the close and only if this session is not processed yet)
         id: gate
         run: |
           HM=$(TZ=America/New_York date +%H%M); echo "ET now: $HM"
-          if [ "${{ github.event_name }}" != "schedule" ] || [ "$HM" -ge 1615 ]; then
-            echo "go=yes" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "go=yes" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$HM" -ge 1615 ]; then TARGET=$(TZ=America/New_York date +%F)
+          elif [ "$HM" -lt 0900 ]; then TARGET=$(TZ=America/New_York date -d yesterday +%F)   # slot delayed past midnight ET
+          else echo "go=no" >> "$GITHUB_OUTPUT"; echo "market not closed yet -> skip"; exit 0; fi
+          if [ -f state/daily_log.csv ] && grep -q "^$TARGET," state/daily_log.csv; then
+            echo "go=no" >> "$GITHUB_OUTPUT"; echo "$TARGET already processed -> skip"
           else
-            echo "go=no" >> "$GITHUB_OUTPUT"; echo "before 16:15 ET -> skip this slot"
+            echo "go=yes" >> "$GITHUB_OUTPUT"; echo "processing $TARGET"
           fi
 
       - uses: actions/setup-python@v5
