@@ -737,7 +737,7 @@
   },
   {
    "signal_date": "2026-09-09",
-   "status": "open",
+   "status": "closed",
    "tier": "C",
    "trade": false,
    "q_rsi": 36.31,
@@ -750,7 +750,10 @@
      "dvol_M": 4788,
      "entry_date": "2026-09-10",
      "entry_px": 134.86000061035156,
-     "shares": 74
+     "shares": 74,
+     "exit_px": 143.97,
+     "ret_net": 0.06605,
+     "pnl_usd": 659.17
     },
     {
      "ticker": "CRWV",
@@ -759,13 +762,17 @@
      "dvol_M": 2708,
      "entry_date": "2026-09-10",
      "entry_px": 89.91000366210938,
-     "shares": 111
+     "shares": 111,
+     "exit_px": 88.99,
+     "ret_net": -0.01173,
+     "pnl_usd": -117.09
     }
-   ]
+   ],
+   "exit_date": "2026-09-11"
   },
   {
    "signal_date": "2026-09-10",
-   "status": "pending",
+   "status": "open",
    "tier": "A",
    "trade": true,
    "q_rsi": 7.85,
@@ -775,13 +782,41 @@
      "ticker": "MU",
      "signal_close": 977.41,
      "ret_1": -0.049,
-     "dvol_M": 26195
+     "dvol_M": 26195,
+     "entry_date": "2026-09-11",
+     "entry_px": 993.25,
+     "shares": 10
     },
     {
      "ticker": "SNDK",
      "signal_close": 1692.59,
      "ret_1": -0.0406,
-     "dvol_M": 20722
+     "dvol_M": 20722,
+     "entry_date": "2026-09-11",
+     "entry_px": 1713.0001220703125,
+     "shares": 5
+    }
+   ]
+  },
+  {
+   "signal_date": "2026-09-11",
+   "status": "pending",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 59.47,
+   "mode": "live",
+   "names": [
+    {
+     "ticker": "SNDK",
+     "signal_close": 1633.35,
+     "ret_1": -0.035,
+     "dvol_M": 20856
+    },
+    {
+     "ticker": "STX",
+     "signal_close": 830.17,
+     "ret_1": -0.0373,
+     "dvol_M": 3198
     }
    ]
   }

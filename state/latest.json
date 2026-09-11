@@ -1,405 +1,216 @@
 {
- "run_at": "10.09.2026 16:57 ET",
+ "run_at": "11.09.2026 18:35 ET",
  "mode": "live",
- "sig_date": "2026-09-10",
- "q_close": 708.69,
- "q_ret": -0.0106,
- "q_rsi": 7.8,
- "tier": "A",
- "trade": true,
+ "sig_date": "2026-09-11",
+ "q_close": 714.88,
+ "q_ret": 0.0087,
+ "q_rsi": 59.5,
+ "tier": "C",
+ "trade": false,
  "tier_a": 10.0,
  "tier_b": 30.0,
  "top_n": 2,
- "status": "A",
- "n_candidates": 81,
+ "status": "C",
+ "n_candidates": 13,
  "picks": [
   {
-   "ticker": "MU",
-   "close": 977.41,
-   "ret_1": -0.049,
-   "dvol_M": 26195,
-   "vs_sma200": 0.581
+   "ticker": "SNDK",
+   "close": 1633.35,
+   "ret_1": -0.035,
+   "dvol_M": 20856,
+   "vs_sma200": 0.58
   },
   {
-   "ticker": "SNDK",
-   "close": 1692.59,
-   "ret_1": -0.0406,
-   "dvol_M": 20722,
-   "vs_sma200": 0.649
+   "ticker": "STX",
+   "close": 830.17,
+   "ret_1": -0.0373,
+   "dvol_M": 3198,
+   "vs_sma200": 0.372
   }
  ],
  "candidates": [
   {
-   "ticker": "MU",
-   "close": 977.41,
-   "ret_1": -0.049,
-   "dvol_M": 26195,
-   "vs_sma200": 0.581
-  },
-  {
    "ticker": "SNDK",
-   "close": 1692.59,
-   "ret_1": -0.0406,
-   "dvol_M": 20722,
-   "vs_sma200": 0.649
+   "close": 1633.35,
+   "ret_1": -0.035,
+   "dvol_M": 20856,
+   "vs_sma200": 0.58
   },
   {
-   "ticker": "INTC",
-   "close": 100.32,
-   "ret_1": -0.0557,
-   "dvol_M": 9554,
-   "vs_sma200": 0.334
+   "ticker": "STX",
+   "close": 830.17,
+   "ret_1": -0.0373,
+   "dvol_M": 3198,
+   "vs_sma200": 0.372
   },
   {
-   "ticker": "AMD",
-   "close": 503.6,
-   "ret_1": -0.0336,
-   "dvol_M": 8744,
-   "vs_sma200": 0.458
-  },
-  {
-   "ticker": "MRVL",
-   "close": 226.96,
-   "ret_1": -0.0343,
-   "dvol_M": 5509,
-   "vs_sma200": 0.474
-  },
-  {
-   "ticker": "NBIS",
-   "close": 228.11,
-   "ret_1": -0.0509,
-   "dvol_M": 5125,
-   "vs_sma200": 0.453
-  },
-  {
-   "ticker": "LITE",
-   "close": 935.7,
-   "ret_1": -0.0539,
-   "dvol_M": 4223,
-   "vs_sma200": 0.344
-  },
-  {
-   "ticker": "AMAT",
-   "close": 454.01,
-   "ret_1": -0.0317,
-   "dvol_M": 3557,
-   "vs_sma200": 0.108
-  },
-  {
-   "ticker": "WDC",
-   "close": 460.93,
-   "ret_1": -0.0443,
-   "dvol_M": 2976,
-   "vs_sma200": 0.221
-  },
-  {
-   "ticker": "LRCX",
-   "close": 298.01,
-   "ret_1": -0.0565,
-   "dvol_M": 2349,
-   "vs_sma200": 0.132
-  },
-  {
-   "ticker": "SMCI",
-   "close": 37.38,
-   "ret_1": -0.0398,
-   "dvol_M": 1988,
-   "vs_sma200": 0.189
-  },
-  {
-   "ticker": "KLAC",
-   "close": 177.18,
-   "ret_1": -0.0313,
-   "dvol_M": 1717,
-   "vs_sma200": 0.029
-  },
-  {
-   "ticker": "AAOI",
-   "close": 103.29,
-   "ret_1": -0.043,
-   "dvol_M": 1149,
-   "vs_sma200": 0.005
-  },
-  {
-   "ticker": "ALAB",
-   "close": 284.53,
-   "ret_1": -0.0533,
-   "dvol_M": 1044,
-   "vs_sma200": 0.251
-  },
-  {
-   "ticker": "ARM",
-   "close": 254.18,
-   "ret_1": -0.038,
-   "dvol_M": 944,
-   "vs_sma200": 0.248
-  },
-  {
-   "ticker": "TER",
-   "close": 370.19,
-   "ret_1": -0.0352,
-   "dvol_M": 888,
-   "vs_sma200": 0.159
-  },
-  {
-   "ticker": "AXTI",
-   "close": 64.7,
-   "ret_1": -0.0611,
-   "dvol_M": 666,
-   "vs_sma200": 0.166
-  },
-  {
-   "ticker": "MARA",
-   "close": 11.43,
-   "ret_1": -0.0411,
-   "dvol_M": 530,
-   "vs_sma200": 0.046
-  },
-  {
-   "ticker": "TEM",
-   "close": 58.74,
-   "ret_1": -0.0414,
-   "dvol_M": 489,
-   "vs_sma200": 0.043
-  },
-  {
-   "ticker": "RIOT",
-   "close": 20.95,
-   "ret_1": -0.0507,
-   "dvol_M": 423,
-   "vs_sma200": 0.115
-  },
-  {
-   "ticker": "HUT",
-   "close": 90.6,
-   "ret_1": -0.0555,
-   "dvol_M": 416,
-   "vs_sma200": 0.192
-  },
-  {
-   "ticker": "BKR",
-   "close": 59.4,
-   "ret_1": -0.0666,
-   "dvol_M": 398,
-   "vs_sma200": 0.018
-  },
-  {
-   "ticker": "MTSI",
-   "close": 272.43,
-   "ret_1": -0.0478,
-   "dvol_M": 336,
-   "vs_sma200": 0.027
-  },
-  {
-   "ticker": "FLEX",
-   "close": 108.01,
-   "ret_1": -0.0414,
-   "dvol_M": 326,
-   "vs_sma200": 0.129
-  },
-  {
-   "ticker": "TSEM",
-   "close": 208.07,
-   "ret_1": -0.0392,
-   "dvol_M": 303,
-   "vs_sma200": 0.107
-  },
-  {
-   "ticker": "ENTG",
-   "close": 137.4,
-   "ret_1": -0.0394,
-   "dvol_M": 294,
-   "vs_sma200": 0.081
-  },
-  {
-   "ticker": "SIMO",
-   "close": 265.25,
-   "ret_1": -0.0448,
-   "dvol_M": 248,
-   "vs_sma200": 0.422
-  },
-  {
-   "ticker": "CHYM",
-   "close": 32.67,
-   "ret_1": -0.0544,
-   "dvol_M": 248,
-   "vs_sma200": 0.42
-  },
-  {
-   "ticker": "CLSK",
-   "close": 12.8,
-   "ret_1": -0.0361,
-   "dvol_M": 229,
-   "vs_sma200": 0.018
-  },
-  {
-   "ticker": "RPRX",
-   "close": 58.75,
-   "ret_1": -0.0304,
-   "dvol_M": 179,
-   "vs_sma200": 0.194
-  },
-  {
-   "ticker": "RGLD",
-   "close": 253.98,
-   "ret_1": -0.0326,
-   "dvol_M": 169,
-   "vs_sma200": 0.072
-  },
-  {
-   "ticker": "FCEL",
-   "close": 15.59,
-   "ret_1": -0.0591,
-   "dvol_M": 160,
-   "vs_sma200": 0.148
-  },
-  {
-   "ticker": "VIAV",
-   "close": 37.4,
-   "ret_1": -0.0454,
-   "dvol_M": 160,
-   "vs_sma200": 0.064
-  },
-  {
-   "ticker": "MXL",
-   "close": 69.34,
-   "ret_1": -0.0303,
-   "dvol_M": 149,
-   "vs_sma200": 0.436
+   "ticker": "MDB",
+   "close": 362.21,
+   "ret_1": -0.0312,
+   "dvol_M": 814,
+   "vs_sma200": 0.056
   },
   {
    "ticker": "TENB",
-   "close": 32.03,
-   "ret_1": -0.0487,
-   "dvol_M": 137,
-   "vs_sma200": 0.224
-  },
-  {
-   "ticker": "BTSG",
-   "close": 57.88,
-   "ret_1": -0.0663,
-   "dvol_M": 135,
-   "vs_sma200": 0.145
-  },
-  {
-   "ticker": "IOVA",
-   "close": 8.14,
-   "ret_1": -0.0344,
-   "dvol_M": 117,
-   "vs_sma200": 1.025
+   "close": 30.11,
+   "ret_1": -0.0599,
+   "dvol_M": 142,
+   "vs_sma200": 0.15
   },
   {
    "ticker": "ALM",
-   "close": 16.57,
-   "ret_1": -0.096,
+   "close": 15.49,
+   "ret_1": -0.0652,
    "dvol_M": 113,
-   "vs_sma200": 0.095
+   "vs_sma200": 0.02
   },
   {
    "ticker": "QLYS",
-   "close": 161.57,
-   "ret_1": -0.0505,
+   "close": 150.28,
+   "ret_1": -0.0699,
    "dvol_M": 107,
-   "vs_sma200": 0.291
+   "vs_sma200": 0.201
   },
   {
    "ticker": "SLS",
-   "close": 13.49,
-   "ret_1": -0.033,
-   "dvol_M": 98,
-   "vs_sma200": 0.931
+   "close": 11.55,
+   "ret_1": -0.1442,
+   "dvol_M": 99,
+   "vs_sma200": 0.641
+  },
+  {
+   "ticker": "ELVN",
+   "close": 54.32,
+   "ret_1": -0.034,
+   "dvol_M": 50,
+   "vs_sma200": 0.417
+  },
+  {
+   "ticker": "CLDX",
+   "close": 36.9,
+   "ret_1": -0.0315,
+   "dvol_M": 30,
+   "vs_sma200": 0.16
+  },
+  {
+   "ticker": "WERN",
+   "close": 37.28,
+   "ret_1": -0.0339,
+   "dvol_M": 30,
+   "vs_sma200": 0.052
+  },
+  {
+   "ticker": "CLYM",
+   "close": 14.25,
+   "ret_1": -0.0468,
+   "dvol_M": 26,
+   "vs_sma200": 0.588
+  },
+  {
+   "ticker": "MBX",
+   "close": 59.02,
+   "ret_1": -0.0315,
+   "dvol_M": 25,
+   "vs_sma200": 0.425
+  },
+  {
+   "ticker": "OMDA",
+   "close": 19.66,
+   "ret_1": -0.0856,
+   "dvol_M": 25,
+   "vs_sma200": 0.154
   }
  ],
  "buy": [
   {
-   "ticker": "MU",
-   "close": 977.41,
-   "ret_1": -0.049,
-   "dvol_M": 26195,
-   "vs_sma200": 0.581,
+   "ticker": "SNDK",
+   "close": 1633.35,
+   "ret_1": -0.035,
+   "dvol_M": 20856,
+   "vs_sma200": 0.58,
    "usd": 10000,
-   "shares_est": 10
+   "shares_est": 6
   },
   {
-   "ticker": "SNDK",
-   "close": 1692.59,
-   "ret_1": -0.0406,
-   "dvol_M": 20722,
-   "vs_sma200": 0.649,
+   "ticker": "STX",
+   "close": 830.17,
+   "ret_1": -0.0373,
+   "dvol_M": 3198,
+   "vs_sma200": 0.372,
    "usd": 10000,
-   "shares_est": 5
+   "shares_est": 12
   }
  ],
  "sell": [
   {
-   "signal_date": "2026-09-09",
-   "tier": "C",
-   "trade": false,
-   "entry_date": "2026-09-10",
+   "signal_date": "2026-09-10",
+   "tier": "A",
+   "trade": true,
+   "entry_date": "2026-09-11",
    "names": [
     {
-     "ticker": "MRNA",
-     "shares": 74,
-     "entry_px": 134.86000061035156
+     "ticker": "MU",
+     "shares": 10,
+     "entry_px": 993.25
     },
     {
-     "ticker": "CRWV",
-     "shares": 111,
-     "entry_px": 89.91000366210938
+     "ticker": "SNDK",
+     "shares": 5,
+     "entry_px": 1713.0001220703125
     }
    ]
   }
  ],
  "events": [
-  "⚪ C: наблюдение, paper-вход по открытию 10.09: MRNA 74 шт @ 134.86, CRWV 111 шт @ 89.91",
-  "❌ ⚪ C 08.09.2026 закрыта 10.09 по закрытию: MRNA -2.8%, HOOD -6.3% → -901$ (наблюдение)"
+  "🟢 A: куплено по открытию 11.09: MU 10 шт @ 993.25, SNDK 5 шт @ 1713.00",
+  "✅ ⚪ C 09.09.2026 закрыта 11.09 по закрытию: MRNA +6.6%, CRWV -1.2% → +542$ (наблюдение)"
  ],
  "positions": [
-  {
-   "signal_date": "2026-09-09",
-   "tier": "C",
-   "trade": false,
-   "status": "open",
-   "mode": "replay",
-   "names": [
-    {
-     "ticker": "MRNA",
-     "signal_close": 135.61,
-     "ret_1": -0.0336,
-     "dvol_M": 4788,
-     "entry_date": "2026-09-10",
-     "entry_px": 134.86000061035156,
-     "shares": 74
-    },
-    {
-     "ticker": "CRWV",
-     "signal_close": 94.94,
-     "ret_1": -0.049,
-     "dvol_M": 2708,
-     "entry_date": "2026-09-10",
-     "entry_px": 89.91000366210938,
-     "shares": 111
-    }
-   ]
-  },
   {
    "signal_date": "2026-09-10",
    "tier": "A",
    "trade": true,
-   "status": "pending",
+   "status": "open",
    "mode": "live",
    "names": [
     {
      "ticker": "MU",
      "signal_close": 977.41,
      "ret_1": -0.049,
-     "dvol_M": 26195
+     "dvol_M": 26195,
+     "entry_date": "2026-09-11",
+     "entry_px": 993.25,
+     "shares": 10
     },
     {
      "ticker": "SNDK",
      "signal_close": 1692.59,
      "ret_1": -0.0406,
-     "dvol_M": 20722
+     "dvol_M": 20722,
+     "entry_date": "2026-09-11",
+     "entry_px": 1713.0001220703125,
+     "shares": 5
+    }
+   ]
+  },
+  {
+   "signal_date": "2026-09-11",
+   "tier": "C",
+   "trade": false,
+   "status": "pending",
+   "mode": "live",
+   "names": [
+    {
+     "ticker": "SNDK",
+     "signal_close": 1633.35,
+     "ret_1": -0.035,
+     "dvol_M": 20856
+    },
+    {
+     "ticker": "STX",
+     "signal_close": 830.17,
+     "ret_1": -0.0373,
+     "dvol_M": 3198
     }
    ]
   }
@@ -419,14 +230,14 @@
    "worst": -5.011
   },
   "ALL": {
-   "n": 42,
-   "cohorts": 21,
-   "mean": 0.7402857142857142,
+   "n": 44,
+   "cohorts": 22,
+   "mean": 0.830090909090909,
    "median": 0.18200000000000002,
    "hit": 50.0,
-   "coh_pos": 10,
-   "pnl": 3168.4900000000007,
-   "pnl_pct": 3.1684900000000007,
+   "coh_pos": 11,
+   "pnl": 3710.5700000000006,
+   "pnl_pct": 3.7105700000000006,
    "maxdd": -2.3819503829889066,
    "best": 16.218,
    "worst": -16.823
@@ -458,19 +269,19 @@
    "worst": -2.388
   },
   "C": {
-   "n": 32,
-   "cohorts": 16,
-   "mean": 0.58665625,
+   "n": 34,
+   "cohorts": 17,
+   "mean": 0.7119117647058825,
    "median": -0.1505,
-   "hit": 43.75,
-   "coh_pos": 7,
-   "pnl": 1867.0500000000002,
-   "pnl_pct": 1.8670500000000003,
+   "hit": 44.11764705882353,
+   "coh_pos": 8,
+   "pnl": 2409.13,
+   "pnl_pct": 2.4091299999999998,
    "maxdd": -2.103518237193691,
    "best": 16.218,
    "worst": -16.823
   },
   "text": "Стратегия (A+B): 10 сделок / 5 дней · средняя +1.23% · медиана +1.44% · прибыльных 70% · P&L +1,301$ (+1.30% от 100,000$) · max DD -0.3%",
-  "text_c": "Наблюдение (C, не торгуем): 32 сделок · средняя +0.59% · прибыльных 44% · P&L +1,867$"
+  "text_c": "Наблюдение (C, не торгуем): 34 сделок · средняя +0.71% · прибыльных 44% · P&L +2,409$"
  }
 }

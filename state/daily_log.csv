@@ -22,3 +22,4 @@ date,mode,q_close,q_ret,q_rsi,tier,status,picks,n_candidates
 2026-09-08,replay,718.36,-0.0008,70.9,C,C,MRNA HOOD,90
 2026-09-09,replay,716.31,-0.0029,36.3,C,C,MRNA CRWV,61
 2026-09-10,live,708.69,-0.0106,7.8,A,A,MU SNDK,81
+2026-09-11,live,714.88,0.0087,59.5,C,C,SNDK STX,13
