@@ -192,10 +192,10 @@ def track_record(s):
 
 
 # ------------------------------------------------------------------ core: process one completed session
-def process(today, qq, hist, live, now):
+def process(today, qq, hist, live, now, mode=None):
     td = [x.date() for x in qq.index]; i = len(td) - 1
     qc = qq["Close"]; q_rsi = float(rsi2(qc).iloc[-1]); q_ret = float(qc.iloc[-1] / qc.iloc[-2] - 1); q_close = float(qc.iloc[-1])
-    tier = tier_of(q_rsi); mode = "live" if live else "replay"
+    tier = tier_of(q_rsi); mode = mode or ("live" if live else "replay")
     cands = scan(hist, today); S = load_state(); events = []
 
     def px(tk, col, day):
@@ -308,7 +308,19 @@ def run(asof=None):
         return
     if os.path.exists(ATTEMPT): os.remove(ATTEMPT)
     tickers = load_universe(); log(f"{last}: QQQ RSI(2)={float(rsi2(qq['Close']).iloc[-1]):.1f} | universe {len(tickers)} | downloading…")
-    process(last, qq, download(tickers), live, now); build_page()
+    hist = download(tickers)
+    for d in missing_sessions(qq, last):                       # sessions the bot missed (outage / failed run) are caught up first, in order
+        if d != last: log(f"catch-up: {d}")
+        process(d, qq[qq.index.date <= d], hist, live, now, mode=(None if d == last else "catch-up"))
+    build_page()
+
+def missing_sessions(qq, last, cap=5):
+    """All sessions after the last processed one up to `last` (max `cap`), so a missed day is not lost."""
+    dl = daily_df()
+    if not len(dl): return [last]
+    lastdone = max(dt.date.fromisoformat(str(d)) for d in dl["date"])
+    todo = [x.date() for x in qq.index if lastdone < x.date() <= last]
+    return todo[-cap:] or [last]
 
 def last_completed_session_date():
     """Never use a partial (intraday) bar: before 16:10 ET today's bar is not final."""
@@ -364,7 +376,7 @@ def build_page():
         T = TIERS[L["tier"]]; rsi = max(0.0, min(100.0, float(L["q_rsi"])))
         parts.append("<div class='grid'>")
         parts.append(f"<div class='card' style='background:{T['bg']};border-color:{T['color']}'><div class='muted'>Сканирование за {d2s(L['sig_date'])} (после закрытия)"
-                     + (" <span class='tag'>replay</span>" if L["mode"] == "replay" else "") + f"</div><div class='status' style='color:{T['color']}'>{T['icon']} {T['label']}</div>"
+                     + (f" <span class='tag'>{L['mode']}</span>" if L["mode"] != "live" else "") + f"</div><div class='status' style='color:{T['color']}'>{T['icon']} {T['label']}</div>"
                      f"<div class='kv'><span>QQQ <b>{L['q_close']:.2f}</b> <span class='{_cls(L['q_ret'])}'>{_pct(L['q_ret'])}</span></span><span>RSI(2) <b>{L['q_rsi']:.1f}</b></span>"
                      f"<span>прошли фильтр <b>{L['n_candidates']}</b></span></div><div class='bar'><i style='left:calc({rsi:.1f}% - 2px)'></i></div><div class='muted'>RSI(2) QQQ: зелёная зона &lt; {RSI_THR:.0f} = день покупки</div></div>")
         acts = []
@@ -416,13 +428,13 @@ def build_page():
         parts.append(f"<svg width='640' height='170' style='max-width:100%;background:#fff;border:1px solid #d8dee4;border-radius:8px'>{svg}<text x='6' y='14' font-size='11' fill='#57606a'>{hi:,.0f}$</text><text x='6' y='164' font-size='11' fill='#57606a'>{lo:,.0f}$</text></svg>")
         rows = ""
         for r in cl.sort_values(["exit_date", "book"], ascending=[False, True]).itertuples():
-            rows += (f"<tr><td>{'<b>стратегия</b>' if r.book == 'trade' else 'каждый день'}</td><td>{d2s(r.signal_date)} {r.tier}{' <span class=tag>replay</span>' if r.mode == 'replay' else ''}</td><td><b>{r.ticker}</b></td>"
+            rows += (f"<tr><td>{'<b>стратегия</b>' if r.book == 'trade' else 'каждый день'}</td><td>{d2s(r.signal_date)} {r.tier}{f' <span class=tag>{r.mode}</span>' if r.mode != 'live' else ''}</td><td><b>{r.ticker}</b></td>"
                      f"<td>{d2s(r.entry_date)}</td><td>{_num(r.entry_px)}</td><td>{d2s(r.exit_date)}</td><td>{_num(r.exit_px)}</td><td>{int(r.hold)}</td><td>{r.exit_reason}</td>"
                      f"<td class='{_cls(r.ret_net)}'>{_pct(r.ret_net)}</td><td class='{_cls(r.pnl_usd)}'>{r.pnl_usd:+,.0f}$</td></tr>")
         parts.append(f"<h3>Закрытые сделки</h3><div class='wrap'><table><tr><th>книга</th><th>сигнал</th><th>тикер</th><th>вход</th><th>цена входа</th><th>выход</th><th>цена выхода</th><th>сессий</th><th>причина</th><th>net</th><th>P&amp;L</th></tr>{rows}</table></div>"
                      f"<div class='muted'>net = после {COST * 1e4:.0f} б.п. издержек за круг; размер {PER_NAME:.0%} капитала ({CAPITAL:,.0f}$) на имя, макс. {MAX_POS} позиции.</div>")
     if len(dl):
-        rows = "".join(f"<tr><td>{d2s(r.date)}{' <span class=tag>replay</span>' if r.mode == 'replay' else ''}</td><td>{_num(r.q_close)}</td><td class='{_cls(r.q_ret)}'>{_pct(r.q_ret)}</td><td>{r.q_rsi}</td><td>{TIERS.get(r.tier, {}).get('icon', '')} {r.tier}</td>"
+        rows = "".join(f"<tr><td>{d2s(r.date)}{f' <span class=tag>{r.mode}</span>' if r.mode != 'live' else ''}</td><td>{_num(r.q_close)}</td><td class='{_cls(r.q_ret)}'>{_pct(r.q_ret)}</td><td>{r.q_rsi}</td><td>{TIERS.get(r.tier, {}).get('icon', '')} {r.tier}</td>"
                        f"<td>{'' if pd.isna(r.n_candidates) else int(r.n_candidates)}</td><td>{r.picks if isinstance(r.picks, str) else ''}</td><td><b>{r.buy if isinstance(r.buy, str) else ''}</b></td><td>{r.sell if isinstance(r.sell, str) else ''}</td><td>{r.hold if isinstance(r.hold, str) else ''}</td></tr>"
                        for r in dl.sort_values("date", ascending=False).head(60).itertuples())
         parts.append(f"<h2>Журнал сканирований (последние 60 из {len(dl)})</h2><div class='wrap'><table><tr><th>дата</th><th>QQQ</th><th>день</th><th>RSI(2)</th><th>тир</th><th>прошли фильтр</th><th>топ фильтра</th><th>купить</th><th>продать</th><th>держим</th></tr>{rows}</table></div>")
@@ -443,7 +455,7 @@ def update_readme(L, tr):
     if L is None: block = f"### 📊 Дашборд\nЗапусков ещё не было. Полный дашборд: {link}\n"
     else:
         T = TIERS[L["tier"]]
-        lines = [f"### 📊 Скан {d2s(L['sig_date'])} (после закрытия) — {T['icon']} {T['label']}" + (" *(replay)*" if L["mode"] == "replay" else ""),
+        lines = [f"### 📊 Скан {d2s(L['sig_date'])} (после закрытия) — {T['icon']} {T['label']}" + (f" *({L['mode']})*" if L["mode"] != "live" else ""),
                  f"QQQ **{L['q_close']:.2f}** ({_pct(L['q_ret'])}) · RSI(2) **{L['q_rsi']:.1f}** · прошли фильтр: {L['n_candidates']}", ""]
         for x in L["buy"]: lines.append(f"- 🟢 **КУПИТЬ {x['ticker']}** по открытию — {PER_NAME:.0%} капитала ≈ {x['usd']:,.0f}$ (~{x['shares_est']} шт; закрытие {x['close']:.2f}, день {_pct(x['ret_1'],1)})")
         for x in L["sell"]: lines.append(f"- 🔴 **ПРОДАТЬ {x['ticker']}** по открытию — {x['shares']} шт, вход {x['entry_px']:.2f}, сейчас {x['last_px']:.2f} ({_pct(x['upnl'],1)}), {x['held']} сесс.")

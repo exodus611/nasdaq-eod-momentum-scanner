@@ -1,24 +1,30 @@
 name: Dip-Buyer daily scan (after close)
 
-# One run per trading day after the US close. No secrets needed: the job commits the journal + dashboard
-# with the built-in GITHUB_TOKEN and publishes docs/ to GitHub Pages (Pages source = GitHub Actions).
-# Cron is UTC and the US switches DST; slots before 16:15 ET are skipped by the gate step; the bot never processes the same day twice.
-# A push to main also runs the job (smoke test + Pages redeploy); the bot's own commits do not re-trigger it.
+# One scan per trading day after the US close. No secrets: the job commits the journal + dashboard with the built-in
+# GITHUB_TOKEN and publishes docs/ to GitHub Pages (Pages source = GitHub Actions).
+#
+# GitHub starts cron jobs LATE — observed for this repo: 2h20m on 2026-09-11, >1h30m on 2026-09-14 (no slot fired
+# at all by 17:30 ET). So we do not rely on cron punctuality any more:
+#   * runs are started EARLY (every 45 min from ~12:00 ET) and WAIT inside the runner until 16:20 ET, then scan;
+#   * whichever run is alive at 16:20 ET does the scan; the others see the date in state/daily_log.csv and exit;
+#   * after-close slots remain as a fallback; the bot itself never processes the same session twice and catches up
+#     any session it missed (state/daily_log.csv is the source of truth).
+# The waiting happens in a separate job without a concurrency group, so a manual "Run workflow" is never blocked.
 on:
   schedule:
-    # GitHub delays scheduled runs (yesterday: ~2 h). Each cron line is a separate queue, so we fire one every 15 min
-    # across the window; the FIRST one to actually start after 16:15 ET does the scan, the rest exit in seconds.
-    #   20:15-22:00 UTC = 16:15-18:00 EDT (summer) / 15:15-17:00 EST (winter; the <16:15 ET ones skip themselves)
-    - cron: "17 20 * * 1-5"
+    # UTC. Summer (EDT): 12:02 13:32 ... ET; winter (EST) one hour earlier in ET = a longer wait (capped at 5h30).
+    - cron: "2 16 * * 1-5"
+    - cron: "47 16 * * 1-5"
+    - cron: "32 17 * * 1-5"
+    - cron: "17 18 * * 1-5"
+    - cron: "2 19 * * 1-5"
+    - cron: "47 19 * * 1-5"
+    # fallback after the close
     - cron: "32 20 * * 1-5"
-    - cron: "47 20 * * 1-5"
-    - cron: "2 21 * * 1-5"
-    - cron: "17 21 * * 1-5"
     - cron: "32 21 * * 1-5"
-    - cron: "47 21 * * 1-5"
-    - cron: "2 22 * * 1-5"
     - cron: "32 22 * * 1-5"
-    - cron: "2 23 * * 1-5"
+    - cron: "32 23 * * 1-5"
+    - cron: "32 0 * * 2-6"
   push:
     branches: [main]
   workflow_dispatch:
@@ -35,51 +41,90 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: dip-buyer
-  cancel-in-progress: false
-
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      go: ${{ steps.gate.outputs.go }}
+      wait: ${{ steps.gate.outputs.wait }}
+      target: ${{ steps.gate.outputs.target }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decide (which session, wait for the close or not, already done?)
+        id: gate
+        run: |
+          NOW=$(date +%s); HM=$(TZ=America/New_York date +%H%M); TODAY=$(TZ=America/New_York date +%F)
+          echo "ET now: $HM ($TODAY)"
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "go=yes" >> "$GITHUB_OUTPUT"; echo "wait=0" >> "$GITHUB_OUTPUT"; echo "target=$TODAY" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "$HM" -lt 0900 ]; then TARGET=$(TZ=America/New_York date -d yesterday +%F); WAIT=0      # slot delayed past midnight ET
+          else
+            TARGET=$TODAY
+            CLOSE=$(TZ=America/New_York date -d "$TODAY 16:20" +%s); WAIT=$(( CLOSE - NOW )); [ "$WAIT" -lt 0 ] && WAIT=0
+          fi
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          if [ -f state/daily_log.csv ] && grep -q "^$TARGET," state/daily_log.csv; then
+            echo "go=no" >> "$GITHUB_OUTPUT"; echo "wait=0" >> "$GITHUB_OUTPUT"; echo "$TARGET already processed -> exit"; exit 0
+          fi
+          if [ "$WAIT" -gt 19800 ]; then
+            echo "go=no" >> "$GITHUB_OUTPUT"; echo "wait=0" >> "$GITHUB_OUTPUT"; echo "close is $((WAIT/60)) min away, too long to hold a runner -> a later slot will do it"; exit 0
+          fi
+          echo "go=yes" >> "$GITHUB_OUTPUT"; echo "wait=$WAIT" >> "$GITHUB_OUTPUT"
+          echo "will process $TARGET after waiting $((WAIT/60)) min"
+
+  wait:
+    needs: gate
+    if: needs.gate.outputs.go == 'yes' && needs.gate.outputs.wait != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - name: Wait for the close (16:20 ET)
+        run: |
+          echo "sleeping ${{ needs.gate.outputs.wait }} s until 16:20 ET"; sleep ${{ needs.gate.outputs.wait }}
+          echo "ET now: $(TZ=America/New_York date +%H:%M)"
+
   scan:
+    needs: [gate, wait]
+    if: ${{ !cancelled() && needs.gate.outputs.go == 'yes' && needs.wait.result != 'failure' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    concurrency:
+      group: dip-buyer-scan
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gate (run only after the close and only if this session is not processed yet)
-        id: gate
+      - name: Re-check (another run may have processed the session while we waited)
+        id: recheck
         run: |
-          HM=$(TZ=America/New_York date +%H%M); echo "ET now: $HM"
-          if [ "${{ github.event_name }}" != "schedule" ]; then echo "go=yes" >> "$GITHUB_OUTPUT"; exit 0; fi
-          if [ "$HM" -ge 1615 ]; then TARGET=$(TZ=America/New_York date +%F)
-          elif [ "$HM" -lt 0900 ]; then TARGET=$(TZ=America/New_York date -d yesterday +%F)   # slot delayed past midnight ET
-          else echo "go=no" >> "$GITHUB_OUTPUT"; echo "market not closed yet -> skip"; exit 0; fi
-          if [ -f state/daily_log.csv ] && grep -q "^$TARGET," state/daily_log.csv; then
-            echo "go=no" >> "$GITHUB_OUTPUT"; echo "$TARGET already processed -> skip"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -f state/daily_log.csv ] && grep -q "^${{ needs.gate.outputs.target }}," state/daily_log.csv; then
+            echo "skip=yes" >> "$GITHUB_OUTPUT"; echo "${{ needs.gate.outputs.target }} already processed -> nothing to do"
           else
-            echo "go=yes" >> "$GITHUB_OUTPUT"; echo "processing $TARGET"
+            echo "skip=no" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/setup-python@v5
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         with:
           python-version: "3.12"
           cache: pip
 
       - name: Install
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         run: pip install -q -r requirements.txt
 
       - name: Refresh universe (Mondays)
-        if: steps.gate.outputs.go == 'yes' && github.event_name == 'schedule'
+        if: steps.recheck.outputs.skip == 'no' && github.event_name == 'schedule'
         run: |
           if [ "$(TZ=America/New_York date +%u)" = "1" ]; then python bot.py refresh-universe || true; fi
 
       - name: Scan
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         env:
           CAPITAL: ${{ vars.CAPITAL || '100000' }}
           PER_NAME: ${{ vars.PER_NAME || '0.25' }}
@@ -96,7 +141,7 @@ jobs:
           if [ -n "$ASOF" ]; then python bot.py "$MODE" --asof "$ASOF"; else python bot.py "$MODE"; fi
 
       - name: Commit journal + dashboard
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         run: |
           git config user.name "dip-buyer-bot"
           git config user.email "bot@users.noreply.github.com"
@@ -107,17 +152,17 @@ jobs:
           git push
 
       - name: Configure Pages
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         continue-on-error: true
         uses: actions/configure-pages@v5
 
       - name: Upload dashboard
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
       - name: Deploy dashboard to GitHub Pages
         id: deployment
-        if: steps.gate.outputs.go == 'yes'
+        if: steps.recheck.outputs.skip == 'no'
         uses: actions/deploy-pages@v4
