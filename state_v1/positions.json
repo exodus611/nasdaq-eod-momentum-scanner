@@ -1,0 +1,824 @@
+{
+ "cohorts": [
+  {
+   "signal_date": "2026-08-10",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 62.87,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "INTC",
+     "signal_close": 97.52,
+     "ret_1": -0.0406,
+     "dvol_M": 10850,
+     "entry_date": "2026-08-11",
+     "entry_px": 96.77999877929688,
+     "shares": 103,
+     "exit_px": 100.95,
+     "ret_net": 0.04159,
+     "pnl_usd": 414.56
+    },
+    {
+     "ticker": "MRVL",
+     "signal_close": 208.56,
+     "ret_1": -0.0465,
+     "dvol_M": 4693,
+     "entry_date": "2026-08-11",
+     "entry_px": 212.0,
+     "shares": 47,
+     "exit_px": 217.08,
+     "ret_net": 0.02246,
+     "pnl_usd": 223.81
+    }
+   ],
+   "exit_date": "2026-08-12"
+  },
+  {
+   "signal_date": "2026-08-11",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 42.38,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "GOOGL",
+     "signal_close": 343.58,
+     "ret_1": -0.0384,
+     "dvol_M": 11086,
+     "entry_date": "2026-08-12",
+     "entry_px": 346.0875456512855,
+     "shares": 28,
+     "exit_px": 346.1375,
+     "ret_net": -0.00136,
+     "pnl_usd": -13.14
+    },
+    {
+     "ticker": "GOOG",
+     "signal_close": 342.78,
+     "ret_1": -0.0361,
+     "dvol_M": 7273,
+     "entry_date": "2026-08-12",
+     "entry_px": 345.1059286112164,
+     "shares": 28,
+     "exit_px": 343.7169,
+     "ret_net": -0.00553,
+     "pnl_usd": -53.39
+    }
+   ],
+   "exit_date": "2026-08-13"
+  },
+  {
+   "signal_date": "2026-08-12",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 76.13,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "WDAY",
+     "signal_close": 175.29,
+     "ret_1": -0.033,
+     "dvol_M": 684,
+     "entry_date": "2026-08-13",
+     "entry_px": 177.44000244140625,
+     "shares": 56,
+     "exit_px": 198.68,
+     "ret_net": 0.1182,
+     "pnl_usd": 1174.53
+    },
+    {
+     "ticker": "AXON",
+     "signal_close": 599.78,
+     "ret_1": -0.0574,
+     "dvol_M": 507,
+     "entry_date": "2026-08-13",
+     "entry_px": 597.1400146484375,
+     "shares": 16,
+     "exit_px": 612.83,
+     "ret_net": 0.02478,
+     "pnl_usd": 236.71
+    }
+   ],
+   "exit_date": "2026-08-14"
+  },
+  {
+   "signal_date": "2026-08-13",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 91.68,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "LITE",
+     "signal_close": 880.41,
+     "ret_1": -0.0558,
+     "dvol_M": 4038,
+     "entry_date": "2026-08-14",
+     "entry_px": 892.6849975585938,
+     "shares": 11,
+     "exit_px": 968.9,
+     "ret_net": 0.08388,
+     "pnl_usd": 823.64
+    },
+    {
+     "ticker": "CSCO",
+     "signal_close": 113.47,
+     "ret_1": -0.084,
+     "dvol_M": 2412,
+     "entry_date": "2026-08-14",
+     "entry_px": 112.80000305175781,
+     "shares": 88,
+     "exit_px": 112.9,
+     "ret_net": -0.00061,
+     "pnl_usd": -6.09
+    }
+   ],
+   "exit_date": "2026-08-17"
+  },
+  {
+   "signal_date": "2026-08-14",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 79.33,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "AVGO",
+     "signal_close": 392.99,
+     "ret_1": -0.0594,
+     "dvol_M": 7142,
+     "entry_date": "2026-08-17",
+     "entry_px": 397.260009765625,
+     "shares": 25,
+     "exit_px": 380.0,
+     "ret_net": -0.04495,
+     "pnl_usd": -446.4
+    },
+    {
+     "ticker": "AMAT",
+     "signal_close": 506.64,
+     "ret_1": -0.0512,
+     "dvol_M": 3985,
+     "entry_date": "2026-08-17",
+     "entry_px": 517.4467118764579,
+     "shares": 19,
+     "exit_px": 513.7806,
+     "ret_net": -0.00858,
+     "pnl_usd": -84.4
+    }
+   ],
+   "exit_date": "2026-08-18"
+  },
+  {
+   "signal_date": "2026-08-17",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 59.95,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MSFT",
+     "signal_close": 479.45,
+     "ret_1": -0.0304,
+     "dvol_M": 16847,
+     "entry_date": "2026-08-18",
+     "entry_px": 480.6352093836093,
+     "shares": 20,
+     "exit_px": 483.4,
+     "ret_net": 0.00425,
+     "pnl_usd": 40.88
+    },
+    {
+     "ticker": "NBIS",
+     "signal_close": 268.85,
+     "ret_1": -0.0318,
+     "dvol_M": 5551,
+     "entry_date": "2026-08-18",
+     "entry_px": 268.70001220703125,
+     "shares": 37,
+     "exit_px": 223.9,
+     "ret_net": -0.16823,
+     "pnl_usd": -1672.51
+    }
+   ],
+   "exit_date": "2026-08-19"
+  },
+  {
+   "signal_date": "2026-08-18",
+   "status": "closed",
+   "tier": "A",
+   "trade": true,
+   "q_rsi": 9.94,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MU",
+     "signal_close": 940.76,
+     "ret_1": -0.0702,
+     "dvol_M": 36827,
+     "entry_date": "2026-08-19",
+     "entry_px": 959.3599853515625,
+     "shares": 10,
+     "exit_px": 974.33,
+     "ret_net": 0.0141,
+     "pnl_usd": 135.31
+    },
+    {
+     "ticker": "SNDK",
+     "signal_close": 1625.78,
+     "ret_1": -0.0901,
+     "dvol_M": 22917,
+     "entry_date": "2026-08-19",
+     "entry_px": 1682.405029296875,
+     "shares": 5,
+     "exit_px": 1600.62,
+     "ret_net": -0.05011,
+     "pnl_usd": -421.54
+    }
+   ],
+   "exit_date": "2026-08-20"
+  },
+  {
+   "signal_date": "2026-08-19",
+   "status": "closed",
+   "tier": "A",
+   "trade": true,
+   "q_rsi": 8.33,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "SNDK",
+     "signal_close": 1568.87,
+     "ret_1": -0.035,
+     "dvol_M": 23528,
+     "entry_date": "2026-08-20",
+     "entry_px": 1569.0,
+     "shares": 6,
+     "exit_px": 1596.08,
+     "ret_net": 0.01576,
+     "pnl_usd": 148.36
+    },
+    {
+     "ticker": "AMD",
+     "signal_close": 466.42,
+     "ret_1": -0.0371,
+     "dvol_M": 13883,
+     "entry_date": "2026-08-20",
+     "entry_px": 465.6700134277344,
+     "shares": 21,
+     "exit_px": 473.25,
+     "ret_net": 0.01478,
+     "pnl_usd": 144.51
+    }
+   ],
+   "exit_date": "2026-08-21"
+  },
+  {
+   "signal_date": "2026-08-20",
+   "status": "closed",
+   "tier": "A",
+   "trade": true,
+   "q_rsi": 3.85,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRNA",
+     "signal_close": 133.32,
+     "ret_1": -0.2355,
+     "dvol_M": 1954,
+     "entry_date": "2026-08-21",
+     "entry_px": 133.11000061035156,
+     "shares": 75,
+     "exit_px": 138.89,
+     "ret_net": 0.04192,
+     "pnl_usd": 418.53
+    },
+    {
+     "ticker": "CRWD",
+     "signal_close": 190.34,
+     "ret_1": -0.056,
+     "dvol_M": 1514,
+     "entry_date": "2026-08-21",
+     "entry_px": 190.94000244140625,
+     "shares": 52,
+     "exit_px": 190.68,
+     "ret_net": -0.00286,
+     "pnl_usd": -28.41
+    }
+   ],
+   "exit_date": "2026-08-24"
+  },
+  {
+   "signal_date": "2026-08-21",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 36.93,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRVL",
+     "signal_close": 237.04,
+     "ret_1": -0.0557,
+     "dvol_M": 4903,
+     "entry_date": "2026-08-24",
+     "entry_px": 229.22000122070312,
+     "shares": 43,
+     "exit_px": 240.38,
+     "ret_net": 0.04719,
+     "pnl_usd": 465.1
+    },
+    {
+     "ticker": "AAOI",
+     "signal_close": 124.82,
+     "ret_1": -0.0332,
+     "dvol_M": 1578,
+     "entry_date": "2026-08-24",
+     "entry_px": 109.125,
+     "shares": 91,
+     "exit_px": 113.15,
+     "ret_net": 0.03538,
+     "pnl_usd": 351.38
+    }
+   ],
+   "exit_date": "2026-08-25"
+  },
+  {
+   "signal_date": "2026-08-24",
+   "status": "closed",
+   "tier": "B",
+   "trade": true,
+   "q_rsi": 12.51,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MU",
+     "signal_close": 910.43,
+     "ret_1": -0.0583,
+     "dvol_M": 34699,
+     "entry_date": "2026-08-25",
+     "entry_px": 928.97998046875,
+     "shares": 10,
+     "exit_px": 938.4,
+     "ret_net": 0.00864,
+     "pnl_usd": 80.27
+    },
+    {
+     "ticker": "SNDK",
+     "signal_close": 1493.12,
+     "ret_1": -0.0645,
+     "dvol_M": 23331,
+     "entry_date": "2026-08-25",
+     "entry_px": 1533.68994140625,
+     "shares": 6,
+     "exit_px": 1499.37,
+     "ret_net": -0.02388,
+     "pnl_usd": -219.72
+    }
+   ],
+   "exit_date": "2026-08-26"
+  },
+  {
+   "signal_date": "2026-08-25",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 51.86,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "PANW",
+     "signal_close": 339.9,
+     "ret_1": -0.0313,
+     "dvol_M": 2012,
+     "entry_date": "2026-08-26",
+     "entry_px": 330.4599914550781,
+     "shares": 30,
+     "exit_px": 382.85,
+     "ret_net": 0.15704,
+     "pnl_usd": 1556.83
+    },
+    {
+     "ticker": "ZM",
+     "signal_close": 100.92,
+     "ret_1": -0.0373,
+     "dvol_M": 303,
+     "entry_date": "2026-08-26",
+     "entry_px": 95.19999694824219,
+     "shares": 105,
+     "exit_px": 100.27,
+     "ret_net": 0.05176,
+     "pnl_usd": 517.36
+    }
+   ],
+   "exit_date": "2026-08-27"
+  },
+  {
+   "signal_date": "2026-08-26",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 57.5,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "NBIS",
+     "signal_close": 213.93,
+     "ret_1": -0.0362,
+     "dvol_M": 6097,
+     "entry_date": "2026-08-27",
+     "entry_px": 223.3699951171875,
+     "shares": 44,
+     "exit_px": 209.18,
+     "ret_net": -0.06503,
+     "pnl_usd": -639.1
+    },
+    {
+     "ticker": "MRNA",
+     "signal_close": 149.66,
+     "ret_1": -0.0577,
+     "dvol_M": 3722,
+     "entry_date": "2026-08-27",
+     "entry_px": 144.17999267578125,
+     "shares": 69,
+     "exit_px": 137.99,
+     "ret_net": -0.04443,
+     "pnl_usd": -442.03
+    }
+   ],
+   "exit_date": "2026-08-28"
+  },
+  {
+   "signal_date": "2026-08-27",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 90.59,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRNA",
+     "signal_close": 142.77,
+     "ret_1": -0.046,
+     "dvol_M": 3864,
+     "entry_date": "2026-08-28",
+     "entry_px": 137.19000244140625,
+     "shares": 72,
+     "exit_px": 140.34,
+     "ret_net": 0.02146,
+     "pnl_usd": 211.98
+    },
+    {
+     "ticker": "BKNG",
+     "signal_close": 202.56,
+     "ret_1": -0.0303,
+     "dvol_M": 1173,
+     "entry_date": "2026-08-28",
+     "entry_px": 203.5800018310547,
+     "shares": 49,
+     "exit_px": 199.09,
+     "ret_net": -0.02356,
+     "pnl_usd": -234.97
+    }
+   ],
+   "exit_date": "2026-08-31"
+  },
+  {
+   "signal_date": "2026-08-28",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 51.82,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "NVDA",
+     "signal_close": 217.55,
+     "ret_1": -0.0457,
+     "dvol_M": 27085,
+     "entry_date": "2026-08-31",
+     "entry_px": 218.8699951171875,
+     "shares": 45,
+     "exit_px": 217.44,
+     "ret_net": -0.00803,
+     "pnl_usd": -79.12
+    },
+    {
+     "ticker": "NBIS",
+     "signal_close": 209.18,
+     "ret_1": -0.0426,
+     "dvol_M": 5857,
+     "entry_date": "2026-08-31",
+     "entry_px": 205.73500061035156,
+     "shares": 48,
+     "exit_px": 199.54,
+     "ret_net": -0.03161,
+     "pnl_usd": -312.17
+    }
+   ],
+   "exit_date": "2026-09-01"
+  },
+  {
+   "signal_date": "2026-08-31",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 54.56,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "SHOP",
+     "signal_close": 147.37,
+     "ret_1": -0.0362,
+     "dvol_M": 1471,
+     "entry_date": "2026-09-01",
+     "entry_px": 143.6649932861328,
+     "shares": 69,
+     "exit_px": 141.87,
+     "ret_net": -0.01399,
+     "pnl_usd": -138.72
+    },
+    {
+     "ticker": "BKNG",
+     "signal_close": 199.09,
+     "ret_1": -0.0318,
+     "dvol_M": 1115,
+     "entry_date": "2026-09-01",
+     "entry_px": 198.39999389648438,
+     "shares": 50,
+     "exit_px": 199.6,
+     "ret_net": 0.00455,
+     "pnl_usd": 45.12
+    }
+   ],
+   "exit_date": "2026-09-02"
+  },
+  {
+   "signal_date": "2026-09-01",
+   "status": "closed",
+   "tier": "B",
+   "trade": true,
+   "q_rsi": 13.16,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "PLTR",
+     "signal_close": 179.92,
+     "ret_1": -0.0347,
+     "dvol_M": 7733,
+     "entry_date": "2026-09-02",
+     "entry_px": 176.99000549316406,
+     "shares": 56,
+     "exit_px": 182.53,
+     "ret_net": 0.0298,
+     "pnl_usd": 295.37
+    },
+    {
+     "ticker": "NBIS",
+     "signal_close": 199.54,
+     "ret_1": -0.0329,
+     "dvol_M": 5479,
+     "entry_date": "2026-09-02",
+     "entry_px": 195.65499877929688,
+     "shares": 51,
+     "exit_px": 210.63,
+     "ret_net": 0.07504,
+     "pnl_usd": 748.76
+    }
+   ],
+   "exit_date": "2026-09-03"
+  },
+  {
+   "signal_date": "2026-09-02",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 31.42,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "PLTR",
+     "signal_close": 169.46,
+     "ret_1": -0.0581,
+     "dvol_M": 7481,
+     "entry_date": "2026-09-03",
+     "entry_px": 172.5,
+     "shares": 57,
+     "exit_px": 174.33,
+     "ret_net": 0.00911,
+     "pnl_usd": 89.56
+    },
+    {
+     "ticker": "PANW",
+     "signal_close": 328.48,
+     "ret_1": -0.0928,
+     "dvol_M": 2140,
+     "entry_date": "2026-09-03",
+     "entry_px": 333.30999755859375,
+     "shares": 30,
+     "exit_px": 333.26,
+     "ret_net": -0.00165,
+     "pnl_usd": -16.5
+    }
+   ],
+   "exit_date": "2026-09-04"
+  },
+  {
+   "signal_date": "2026-09-03",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 78.67,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "KHC",
+     "signal_close": 25.02,
+     "ret_1": -0.032,
+     "dvol_M": 382,
+     "entry_date": "2026-09-04",
+     "entry_px": 24.9950008392334,
+     "shares": 400,
+     "exit_px": 24.9,
+     "ret_net": -0.0053,
+     "pnl_usd": -53.0
+    },
+    {
+     "ticker": "AEHR",
+     "signal_close": 76.27,
+     "ret_1": -0.0495,
+     "dvol_M": 253,
+     "entry_date": "2026-09-04",
+     "entry_px": 78.0199966430664,
+     "shares": 128,
+     "exit_px": 90.79,
+     "ret_net": 0.16218,
+     "pnl_usd": 1619.58
+    }
+   ],
+   "exit_date": "2026-09-08"
+  },
+  {
+   "signal_date": "2026-09-04",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 82.39,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "PLTR",
+     "signal_close": 174.33,
+     "ret_1": -0.0449,
+     "dvol_M": 6299,
+     "entry_date": "2026-09-08",
+     "entry_px": 173.60000610351562,
+     "shares": 57,
+     "exit_px": 169.53,
+     "ret_net": -0.02494,
+     "pnl_usd": -246.83
+    },
+    {
+     "ticker": "DASH",
+     "signal_close": 211.73,
+     "ret_1": -0.0463,
+     "dvol_M": 979,
+     "entry_date": "2026-09-08",
+     "entry_px": 208.94000244140625,
+     "shares": 47,
+     "exit_px": 197.245,
+     "ret_net": -0.05747,
+     "pnl_usd": -564.4
+    }
+   ],
+   "exit_date": "2026-09-09"
+  },
+  {
+   "signal_date": "2026-09-08",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 70.9,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRNA",
+     "signal_close": 140.33,
+     "ret_1": -0.0359,
+     "dvol_M": 4738,
+     "entry_date": "2026-09-09",
+     "entry_px": 140.2949981689453,
+     "shares": 71,
+     "exit_px": 136.62,
+     "ret_net": -0.02769,
+     "pnl_usd": -275.87
+    },
+    {
+     "ticker": "HOOD",
+     "signal_close": 117.34,
+     "ret_1": -0.0391,
+     "dvol_M": 2165,
+     "entry_date": "2026-09-09",
+     "entry_px": 120.7750015258789,
+     "shares": 82,
+     "exit_px": 113.33,
+     "ret_net": -0.06314,
+     "pnl_usd": -625.35
+    }
+   ],
+   "exit_date": "2026-09-10"
+  },
+  {
+   "signal_date": "2026-09-09",
+   "status": "closed",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 36.31,
+   "mode": "replay",
+   "names": [
+    {
+     "ticker": "MRNA",
+     "signal_close": 135.61,
+     "ret_1": -0.0336,
+     "dvol_M": 4788,
+     "entry_date": "2026-09-10",
+     "entry_px": 134.86000061035156,
+     "shares": 74,
+     "exit_px": 143.97,
+     "ret_net": 0.06605,
+     "pnl_usd": 659.17
+    },
+    {
+     "ticker": "CRWV",
+     "signal_close": 94.94,
+     "ret_1": -0.049,
+     "dvol_M": 2708,
+     "entry_date": "2026-09-10",
+     "entry_px": 89.91000366210938,
+     "shares": 111,
+     "exit_px": 88.99,
+     "ret_net": -0.01173,
+     "pnl_usd": -117.09
+    }
+   ],
+   "exit_date": "2026-09-11"
+  },
+  {
+   "signal_date": "2026-09-10",
+   "status": "open",
+   "tier": "A",
+   "trade": true,
+   "q_rsi": 7.85,
+   "mode": "live",
+   "names": [
+    {
+     "ticker": "MU",
+     "signal_close": 977.41,
+     "ret_1": -0.049,
+     "dvol_M": 26195,
+     "entry_date": "2026-09-11",
+     "entry_px": 993.25,
+     "shares": 10
+    },
+    {
+     "ticker": "SNDK",
+     "signal_close": 1692.59,
+     "ret_1": -0.0406,
+     "dvol_M": 20722,
+     "entry_date": "2026-09-11",
+     "entry_px": 1713.0001220703125,
+     "shares": 5
+    }
+   ]
+  },
+  {
+   "signal_date": "2026-09-11",
+   "status": "pending",
+   "tier": "C",
+   "trade": false,
+   "q_rsi": 59.47,
+   "mode": "live",
+   "names": [
+    {
+     "ticker": "SNDK",
+     "signal_close": 1633.35,
+     "ret_1": -0.035,
+     "dvol_M": 20856
+    },
+    {
+     "ticker": "STX",
+     "signal_close": 830.17,
+     "ret_1": -0.0373,
+     "dvol_M": 3198
+    }
+   ]
+  }
+ ]
+}

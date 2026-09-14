@@ -2,9 +2,7 @@ name: Dip-Buyer daily scan (after close)
 
 # One run per trading day after the US close. No secrets needed: the job commits the journal + dashboard
 # with the built-in GITHUB_TOKEN and publishes docs/ to GitHub Pages (Pages source = GitHub Actions).
-# Two cron slots because GitHub cron is UTC and the US switches DST:
-#   16:40 ET = 20:40 UTC (EDT, Mar-Nov) / 21:40 UTC (EST, Nov-Mar)
-# The early slot is skipped by the gate step when it is before 16:15 ET; the bot never processes the same day twice.
+# Cron is UTC and the US switches DST; slots before 16:15 ET are skipped by the gate step; the bot never processes the same day twice.
 # A push to main also runs the job (smoke test + Pages redeploy); the bot's own commits do not re-trigger it.
 on:
   schedule:
@@ -84,10 +82,12 @@ jobs:
         if: steps.gate.outputs.go == 'yes'
         env:
           CAPITAL: ${{ vars.CAPITAL || '100000' }}
-          PER_NAME: ${{ vars.PER_NAME || '0.10' }}
-          TIER_A: ${{ vars.TIER_A || '10' }}
-          TIER_B: ${{ vars.TIER_B || '30' }}
-          TOP_N: ${{ vars.TOP_N || '2' }}
+          PER_NAME: ${{ vars.PER_NAME || '0.25' }}
+          MAX_POS: ${{ vars.MAX_POS || '4' }}
+          MAX_NEW: ${{ vars.MAX_NEW || '2' }}
+          RSI_THR: ${{ vars.RSI_THR || '10' }}
+          EXIT_SMA: ${{ vars.EXIT_SMA || '10' }}
+          MAX_HOLD: ${{ vars.MAX_HOLD || '20' }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
           PAGES_URL: ${{ vars.PAGES_URL || '' }}
         run: |

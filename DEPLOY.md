@@ -6,7 +6,7 @@
 
 ## Как это работает
 
-- `.github/workflows/daily.yml` — cron `40 20 * * 1-5` и `40 21 * * 1-5` (UTC) = 16:40 ET летом и зимой. Лишний слот пропускается, один и тот же день повторно не обрабатывается. GitHub может задержать cron на 5–30 минут — не страшно, вход всё равно завтра по открытию.
+- `.github/workflows/daily.yml` — 10 cron-слотов каждые 15 минут с 20:17 до 23:02 UTC (16:17–19:02 ET летом). GitHub задерживает cron на 5 мин – 2 ч; первый слот, реально стартовавший после 16:15 ET, делает скан, остальные выходят за секунды (день уже есть в `state/daily_log.csv`). Вход всё равно завтра по открытию, поэтому задержка не критична.
 - Каждый запуск: скан → `state/journal.csv`, `state/scans/<дата>.json`, `state/daily_log.csv` → `docs/index.html` + блок в README → коммит `scan: …` встроенным `GITHUB_TOKEN` → публикация `docs/` в GitHub Pages.
 - Секреты не нужны. Telegram, брокер, ордера — отсутствуют.
 - По понедельникам обновляется список акций NASDAQ (`data/universe_nasdaq.csv`).
@@ -27,7 +27,7 @@ Actions → «Dip-Buyer daily scan» → Run workflow:
 
 ## Настройки (необязательно)
 
-Settings → Secrets and variables → Actions → **Variables**: `CAPITAL` (100000), `PER_NAME` (0.10), `TOP_N` (2), `RSI_THR` (10), `PAGES_URL`.
+Settings → Secrets and variables → Actions → **Variables**: `CAPITAL` (100000), `PER_NAME` (0.25), `MAX_POS` (4), `MAX_NEW` (2), `RSI_THR` (10), `EXIT_SMA` (10), `MAX_HOLD` (20), `PAGES_URL`.
 
 ## Deploy key
 
