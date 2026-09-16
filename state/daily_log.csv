@@ -73,3 +73,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-09-11,replay,714.88,0.0087,59.5,C,13,SNDK STX,,MU SNDK,
 2026-09-14,live,709.18,-0.008,29.3,B,68,NVDA MU,,,
 2026-09-15,live,704.54,-0.0065,16.0,B,47,STX WDC,,,
+2026-09-16,live,704.72,0.0003,18.9,B,32,HOOD SWKS,,,
