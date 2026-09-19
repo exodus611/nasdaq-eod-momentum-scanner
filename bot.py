@@ -5,7 +5,7 @@ DIP-BUYER NASDAQ v2 — daily paper-trading scanner with a dashboard. No Telegra
 Rule v2 (2026-09-14):
   signal day : QQQ RSI(2) at the close < 10  (market oversold, "tier A")
   candidates : NASDAQ stocks, close > SMA200, today <= -3%, avg $volume(21d) >= 20M$, price >= 5$, ranked by liquidity
-  entry      : NEXT OPEN, up to MAX_POS (4) positions, PER_NAME (25%) of capital each
+  entry      : NEXT OPEN, at most MAX_NEW (2) new names per session, up to MAX_POS (4) positions, PER_NAME (25%) of capital each
   exit       : NEXT OPEN after the first close ABOVE the stock's 10-day SMA, or after MAX_HOLD (20) sessions. No stops, no targets.
   2010-2026  : +181 bp/trade, 70% winners, ~34 trades/yr, avg hold 6.5 sessions, CAGR 15.2%, maxDD -23%, 15/17 years positive
                (2010-2016 out-of-sample: CAGR 20%, maxDD -15%, 7/7 years). See STRATEGY.md and research/v2_exit_test.py.
@@ -56,19 +56,32 @@ LATEST, ATTEMPT = os.path.join(STATE, "latest.json"), os.path.join(STATE, "last_
 README = os.path.join(HERE, "README.md")
 for d in (STATE, DOCS, SCANS, os.path.join(HERE, "data")):
     os.makedirs(d, exist_ok=True)
-BOOKS = {"trade": "Стратегия (только дни A)", "everyday": "Каждый день (без фильтра рынка)"}
-TIERS = {"A": dict(icon="🟢", label=f"СИГНАЛ A — рынок перепродан (QQQ RSI2 < {RSI_THR:.0f}): покупаем", color="#1e8449", bg="#e9f7ef"),
-         "B": dict(icon="🟡", label=f"рынок слабый (QQQ RSI2 {RSI_THR:.0f}–30) — не покупаем, только ведём открытое", color="#9a7d0a", bg="#fdf6e3"),
-         "C": dict(icon="⚪", label="обычный день (QQQ RSI2 ≥ 30) — не покупаем, только ведём открытое", color="#57606a", bg="#f6f8fa"),
-         "NO_DATA": dict(icon="⚠️", label="нет данных за день", color="#c0392b", bg="#fdedec")}
+BOOKS = {"trade": "Strategy (tier-A days only)", "everyday": "Control (every day, no market filter)"}
+TIERS = {"A": dict(icon="🟢", label=f"SIGNAL A — market oversold (QQQ RSI2 < {RSI_THR:.0f}): buy", color="#1e8449", bg="#e9f7ef"),
+         "B": dict(icon="🟡", label=f"weak market (QQQ RSI2 {RSI_THR:.0f}–30) — no new buys, manage open positions only", color="#9a7d0a", bg="#fdf6e3"),
+         "C": dict(icon="⚪", label="normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only", color="#57606a", bg="#f6f8fa"),
+         "NO_DATA": dict(icon="⚠️", label="no data for this session", color="#c0392b", bg="#fdedec")}
 JCOLS = ["book", "signal_date", "tier", "ticker", "entry_date", "entry_px", "shares", "exit_signal_date", "exit_date", "exit_px", "exit_reason", "hold", "ret_gross", "ret_net", "pnl_usd", "status", "mode"]
 
 
 # ------------------------------------------------------------------ helpers
 def now_et(): return dt.datetime.now(ET)
 def log(*a): print(*a, flush=True)
-def d2s(d): return "" if not d else (f"{d:%d.%m.%Y}" if not isinstance(d, str) else f"{dt.date.fromisoformat(d):%d.%m.%Y}")
+def _isnan(x): return x is None or (isinstance(x, float) and np.isnan(x))
+def d2s(d): return "" if _isnan(d) or not d else str(d)[:10]                       # 2026-09-18
+def dlong(d):                                                                       # Sep 18, 2026
+    if _isnan(d) or not d: return ""
+    if isinstance(d, str): d = dt.date.fromisoformat(d[:10])
+    return f"{d:%b %d, %Y}"
+def usd(x, sign=False):
+    if _isnan(x): return ""
+    s = f"${abs(x):,.0f}"
+    return (("+" if x > 0 else "-" if x < 0 else "") + s) if sign else (("-" if x < 0 else "") + s)
 def tier_of(rsi): return "A" if rsi < RSI_THR else ("B" if rsi < 30 else "C")
+def reason_text(r): return f"close above SMA{EXIT_SMA}" if str(r).startswith("SMA") else (f"{MAX_HOLD}-session limit" if r == "MAX_HOLD" else str(r))
+def fmt_run_at(s):
+    try: return dt.datetime.strptime(str(s).replace(" ET", ""), "%d.%m.%Y %H:%M").strftime("%Y-%m-%d %H:%M ET")
+    except Exception: return str(s)
 
 def rsi2(close):
     d = close.diff()
@@ -182,13 +195,20 @@ def track_record(s):
         op = [p for p in s["books"][b] if p["status"] in ("open", "exiting") and p.get("upnl") is not None]
         out[b]["open_n"] = len(op); out[b]["open_pnl"] = float(sum(p["upnl"] * p["entry_px"] * p["shares"] for p in op))
     t = out["trade"]
-    out["text"] = ("Стратегия: закрытых сделок пока нет." if not t["n"] else
-                   f"Стратегия: {t['n']} сделок · средняя {t['mean']:+.2f}% · медиана {t['median']:+.2f}% · прибыльных {t['hit']:.0f}% · ср. удержание {t['hold']:.1f} сессий · "
-                   f"P&L {t['pnl']:+,.0f}$ ({t['pnl_pct']:+.2f}% от {CAPITAL:,.0f}$) · max DD {t['maxdd']:.1f}%")
-    if t.get("open_n"): out["text"] += f" · открыто {t['open_n']} (нереализ. {t['open_pnl']:+,.0f}$)"
+    out["text"] = ("Strategy: no closed trades yet." if not t["n"] else
+                   f"Strategy: {t['n']} trades · avg {t['mean']:+.2f}% · median {t['median']:+.2f}% · win rate {t['hit']:.0f}% · avg hold {t['hold']:.1f} sessions · "
+                   f"P&L {usd(t['pnl'], True)} ({t['pnl_pct']:+.2f}% of {usd(CAPITAL)}) · max DD {t['maxdd']:.1f}%")
+    if t.get("open_n"): out["text"] += f" · {t['open_n']} open (unrealized {usd(t['open_pnl'], True)})"
     e = out["everyday"]
-    out["text_e"] = "" if not e["n"] else f"Каждый день (без фильтра): {e['n']} сделок · средняя {e['mean']:+.2f}% · прибыльных {e['hit']:.0f}% · P&L {e['pnl']:+,.0f}$ · max DD {e['maxdd']:.1f}%"
+    out["text_e"] = "" if not e["n"] else f"Control (every day, no market filter): {e['n']} trades · avg {e['mean']:+.2f}% · win rate {e['hit']:.0f}% · P&L {usd(e['pnl'], True)} · max DD {e['maxdd']:.1f}%"
     return out
+
+def ev_text(e):
+    if isinstance(e, str): return e
+    tag = "" if e["book"] == "trade" else " [control book]"
+    if e["kind"] == "fill": return f"📥 Bought at the open {dlong(e['date'])}{tag}: {e['ticker']} {e['shares']} sh @ {e['px']:.2f}"
+    return (f"{'✅' if e['pnl'] > 0 else '❌'} Sold at the open {dlong(e['date'])}{tag}: {e['ticker']} {e['ret'] * 100:+.1f}% → {usd(e['pnl'], True)} "
+            f"(held {e['hold']} sessions, exit: {reason_text(e['reason'])})")
 
 
 # ------------------------------------------------------------------ core: process one completed session
@@ -249,14 +269,13 @@ def process(today, qq, hist, live, now, mode=None):
                 p = dict(ticker=r.ticker, signal_date=str(today), tier=tier, status="pending", mode=mode, signal_close=r.close, ret_1=r.ret_1, dvol_M=r.dvol_M,
                          usd=round(CAPITAL * PER_NAME), shares_est=int(CAPITAL * PER_NAME / r.close))
                 P.append(p); acts[b]["buy"].append(p); slots -= 1
-    # events (trade book first)
+    # events (structured; rendered by ev_text — trade book first)
     for b in BOOKS:
-        tag = "" if b == "trade" else " [каждый день]"
-        for p in acts[b]["filled"]: events.append(f"📥 Куплено по открытию {d2s(p['entry_date'])}{tag}: {p['ticker']} {p['shares']} шт @ {p['entry_px']:.2f}")
-        for p in acts[b]["closed"]: events.append(f"{'✅' if p['pnl_usd'] > 0 else '❌'} Продано по открытию {d2s(p['exit_date'])}{tag}: {p['ticker']} {p['ret_net']*100:+.1f}% → {p['pnl_usd']:+,.0f}$ (держали {p['hold']} сесс., причина {p['exit_reason']})")
+        for p in acts[b]["filled"]: events.append(dict(kind="fill", book=b, ticker=p["ticker"], shares=p["shares"], px=p["entry_px"], date=p["entry_date"]))
+        for p in acts[b]["closed"]: events.append(dict(kind="close", book=b, ticker=p["ticker"], ret=p["ret_net"], pnl=p["pnl_usd"], date=p["exit_date"], hold=p["hold"], reason=p["exit_reason"]))
     save_state(S); journal_write(S)
     T = acts["trade"]
-    L = dict(run_at=f"{now:%d.%m.%Y %H:%M} ET", mode=mode, sig_date=str(today), q_close=round(q_close, 2), q_ret=round(q_ret, 4), q_rsi=round(q_rsi, 1), tier=tier, status=tier,
+    L = dict(run_at=f"{now:%Y-%m-%d %H:%M} ET", mode=mode, sig_date=str(today), q_close=round(q_close, 2), q_ret=round(q_ret, 4), q_rsi=round(q_rsi, 1), tier=tier, status=tier,
              n_candidates=int(len(cands)), candidates=cands.head(40).to_dict("records"), picks=cands.head(MAX_NEW).to_dict("records"),
              buy=[dict(ticker=p["ticker"], close=p["signal_close"], ret_1=p["ret_1"], dvol_M=p["dvol_M"], usd=p["usd"], shares_est=p["shares_est"]) for p in T["buy"]],
              sell=[dict(ticker=p["ticker"], shares=p["shares"], entry_px=p["entry_px"], last_px=p.get("last_px"), upnl=p.get("upnl"), held=p.get("held"), reason=p.get("exit_reason")) for p in T["sell"]],
@@ -273,11 +292,11 @@ def process(today, qq, hist, live, now, mode=None):
 
 def summary_text(L):
     T = TIERS[L["tier"]]
-    out = [f"📊 {d2s(L['sig_date'])} (после закрытия)  QQQ {L['q_close']:.2f} {L['q_ret'] * 100:+.2f}%  RSI(2) = {L['q_rsi']:.1f}  →  {T['icon']} {T['label']}"] + L["events"]
-    for b in L["buy"]: out.append(f"➡️ КУПИТЬ ЗАВТРА ПО ОТКРЫТИЮ: {b['ticker']:<6} закрытие {b['close']:>8.2f}  сегодня {b['ret_1']*100:+.1f}%  оборот {b['dvol_M']:,.0f}M$/д  → {PER_NAME:.0%} капитала ≈ {b['usd']:,.0f}$ (~{b['shares_est']} шт)")
-    for s in L["sell"]: out.append(f"🔴 ПРОДАТЬ ЗАВТРА ПО ОТКРЫТИЮ: {s['ticker']} {s['shares']} шт (вход {s['entry_px']:.2f}, сейчас {s['last_px']:.2f}, {s['upnl']*100:+.1f}%, {s['held']} сесс., {s['reason']})")
-    for h in L["hold"]: out.append(f"⏳ ДЕРЖАТЬ: {h['ticker']} {h['shares']} шт (вход {h['entry_px']:.2f}, сейчас {h['last_px']:.2f}, {h['upnl']*100:+.1f}%, {h['held']} сесс.; продажа после закрытия выше SMA{EXIT_SMA} = {h['sma10']:.2f})")
-    if not L["buy"] and not L["sell"] and not L["hold"]: out.append("Позиций нет, завтра ничего не делаем.")
+    out = [f"📊 {dlong(L['sig_date'])} (after the close)  QQQ {L['q_close']:.2f} {L['q_ret'] * 100:+.2f}%  RSI(2) = {L['q_rsi']:.1f}  →  {T['icon']} {T['label']}"] + [ev_text(e) for e in L["events"]]
+    for b in L["buy"]: out.append(f"➡️ BUY AT TOMORROW'S OPEN: {b['ticker']:<6} close {b['close']:>8.2f}  today {b['ret_1']*100:+.1f}%  turnover ${b['dvol_M']:,.0f}M/day  → {PER_NAME:.0%} of capital ≈ {usd(b['usd'])} (~{b['shares_est']} sh)")
+    for s in L["sell"]: out.append(f"🔴 SELL AT TOMORROW'S OPEN: {s['ticker']} {s['shares']} sh (entry {s['entry_px']:.2f}, last {s['last_px']:.2f}, {s['upnl']*100:+.1f}%, {s['held']} sessions, {reason_text(s['reason'])})")
+    for h in L["hold"]: out.append(f"⏳ HOLD: {h['ticker']} {h['shares']} sh (entry {h['entry_px']:.2f}, last {h['last_px']:.2f}, {h['upnl']*100:+.1f}%, {h['held']} sessions; sell after a close above SMA{EXIT_SMA} = {h['sma10']:.2f})")
+    if not L["buy"] and not L["sell"] and not L["hold"]: out.append("No positions, nothing to do tomorrow.")
     out.append(L["track"]["text"])
     if L["track"]["text_e"]: out.append(L["track"]["text_e"])
     return "\n".join(out)
@@ -300,8 +319,8 @@ def run(asof=None):
     if not strict and asof_done(last): log(f"{last}: already processed — nothing to do"); return
     if last != asof and strict:
         if live:
-            json.dump(dict(run_at=f"{now:%d.%m.%Y %H:%M} ET", asof=str(asof), status="NO_DATA",
-                           note=f"Нет дневного бара за {asof:%d.%m.%Y} (последний {last:%d.%m.%Y}) — биржевой праздник или задержка данных. Ничего не делаем."), open(ATTEMPT, "w"), ensure_ascii=False)
+            json.dump(dict(run_at=f"{now:%Y-%m-%d %H:%M} ET", asof=str(asof), status="NO_DATA",
+                           note=f"No daily bar for {dlong(asof)} yet (last: {dlong(last)}) — market holiday or data lag. Nothing to do."), open(ATTEMPT, "w"), ensure_ascii=False)
             build_page(); log(f"{asof}: no daily bar yet (last {last}) — holiday or data lag; nothing to do")
         else:
             log(f"{asof} is not a trading day (last bar {last}) -> skip")
@@ -341,7 +360,7 @@ def test():
     q = download(["QQQ"], period="6mo").get("QQQ")
     if q is None: log("❌ QQQ download failed"); raise SystemExit(1)
     r = float(rsi2(q["Close"]).iloc[-1])
-    log(f"✅ data OK: QQQ last bar {q.index[-1].date()} close {float(q['Close'].iloc[-1]):.2f}, RSI(2) = {r:.1f} → tier {tier_of(r)}; now {now_et():%d.%m %H:%M} ET")
+    log(f"✅ data OK: QQQ last bar {q.index[-1].date()} close {float(q['Close'].iloc[-1]):.2f}, RSI(2) = {r:.1f} → tier {tier_of(r)}; now {now_et():%Y-%m-%d %H:%M} ET")
     build_page(); log("✅ dashboard rebuilt: docs/index.html")
 
 
@@ -360,89 +379,91 @@ tr.pick td{background:#e9f7ef;font-weight:600}tr.strat td{background:#f0fff4;fon
 .big{font-size:21px;font-weight:800;letter-spacing:.4px}
 """
 def _cls(x): return "pos" if x > 0 else "neg"
-def _pct(x, d=2): return "" if x is None or (isinstance(x, float) and np.isnan(x)) else f"{x * 100:+.{d}f}%"
-def _num(x, d=2): return "" if x is None or (isinstance(x, float) and np.isnan(x)) else f"{x:,.{d}f}"
+def _pct(x, d=2): return "" if _isnan(x) else f"{x * 100:+.{d}f}%"
+def _num(x, d=2): return "" if _isnan(x) else f"{x:,.{d}f}"
 
 def build_page():
     L, S, dl = latest(), load_state(), daily_df(); j = journal_df(S)
     att = json.load(open(ATTEMPT)) if os.path.exists(ATTEMPT) else None
-    tr = track_record(S); strat = f"{REPO_URL}/blob/main/STRATEGY.md" if REPO_URL else "#"; upd = f"{now_et():%d.%m.%Y %H:%M} ET"
-    parts = [f"<h1>Dip-Buyer NASDAQ v2 — paper trading</h1><div class='muted'>Сканер запускается раз в день после закрытия США. Ордера не исполняются — только инструкции на следующую сессию и бумажный журнал. Обновлено {upd}"
-             + (f" · <a href='{REPO_URL}'>репозиторий</a>" if REPO_URL else "") + "</div>"]
-    if att: parts.append(f"<div class='card' style='background:#fdf6e3;border-color:#e6c65a'>⚠️ Попытка {att['run_at']}: {att['note']}</div>")
+    tr = track_record(S); strat = f"{REPO_URL}/blob/main/STRATEGY.md" if REPO_URL else "#"; upd = f"{now_et():%Y-%m-%d %H:%M} ET"
+    parts = [f"<h1>Dip-Buyer NASDAQ v2 — paper trading</h1><div class='muted'>Mean-reversion scanner for NASDAQ stocks. Runs once a day after the US close, keeps a paper journal at real open prices "
+             f"and publishes this page. No orders are sent — the output is a set of instructions for the next session. Updated {upd}"
+             + (f" · <a href='{REPO_URL}'>repository</a>" if REPO_URL else "") + (f" · <a href='{strat}'>strategy &amp; backtest</a>" if REPO_URL else "") + "</div>"]
+    if att: parts.append(f"<div class='card' style='background:#fdf6e3;border-color:#e6c65a'>⚠️ Attempt {fmt_run_at(att['run_at'])}: {att['note']}</div>")
     if L is None:
-        parts.append("<div class='card'>Запусков ещё не было.</div>")
+        parts.append("<div class='card'>No runs yet.</div>")
     else:
         T = TIERS[L["tier"]]; rsi = max(0.0, min(100.0, float(L["q_rsi"])))
         parts.append("<div class='grid'>")
-        parts.append(f"<div class='card' style='background:{T['bg']};border-color:{T['color']}'><div class='muted'>Сканирование за {d2s(L['sig_date'])} (после закрытия)"
+        parts.append(f"<div class='card' style='background:{T['bg']};border-color:{T['color']}'><div class='muted'>Scan for {dlong(L['sig_date'])} (after the close)"
                      + (f" <span class='tag'>{L['mode']}</span>" if L["mode"] != "live" else "") + f"</div><div class='status' style='color:{T['color']}'>{T['icon']} {T['label']}</div>"
                      f"<div class='kv'><span>QQQ <b>{L['q_close']:.2f}</b> <span class='{_cls(L['q_ret'])}'>{_pct(L['q_ret'])}</span></span><span>RSI(2) <b>{L['q_rsi']:.1f}</b></span>"
-                     f"<span>прошли фильтр <b>{L['n_candidates']}</b></span></div><div class='bar'><i style='left:calc({rsi:.1f}% - 2px)'></i></div><div class='muted'>RSI(2) QQQ: зелёная зона &lt; {RSI_THR:.0f} = день покупки</div></div>")
+                     f"<span>passed the filter <b>{L['n_candidates']}</b></span></div><div class='bar'><i style='left:calc({rsi:.1f}% - 2px)'></i></div><div class='muted'>QQQ RSI(2): green zone &lt; {RSI_THR:.0f} = buy day</div></div>")
         acts = []
-        for b in L["buy"]: acts.append(f"<li>🟢 <span class='big'>КУПИТЬ {b['ticker']}</span> по открытию — {PER_NAME:.0%} капитала ≈ {b['usd']:,.0f}$ (~{b['shares_est']} шт; закрытие {b['close']:.2f}, день {_pct(b['ret_1'],1)})</li>")
-        for s in L["sell"]: acts.append(f"<li>🔴 <span class='big'>ПРОДАТЬ {s['ticker']}</span> по открытию — {s['shares']} шт, вход {s['entry_px']:.2f}, сейчас {s['last_px']:.2f} (<span class='{_cls(s['upnl'])}'>{_pct(s['upnl'],1)}</span>), {s['held']} сесс., причина: {'закрытие выше SMA%d' % EXIT_SMA if s['reason'].startswith('SMA') else 'лимит %d сессий' % MAX_HOLD}</li>")
-        for h in L["hold"]: acts.append(f"<li>⏳ <b>ДЕРЖАТЬ {h['ticker']}</b> — {h['shares']} шт, вход {h['entry_px']:.2f}, сейчас {h['last_px']:.2f} (<span class='{_cls(h['upnl'])}'>{_pct(h['upnl'],1)}</span>), {h['held']} сесс.; продаём по открытию после первого закрытия выше SMA{EXIT_SMA} = {h['sma10']:.2f}</li>")
-        if not acts: acts.append("<li>Позиций нет, завтра ничего не делаем. Ждём день с QQQ RSI(2) &lt; %d.</li>" % RSI_THR)
-        parts.append("<div class='card'><div class='muted'>Действия на следующую сессию (стратегия)</div><ul class='act'>" + "".join(acts) + "</ul></div></div>")
-        if L["events"]: parts.append("<h2>События этого запуска</h2>" + "".join(f"<div class='ev'>{e}</div>" for e in L["events"]))
-        parts.append(f"<h2>Вывод сканера — {d2s(L['sig_date'])}</h2>")
-        if not L["candidates"]: parts.append("<div class='muted'>Ни одна акция не прошла фильтр (close &gt; SMA200, день ≤ −3%, оборот ≥ 20M$/д, цена ≥ 5$).</div>")
+        for b in L["buy"]: acts.append(f"<li>🟢 <span class='big'>BUY {b['ticker']}</span> at the open — {PER_NAME:.0%} of capital ≈ {usd(b['usd'])} (~{b['shares_est']} sh; close {b['close']:.2f}, today {_pct(b['ret_1'],1)})</li>")
+        for s in L["sell"]: acts.append(f"<li>🔴 <span class='big'>SELL {s['ticker']}</span> at the open — {s['shares']} sh, entry {s['entry_px']:.2f}, last {s['last_px']:.2f} (<span class='{_cls(s['upnl'])}'>{_pct(s['upnl'],1)}</span>), {s['held']} sessions, reason: {reason_text(s['reason'])}</li>")
+        for h in L["hold"]: acts.append(f"<li>⏳ <b>HOLD {h['ticker']}</b> — {h['shares']} sh, entry {h['entry_px']:.2f}, last {h['last_px']:.2f} (<span class='{_cls(h['upnl'])}'>{_pct(h['upnl'],1)}</span>), {h['held']} sessions; sell at the open after the first close above SMA{EXIT_SMA} = {h['sma10']:.2f}</li>")
+        if not acts: acts.append("<li>No positions, nothing to do tomorrow. Waiting for a day with QQQ RSI(2) &lt; %d.</li>" % RSI_THR)
+        parts.append("<div class='card'><div class='muted'>Next session — strategy actions</div><ul class='act'>" + "".join(acts) + "</ul></div></div>")
+        if L["events"]: parts.append("<h2>Events of this run</h2>" + "".join(f"<div class='ev'>{ev_text(e)}</div>" for e in L["events"]))
+        parts.append(f"<h2>Scanner output — {dlong(L['sig_date'])}</h2>")
+        if not L["candidates"]: parts.append("<div class='muted'>No stock passed the filter (close &gt; SMA200, day ≤ −3%, turnover ≥ $20M/day, price ≥ $5).</div>")
         else:
             bought = {b["ticker"] for b in L["buy"]}
             rows = "".join(f"<tr class='{'pick' if c['ticker'] in bought else ''}'><td>{i + 1}</td><td>{c['ticker']}</td><td>{c['close']:.2f}</td><td class='{_cls(c['ret_1'])}'>{_pct(c['ret_1'], 1)}</td>"
                            f"<td>{c['dvol_M']:,.0f}</td><td>{_pct(c['vs_sma200'], 0)}</td><td>{c.get('sma10', '')}</td></tr>" for i, c in enumerate(L["candidates"]))
-            note = "Выделены покупки стратегии." if bought else ("Сегодня не день A — стратегия ничего не покупает; список — для наблюдения (книга «каждый день» покупает из него топ по обороту)." if L["tier"] != "A" else "День A, но свободных слотов нет.")
-            parts.append(f"<div class='muted'>Прошли фильтр: {L['n_candidates']} (показаны первые {len(L['candidates'])}, по среднему обороту за 21 день). {note}</div>"
-                         f"<div class='wrap'><table><tr><th>#</th><th>тикер</th><th>закрытие</th><th>день</th><th>оборот, M$/д</th><th>над SMA200</th><th>SMA{EXIT_SMA}</th></tr>{rows}</table></div>")
+            note = ("Strategy buys are highlighted." if bought else
+                    ("Not a tier-A day — the strategy buys nothing; the list is for watching (the control book buys the top names by turnover from it)." if L["tier"] != "A" else "Tier-A day, but no free slots."))
+            parts.append(f"<div class='muted'>Passed the filter: {L['n_candidates']} (first {len(L['candidates'])} shown, ranked by 21-day average turnover). {note}</div>"
+                         f"<div class='wrap'><table><tr><th>#</th><th>ticker</th><th>close</th><th>day</th><th>turnover, $M/day</th><th>vs SMA200</th><th>SMA{EXIT_SMA}</th></tr>{rows}</table></div>")
     # positions
-    parts.append("<h2>Открытые позиции (paper)</h2>")
+    parts.append("<h2>Open positions (paper)</h2>")
     op = [p for p in all_positions(S) if p["status"] in ("pending", "open", "exiting")]
-    if not op: parts.append("<div class='muted'>Нет.</div>")
+    if not op: parts.append("<div class='muted'>None.</div>")
     else:
         rows = ""
         for p in sorted(op, key=lambda p: (p["book"] != "trade", p["signal_date"])):
-            what = {"pending": "купить по открытию следующей сессии", "exiting": "продать по открытию следующей сессии", "open": f"держим; продажа после закрытия выше SMA{EXIT_SMA}" + (f" = {p['sma10']:.2f}" if p.get("sma10") else "")}[p["status"]]
+            what = {"pending": "buy at the next open", "exiting": "sell at the next open", "open": f"holding; sell after a close above SMA{EXIT_SMA}" + (f" = {p['sma10']:.2f}" if p.get("sma10") else "")}[p["status"]]
             rows += (f"<tr><td>{BOOKS[p['book']]}</td><td>{d2s(p['signal_date'])} {p.get('tier','')}</td><td><b>{p['ticker']}</b></td><td>{d2s(p.get('entry_date'))}</td><td>{_num(p.get('entry_px'))}</td><td>{p.get('shares') or ''}</td>"
                      f"<td>{_num(p.get('last_px'))}</td><td class='{_cls(p['upnl']) if p.get('upnl') is not None else ''}'>{_pct(p.get('upnl'), 1)}</td><td>{p.get('held', '')}</td><td>{what}</td></tr>")
-        parts.append(f"<div class='wrap'><table><tr><th>книга</th><th>сигнал</th><th>тикер</th><th>вход</th><th>цена входа</th><th>шт</th><th>сейчас</th><th>P&amp;L</th><th>сессий</th><th>что дальше</th></tr>{rows}</table></div>")
+        parts.append(f"<div class='wrap'><table><tr><th>book</th><th>signal</th><th>ticker</th><th>entry</th><th>entry px</th><th>shares</th><th>last</th><th>P&amp;L</th><th>sessions</th><th>next</th></tr>{rows}</table></div>")
     # results
     def srow(name, s, cls=""):
-        if not s.get("n"): return f"<tr class='{cls}'><td>{name}</td><td>0</td><td colspan='7' class='muted'>пока нет закрытых сделок</td></tr>"
+        if not s.get("n"): return f"<tr class='{cls}'><td>{name}</td><td>0</td><td colspan='7' class='muted'>no closed trades yet</td></tr>"
         return (f"<tr class='{cls}'><td>{name}</td><td>{s['n']}</td><td class='{_cls(s['mean'])}'>{s['mean']:+.2f}%</td><td class='{_cls(s['median'])}'>{s['median']:+.2f}%</td><td>{s['hit']:.0f}%</td><td>{s['hold']:.1f}</td>"
-                f"<td class='{_cls(s['pnl'])}'>{s['pnl']:+,.0f}$</td><td class='{_cls(s['pnl_pct'])}'>{s['pnl_pct']:+.2f}%</td><td>{s['maxdd']:.1f}%</td></tr>")
-    parts.append("<h2>Результаты (paper)</h2><div class='wrap'><table><tr><th>книга</th><th>сделок</th><th>средняя</th><th>медиана</th><th>прибыльных</th><th>сессий</th><th>P&amp;L</th><th>% капитала</th><th>max DD</th></tr>"
-                 + srow(f"<b>Стратегия — покупки только в дни A (QQQ RSI2 &lt; {RSI_THR:.0f})</b>", tr["trade"], "strat") + srow("Каждый день, без фильтра рынка (те же правила входа/выхода)", tr["everyday"])
-                 + "".join(srow(f"&nbsp;&nbsp;&nbsp;из них входы в дни {t}", tr["everyday_" + t]) for t in "ABC") + "</table></div>"
-                 f"<div class='muted'>Бэктест 2010–2026 (после издержек 10 б.п.): стратегия +181 б.п./сделку, 70% прибыльных, ~34 сделки/год, CAGR 15.2%, max DD −23%, 15 из 17 лет в плюсе; "
-                 f"те же правила каждый день без фильтра рынка: +45 б.п./сделку, max DD −60%, 11 из 17 лет. Здесь то же самое считается вперёд на реальных ценах — сравнивайте.</div>")
+                f"<td class='{_cls(s['pnl'])}'>{usd(s['pnl'], True)}</td><td class='{_cls(s['pnl_pct'])}'>{s['pnl_pct']:+.2f}%</td><td>{s['maxdd']:.1f}%</td></tr>")
+    parts.append("<h2>Results (paper)</h2><div class='wrap'><table><tr><th>book</th><th>trades</th><th>avg</th><th>median</th><th>win rate</th><th>avg hold</th><th>P&amp;L</th><th>% of capital</th><th>max DD</th></tr>"
+                 + srow(f"<b>Strategy — buys only on tier-A days (QQQ RSI2 &lt; {RSI_THR:.0f})</b>", tr["trade"], "strat") + srow("Control — every day, no market filter (same entry/exit rules)", tr["everyday"])
+                 + "".join(srow(f"&nbsp;&nbsp;&nbsp;of which entered on tier-{t} days", tr["everyday_" + t]) for t in "ABC") + "</table></div>"
+                 f"<div class='muted'>Backtest 2010–2026 (after 10 bp costs): strategy +181 bp/trade, 70% winners, ~34 trades/yr, CAGR 15.2%, max DD −23%, 15 of 17 years positive; "
+                 f"the same rules every day without the market filter: +45 bp/trade, max DD −60%, 11 of 17 years. The same thing is tracked here forward on real prices — compare.</div>")
     cl = j[j.status == "closed"]
     if len(cl):
-        eqs = [("Стратегия", equity_curve(cl[cl.book == "trade"]), "#1e8449"), ("Каждый день", equity_curve(cl[cl.book == "everyday"]), "#8b949e")]
+        eqs = [("Strategy", equity_curve(cl[cl.book == "trade"]), "#1e8449"), ("Control", equity_curve(cl[cl.book == "everyday"]), "#8b949e")]
         allv = [CAPITAL] + [v for _, e, _ in eqs for v in e.values]; lo, hi = min(allv), max(allv); rng = (hi - lo) or 1
         y0 = 150 - (CAPITAL - lo) / rng * 130; svg = f"<line x1='0' y1='{y0:.0f}' x2='640' y2='{y0:.0f}' stroke='#d8dee4' stroke-dasharray='4'/>"
         for k, (name, e, col) in enumerate(eqs):
             if len(e) == 0: continue
             vals = [CAPITAL] + list(e.values); xs = np.linspace(8, 632, len(vals)); ys = [150 - (v - lo) / rng * 130 for v in vals]
-            svg += f"<polyline fill='none' stroke='{col}' stroke-width='2' points='{' '.join(f'{x:.0f},{y:.0f}' for x, y in zip(xs, ys))}'/><text x='{440 + k * 100}' y='14' font-size='11' fill='{col}'>■ {name}</text>"
-        parts.append(f"<svg width='640' height='170' style='max-width:100%;background:#fff;border:1px solid #d8dee4;border-radius:8px'>{svg}<text x='6' y='14' font-size='11' fill='#57606a'>{hi:,.0f}$</text><text x='6' y='164' font-size='11' fill='#57606a'>{lo:,.0f}$</text></svg>")
+            svg += f"<polyline fill='none' stroke='{col}' stroke-width='2' points='{' '.join(f'{x:.0f},{y:.0f}' for x, y in zip(xs, ys))}'/><text x='{470 + k * 90}' y='14' font-size='11' fill='{col}'>■ {name}</text>"
+        parts.append(f"<svg width='640' height='170' style='max-width:100%;background:#fff;border:1px solid #d8dee4;border-radius:8px'>{svg}<text x='6' y='14' font-size='11' fill='#57606a'>{usd(hi)}</text><text x='6' y='164' font-size='11' fill='#57606a'>{usd(lo)}</text></svg>")
         rows = ""
         for r in cl.sort_values(["exit_date", "book"], ascending=[False, True]).itertuples():
-            rows += (f"<tr><td>{'<b>стратегия</b>' if r.book == 'trade' else 'каждый день'}</td><td>{d2s(r.signal_date)} {r.tier}{f' <span class=tag>{r.mode}</span>' if r.mode != 'live' else ''}</td><td><b>{r.ticker}</b></td>"
-                     f"<td>{d2s(r.entry_date)}</td><td>{_num(r.entry_px)}</td><td>{d2s(r.exit_date)}</td><td>{_num(r.exit_px)}</td><td>{int(r.hold)}</td><td>{r.exit_reason}</td>"
-                     f"<td class='{_cls(r.ret_net)}'>{_pct(r.ret_net)}</td><td class='{_cls(r.pnl_usd)}'>{r.pnl_usd:+,.0f}$</td></tr>")
-        parts.append(f"<h3>Закрытые сделки</h3><div class='wrap'><table><tr><th>книга</th><th>сигнал</th><th>тикер</th><th>вход</th><th>цена входа</th><th>выход</th><th>цена выхода</th><th>сессий</th><th>причина</th><th>net</th><th>P&amp;L</th></tr>{rows}</table></div>"
-                     f"<div class='muted'>net = после {COST * 1e4:.0f} б.п. издержек за круг; размер {PER_NAME:.0%} капитала ({CAPITAL:,.0f}$) на имя, макс. {MAX_POS} позиции.</div>")
+            rows += (f"<tr><td>{'<b>strategy</b>' if r.book == 'trade' else 'control'}</td><td>{d2s(r.signal_date)} {r.tier}{f' <span class=tag>{r.mode}</span>' if r.mode != 'live' else ''}</td><td><b>{r.ticker}</b></td>"
+                     f"<td>{d2s(r.entry_date)}</td><td>{_num(r.entry_px)}</td><td>{d2s(r.exit_date)}</td><td>{_num(r.exit_px)}</td><td>{int(r.hold)}</td><td>{reason_text(r.exit_reason)}</td>"
+                     f"<td class='{_cls(r.ret_net)}'>{_pct(r.ret_net)}</td><td class='{_cls(r.pnl_usd)}'>{usd(r.pnl_usd, True)}</td></tr>")
+        parts.append(f"<h3>Closed trades</h3><div class='wrap'><table><tr><th>book</th><th>signal</th><th>ticker</th><th>entry</th><th>entry px</th><th>exit</th><th>exit px</th><th>sessions</th><th>exit reason</th><th>net</th><th>P&amp;L</th></tr>{rows}</table></div>"
+                     f"<div class='muted'>net = after {COST * 1e4:.0f} bp round-trip costs; position size {PER_NAME:.0%} of capital ({usd(CAPITAL)}) per name, max {MAX_POS} positions.</div>")
     if len(dl):
         rows = "".join(f"<tr><td>{d2s(r.date)}{f' <span class=tag>{r.mode}</span>' if r.mode != 'live' else ''}</td><td>{_num(r.q_close)}</td><td class='{_cls(r.q_ret)}'>{_pct(r.q_ret)}</td><td>{r.q_rsi}</td><td>{TIERS.get(r.tier, {}).get('icon', '')} {r.tier}</td>"
                        f"<td>{'' if pd.isna(r.n_candidates) else int(r.n_candidates)}</td><td>{r.picks if isinstance(r.picks, str) else ''}</td><td><b>{r.buy if isinstance(r.buy, str) else ''}</b></td><td>{r.sell if isinstance(r.sell, str) else ''}</td><td>{r.hold if isinstance(r.hold, str) else ''}</td></tr>"
                        for r in dl.sort_values("date", ascending=False).head(60).itertuples())
-        parts.append(f"<h2>Журнал сканирований (последние 60 из {len(dl)})</h2><div class='wrap'><table><tr><th>дата</th><th>QQQ</th><th>день</th><th>RSI(2)</th><th>тир</th><th>прошли фильтр</th><th>топ фильтра</th><th>купить</th><th>продать</th><th>держим</th></tr>{rows}</table></div>")
-    parts.append(f"<h2>Правило v2</h2><div class='card'><b>Когда:</b> QQQ RSI(2) по закрытию &lt; {RSI_THR:.0f}. <b>Что:</b> акции NASDAQ с close &gt; SMA200, день ≤ −3%, оборот ≥ 20M$/д → самые ликвидные, не больше {MAX_NEW} новых в день, до {MAX_POS} позиций по {PER_NAME:.0%} капитала. "
-                 f"<b>Вход:</b> следующее открытие. <b>Выход:</b> открытие после первого закрытия выше SMA{EXIT_SMA} акции, максимум {MAX_HOLD} сессий. Без стопов и целей.<br>"
-                 f"Почему так: в v1 выход был жёстко через 48 ч и рубил отскок на середине (+81 б.п./сделку, 58% прибыльных). Выход по SMA{EXIT_SMA} даёт отскоку доиграть: +181 б.п., 70%. "
-                 f"Проверено на 2010–2016 (эти годы не участвовали в подборе выхода): CAGR 20%, 7 из 7 лет в плюсе. Подробности и весь перебор — <a href='{strat}'>STRATEGY.md</a>.</div>")
-    html = f"<!doctype html><html lang='ru'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Dip-Buyer NASDAQ v2 — paper</title><style>{CSS}</style></head><body>{''.join(parts)}</body></html>"
+        parts.append(f"<h2>Scan log (last 60 of {len(dl)})</h2><div class='wrap'><table><tr><th>date</th><th>QQQ</th><th>day</th><th>RSI(2)</th><th>tier</th><th>passed filter</th><th>top of filter</th><th>buy</th><th>sell</th><th>holding</th></tr>{rows}</table></div>")
+    parts.append(f"<h2>Rule v2</h2><div class='card'><b>When:</b> QQQ RSI(2) at the close &lt; {RSI_THR:.0f}. <b>What:</b> NASDAQ stocks with close &gt; SMA200, day ≤ −3%, turnover ≥ $20M/day → most liquid first, at most {MAX_NEW} new per day, up to {MAX_POS} positions at {PER_NAME:.0%} of capital each. "
+                 f"<b>Entry:</b> next open. <b>Exit:</b> the open after the first close above the stock's SMA{EXIT_SMA}, {MAX_HOLD} sessions max. No stops, no targets.<br>"
+                 f"Why: v1 exited after a fixed 48 hours and cut the rebound in half (+81 bp/trade, 58% winners). The SMA{EXIT_SMA} exit lets it play out: +181 bp, 70%. "
+                 f"Verified on 2010–2016 (years not used to choose the exit): CAGR 20%, 7 of 7 years positive. Details and the full grid — <a href='{strat}'>STRATEGY.md</a>.</div>")
+    html = f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Dip-Buyer NASDAQ v2 — paper trading</title><style>{CSS}</style></head><body>{''.join(parts)}</body></html>"
     open(os.path.join(DOCS, "index.html"), "w").write(html)
     update_readme(L, tr)
 
@@ -452,16 +473,16 @@ def update_readme(L, tr):
     s = open(README).read(); a, b = "<!-- DASHBOARD:START -->", "<!-- DASHBOARD:END -->"
     if a not in s or b not in s: return
     link = PAGES_URL or "docs/index.html"
-    if L is None: block = f"### 📊 Дашборд\nЗапусков ещё не было. Полный дашборд: {link}\n"
+    if L is None: block = f"### 📊 Dashboard\nNo runs yet. Full dashboard: {link}\n"
     else:
         T = TIERS[L["tier"]]
-        lines = [f"### 📊 Скан {d2s(L['sig_date'])} (после закрытия) — {T['icon']} {T['label']}" + (f" *({L['mode']})*" if L["mode"] != "live" else ""),
-                 f"QQQ **{L['q_close']:.2f}** ({_pct(L['q_ret'])}) · RSI(2) **{L['q_rsi']:.1f}** · прошли фильтр: {L['n_candidates']}", ""]
-        for x in L["buy"]: lines.append(f"- 🟢 **КУПИТЬ {x['ticker']}** по открытию — {PER_NAME:.0%} капитала ≈ {x['usd']:,.0f}$ (~{x['shares_est']} шт; закрытие {x['close']:.2f}, день {_pct(x['ret_1'],1)})")
-        for x in L["sell"]: lines.append(f"- 🔴 **ПРОДАТЬ {x['ticker']}** по открытию — {x['shares']} шт, вход {x['entry_px']:.2f}, сейчас {x['last_px']:.2f} ({_pct(x['upnl'],1)}), {x['held']} сесс.")
-        for x in L["hold"]: lines.append(f"- ⏳ **ДЕРЖАТЬ {x['ticker']}** — вход {x['entry_px']:.2f}, сейчас {x['last_px']:.2f} ({_pct(x['upnl'],1)}), {x['held']} сесс.; продажа после закрытия выше SMA{EXIT_SMA} = {x['sma10']:.2f}")
-        if not L["buy"] and not L["sell"] and not L["hold"]: lines.append("- Позиций нет, завтра ничего не делаем.")
-        lines += ["", f"**{tr['text']}**  "] + ([f"{tr['text_e']}  "] if tr["text_e"] else []) + [f"Полный дашборд: {link} · обновлено {L['run_at']}"]
+        lines = [f"### 📊 Scan {dlong(L['sig_date'])} (after the close) — {T['icon']} {T['label']}" + (f" *({L['mode']})*" if L["mode"] != "live" else ""),
+                 f"QQQ **{L['q_close']:.2f}** ({_pct(L['q_ret'])}) · RSI(2) **{L['q_rsi']:.1f}** · passed the filter: {L['n_candidates']}", ""]
+        for x in L["buy"]: lines.append(f"- 🟢 **BUY {x['ticker']}** at the open — {PER_NAME:.0%} of capital ≈ {usd(x['usd'])} (~{x['shares_est']} sh; close {x['close']:.2f}, today {_pct(x['ret_1'],1)})")
+        for x in L["sell"]: lines.append(f"- 🔴 **SELL {x['ticker']}** at the open — {x['shares']} sh, entry {x['entry_px']:.2f}, last {x['last_px']:.2f} ({_pct(x['upnl'],1)}), {x['held']} sessions, reason: {reason_text(x['reason'])}")
+        for x in L["hold"]: lines.append(f"- ⏳ **HOLD {x['ticker']}** — entry {x['entry_px']:.2f}, last {x['last_px']:.2f} ({_pct(x['upnl'],1)}), {x['held']} sessions; sell after a close above SMA{EXIT_SMA} = {x['sma10']:.2f}")
+        if not L["buy"] and not L["sell"] and not L["hold"]: lines.append("- No positions, nothing to do tomorrow.")
+        lines += ["", f"**{tr['text']}**  "] + ([f"{tr['text_e']}  "] if tr["text_e"] else []) + [f"Full dashboard: {link} · updated {fmt_run_at(L['run_at'])}"]
         block = "\n".join(lines) + "\n"
     s = s[:s.index(a) + len(a)] + "\n" + block + s[s.index(b):]
     open(README, "w").write(s)

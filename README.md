@@ -1,72 +1,76 @@
 # Dip-Buyer NASDAQ v2 — paper trading
 
-Раз в день после закрытия рынка США сканер проверяет одно условие рынка и, если оно выполнено, выводит **до двух акций**: купить завтра по открытию. Открытые позиции ведутся до выхода (первое закрытие выше SMA10 → продать по открытию). Ордера не исполняются. Результат — на дашборде (GitHub Pages) и в блоке ниже; бумажный журнал по реальным ценам открытия ведётся в репозитории.
+*[Русская версия](README.ru.md)*
+
+A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it checks one market condition and — only when it is met — names **up to two stocks** to buy at the next open. Open positions are managed until the exit (first close above the 10-day SMA → sell at the next open). No orders are sent. The result is a **live dashboard** (GitHub Pages) plus the block below; a paper journal at real open prices is kept in this repository.
+
+**Dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/**
 
 <!-- DASHBOARD:START -->
-### 📊 Скан 18.09.2026 (после закрытия) — ⚪ обычный день (QQQ RSI2 ≥ 30) — не покупаем, только ведём открытое
-QQQ **721.45** (+0.63%) · RSI(2) **91.0** · прошли фильтр: 47
+### 📊 Scan Sep 18, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **721.45** (+0.63%) · RSI(2) **91.0** · passed the filter: 47
 
-- Позиций нет, завтра ничего не делаем.
+- No positions, nothing to do tomorrow.
 
-**Стратегия: 15 сделок · средняя +0.75% · медиана -0.28% · прибыльных 47% · ср. удержание 5.1 сессий · P&L +2,883$ (+2.88% от 100,000$) · max DD -4.5%**  
-Каждый день (без фильтра): 39 сделок · средняя +2.18% · прибыльных 59% · P&L +20,809$ · max DD -9.0%  
-Полный дашборд: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · обновлено 18.09.2026 16:20 ET
+**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5%**  
+Control (every day, no market filter): 39 trades · avg +2.18% · win rate 59% · P&L +$20,809 · max DD -9.0%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-09-18 16:20 ET
 <!-- DASHBOARD:END -->
 
-## Правило v2
+## Rule v2
 
 | | |
 |---|---|
-| **Когда (день A)** 🟢 | QQQ RSI(2) по закрытию **< 10** — рынок перепродан. ~20–30 дней в году, кучками по 1–3 |
-| **Что** | акции NASDAQ: цена выше SMA200, сегодня упали **≥ 3%**, средний оборот ≥ 20M$/день, цена ≥ 5$ → **самые ликвидные**, не больше **2 новых в день** |
-| **Позиции** | до **4 одновременно**, **25% капитала** каждая, без плеча |
-| **Вход** | завтра **по открытию** |
-| **Выход** | первое **закрытие выше SMA10** акции → продать на **следующем открытии**; предохранитель 20 сессий. **Без стопов, без целей** |
-| **Дни B/C** ⚪ | QQQ RSI(2) ≥ 10 — **ничего не покупаем**, только ведём открытое. Список прошедших фильтр показывается для наблюдения |
+| **When (tier-A day)** 🟢 | QQQ RSI(2) at the close **< 10** — the market is oversold. ~20–30 days a year, in clusters of 1–3 |
+| **What** | NASDAQ stocks: close above SMA200, down **≥ 3%** today, average turnover ≥ $20M/day, price ≥ $5 → **most liquid first**, at most **2 new per day** |
+| **Positions** | up to **4 at a time**, **25% of capital** each, no leverage |
+| **Entry** | next **open** |
+| **Exit** | the first **close above the stock's SMA10** → sell at the **next open**; hard limit 20 sessions. **No stops, no targets** |
+| **Tier B/C days** ⚪ | QQQ RSI(2) ≥ 10 — **no new buys**, open positions are managed only. The list of stocks that passed the filter is shown for watching |
 
-Что изменилось относительно v1 и почему — в [STRATEGY.md](STRATEGY.md). Коротко: сигнал тот же, а вот выход «через 48 часов» рубил отскок посередине (+81 б.п./сделку, 58% прибыльных); выход по SMA10 даёт ему доиграть (+181 б.п., 70%). Тир B и все «каждый день» правила на 2010–2016 убыточны — их больше нет.
+What changed versus v1 and why — in [STRATEGY.md](STRATEGY.md). In short: the signal is the same, but the fixed 48-hour exit cut the rebound in half (+81 bp/trade, 58% winners); the SMA10 exit lets it play out (+181 bp, 70%). Tier B and every "trade every day" rule lose money on 2010–2016 — they are gone.
 
-## Чего ждать (2010–2026, вход по открытию, после издержек 10 б.п.)
+## What to expect (2010–2026, entry at the open, after 10 bp costs)
 
-| | CAGR | max DD | лет в плюсе | сделок/год | прибыльных | ср. сделка | удержание |
+| | CAGR | max DD | years positive | trades/yr | win rate | avg trade | avg hold |
 |---|---|---|---|---|---|---|---|
-| **v2** — весь период | **15.2%** | **−23%** | **15/17** | 34 | 70% | **+181 б.п.** | 6.5 сесс. |
+| **v2** — full period | **15.2%** | **−23%** | **15/17** | 34 | 70% | **+181 bp** | 6.5 sessions |
 | v2 — out-of-sample 2010–2016 | 20.0% | −15% | 7/7 | 36 | 72% | +210 | 6.4 |
-| v1 (тот же сигнал, выход через 48 ч) | 8.8% | −19% | 14/17 | 47 | 58% | +81 | 2.0 |
-| то же каждый день без фильтра рынка | 14.5% | **−60%** | 11/17 | 168 | 63% | +45 | 5.6 |
+| v1 (same signal, fixed 48 h exit) | 8.8% | −19% | 14/17 | 47 | 58% | +81 | 2.0 |
+| same rules every day, no market filter | 14.5% | **−60%** | 11/17 | 168 | 63% | +45 | 5.6 |
 
-В рынке в среднем 22% времени. Худшие годы: 2022 −7%, 2020 −2%. Худшая сделка −44%. Серии из 4–6 убыточных подряд — норма; судить раньше 40–50 сделок (≈ 1.5 года) нельзя. Все сделки: [results/v2_trades_2010_2026.csv](results/v2_trades_2010_2026.csv), варианты: [results/v2_variants_2010_2026.csv](results/v2_variants_2010_2026.csv), по годам: [results/v2_by_year_2010_2026.csv](results/v2_by_year_2010_2026.csv).
+In the market 22% of the time on average. Worst years: 2022 −7%, 2020 −2%. Worst trade −44%. Streaks of 4–6 losers in a row are normal; nothing can be judged before 40–50 trades (≈ 1.5 years). All trades: [results/v2_trades_2010_2026.csv](results/v2_trades_2010_2026.csv), variants: [results/v2_variants_2010_2026.csv](results/v2_variants_2010_2026.csv), by year: [results/v2_by_year_2010_2026.csv](results/v2_by_year_2010_2026.csv).
 
-## Установка
+## Setup
 
-Уже развёрнуто в этом репозитории. Дашборд: **https://exodus611.github.io/nasdaq-eod-momentum-scanner/** (публикуется самим workflow через GitHub Pages).
+Already deployed in this repository. Dashboard: **https://exodus611.github.io/nasdaq-eod-momentum-scanner/** (published by the workflow itself via GitHub Pages).
 
-1. Ручной запуск: **Actions → «Dip-Buyer daily scan» → Run workflow** (mode `run`). Через 2–3 минуты появится коммит `scan: …`, обновится блок выше и дашборд.
-2. Если workflow не может пушить: **Settings → Actions → General → Workflow permissions → «Read and write permissions»** → Save.
-3. Необязательно: Settings → Secrets and variables → Actions → Variables: `CAPITAL` (100000), `PER_NAME` (0.25), `MAX_POS` (4), `MAX_NEW` (2), `RSI_THR` (10), `EXIT_SMA` (10), `MAX_HOLD` (20), `PAGES_URL`.
+1. Manual run: **Actions → "Dip-Buyer daily scan" → Run workflow** (mode `run`). A `scan: …` commit appears in 2–3 minutes; the block above and the dashboard update.
+2. If the workflow cannot push: **Settings → Actions → General → Workflow permissions → "Read and write permissions"** → Save.
+3. Optional: Settings → Secrets and variables → Actions → Variables: `CAPITAL` (100000), `PER_NAME` (0.25), `MAX_POS` (4), `MAX_NEW` (2), `RSI_THR` (10), `EXIT_SMA` (10), `MAX_HOLD` (20), `PAGES_URL`.
 
-Дальше всё само: скан выполняется в **16:20 ET** (23:20 по Израилю летом, 22:20 зимой), коммит журнала и обновление дашборда — через 2–3 минуты после этого. GitHub запускает cron с опозданием до 2–3 часов, поэтому раннеры стартуют заранее (с полудня ET) и ждут закрытия внутри; после закрытия есть ещё запасные слоты. Пропущенная по любой причине сессия догоняется следующим запуском автоматически (помечается `catch-up`).
+Everything else is automatic: the scan runs at **16:20 ET**, the journal commit and dashboard update follow 2–3 minutes later. GitHub starts cron jobs up to 2–3 hours late, so runners are started ahead of time (from noon ET) and wait for the close inside; fallback slots exist after the close. A session missed for any reason is caught up by the next run automatically (marked `catch-up`).
 
-## Что показывает дашборд
+## What the dashboard shows
 
-- **Статус дня:** QQQ, RSI(2), день A или нет, шкала RSI.
-- **Действия на следующую сессию:** КУПИТЬ (тикер, сумма, ~штук) / ПРОДАТЬ (по открытию, причина) / ДЕРЖАТЬ (текущий P&L, уровень SMA10 для выхода).
-- **Вывод сканера:** все акции, прошедшие фильтр в этот день, по обороту.
-- **Две бумаги:** стратегия (покупки только в дни A) и контроль «каждый день без фильтра рынка» с теми же правилами входа/выхода — видно, работает ли фильтр по рынку на живых данных.
-- **Открытые позиции, закрытые сделки, equity, журнал сканирований.**
+- **Day status:** QQQ, RSI(2), tier-A day or not, RSI gauge.
+- **Next-session actions:** BUY (ticker, amount, ~shares) / SELL (at the open, reason) / HOLD (current P&L, SMA10 exit level).
+- **Scanner output:** every stock that passed the filter that day, ranked by turnover.
+- **Two books:** the strategy (buys only on tier-A days) and a control book "every day, no market filter" with the same entry/exit rules — so you can see live whether the market filter earns its keep.
+- **Open positions, closed trades, equity, scan log.**
 
-Каждый скан также сохраняется в `state/scans/<дата>.json`, журнал сделок — `state/journal.csv`, лог запусков — `state/daily_log.csv`. Журнал v1 (10.08–11.09.2026, выход через 48 ч) сохранён в `state_v1/`.
+Each scan is also stored as `state/scans/<date>.json`, the trade journal as `state/journal.csv`, the run log as `state/daily_log.csv`. The v1 journal (Aug 10 – Sep 11, 2026, fixed 48 h exit) is preserved in `state_v1/`.
 
-## Файлы
+## Files
 
-- `bot.py` — сканер + бумажный журнал + дашборд. `python bot.py run --asof 2026-08-20` — прогон на историческую дату; `python bot.py backfill --from 2026-06-01 --to 2026-09-12` — реплей диапазона одной загрузкой (помечается `replay`).
-- `research/v2_exit_test.py` — перебор выходов/сайзинга/контролей на 2010–2026 (таблицы выше); `research/build_long.py` — загрузка 17-летней панели.
-- `.github/workflows/daily.yml` — ежедневный запуск после закрытия (+ публикация дашборда в Pages).
-- Прежний сканер (momentum/pre-move, 10 бумаг) сохранён целиком в ветке [`legacy-scanner`](../../tree/legacy-scanner).
-- `results/` — бэктесты (v2 и старые v1/10-бумажный вариант), `research/` — весь код исследования.
+- `bot.py` — scanner + paper journal + dashboard. `python bot.py run --asof 2026-08-20` — process one past session; `python bot.py backfill --from 2026-06-01 --to 2026-09-12` — replay a range with a single download (marked `replay`).
+- `research/v2_exit_test.py` — exit / sizing / control grid on 2010–2026 (tables above); `research/build_long.py` — builds the 17-year price panel.
+- `.github/workflows/daily.yml` — daily run after the close (+ dashboard publishing to Pages).
+- The previous scanner (momentum / pre-move, 10 names) is preserved in full in the [`legacy-scanner`](../../tree/legacy-scanner) branch.
+- `results/` — backtests (v2 and the older v1 / 10-name variants), `research/` — all research code.
 
-## Честные оговорки
+## Honest caveats
 
-- Данные — Yahoo Finance через `yfinance`, бесплатно и без гарантий. Если бар за день не пришёл — бот скажет об этом на дашборде и ничего не сделает; можно перезапустить вручную (Run workflow → `run`).
-- Бэктест на сегодняшнем составе NASDAQ (без делистингованных). Для самых ликвидных имён эффект мал, но реальный результат может быть на 10–20 б.п./сделку хуже.
-- Стратегия покупает падающие акции в дни распродаж и держит без стопа. Она **должна** периодически выглядеть глупо — иначе бы не платила.
+- Data: Yahoo Finance via `yfinance`, free and without guarantees. If the daily bar has not arrived, the bot says so on the dashboard and does nothing; it can be re-run manually (Run workflow → `run`).
+- The backtest uses today's NASDAQ constituents (no delisted names). For the most liquid names the survivorship effect is small, but live results may be 10–20 bp/trade worse.
+- The strategy buys falling stocks on sell-off days and holds without a stop. It **must** look stupid from time to time — otherwise it would not pay.

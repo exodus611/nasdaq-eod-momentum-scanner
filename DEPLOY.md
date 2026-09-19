@@ -1,5 +1,7 @@
 # Деплой — уже сделан
 
+*(internal notes, Russian; the public docs are README.md / STRATEGY.md in English)*
+
 Репозиторий: https://github.com/exodus611/nasdaq-eod-momentum-scanner  
 Дашборд: https://exodus611.github.io/nasdaq-eod-momentum-scanner/  
 Прежний сканер: ветка `legacy-scanner` (история сохранена полностью).
