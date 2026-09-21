@@ -7,14 +7,14 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 **Dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/**
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Sep 18, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
-QQQ **721.45** (+0.63%) · RSI(2) **91.0** · passed the filter: 47
+### 📊 Scan Sep 21, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **741.47** (+2.77%) · RSI(2) **97.9** · passed the filter: 14
 
 - No positions, nothing to do tomorrow.
 
 **Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5%**  
-Control (every day, no market filter): 39 trades · avg +2.18% · win rate 59% · P&L +$20,809 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-09-18 16:20 ET
+Control (every day, no market filter): 40 trades · avg +2.47% · win rate 60% · P&L +$24,178 · max DD -9.0%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-09-21 16:20 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
