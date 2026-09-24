@@ -1421,10 +1421,10 @@
     "entry_date": "2026-08-28",
     "entry_px": 203.0895,
     "shares": 123,
-    "last_px": 155.89999389648438,
-    "held": 18,
-    "sma10": 169.2960006713867,
-    "upnl": -0.2323581775695721
+    "last_px": 157.41000366210938,
+    "held": 19,
+    "sma10": 167.64600067138673,
+    "upnl": -0.22492298389572385
    },
    {
     "ticker": "NVDA",
@@ -1494,10 +1494,10 @@
     "entry_date": "2026-09-01",
     "entry_px": 182.53,
     "shares": 136,
-    "last_px": 149.5800018310547,
-    "held": 16,
-    "sma10": 166.2519989013672,
-    "upnl": -0.18051826093762846
+    "last_px": 151.38999938964844,
+    "held": 17,
+    "sma10": 164.4279983520508,
+    "upnl": -0.17060209615050437
    },
    {
     "ticker": "PLTR",
@@ -1648,16 +1648,16 @@
     "entry_date": "2026-09-23",
     "entry_px": 106.22,
     "shares": 235,
-    "last_px": 106.43000030517578,
-    "held": 1,
-    "sma10": 109.15199966430664,
-    "upnl": 0.001977031681188013
+    "last_px": 106.97000122070312,
+    "held": 2,
+    "sma10": 109.10499954223633,
+    "upnl": 0.00706082866412272
    },
    {
     "ticker": "TEAM",
     "signal_date": "2026-09-22",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 188.65,
     "ret_1": -0.0359,
@@ -1670,21 +1670,48 @@
     "last_px": 195.0800018310547,
     "held": 1,
     "sma10": 188.51700134277343,
-    "upnl": 0.026628785554440038,
+    "upnl": null,
     "exit_signal_date": "2026-09-23",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-09-24",
+    "exit_px": 195.91,
+    "ret_gross": 0.031,
+    "ret_net": 0.03,
+    "pnl_usd": 746.7,
+    "hold": 1
    },
    {
     "ticker": "SNDK",
     "signal_date": "2026-09-23",
     "tier": "C",
-    "status": "pending",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 1816.57,
     "ret_1": -0.0373,
     "dvol_M": 17877,
     "usd": 25000,
-    "shares_est": 13
+    "shares_est": 13,
+    "entry_date": "2026-09-24",
+    "entry_px": 1785.47,
+    "shares": 14,
+    "last_px": 1753.6199951171875,
+    "held": 1,
+    "sma10": 1686.6284912109375,
+    "upnl": -0.017838443033382,
+    "exit_signal_date": "2026-09-24",
+    "exit_reason": "SMA10"
+   },
+   {
+    "ticker": "WDC",
+    "signal_date": "2026-09-24",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 450.31,
+    "ret_1": -0.0494,
+    "dvol_M": 2845,
+    "usd": 25000,
+    "shares_est": 55
    }
   ]
  }
