@@ -80,3 +80,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-09-22,live,747.46,0.0081,98.6,C,31,CSCO ABNB,,,
 2026-09-23,live,741.21,-0.0084,59.9,C,121,SNDK GOOGL,,,
 2026-09-24,live,741.1,-0.0001,59.1,C,40,SNDK WDC,,,
+2026-09-25,live,744.5,0.0046,77.8,C,34,META INTC,,,
