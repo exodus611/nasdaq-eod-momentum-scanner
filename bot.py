@@ -475,7 +475,9 @@ def build_page():
                  "<a href='https://exodus611.github.io/project-memory-starter-kit/'>Free starter kit</a> "
                  "(one file, one block — the whole method, nothing else to install)."
                  "<br>Paper trading only: no orders are sent, and nothing on this page is "
-                 "financial advice.</div>")
+                 "financial advice."
+                 "<br>If the method worked for you, a one-line review on the book's Amazon "
+                 "page helps more than anything else.</div>")
     html = f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Dip-Buyer NASDAQ v2 — paper trading</title><style>{CSS}</style></head><body>{''.join(parts)}</body></html>"
     open(os.path.join(DOCS, "index.html"), "w").write(html)
     update_readme(L, tr)
