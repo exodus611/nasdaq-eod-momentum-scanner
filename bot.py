@@ -388,7 +388,9 @@ def build_page():
     tr = track_record(S); strat = f"{REPO_URL}/blob/main/STRATEGY.md" if REPO_URL else "#"; upd = f"{now_et():%Y-%m-%d %H:%M} ET"
     parts = [f"<h1>Dip-Buyer NASDAQ v2 — paper trading</h1><div class='muted'>Mean-reversion scanner for NASDAQ stocks. Runs once a day after the US close, keeps a paper journal at real open prices "
              f"and publishes this page. No orders are sent — the output is a set of instructions for the next session. Updated {upd}"
-             + (f" · <a href='{REPO_URL}'>repository</a>" if REPO_URL else "") + (f" · <a href='{strat}'>strategy &amp; backtest</a>" if REPO_URL else "") + "</div>"]
+             + (f" · <a href='{REPO_URL}'>repository</a>" if REPO_URL else "") + (f" · <a href='{strat}'>strategy &amp; backtest</a>" if REPO_URL else "")
+             + " · <a href='https://www.amazon.com/dp/B0HKVZ3RSG'>the book behind this scanner</a>"
+             + "</div>"]
     if att: parts.append(f"<div class='card' style='background:#fdf6e3;border-color:#e6c65a'>⚠️ Attempt {fmt_run_at(att['run_at'])}: {att['note']}</div>")
     if L is None:
         parts.append("<div class='card'>No runs yet.</div>")
