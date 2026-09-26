@@ -6,6 +6,8 @@
 
 **Дашборд (на английском): https://exodus611.github.io/nasdaq-eod-momentum-scanner/** — текущий скан, позиции, сделки, equity. Сводка последнего скана — в [README.md](README.md).
 
+Собран как рабочий пример из книги **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** Дэниела Марлоу — [книга на Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [бесплатный набор для читателя](https://exodus611.github.io/project-memory-starter-kit/) (один файл, один блок — метод, на котором работает сканер).
+
 
 ## Правило v2
 

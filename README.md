@@ -6,6 +6,8 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 
 **Dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/**
 
+Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
+
 <!-- DASHBOARD:START -->
 ### 📊 Scan Sep 25, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
 QQQ **744.50** (+0.46%) · RSI(2) **77.8** · passed the filter: 34

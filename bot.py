@@ -463,6 +463,19 @@ def build_page():
                  f"<b>Entry:</b> next open. <b>Exit:</b> the open after the first close above the stock's SMA{EXIT_SMA}, {MAX_HOLD} sessions max. No stops, no targets.<br>"
                  f"Why: v1 exited after a fixed 48 hours and cut the rebound in half (+81 bp/trade, 58% winners). The SMA{EXIT_SMA} exit lets it play out: +181 bp, 70%. "
                  f"Verified on 2010–2016 (years not used to choose the exit): CAGR 20%, 7 of 7 years positive. Details and the full grid — <a href='{strat}'>STRATEGY.md</a>.</div>")
+    # Where this comes from: the page is the landing point for the QR code and the short
+    # link printed in the book, so it must lead back to the book and to the free starter
+    # kit. Plain string, no interpolation: nothing here can break the f-strings above.
+    parts.append("<h2>Where this comes from</h2><div class='card'>"
+                 "This scanner is the working example from the book "
+                 "<b>Never Start from Scratch: Give Your Projects a Memory That Never Forgets</b> "
+                 "by Daniel Marlow — built from a phone, and kept running because the repository "
+                 "remembers the project between sessions. "
+                 "<a href='https://www.amazon.com/dp/B0HKVZ3RSG'>The book on Amazon</a> &middot; "
+                 "<a href='https://exodus611.github.io/project-memory-starter-kit/'>Free starter kit</a> "
+                 "(one file, one block — the whole method, nothing else to install)."
+                 "<br>Paper trading only: no orders are sent, and nothing on this page is "
+                 "financial advice.</div>")
     html = f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Dip-Buyer NASDAQ v2 — paper trading</title><style>{CSS}</style></head><body>{''.join(parts)}</body></html>"
     open(os.path.join(DOCS, "index.html"), "w").write(html)
     update_readme(L, tr)
