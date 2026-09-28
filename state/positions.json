@@ -1411,7 +1411,7 @@
     "ticker": "BKNG",
     "signal_date": "2026-08-27",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "replay",
     "signal_close": 202.07,
     "ret_1": -0.0303,
@@ -1424,9 +1424,15 @@
     "last_px": 163.9499969482422,
     "held": 20,
     "sma10": 166.6490005493164,
-    "upnl": -0.1927204658623799,
+    "upnl": null,
     "exit_signal_date": "2026-09-25",
-    "exit_reason": "MAX_HOLD"
+    "exit_reason": "MAX_HOLD",
+    "exit_date": "2026-09-28",
+    "exit_px": 163.02,
+    "ret_gross": -0.1973,
+    "ret_net": -0.1983,
+    "pnl_usd": -4953.53,
+    "hold": 20
    },
    {
     "ticker": "NVDA",
@@ -1496,10 +1502,10 @@
     "entry_date": "2026-09-01",
     "entry_px": 182.53,
     "shares": 136,
-    "last_px": 157.47000122070312,
-    "held": 18,
-    "sma10": 162.5719985961914,
-    "upnl": -0.1372924931753513
+    "last_px": 156.0800018310547,
+    "held": 19,
+    "sma10": 161.11499938964843,
+    "upnl": -0.1449076763761864
    },
    {
     "ticker": "PLTR",
@@ -1650,10 +1656,10 @@
     "entry_date": "2026-09-23",
     "entry_px": 106.22,
     "shares": 235,
-    "last_px": 106.69999694824219,
-    "held": 3,
-    "sma10": 108.56199951171875,
-    "upnl": 0.0045188942594820425
+    "last_px": 106.73999786376953,
+    "held": 4,
+    "sma10": 108.22999954223633,
+    "upnl": 0.004895479794478685
    },
    {
     "ticker": "TEAM",
@@ -1713,7 +1719,7 @@
     "ticker": "WDC",
     "signal_date": "2026-09-24",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 450.31,
     "ret_1": -0.0494,
@@ -1726,33 +1732,67 @@
     "last_px": 456.80999755859375,
     "held": 1,
     "sma10": 441.46799926757814,
-    "upnl": 0.0034487249771411044,
+    "upnl": null,
     "exit_signal_date": "2026-09-25",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-09-28",
+    "exit_px": 449.25,
+    "ret_gross": -0.01316,
+    "ret_net": -0.01416,
+    "pnl_usd": -348.04,
+    "hold": 1
    },
    {
     "ticker": "META",
     "signal_date": "2026-09-25",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 751.66,
     "ret_1": -0.0333,
     "dvol_M": 15140,
     "usd": 25000,
-    "shares_est": 33
+    "shares_est": 33,
+    "entry_date": "2026-09-28",
+    "entry_px": 750.425,
+    "shares": 33,
+    "last_px": 715.6199951171875,
+    "held": 1,
+    "sma10": 715.6307495117187,
+    "upnl": -0.046380390955541806
    },
    {
     "ticker": "INTC",
     "signal_date": "2026-09-25",
     "tier": "C",
-    "status": "pending",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 123.0,
     "ret_1": -0.0345,
     "dvol_M": 10925,
     "usd": 25000,
-    "shares_est": 203
+    "shares_est": 203,
+    "entry_date": "2026-09-28",
+    "entry_px": 120.655,
+    "shares": 207,
+    "last_px": 116.02999877929688,
+    "held": 1,
+    "sma10": 115.025,
+    "upnl": -0.03833244557376925,
+    "exit_signal_date": "2026-09-28",
+    "exit_reason": "SMA10"
+   },
+   {
+    "ticker": "SNDK",
+    "signal_date": "2026-09-28",
+    "tier": "B",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 1712.89,
+    "ret_1": -0.0365,
+    "dvol_M": 17578,
+    "usd": 25000,
+    "shares_est": 14
    }
   ]
  }
