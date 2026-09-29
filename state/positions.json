@@ -1492,7 +1492,7 @@
     "ticker": "ABNB",
     "signal_date": "2026-08-31",
     "tier": "C",
-    "status": "open",
+    "status": "exiting",
     "mode": "replay",
     "signal_close": 183.22,
     "ret_1": -0.0328,
@@ -1502,10 +1502,12 @@
     "entry_date": "2026-09-01",
     "entry_px": 182.53,
     "shares": 136,
-    "last_px": 156.0800018310547,
-    "held": 19,
-    "sma10": 161.11499938964843,
-    "upnl": -0.1449076763761864
+    "last_px": 156.9600067138672,
+    "held": 20,
+    "sma10": 159.97899932861327,
+    "upnl": -0.14008652433097468,
+    "exit_signal_date": "2026-09-29",
+    "exit_reason": "MAX_HOLD"
    },
    {
     "ticker": "PLTR",
@@ -1656,10 +1658,10 @@
     "entry_date": "2026-09-23",
     "entry_px": 106.22,
     "shares": 235,
-    "last_px": 106.73999786376953,
-    "held": 4,
-    "sma10": 108.22999954223633,
-    "upnl": 0.004895479794478685
+    "last_px": 106.94000244140625,
+    "held": 5,
+    "sma10": 107.91699981689453,
+    "upnl": 0.0067784074694619
    },
    {
     "ticker": "TEAM",
@@ -1746,7 +1748,7 @@
     "ticker": "META",
     "signal_date": "2026-09-25",
     "tier": "C",
-    "status": "open",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 751.66,
     "ret_1": -0.0333,
@@ -1756,16 +1758,18 @@
     "entry_date": "2026-09-28",
     "entry_px": 750.425,
     "shares": 33,
-    "last_px": 715.6199951171875,
-    "held": 1,
-    "sma10": 715.6307495117187,
-    "upnl": -0.046380390955541806
+    "last_px": 738.7899780273438,
+    "held": 2,
+    "sma10": 722.5385986328125,
+    "upnl": -0.015504576703409656,
+    "exit_signal_date": "2026-09-29",
+    "exit_reason": "SMA10"
    },
    {
     "ticker": "INTC",
     "signal_date": "2026-09-25",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 123.0,
     "ret_1": -0.0345,
@@ -1778,21 +1782,58 @@
     "last_px": 116.02999877929688,
     "held": 1,
     "sma10": 115.025,
-    "upnl": -0.03833244557376925,
+    "upnl": null,
     "exit_signal_date": "2026-09-28",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-09-29",
+    "exit_px": 116.7,
+    "ret_gross": -0.03278,
+    "ret_net": -0.03378,
+    "pnl_usd": -843.66,
+    "hold": 1
    },
    {
     "ticker": "SNDK",
     "signal_date": "2026-09-28",
     "tier": "B",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 1712.89,
     "ret_1": -0.0365,
     "dvol_M": 17578,
     "usd": 25000,
-    "shares_est": 14
+    "shares_est": 14,
+    "entry_date": "2026-09-29",
+    "entry_px": 1744.0699,
+    "shares": 14,
+    "last_px": 1729.760009765625,
+    "held": 1,
+    "sma10": 1737.05,
+    "upnl": -0.008204883436366273
+   },
+   {
+    "ticker": "STLD",
+    "signal_date": "2026-09-29",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 221.9,
+    "ret_1": -0.0369,
+    "dvol_M": 232,
+    "usd": 25000,
+    "shares_est": 112
+   },
+   {
+    "ticker": "NTSK",
+    "signal_date": "2026-09-29",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 17.27,
+    "ret_1": -0.0325,
+    "dvol_M": 124,
+    "usd": 25000,
+    "shares_est": 1447
    }
   ]
  }
