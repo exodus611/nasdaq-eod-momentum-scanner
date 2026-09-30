@@ -1492,7 +1492,7 @@
     "ticker": "ABNB",
     "signal_date": "2026-08-31",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "replay",
     "signal_close": 183.22,
     "ret_1": -0.0328,
@@ -1505,9 +1505,15 @@
     "last_px": 156.9600067138672,
     "held": 20,
     "sma10": 159.97899932861327,
-    "upnl": -0.14008652433097468,
+    "upnl": null,
     "exit_signal_date": "2026-09-29",
-    "exit_reason": "MAX_HOLD"
+    "exit_reason": "MAX_HOLD",
+    "exit_date": "2026-09-30",
+    "exit_px": 158.1,
+    "ret_gross": -0.13384,
+    "ret_net": -0.13484,
+    "pnl_usd": -3347.3,
+    "hold": 20
    },
    {
     "ticker": "PLTR",
@@ -1658,10 +1664,10 @@
     "entry_date": "2026-09-23",
     "entry_px": 106.22,
     "shares": 235,
-    "last_px": 106.94000244140625,
-    "held": 5,
-    "sma10": 107.91699981689453,
-    "upnl": 0.0067784074694619
+    "last_px": 107.62999725341797,
+    "held": 6,
+    "sma10": 107.90599975585937,
+    "upnl": 0.013274310425701152
    },
    {
     "ticker": "TEAM",
@@ -1748,7 +1754,7 @@
     "ticker": "META",
     "signal_date": "2026-09-25",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 751.66,
     "ret_1": -0.0333,
@@ -1761,9 +1767,15 @@
     "last_px": 738.7899780273438,
     "held": 2,
     "sma10": 722.5385986328125,
-    "upnl": -0.015504576703409656,
+    "upnl": null,
     "exit_signal_date": "2026-09-29",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-09-30",
+    "exit_px": 729.0,
+    "ret_gross": -0.02855,
+    "ret_net": -0.02955,
+    "pnl_usd": -731.79,
+    "hold": 2
    },
    {
     "ticker": "INTC",
@@ -1806,34 +1818,48 @@
     "entry_date": "2026-09-29",
     "entry_px": 1744.0699,
     "shares": 14,
-    "last_px": 1729.760009765625,
-    "held": 1,
-    "sma10": 1737.05,
-    "upnl": -0.008204883436366273
+    "last_px": 1739.8900146484375,
+    "held": 2,
+    "sma10": 1759.0420043945312,
+    "upnl": -0.0023966271945651263
    },
    {
     "ticker": "STLD",
     "signal_date": "2026-09-29",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 221.9,
     "ret_1": -0.0369,
     "dvol_M": 232,
     "usd": 25000,
-    "shares_est": 112
+    "shares_est": 112,
+    "entry_date": "2026-09-30",
+    "entry_px": 221.87,
+    "shares": 112,
+    "last_px": 221.61000061035156,
+    "held": 1,
+    "sma10": 232.16399993896485,
+    "upnl": -0.0011718546430271592
    },
    {
     "ticker": "NTSK",
     "signal_date": "2026-09-29",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 17.27,
     "ret_1": -0.0325,
     "dvol_M": 124,
     "usd": 25000,
-    "shares_est": 1447
+    "shares_est": 1447,
+    "entry_date": "2026-09-30",
+    "entry_px": 17.31,
+    "shares": 1444,
+    "last_px": 17.440000534057617,
+    "held": 1,
+    "sma10": 17.901999855041502,
+    "upnl": 0.007510140615691441
    }
   ]
  }

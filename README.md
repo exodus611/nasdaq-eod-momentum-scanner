@@ -9,14 +9,14 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Sep 29, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
-QQQ **737.93** (+0.19%) · RSI(2) **39.3** · passed the filter: 12
+### 📊 Scan Sep 30, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **739.77** (+0.25%) · RSI(2) **59.7** · passed the filter: 23
 
 - No positions, nothing to do tomorrow.
 
 **Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5%**  
-Control (every day, no market filter): 49 trades · avg +1.74% · win rate 61% · P&L +$20,855 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-09-29 16:29 ET
+Control (every day, no market filter): 51 trades · avg +1.35% · win rate 59% · P&L +$16,776 · max DD -9.0%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-09-30 16:36 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
