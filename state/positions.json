@@ -1654,7 +1654,7 @@
     "ticker": "CSCO",
     "signal_date": "2026-09-22",
     "tier": "C",
-    "status": "open",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 106.44,
     "ret_1": -0.045,
@@ -1664,10 +1664,12 @@
     "entry_date": "2026-09-23",
     "entry_px": 106.22,
     "shares": 235,
-    "last_px": 107.62999725341797,
-    "held": 6,
-    "sma10": 107.90599975585937,
-    "upnl": 0.013274310425701152
+    "last_px": 108.76000213623047,
+    "held": 7,
+    "sma10": 107.75800018310547,
+    "upnl": 0.023912654266903255,
+    "exit_signal_date": "2026-10-01",
+    "exit_reason": "SMA10"
    },
    {
     "ticker": "TEAM",
@@ -1808,7 +1810,7 @@
     "ticker": "SNDK",
     "signal_date": "2026-09-28",
     "tier": "B",
-    "status": "open",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 1712.89,
     "ret_1": -0.0365,
@@ -1818,10 +1820,12 @@
     "entry_date": "2026-09-29",
     "entry_px": 1744.0699,
     "shares": 14,
-    "last_px": 1739.8900146484375,
-    "held": 2,
-    "sma10": 1759.0420043945312,
-    "upnl": -0.0023966271945651263
+    "last_px": 1787.68994140625,
+    "held": 3,
+    "sma10": 1776.3719970703125,
+    "upnl": 0.025010489204733144,
+    "exit_signal_date": "2026-10-01",
+    "exit_reason": "SMA10"
    },
    {
     "ticker": "STLD",
@@ -1837,10 +1841,10 @@
     "entry_date": "2026-09-30",
     "entry_px": 221.87,
     "shares": 112,
-    "last_px": 221.61000061035156,
-    "held": 1,
-    "sma10": 232.16399993896485,
-    "upnl": -0.0011718546430271592
+    "last_px": 226.1699981689453,
+    "held": 2,
+    "sma10": 229.80301208496093,
+    "upnl": 0.019380710185898486
    },
    {
     "ticker": "NTSK",
@@ -1856,10 +1860,34 @@
     "entry_date": "2026-09-30",
     "entry_px": 17.31,
     "shares": 1444,
-    "last_px": 17.440000534057617,
-    "held": 1,
-    "sma10": 17.901999855041502,
-    "upnl": 0.007510140615691441
+    "last_px": 17.850000381469727,
+    "held": 2,
+    "sma10": 17.96599998474121,
+    "upnl": 0.031195862592127588
+   },
+   {
+    "ticker": "AMGN",
+    "signal_date": "2026-10-01",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 407.27,
+    "ret_1": -0.0338,
+    "dvol_M": 1280,
+    "usd": 25000,
+    "shares_est": 61
+   },
+   {
+    "ticker": "REGN",
+    "signal_date": "2026-10-01",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 734.81,
+    "ret_1": -0.0309,
+    "dvol_M": 580,
+    "usd": 25000,
+    "shares_est": 34
    }
   ]
  }
