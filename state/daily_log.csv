@@ -85,3 +85,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-09-29,live,737.93,0.0019,39.3,C,12,STLD NTSK,,,
 2026-09-30,live,739.77,0.0025,59.7,C,23,HOOD MRNA,,,
 2026-10-01,live,742.03,0.0031,78.0,C,43,AMGN REGN,,,
+2026-10-02,live,749.58,0.0102,94.5,C,18,SNDK STX,,,
