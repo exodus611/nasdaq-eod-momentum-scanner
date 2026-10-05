@@ -1843,7 +1843,7 @@
     "ticker": "STLD",
     "signal_date": "2026-09-29",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 221.9,
     "ret_1": -0.0369,
@@ -1856,15 +1856,21 @@
     "last_px": 231.99000549316406,
     "held": 3,
     "sma10": 229.5322052001953,
-    "upnl": 0.045612320246829485,
+    "upnl": null,
     "exit_signal_date": "2026-10-02",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-10-05",
+    "exit_px": 233.02,
+    "ret_gross": 0.05025,
+    "ret_net": 0.04925,
+    "pnl_usd": 1223.95,
+    "hold": 3
    },
    {
     "ticker": "NTSK",
     "signal_date": "2026-09-29",
     "tier": "C",
-    "status": "open",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 17.27,
     "ret_1": -0.0325,
@@ -1874,10 +1880,12 @@
     "entry_date": "2026-09-30",
     "entry_px": 17.31,
     "shares": 1444,
-    "last_px": 17.75,
-    "held": 3,
-    "sma10": 17.992000007629393,
-    "upnl": 0.025418833044483113
+    "last_px": 18.420000076293945,
+    "held": 4,
+    "sma10": 17.994000053405763,
+    "upnl": 0.0641247877697253,
+    "exit_signal_date": "2026-10-05",
+    "exit_reason": "SMA10"
    },
    {
     "ticker": "AMGN",
@@ -1893,10 +1901,10 @@
     "entry_date": "2026-10-02",
     "entry_px": 410.16,
     "shares": 60,
-    "last_px": 403.0400085449219,
-    "held": 1,
-    "sma10": 410.3730010986328,
-    "upnl": -0.01735905855051234
+    "last_px": 402.9800109863281,
+    "held": 2,
+    "sma10": 411.35500183105466,
+    "upnl": -0.01750533697501433
    },
    {
     "ticker": "REGN",
@@ -1912,22 +1920,41 @@
     "entry_date": "2026-10-02",
     "entry_px": 740.5,
     "shares": 33,
-    "last_px": 735.2000122070312,
-    "held": 1,
-    "sma10": 771.8990051269532,
-    "upnl": -0.0071573096461428065
+    "last_px": 726.469970703125,
+    "held": 2,
+    "sma10": 764.72900390625,
+    "upnl": -0.018946697227380183
    },
    {
     "ticker": "SNDK",
     "signal_date": "2026-10-02",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 1719.99,
     "ret_1": -0.0379,
     "dvol_M": 16096,
     "usd": 25000,
-    "shares_est": 14
+    "shares_est": 14,
+    "entry_date": "2026-10-05",
+    "entry_px": 1723.801,
+    "shares": 14,
+    "last_px": 1704.1600341796875,
+    "held": 1,
+    "sma10": 1762.9410034179687,
+    "upnl": -0.011393986788679422
+   },
+   {
+    "ticker": "NBIS",
+    "signal_date": "2026-10-05",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 232.57,
+    "ret_1": -0.0422,
+    "dvol_M": 3524,
+    "usd": 25000,
+    "shares_est": 107
    }
   ]
  }
