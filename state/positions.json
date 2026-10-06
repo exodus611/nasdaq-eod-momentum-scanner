@@ -1870,7 +1870,7 @@
     "ticker": "NTSK",
     "signal_date": "2026-09-29",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 17.27,
     "ret_1": -0.0325,
@@ -1883,9 +1883,15 @@
     "last_px": 18.420000076293945,
     "held": 4,
     "sma10": 17.994000053405763,
-    "upnl": 0.0641247877697253,
+    "upnl": null,
     "exit_signal_date": "2026-10-05",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-10-06",
+    "exit_px": 18.83,
+    "ret_gross": 0.08781,
+    "ret_net": 0.08681,
+    "pnl_usd": 2169.88,
+    "hold": 4
    },
    {
     "ticker": "AMGN",
@@ -1901,10 +1907,10 @@
     "entry_date": "2026-10-02",
     "entry_px": 410.16,
     "shares": 60,
-    "last_px": 402.9800109863281,
-    "held": 2,
-    "sma10": 411.35500183105466,
-    "upnl": -0.01750533697501433
+    "last_px": 402.6000061035156,
+    "held": 3,
+    "sma10": 410.59100341796875,
+    "upnl": -0.018431816599581596
    },
    {
     "ticker": "REGN",
@@ -1920,10 +1926,10 @@
     "entry_date": "2026-10-02",
     "entry_px": 740.5,
     "shares": 33,
-    "last_px": 726.469970703125,
-    "held": 2,
-    "sma10": 764.72900390625,
-    "upnl": -0.018946697227380183
+    "last_px": 738.719970703125,
+    "held": 3,
+    "sma10": 758.2109985351562,
+    "upnl": -0.002403820792538869
    },
    {
     "ticker": "SNDK",
@@ -1939,22 +1945,43 @@
     "entry_date": "2026-10-05",
     "entry_px": 1723.801,
     "shares": 14,
-    "last_px": 1704.1600341796875,
-    "held": 1,
-    "sma10": 1762.9410034179687,
-    "upnl": -0.011393986788679422
+    "last_px": 1660.4599609375,
+    "held": 2,
+    "sma10": 1740.2829956054688,
+    "upnl": -0.036744983360898376
    },
    {
     "ticker": "NBIS",
     "signal_date": "2026-10-05",
     "tier": "C",
-    "status": "pending",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 232.57,
     "ret_1": -0.0422,
     "dvol_M": 3524,
     "usd": 25000,
-    "shares_est": 107
+    "shares_est": 107,
+    "entry_date": "2026-10-06",
+    "entry_px": 237.22,
+    "shares": 105,
+    "last_px": 249.8699951171875,
+    "held": 1,
+    "sma10": 237.00650024414062,
+    "upnl": 0.0533260058898386,
+    "exit_signal_date": "2026-10-06",
+    "exit_reason": "SMA10"
+   },
+   {
+    "ticker": "INTC",
+    "signal_date": "2026-10-06",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 112.5,
+    "ret_1": -0.0318,
+    "dvol_M": 12405,
+    "usd": 25000,
+    "shares_est": 222
    }
   ]
  }
