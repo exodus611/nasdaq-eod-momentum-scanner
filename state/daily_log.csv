@@ -88,3 +88,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-10-02,live,749.58,0.0102,94.5,C,18,SNDK STX,,,
 2026-10-05,live,756.2,0.0088,97.6,C,12,NBIS VSAT,,,
 2026-10-06,live,759.66,0.0046,98.5,C,67,INTC STX,,,
+2026-10-07,live,757.73,-0.0025,69.6,C,74,NBIS MSTR,,,
