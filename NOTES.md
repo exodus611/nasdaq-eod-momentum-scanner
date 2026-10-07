@@ -15,8 +15,9 @@ Definition of done for a session: the scan for the session is in `state/scans/<d
 - **Known problem (accepted).** GitHub cron is late (2h20m observed 2026-09-11). Mitigation is in the workflow: early slots wait inside the runner until 16:20 ET; `state/daily_log.csv` prevents double processing.
 - **Known problem (accepted).** Backtest uses today's NASDAQ constituents → survivorship bias. Documented in `STRATEGY.md` §4 and shown on the dashboard.
 - **Uncertain / unverified.** Live edge: only 15 strategy trades in the live journal since 2026-09-10 — far below the 40–50 trades needed to judge anything.
-- **New 2026-10-07.** `marketing/` added: ad package for the book + a rendered product video (see `marketing/README.md`).
+- **New 2026-10-07.** Ad package + rendered X/Twitter video were prepared, then **removed from this public repo** per owner: they belong in the private repo `never-start-from-scratch-video`.
 - **Known problem (2026-10-07).** `.github/workflows/statefile.yml` is validated locally, but the Arena GitHub App token lacks the `workflows` permission, so pushing it is refused by GitHub. Commit/push that one file from a token with `workflows` scope (or grant the app the permission), then this item closes. Everything else pushed as `c791177`.
+- **Known problem (2026-10-07).** The private video repo `never-start-from-scratch-video` cannot be created by the app token (`createRepository` not granted). The owner must create it (private) — or grant the scope — then the staged package in `~/never-start-from-scratch-video/` is pushed there. The app token can read/write existing repos but not create new ones.
 
 ## Repository map
 
@@ -31,7 +32,7 @@ Definition of done for a session: the scan for the session is in `state/scans/<d
 | `results/` | Backtest CSV/PNG evidence. `v2_variants_2010_2026.csv` is the main grid. |
 | `STRATEGY.md` / `.ru.md` | Rules, numbers, what was rejected and why. |
 | `README.md` / `.ru.md` | Entry point + dashboard block (`DASHBOARD:START/END`). |
-| `marketing/` | Book ad package: scripts, storyboard, AI-video prompts, rendered MP4s. |
+| `marketing/` | **Removed 2026-10-07.** The ad package + video live in a separate **private** repo `never-start-from-scratch-video` (see Known problems). Do not re-add video/ad assets to this public repo. |
 
 ## Decisions and failed approaches
 
@@ -44,7 +45,7 @@ Definition of done for a session: the scan for the session is in `state/scans/<d
 
 ## Next three tasks
 
-1. Ship the X/Twitter video from `marketing/` (render → review → post) and add the book + starter-kit links to the post.
+1. Create the private repo `never-start-from-scratch-video` (owner action — token lacks `createRepository`), push the staged package from `~/never-start-from-scratch-video/`, then add the RU dub and 9:16 cut there.
 2. Grow the live journal toward 40–50 strategy trades before drawing any conclusion; keep the control book running as the honest benchmark.
 3. Decide whether to add the `close < SMA10` entry condition (+1% CAGR in research, currently rejected to avoid one more parameter).
 
@@ -61,5 +62,5 @@ No tokens, keys, or credentials are stored in this repository. `.env` is git-ign
 
 ## Recent sessions
 
-- **2026-10-07** — Installed project memory (`NOTES.md`, `AGENTS.md`, `statefile.yml`). Built `marketing/`: concept, EN/RU scripts, storyboard, AI-video prompt pack, compliance sheet, and a rendered product video for X/Twitter built from real dashboard data. Evidence: `marketing/README.md`, `marketing/deliverables/`.
+- **2026-10-07** — Installed project memory (`NOTES.md`, `AGENTS.md`; `statefile.yml` validated locally, push blocked by `workflows` permission). Prepared the ad package + rendered X/Twitter video, then removed it from this public repo at owner's request; it now waits in `~/never-start-from-scratch-video/` for a private repo. Evidence: this file, `git log` on the arena branch.
 - **2026-10-06** — Daily scan ran, tier C, no strategy buys; dashboard updated (commit `0efab15`).

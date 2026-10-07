@@ -46,9 +46,9 @@ python research/v2_exit_test.py                     # regenerates the results gr
 
 Dependencies: `requirements.txt` (yfinance, pandas, numpy). Marketing renders additionally need `imageio-ffmpeg`, `Pillow`, `numpy` — see `marketing/README.md`.
 
-## Marketing (`marketing/`)
+## Marketing / video — NOT in this repository
 
-The ad sells the **method in the book**, using this repository as proof. Rules:
-- Only real numbers from `results/` or `state/`. No invented performance, no promises.
-- Every deliverable carries the compliance line: paper trading, backtest ≠ future results, not financial advice.
-- Rendered output is reproducible from `marketing/render/` — never hand-edit an MP4.
+The ad package and rendered video **do not belong in this public repo**. They live in the private
+repo `never-start-from-scratch-video` (staged at `~/never-start-from-scratch-video/`). Never commit
+the MP4, voiceovers, or ad assets here. This public repo only demonstrates the method and must stay
+clean of marketing binaries.

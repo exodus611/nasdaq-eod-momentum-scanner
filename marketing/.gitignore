@@ -1,7 +1,0 @@
-# scratch / intermediates — never commit
-deliverables/_silent.mp4
-deliverables/_mix.wav
-deliverables/smoke.mp4
-render/check/
-render/vo/*_44100.wav
-__pycache__/
