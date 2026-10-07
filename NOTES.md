@@ -17,7 +17,7 @@ Definition of done for a session: the scan for the session is in `state/scans/<d
 - **Uncertain / unverified.** Live edge: only 15 strategy trades in the live journal since 2026-09-10 — far below the 40–50 trades needed to judge anything.
 - **New 2026-10-07.** Ad package + rendered X/Twitter video were prepared, then **removed from this public repo** per owner: they belong in the private repo `never-start-from-scratch-video`.
 - **Known problem (2026-10-07).** `.github/workflows/statefile.yml` is validated locally, but the Arena GitHub App token lacks the `workflows` permission, so pushing it is refused by GitHub. Commit/push that one file from a token with `workflows` scope (or grant the app the permission), then this item closes. Everything else pushed as `c791177`.
-- **Known problem (2026-10-07).** The private video repo `never-start-from-scratch-video` cannot be created by the app token (`createRepository` not granted). The owner must create it (private) — or grant the scope — then the staged package in `~/never-start-from-scratch-video/` is pushed there. The app token can read/write existing repos but not create new ones.
+- **Known problem (2026-10-07).** The private video repo `never-start-from-scratch-video` exists (owner-created) but the app token is **not granted write access** to it (verified twice: `git push`/`ls-remote` → 403). The package is committed locally at `~/never-start-from-scratch-video` as `c45cabb`; `git push -u origin main` completes it once the owner adds the repo to the Arena app under GitHub → Settings → Installations → Configure → Repository access. The app can read/write existing installed repos but cannot create repos or access repos not in its installation.
 
 ## Repository map
 
