@@ -1,5 +1,11 @@
 # Dip-Buyer NASDAQ v2 — paper trading
 
+> **⚠️ How this repo was built:** 33 FAILED RUNS because AI wiped context, missed cron, deleted working code.
+> I fixed it with 1 file that gives any AI project a memory that never forgets.
+> **Get the free fix:** [Free Starter Kit - 1 file, 1 block](https://exodus611.github.io/project-memory-starter-kit/) | **Full system in the book:** [Never Start from Scratch on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG)
+
+**Live Dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/**
+
 *[Русская версия](README.ru.md)*
 
 A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it checks one market condition and — only when it is met — names **up to two stocks** to buy at the next open. Open positions are managed until the exit (first close above the 10-day SMA → sell at the next open). No orders are sent. The result is a **live dashboard** (GitHub Pages) plus the block below; a paper journal at real open prices is kept in this repository.

@@ -54,6 +54,7 @@ SCANS = os.path.join(STATE, "scans")
 POS, JOURNAL, DAILY = (os.path.join(STATE, f) for f in ("positions.json", "journal.csv", "daily_log.csv"))
 LATEST, ATTEMPT = os.path.join(STATE, "latest.json"), os.path.join(STATE, "last_attempt.json")
 README = os.path.join(HERE, "README.md")
+GOATCOUNTER = """<script data-goatcounter="https://exodus611.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>document.addEventListener('DOMContentLoaded', function(){document.querySelectorAll('a[href*="amazon.com"]').forEach(function(a){a.addEventListener('click', function(){try{goatcounter.count({path: 'click-amazon'});}catch(e){}});});});</script>"""
 for d in (STATE, DOCS, SCANS, os.path.join(HERE, "data")):
     os.makedirs(d, exist_ok=True)
 BOOKS = {"trade": "Strategy (tier-A days only)", "everyday": "Control (every day, no market filter)"}
@@ -481,6 +482,7 @@ def build_page():
                  "<br>If the method worked for you, a one-line review on the book's Amazon "
                  "page helps more than anything else.</div>")
     html = f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Dip-Buyer NASDAQ v2 — paper trading</title><style>{CSS}</style></head><body>{''.join(parts)}</body></html>"
+    html = html.replace("</head>", GOATCOUNTER + "</head>")
     open(os.path.join(DOCS, "index.html"), "w").write(html)
     update_readme(L, tr)
 
