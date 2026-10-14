@@ -54,7 +54,7 @@ SCANS = os.path.join(STATE, "scans")
 POS, JOURNAL, DAILY = (os.path.join(STATE, f) for f in ("positions.json", "journal.csv", "daily_log.csv"))
 LATEST, ATTEMPT = os.path.join(STATE, "latest.json"), os.path.join(STATE, "last_attempt.json")
 README = os.path.join(HERE, "README.md")
-GOATCOUNTER = """<script data-goatcounter="https://exodus611.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>document.addEventListener('DOMContentLoaded', function(){document.querySelectorAll('a[href*="amazon.com"]').forEach(function(a){a.addEventListener('click', function(){try{goatcounter.count({path: 'click-amazon'});}catch(e){}});});});</script>"""
+GOATCOUNTER = """<script data-goatcounter="https://exodus611.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>document.addEventListener('DOMContentLoaded', function(){document.querySelectorAll('a[href*="amazon.com"],a[data-track-click]').forEach(function(a){a.addEventListener('click', function(){try{goatcounter.count({path: a.dataset.trackClick || 'click-amazon'});}catch(e){}});});});</script>"""
 for d in (STATE, DOCS, SCANS, os.path.join(HERE, "data")):
     os.makedirs(d, exist_ok=True)
 BOOKS = {"trade": "Strategy (tier-A days only)", "everyday": "Control (every day, no market filter)"}
@@ -391,7 +391,11 @@ def build_page():
              f"and publishes this page. No orders are sent — the output is a set of instructions for the next session. Updated {upd}"
              + (f" · <a href='{REPO_URL}'>repository</a>" if REPO_URL else "") + (f" · <a href='{strat}'>strategy &amp; backtest</a>" if REPO_URL else "")
              + " · <a href='https://www.amazon.com/dp/B0HKVZ3RSG'>the book behind this scanner</a>"
-             + "</div>"]
+             + "</div>",
+             "<div class='card' style='background:#f6f8fa;border-color:#8c959f'><b>Want to keep an AI project moving between sessions?</b> "
+             "This scanner is the real project behind the method. Try the free project-memory block, then see the complete Reader Kit in the book. "
+             "<a data-track-click='memory-kit-dashboard' href='https://exodus611.github.io/project-memory-starter-kit/'>Try the free block</a> · "
+             "<a data-track-click='book-dashboard-cta' href='https://www.amazon.com/dp/B0HKVZ3RSG'>Get the book</a></div>"]
     if att: parts.append(f"<div class='card' style='background:#fdf6e3;border-color:#e6c65a'>⚠️ Attempt {fmt_run_at(att['run_at'])}: {att['note']}</div>")
     if L is None:
         parts.append("<div class='card'>No runs yet.</div>")
