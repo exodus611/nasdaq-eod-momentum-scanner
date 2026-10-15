@@ -410,25 +410,63 @@
     "ticker": "MU",
     "signal_date": "2026-10-14",
     "tier": "A",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 914.13,
     "ret_1": -0.041,
     "dvol_M": 26794,
     "usd": 25000,
-    "shares_est": 27
+    "shares_est": 27,
+    "entry_date": "2026-10-15",
+    "entry_px": 871.575,
+    "shares": 28,
+    "last_px": 931.239990234375,
+    "held": 1,
+    "sma10": 1012.3547180175781,
+    "upnl": 0.06845651864082258
    },
    {
     "ticker": "NVDA",
     "signal_date": "2026-10-14",
     "tier": "A",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 221.3,
     "ret_1": -0.0316,
     "dvol_M": 23854,
     "usd": 25000,
-    "shares_est": 112
+    "shares_est": 112,
+    "entry_date": "2026-10-15",
+    "entry_px": 215.3,
+    "shares": 116,
+    "last_px": 217.22999572753906,
+    "held": 1,
+    "sma10": 230.2690002441406,
+    "upnl": 0.008964216105615597
+   },
+   {
+    "ticker": "STX",
+    "signal_date": "2026-10-15",
+    "tier": "A",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 690.81,
+    "ret_1": -0.0319,
+    "dvol_M": 4025,
+    "usd": 25000,
+    "shares_est": 36
+   },
+   {
+    "ticker": "CSCO",
+    "signal_date": "2026-10-15",
+    "tier": "A",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 109.85,
+    "ret_1": -0.0334,
+    "dvol_M": 2104,
+    "usd": 25000,
+    "shares_est": 227
    }
   ],
   "everyday": [
@@ -1985,10 +2023,10 @@
     "entry_date": "2026-10-05",
     "entry_px": 1723.801,
     "shares": 14,
-    "last_px": 1403.3399658203125,
-    "held": 8,
-    "sma10": 1612.8999755859375,
-    "upnl": -0.18590372913096553
+    "last_px": 1394.8299560546875,
+    "held": 9,
+    "sma10": 1573.6139770507812,
+    "upnl": -0.19084049953870108
    },
    {
     "ticker": "NBIS",
@@ -2031,10 +2069,10 @@
     "entry_date": "2026-10-07",
     "entry_px": 111.75,
     "shares": 223,
-    "last_px": 98.12000274658203,
-    "held": 6,
-    "sma10": 109.52000045776367,
-    "upnl": -0.12196865551157021
+    "last_px": 95.37000274658203,
+    "held": 7,
+    "sma10": 107.05700073242187,
+    "upnl": -0.14657715663013837
    },
    {
     "ticker": "NBIS",
@@ -2050,10 +2088,10 @@
     "entry_date": "2026-10-08",
     "entry_px": 233.13,
     "shares": 107,
-    "last_px": 186.00999450683594,
-    "held": 5,
-    "sma10": 223.83899993896483,
-    "upnl": -0.20211901296771784
+    "last_px": 188.41000366210938,
+    "held": 6,
+    "sma10": 219.4520004272461,
+    "upnl": -0.1918242883279313
    },
    {
     "ticker": "ARM",
@@ -2069,10 +2107,10 @@
     "entry_date": "2026-10-12",
     "entry_px": 260.65,
     "shares": 95,
-    "last_px": 238.00999450683594,
-    "held": 3,
-    "sma10": 278.9869979858398,
-    "upnl": -0.0868597947176829
+    "last_px": 244.7899932861328,
+    "held": 4,
+    "sma10": 274.23199768066405,
+    "upnl": -0.06084790605742252
    }
   ]
  }

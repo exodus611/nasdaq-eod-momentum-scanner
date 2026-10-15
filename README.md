@@ -15,15 +15,17 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Oct 14, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
-QQQ **728.95** (-1.97%) · RSI(2) **3.3** · passed the filter: 104
+### 📊 Scan Oct 15, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
+QQQ **728.00** (-0.13%) · RSI(2) **3.0** · passed the filter: 18
 
-- 🟢 **BUY MU** at the open — 25% of capital ≈ $25,000 (~27 sh; close 914.13, today -4.1%)
-- 🟢 **BUY NVDA** at the open — 25% of capital ≈ $25,000 (~112 sh; close 221.30, today -3.2%)
+- 🟢 **BUY STX** at the open — 25% of capital ≈ $25,000 (~36 sh; close 690.81, today -3.2%)
+- 🟢 **BUY CSCO** at the open — 25% of capital ≈ $25,000 (~227 sh; close 109.85, today -3.3%)
+- ⏳ **HOLD MU** — entry 871.58, last 931.24 (+6.8%), 1 sessions; sell after a close above SMA10 = 1012.35
+- ⏳ **HOLD NVDA** — entry 215.30, last 217.23 (+0.9%), 1 sessions; sell after a close above SMA10 = 230.27
 
-**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5%**  
+**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 2 open (unrealized +$1,894)**  
 Control (every day, no market filter): 58 trades · avg +1.55% · win rate 62% · P&L +$22,030 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-14 16:20 ET
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-15 16:20 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
