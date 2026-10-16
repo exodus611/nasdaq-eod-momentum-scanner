@@ -15,17 +15,17 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Oct 15, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
-QQQ **728.00** (-0.13%) · RSI(2) **3.0** · passed the filter: 18
+### 📊 Scan Oct 16, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
+QQQ **709.80** (-2.50%) · RSI(2) **0.6** · passed the filter: 126
 
-- 🟢 **BUY STX** at the open — 25% of capital ≈ $25,000 (~36 sh; close 690.81, today -3.2%)
-- 🟢 **BUY CSCO** at the open — 25% of capital ≈ $25,000 (~227 sh; close 109.85, today -3.3%)
-- ⏳ **HOLD MU** — entry 871.58, last 931.24 (+6.8%), 1 sessions; sell after a close above SMA10 = 1012.35
-- ⏳ **HOLD NVDA** — entry 215.30, last 217.23 (+0.9%), 1 sessions; sell after a close above SMA10 = 230.27
+- ⏳ **HOLD MU** — entry 871.58, last 878.84 (+0.8%), 2 sessions; sell after a close above SMA10 = 992.77
+- ⏳ **HOLD NVDA** — entry 215.30, last 214.13 (-0.5%), 2 sessions; sell after a close above SMA10 = 228.29
+- ⏳ **HOLD STX** — entry 677.17, last 639.01 (-5.6%), 1 sessions; sell after a close above SMA10 = 760.19
+- ⏳ **HOLD CSCO** — entry 109.96, last 107.39 (-2.3%), 1 sessions; sell after a close above SMA10 = 114.27
 
-**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 2 open (unrealized +$1,894)**  
+**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 4 open (unrealized -$1,889)**  
 Control (every day, no market filter): 58 trades · avg +1.55% · win rate 62% · P&L +$22,030 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-15 16:20 ET
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-16 16:20 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
