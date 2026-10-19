@@ -15,17 +15,17 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Oct 16, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
-QQQ **709.80** (-2.50%) · RSI(2) **0.6** · passed the filter: 126
+### 📊 Scan Oct 19, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **718.36** (+1.21%) · RSI(2) **42.7** · passed the filter: 6
 
-- ⏳ **HOLD MU** — entry 871.58, last 878.84 (+0.8%), 2 sessions; sell after a close above SMA10 = 992.77
-- ⏳ **HOLD NVDA** — entry 215.30, last 214.13 (-0.5%), 2 sessions; sell after a close above SMA10 = 228.29
-- ⏳ **HOLD STX** — entry 677.17, last 639.01 (-5.6%), 1 sessions; sell after a close above SMA10 = 760.19
-- ⏳ **HOLD CSCO** — entry 109.96, last 107.39 (-2.3%), 1 sessions; sell after a close above SMA10 = 114.27
+- ⏳ **HOLD MU** — entry 871.58, last 904.90 (+3.8%), 3 sessions; sell after a close above SMA10 = 976.88
+- ⏳ **HOLD NVDA** — entry 215.30, last 217.09 (+0.8%), 3 sessions; sell after a close above SMA10 = 226.11
+- ⏳ **HOLD STX** — entry 677.17, last 660.81 (-2.4%), 2 sessions; sell after a close above SMA10 = 737.57
+- ⏳ **HOLD CSCO** — entry 109.96, last 106.50 (-3.1%), 2 sessions; sell after a close above SMA10 = 113.64
 
-**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 4 open (unrealized -$1,889)**  
+**Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 4 open (unrealized -$234)**  
 Control (every day, no market filter): 58 trades · avg +1.55% · win rate 62% · P&L +$22,030 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-16 16:20 ET
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-19 16:54 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
