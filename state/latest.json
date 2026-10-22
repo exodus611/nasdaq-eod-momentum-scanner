@@ -1,167 +1,351 @@
 {
- "run_at": "2026-10-21 16:20 ET",
+ "run_at": "2026-10-22 16:20 ET",
  "mode": "live",
- "sig_date": "2026-10-21",
- "q_close": 725.2,
- "q_ret": 0.0105,
- "q_rsi": 74.9,
- "tier": "C",
- "status": "C",
- "n_candidates": 17,
+ "sig_date": "2026-10-22",
+ "q_close": 704.47,
+ "q_ret": -0.0286,
+ "q_rsi": 17.9,
+ "tier": "B",
+ "status": "B",
+ "n_candidates": 67,
  "candidates": [
   {
-   "ticker": "DASH",
-   "close": 184.45,
-   "ret_1": -0.0377,
-   "dvol_M": 699,
-   "vs_sma200": 0.001,
-   "sma10": 191.14
+   "ticker": "MU",
+   "close": 856.49,
+   "ret_1": -0.0626,
+   "dvol_M": 26425,
+   "vs_sma200": 0.175,
+   "sma10": 926.61
   },
   {
-   "ticker": "EXPE",
-   "close": 285.64,
-   "ret_1": -0.0503,
-   "dvol_M": 570,
-   "vs_sma200": 0.104,
-   "sma10": 281.99
+   "ticker": "NVDA",
+   "close": 212.21,
+   "ret_1": -0.044,
+   "dvol_M": 23314,
+   "vs_sma200": 0.044,
+   "sma10": 220.45
   },
   {
-   "ticker": "KOD",
-   "close": 87.72,
-   "ret_1": -0.0565,
-   "dvol_M": 335,
-   "vs_sma200": 1.204,
-   "sma10": 91.2
+   "ticker": "META",
+   "close": 648.85,
+   "ret_1": -0.0698,
+   "dvol_M": 14694,
+   "vs_sma200": 0.027,
+   "sma10": 715.38
   },
   {
-   "ticker": "DXCM",
-   "close": 80.26,
-   "ret_1": -0.0639,
+   "ticker": "SNDK",
+   "close": 1260.93,
+   "ret_1": -0.0851,
+   "dvol_M": 12485,
+   "vs_sma200": 0.024,
+   "sma10": 1402.46
+  },
+  {
+   "ticker": "AMD",
+   "close": 507.93,
+   "ret_1": -0.081,
+   "dvol_M": 11577,
+   "vs_sma200": 0.268,
+   "sma10": 560.31
+  },
+  {
+   "ticker": "AMZN",
+   "close": 250.38,
+   "ret_1": -0.0457,
+   "dvol_M": 9121,
+   "vs_sma200": 0.029,
+   "sma10": 257.72
+  },
+  {
+   "ticker": "MRVL",
+   "close": 223.47,
+   "ret_1": -0.087,
+   "dvol_M": 5130,
+   "vs_sma200": 0.25,
+   "sma10": 247.0
+  },
+  {
+   "ticker": "MRNA",
+   "close": 202.63,
+   "ret_1": -0.1757,
+   "dvol_M": 3718,
+   "vs_sma200": 1.491,
+   "sma10": 225.32
+  },
+  {
+   "ticker": "MSTR",
+   "close": 145.8,
+   "ret_1": -0.05,
+   "dvol_M": 2954,
+   "vs_sma200": 0.077,
+   "sma10": 146.86
+  },
+  {
+   "ticker": "HOOD",
+   "close": 96.58,
+   "ret_1": -0.0525,
+   "dvol_M": 2021,
+   "vs_sma200": 0.034,
+   "sma10": 102.59
+  },
+  {
+   "ticker": "SMCI",
+   "close": 33.72,
+   "ret_1": -0.052,
+   "dvol_M": 1424,
+   "vs_sma200": 0.036,
+   "sma10": 35.73
+  },
+  {
+   "ticker": "SHOP",
+   "close": 168.81,
+   "ret_1": -0.0314,
+   "dvol_M": 1412,
+   "vs_sma200": 0.3,
+   "sma10": 173.44
+  },
+  {
+   "ticker": "ALAB",
+   "close": 257.82,
+   "ret_1": -0.1111,
+   "dvol_M": 1308,
+   "vs_sma200": 0.023,
+   "sma10": 299.91
+  },
+  {
+   "ticker": "ADI",
+   "close": 385.76,
+   "ret_1": -0.0498,
+   "dvol_M": 1209,
+   "vs_sma200": 0.051,
+   "sma10": 401.32
+  },
+  {
+   "ticker": "MDB",
+   "close": 362.24,
+   "ret_1": -0.073,
+   "dvol_M": 1132,
+   "vs_sma200": 0.07,
+   "sma10": 366.85
+  },
+  {
+   "ticker": "DDOG",
+   "close": 257.75,
+   "ret_1": -0.0562,
+   "dvol_M": 777,
+   "vs_sma200": 0.328,
+   "sma10": 269.42
+  },
+  {
+   "ticker": "ILMN",
+   "close": 269.4,
+   "ret_1": -0.0476,
+   "dvol_M": 741,
+   "vs_sma200": 0.564,
+   "sma10": 271.11
+  },
+  {
+   "ticker": "OKTA",
+   "close": 201.33,
+   "ret_1": -0.035,
+   "dvol_M": 727,
+   "vs_sma200": 0.667,
+   "sma10": 208.74
+  },
+  {
+   "ticker": "SMTC",
+   "close": 125.12,
+   "ret_1": -0.1166,
+   "dvol_M": 591,
+   "vs_sma200": 0.016,
+   "sma10": 151.47
+  },
+  {
+   "ticker": "TWST",
+   "close": 135.47,
+   "ret_1": -0.0916,
+   "dvol_M": 531,
+   "vs_sma200": 0.586,
+   "sma10": 145.54
+  },
+  {
+   "ticker": "TEM",
+   "close": 63.81,
+   "ret_1": -0.0583,
+   "dvol_M": 502,
+   "vs_sma200": 0.123,
+   "sma10": 67.4
+  },
+  {
+   "ticker": "RVMD",
+   "close": 187.69,
+   "ret_1": -0.0339,
+   "dvol_M": 439,
+   "vs_sma200": 0.22,
+   "sma10": 189.36
+  },
+  {
+   "ticker": "XP",
+   "close": 29.35,
+   "ret_1": -0.0352,
+   "dvol_M": 338,
+   "vs_sma200": 0.539,
+   "sma10": 30.73
+  },
+  {
+   "ticker": "TXG",
+   "close": 69.75,
+   "ret_1": -0.0773,
+   "dvol_M": 332,
+   "vs_sma200": 0.794,
+   "sma10": 72.97
+  },
+  {
+   "ticker": "PENG",
+   "close": 51.91,
+   "ret_1": -0.1108,
+   "dvol_M": 319,
+   "vs_sma200": 0.211,
+   "sma10": 64.33
+  },
+  {
+   "ticker": "MXL",
+   "close": 65.28,
+   "ret_1": -0.1387,
    "dvol_M": 289,
-   "vs_sma200": 0.081,
-   "sma10": 84.87
+   "vs_sma200": 0.117,
+   "sma10": 79.38
   },
   {
-   "ticker": "PCVX",
-   "close": 63.23,
-   "ret_1": -0.0453,
-   "dvol_M": 240,
-   "vs_sma200": 0.119,
-   "sma10": 66.34
+   "ticker": "ZM",
+   "close": 96.2,
+   "ret_1": -0.0326,
+   "dvol_M": 248,
+   "vs_sma200": 0.049,
+   "sma10": 97.17
+  },
+  {
+   "ticker": "ASST",
+   "close": 29.03,
+   "ret_1": -0.0559,
+   "dvol_M": 241,
+   "vs_sma200": 0.785,
+   "sma10": 26.99
+  },
+  {
+   "ticker": "IOVA",
+   "close": 14.14,
+   "ret_1": -0.0328,
+   "dvol_M": 228,
+   "vs_sma200": 1.555,
+   "sma10": 14.41
+  },
+  {
+   "ticker": "STLD",
+   "close": 239.9,
+   "ret_1": -0.0325,
+   "dvol_M": 210,
+   "vs_sma200": 0.087,
+   "sma10": 241.98
+  },
+  {
+   "ticker": "FSLY",
+   "close": 22.45,
+   "ret_1": -0.0365,
+   "dvol_M": 197,
+   "vs_sma200": 0.07,
+   "sma10": 24.62
+  },
+  {
+   "ticker": "PURR",
+   "close": 8.68,
+   "ret_1": -0.0977,
+   "dvol_M": 170,
+   "vs_sma200": 0.164,
+   "sma10": 9.65
+  },
+  {
+   "ticker": "IBRX",
+   "close": 8.31,
+   "ret_1": -0.0382,
+   "dvol_M": 151,
+   "vs_sma200": 0.076,
+   "sma10": 9.37
+  },
+  {
+   "ticker": "GRAL",
+   "close": 127.06,
+   "ret_1": -0.0418,
+   "dvol_M": 149,
+   "vs_sma200": 0.656,
+   "sma10": 131.8
+  },
+  {
+   "ticker": "BRKR",
+   "close": 57.31,
+   "ret_1": -0.0305,
+   "dvol_M": 135,
+   "vs_sma200": 0.148,
+   "sma10": 56.59
+  },
+  {
+   "ticker": "AVT",
+   "close": 88.64,
+   "ret_1": -0.0482,
+   "dvol_M": 133,
+   "vs_sma200": 0.117,
+   "sma10": 93.96
+  },
+  {
+   "ticker": "NDSN",
+   "close": 318.71,
+   "ret_1": -0.0387,
+   "dvol_M": 115,
+   "vs_sma200": 0.092,
+   "sma10": 327.02
   },
   {
    "ticker": "NVAX",
-   "close": 11.01,
-   "ret_1": -0.0367,
-   "dvol_M": 100,
-   "vs_sma200": 0.195,
-   "sma10": 11.92
+   "close": 9.99,
+   "ret_1": -0.0926,
+   "dvol_M": 99,
+   "vs_sma200": 0.082,
+   "sma10": 11.82
   },
   {
-   "ticker": "XMTR",
-   "close": 88.94,
-   "ret_1": -0.0502,
-   "dvol_M": 85,
-   "vs_sma200": 0.187,
-   "sma10": 99.31
+   "ticker": "CORT",
+   "close": 107.5,
+   "ret_1": -0.0755,
+   "dvol_M": 87,
+   "vs_sma200": 0.466,
+   "sma10": 115.23
   },
   {
    "ticker": "CLMT",
-   "close": 52.59,
-   "ret_1": -0.0617,
+   "close": 49.32,
+   "ret_1": -0.0622,
    "dvol_M": 83,
-   "vs_sma200": 0.403,
-   "sma10": 56.76
-  },
-  {
-   "ticker": "IRON",
-   "close": 76.0,
-   "ret_1": -0.0438,
-   "dvol_M": 76,
-   "vs_sma200": 0.076,
-   "sma10": 64.36
-  },
-  {
-   "ticker": "STNE",
-   "close": 11.55,
-   "ret_1": -0.0431,
-   "dvol_M": 74,
-   "vs_sma200": 0.016,
-   "sma10": 11.74
-  },
-  {
-   "ticker": "QMCO",
-   "close": 17.62,
-   "ret_1": -0.0721,
-   "dvol_M": 63,
-   "vs_sma200": 0.389,
-   "sma10": 23.25
-  },
-  {
-   "ticker": "KNSA",
-   "close": 79.7,
-   "ret_1": -0.0417,
-   "dvol_M": 46,
-   "vs_sma200": 0.359,
-   "sma10": 79.6
-  },
-  {
-   "ticker": "PGEN",
-   "close": 6.6,
-   "ret_1": -0.0337,
-   "dvol_M": 39,
-   "vs_sma200": 0.268,
-   "sma10": 7.16
-  },
-  {
-   "ticker": "XERS",
-   "close": 10.78,
-   "ret_1": -0.031,
-   "dvol_M": 34,
-   "vs_sma200": 0.458,
-   "sma10": 10.43
-  },
-  {
-   "ticker": "BJRI",
-   "close": 56.78,
-   "ret_1": -0.0388,
-   "dvol_M": 26,
-   "vs_sma200": 0.129,
-   "sma10": 59.18
-  },
-  {
-   "ticker": "PTRN",
-   "close": 17.45,
-   "ret_1": -0.0375,
-   "dvol_M": 25,
-   "vs_sma200": 0.002,
-   "sma10": 17.68
-  },
-  {
-   "ticker": "ATEX",
-   "close": 76.77,
-   "ret_1": -0.0336,
-   "dvol_M": 21,
-   "vs_sma200": 0.214,
-   "sma10": 81.31
+   "vs_sma200": 0.311,
+   "sma10": 55.92
   }
  ],
  "picks": [
   {
-   "ticker": "DASH",
-   "close": 184.45,
-   "ret_1": -0.0377,
-   "dvol_M": 699,
-   "vs_sma200": 0.001,
-   "sma10": 191.14
+   "ticker": "MU",
+   "close": 856.49,
+   "ret_1": -0.0626,
+   "dvol_M": 26425,
+   "vs_sma200": 0.175,
+   "sma10": 926.61
   },
   {
-   "ticker": "EXPE",
-   "close": 285.64,
-   "ret_1": -0.0503,
-   "dvol_M": 570,
-   "vs_sma200": 0.104,
-   "sma10": 281.99
+   "ticker": "NVDA",
+   "close": 212.21,
+   "ret_1": -0.044,
+   "dvol_M": 23314,
+   "vs_sma200": 0.044,
+   "sma10": 220.45
   }
  ],
  "buy": [],
@@ -171,37 +355,37 @@
    "ticker": "MU",
    "shares": 28,
    "entry_px": 871.575,
-   "last_px": 913.6699829101562,
-   "upnl": 0.04829760251287185,
-   "held": 5,
-   "sma10": 944.528955078125
+   "last_px": 856.489990234375,
+   "upnl": -0.017307758673235307,
+   "held": 6,
+   "sma10": 926.61025390625
   },
   {
    "ticker": "NVDA",
    "shares": 116,
    "entry_px": 215.3,
-   "last_px": 221.97000122070312,
-   "upnl": 0.030980033537868712,
-   "held": 5,
-   "sma10": 222.27900085449218
+   "last_px": 212.2100067138672,
+   "upnl": -0.014352035699641497,
+   "held": 6,
+   "sma10": 220.452001953125
   },
   {
    "ticker": "STX",
    "shares": 36,
    "entry_px": 677.17,
-   "last_px": 696.8900146484375,
-   "upnl": 0.02912121719573757,
-   "held": 4,
-   "sma10": 713.4470031738281
+   "last_px": 642.1400146484375,
+   "upnl": -0.051729972313543815,
+   "held": 5,
+   "sma10": 700.1780029296875
   },
   {
    "ticker": "CSCO",
    "shares": 227,
    "entry_px": 109.96,
-   "last_px": 107.26000213623047,
-   "upnl": -0.02455436398480837,
-   "held": 4,
-   "sma10": 111.50399932861328
+   "last_px": 104.88999938964844,
+   "upnl": -0.046107681069039286,
+   "held": 5,
+   "sma10": 110.50399932861328
   }
  ],
  "everyday": {
@@ -229,7 +413,7 @@
    "worst": -11.304,
    "hold": 5.066666666666666,
    "open_n": 4,
-   "open_pnl": 2049.4006753540107
+   "open_pnl": -3192.789105834961
   },
   "everyday": {
    "n": 58,
@@ -244,7 +428,7 @@
    "worst": -19.830000000000002,
    "hold": 5.982758620689655,
    "open_n": 4,
-   "open_pnl": -18850.92417852783
+   "open_pnl": -25052.143340515133
   },
   "everyday_A": {
    "n": 1,
@@ -285,7 +469,7 @@
    "worst": -19.830000000000002,
    "hold": 5.96
   },
-  "text": "Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 4 open (unrealized +$2,049)",
+  "text": "Strategy: 15 trades · avg +0.75% · median -0.28% · win rate 47% · avg hold 5.1 sessions · P&L +$2,883 (+2.88% of $100,000) · max DD -4.5% · 4 open (unrealized -$3,193)",
   "text_e": "Control (every day, no market filter): 58 trades · avg +1.55% · win rate 62% · P&L +$22,030 · max DD -9.0%"
  },
  "params": {
