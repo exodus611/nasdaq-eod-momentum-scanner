@@ -100,3 +100,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-10-20,live,717.63,-0.001,39.9,C,6,SMTC MXL,,,MU NVDA STX CSCO
 2026-10-21,live,725.2,0.0105,74.9,C,17,DASH EXPE,,,MU NVDA STX CSCO
 2026-10-22,live,704.47,-0.0286,17.9,B,67,MU NVDA,,,MU NVDA STX CSCO
+2026-10-23,live,704.4,-0.0001,17.8,B,34,EXPE ROST,,,MU NVDA STX CSCO
