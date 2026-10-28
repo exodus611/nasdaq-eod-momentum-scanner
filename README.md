@@ -15,15 +15,14 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Oct 27, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
-QQQ **721.25** (+1.27%) · RSI(2) **82.8** · passed the filter: 27
+### 📊 Scan Oct 28, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **725.61** (+0.60%) · RSI(2) **88.8** · passed the filter: 18
 
-- 🔴 **SELL NVDA** at the open — 116 sh, entry 215.30, last 217.94 (+1.2%), 9 sessions, reason: close above SMA10
-- 🔴 **SELL STX** at the open — 36 sh, entry 677.17, last 667.85 (-1.4%), 8 sessions, reason: close above SMA10
+- No positions, nothing to do tomorrow.
 
-**Strategy: 17 trades · avg +1.03% · median +0.38% · win rate 53% · avg hold 5.4 sessions · P&L +$4,441 (+4.44% of $100,000) · max DD -4.5% · 2 open (unrealized -$29)**  
-Control (every day, no market filter): 58 trades · avg +1.55% · win rate 62% · P&L +$22,030 · max DD -9.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-27 16:28 ET
+**Strategy: 19 trades · avg +0.79% · median +0.38% · win rate 53% · avg hold 5.7 sessions · P&L +$3,835 (+3.83% of $100,000) · max DD -4.5%**  
+Control (every day, no market filter): 61 trades · avg +0.62% · win rate 59% · P&L +$9,068 · max DD -14.1%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-10-28 16:48 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
