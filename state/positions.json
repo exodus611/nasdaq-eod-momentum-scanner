@@ -2059,7 +2059,7 @@
     "ticker": "SNDK",
     "signal_date": "2026-10-02",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 1719.99,
     "ret_1": -0.0379,
@@ -2072,9 +2072,15 @@
     "last_px": 1404.77001953125,
     "held": 18,
     "sma10": 1327.3,
-    "upnl": -0.1850741358595046,
+    "upnl": null,
     "exit_signal_date": "2026-10-28",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-10-29",
+    "exit_px": 1381.495,
+    "ret_gross": -0.19858,
+    "ret_net": -0.19958,
+    "pnl_usd": -4816.42,
+    "hold": 18
    },
    {
     "ticker": "NBIS",
@@ -2198,10 +2204,10 @@
     "entry_date": "2026-10-28",
     "entry_px": 292.0,
     "shares": 85,
-    "last_px": 294.0400085449219,
-    "held": 1,
-    "sma10": 297.5230010986328,
-    "upnl": 0.006986330633294013
+    "last_px": 296.4200134277344,
+    "held": 2,
+    "sma10": 298.21900329589846,
+    "upnl": 0.015137032286761665
    },
    {
     "ticker": "CTSH",
@@ -2217,34 +2223,62 @@
     "entry_date": "2026-10-28",
     "entry_px": 65.85,
     "shares": 379,
-    "last_px": 66.36000061035156,
-    "held": 1,
-    "sma10": 68.25,
-    "upnl": 0.007744883984078577
+    "last_px": 62.52000045776367,
+    "held": 2,
+    "sma10": 67.92500038146973,
+    "upnl": -0.050569469130392175
    },
    {
     "ticker": "FTNT",
     "signal_date": "2026-10-28",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 174.08,
     "ret_1": -0.059,
     "dvol_M": 644,
     "usd": 25000,
-    "shares_est": 143
+    "shares_est": 143,
+    "entry_date": "2026-10-29",
+    "entry_px": 127.67,
+    "shares": 195,
+    "last_px": 139.10000610351562,
+    "held": 1,
+    "sma10": 172.00900115966797,
+    "upnl": 0.08952773637906808
    },
    {
     "ticker": "BIIB",
     "signal_date": "2026-10-28",
     "tier": "C",
-    "status": "pending",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 244.05,
     "ret_1": -0.0343,
     "dvol_M": 302,
     "usd": 25000,
-    "shares_est": 102
+    "shares_est": 102,
+    "entry_date": "2026-10-29",
+    "entry_px": 250.15,
+    "shares": 99,
+    "last_px": 249.64999389648438,
+    "held": 1,
+    "sma10": 245.3429977416992,
+    "upnl": -0.0019988251189910766,
+    "exit_signal_date": "2026-10-29",
+    "exit_reason": "SMA10"
+   },
+   {
+    "ticker": "MU",
+    "signal_date": "2026-10-29",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 934.27,
+    "ret_1": -0.0498,
+    "dvol_M": 26641,
+    "usd": 25000,
+    "shares_est": 26
    }
   ]
  }
