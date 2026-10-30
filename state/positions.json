@@ -513,6 +513,30 @@
     "ret_net": 0.00759,
     "pnl_usd": 189.55,
     "hold": 7
+   },
+   {
+    "ticker": "MU",
+    "signal_date": "2026-10-30",
+    "tier": "A",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 884.74,
+    "ret_1": -0.053,
+    "dvol_M": 26060,
+    "usd": 25000,
+    "shares_est": 28
+   },
+   {
+    "ticker": "NVDA",
+    "signal_date": "2026-10-30",
+    "tier": "A",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 204.64,
+    "ret_1": -0.0422,
+    "dvol_M": 22217,
+    "usd": 25000,
+    "shares_est": 122
    }
   ],
   "everyday": [
@@ -2194,7 +2218,7 @@
     "ticker": "CME",
     "signal_date": "2026-10-27",
     "tier": "C",
-    "status": "open",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 293.48,
     "ret_1": -0.0473,
@@ -2204,10 +2228,12 @@
     "entry_date": "2026-10-28",
     "entry_px": 292.0,
     "shares": 85,
-    "last_px": 296.4200134277344,
-    "held": 2,
-    "sma10": 298.21900329589846,
-    "upnl": 0.015137032286761665
+    "last_px": 303.6549987792969,
+    "held": 3,
+    "sma10": 299.1975036621094,
+    "upnl": 0.03991437938115361,
+    "exit_signal_date": "2026-10-30",
+    "exit_reason": "SMA10"
    },
    {
     "ticker": "CTSH",
@@ -2223,10 +2249,10 @@
     "entry_date": "2026-10-28",
     "entry_px": 65.85,
     "shares": 379,
-    "last_px": 62.52000045776367,
-    "held": 2,
-    "sma10": 67.92500038146973,
-    "upnl": -0.050569469130392175
+    "last_px": 65.42500305175781,
+    "held": 3,
+    "sma10": 67.86450080871582,
+    "upnl": -0.006454015918636036
    },
    {
     "ticker": "FTNT",
@@ -2242,16 +2268,16 @@
     "entry_date": "2026-10-29",
     "entry_px": 127.67,
     "shares": 195,
-    "last_px": 139.10000610351562,
-    "held": 1,
-    "sma10": 172.00900115966797,
-    "upnl": 0.08952773637906808
+    "last_px": 136.0800018310547,
+    "held": 2,
+    "sma10": 168.7040008544922,
+    "upnl": 0.06587296805087095
    },
    {
     "ticker": "BIIB",
     "signal_date": "2026-10-28",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 244.05,
     "ret_1": -0.0343,
@@ -2264,21 +2290,46 @@
     "last_px": 249.64999389648438,
     "held": 1,
     "sma10": 245.3429977416992,
-    "upnl": -0.0019988251189910766,
+    "upnl": null,
     "exit_signal_date": "2026-10-29",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-10-30",
+    "exit_px": 255.39,
+    "ret_gross": 0.02095,
+    "ret_net": 0.01995,
+    "pnl_usd": 494.0,
+    "hold": 1
    },
    {
     "ticker": "MU",
     "signal_date": "2026-10-29",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 934.27,
     "ret_1": -0.0498,
     "dvol_M": 26641,
     "usd": 25000,
-    "shares_est": 26
+    "shares_est": 26,
+    "entry_date": "2026-10-30",
+    "entry_px": 883.04,
+    "shares": 28,
+    "last_px": 884.739990234375,
+    "held": 1,
+    "sma10": 908.3380004882813,
+    "upnl": 0.0019251565437297113
+   },
+   {
+    "ticker": "NVDA",
+    "signal_date": "2026-10-30",
+    "tier": "A",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 204.64,
+    "ret_1": -0.0422,
+    "dvol_M": 22217,
+    "usd": 25000,
+    "shares_est": 122
    }
   ]
  }
