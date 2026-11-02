@@ -106,3 +106,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-10-28,live,725.61,0.006,88.8,C,18,FTNT BIIB,,,
 2026-10-29,live,715.34,-0.0142,33.7,C,32,MU SNDK,,,
 2026-10-30,live,690.49,-0.0347,8.4,A,101,MU NVDA,MU NVDA,,
+2026-11-02,live,681.09,-0.0136,5.4,A,75,MU AMD,AMD PLTR,,MU NVDA
