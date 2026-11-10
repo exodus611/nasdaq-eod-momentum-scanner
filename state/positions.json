@@ -528,10 +528,10 @@
     "entry_date": "2026-11-02",
     "entry_px": 890.655,
     "shares": 28,
-    "last_px": 733.1500244140625,
-    "held": 6,
-    "sma10": 829.4460021972657,
-    "upnl": -0.17684173511172951
+    "last_px": 725.1099853515625,
+    "held": 7,
+    "sma10": 809.0809997558594,
+    "upnl": -0.18586884332141795
    },
    {
     "ticker": "NVDA",
@@ -547,16 +547,16 @@
     "entry_date": "2026-11-02",
     "entry_px": 207.59,
     "shares": 120,
-    "last_px": 178.6699981689453,
-    "held": 6,
-    "sma10": 200.74100189208986,
-    "upnl": -0.13931307785083424
+    "last_px": 168.88999938964844,
+    "held": 7,
+    "sma10": 195.83600158691405,
+    "upnl": -0.18642516792885766
    },
    {
     "ticker": "AMD",
     "signal_date": "2026-11-02",
     "tier": "A",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 466.84,
     "ret_1": -0.0752,
@@ -569,9 +569,15 @@
     "last_px": 508.5799865722656,
     "held": 5,
     "sma10": 501.14599609375,
-    "upnl": 0.05956371293623963,
+    "upnl": null,
     "exit_signal_date": "2026-11-09",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-11-10",
+    "exit_px": 503.0,
+    "ret_gross": 0.04794,
+    "ret_net": 0.04694,
+    "pnl_usd": 1171.56,
+    "hold": 5
    },
    {
     "ticker": "PLTR",
@@ -587,10 +593,10 @@
     "entry_date": "2026-11-03",
     "entry_px": 168.18,
     "shares": 148,
-    "last_px": 169.1999969482422,
-    "held": 5,
-    "sma10": 178.60799865722657,
-    "upnl": 0.006064912285897117
+    "last_px": 168.82000732421875,
+    "held": 6,
+    "sma10": 175.61699981689452,
+    "upnl": 0.0038054900952475545
    }
   ],
   "everyday": [
@@ -2336,10 +2342,10 @@
     "entry_date": "2026-10-29",
     "entry_px": 127.67,
     "shares": 195,
-    "last_px": 122.47000122070312,
-    "held": 8,
-    "sma10": 138.1790008544922,
-    "upnl": -0.040729997488030634
+    "last_px": 123.56999969482422,
+    "held": 9,
+    "sma10": 132.0360008239746,
+    "upnl": -0.03211404641008686
    },
    {
     "ticker": "BIIB",
@@ -2382,10 +2388,10 @@
     "entry_date": "2026-10-30",
     "entry_px": 883.04,
     "shares": 28,
-    "last_px": 733.1500244140625,
-    "held": 7,
-    "sma10": 829.4460021972657,
-    "upnl": -0.16974313234500982
+    "last_px": 725.1099853515625,
+    "held": 8,
+    "sma10": 809.0809997558594,
+    "upnl": -0.17884808689123644
    },
    {
     "ticker": "NVDA",
@@ -2401,10 +2407,10 @@
     "entry_date": "2026-11-02",
     "entry_px": 207.59,
     "shares": 120,
-    "last_px": 178.6699981689453,
-    "held": 6,
-    "sma10": 200.74100189208986,
-    "upnl": -0.13931307785083424
+    "last_px": 168.88999938964844,
+    "held": 7,
+    "sma10": 195.83600158691405,
+    "upnl": -0.18642516792885766
    },
    {
     "ticker": "MSFT",
@@ -2437,7 +2443,7 @@
     "ticker": "ISRG",
     "signal_date": "2026-11-06",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 452.8,
     "ret_1": -0.0336,
@@ -2450,21 +2456,48 @@
     "last_px": 460.55999755859375,
     "held": 1,
     "sma10": 451.2429992675781,
-    "upnl": 0.00995569834348009,
+    "upnl": null,
     "exit_signal_date": "2026-11-09",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-11-10",
+    "exit_px": 458.0,
+    "ret_gross": 0.00434,
+    "ret_net": 0.00334,
+    "pnl_usd": 82.29,
+    "hold": 1
    },
    {
     "ticker": "DUOL",
     "signal_date": "2026-11-09",
     "tier": "C",
-    "status": "pending",
+    "status": "exiting",
     "mode": "live",
     "signal_close": 154.25,
     "ret_1": -0.0385,
     "dvol_M": 216,
     "usd": 25000,
-    "shares_est": 162
+    "shares_est": 162,
+    "entry_date": "2026-11-10",
+    "entry_px": 154.5,
+    "shares": 161,
+    "last_px": 156.6699981689453,
+    "held": 1,
+    "sma10": 145.60900115966797,
+    "upnl": 0.014045295591879059,
+    "exit_signal_date": "2026-11-10",
+    "exit_reason": "SMA10"
+   },
+   {
+    "ticker": "MRNA",
+    "signal_date": "2026-11-10",
+    "tier": "C",
+    "status": "pending",
+    "mode": "live",
+    "signal_close": 250.83,
+    "ret_1": -0.0675,
+    "dvol_M": 3676,
+    "usd": 25000,
+    "shares_est": 99
    }
   ]
  }

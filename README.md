@@ -15,17 +15,16 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Nov 09, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
-QQQ **679.35** (+3.54%) · RSI(2) **70.7** · passed the filter: 6
+### 📊 Scan Nov 10, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **674.76** (-0.68%) · RSI(2) **57.7** · passed the filter: 42
 
-- 🔴 **SELL AMD** at the open — 52 sh, entry 479.99, last 508.58 (+6.0%), 5 sessions, reason: close above SMA10
-- ⏳ **HOLD MU** — entry 890.65, last 733.15 (-17.7%), 6 sessions; sell after a close above SMA10 = 829.45
-- ⏳ **HOLD NVDA** — entry 207.59, last 178.67 (-13.9%), 6 sessions; sell after a close above SMA10 = 200.74
-- ⏳ **HOLD PLTR** — entry 168.18, last 169.20 (+0.6%), 5 sessions; sell after a close above SMA10 = 178.61
+- ⏳ **HOLD MU** — entry 890.65, last 725.11 (-18.6%), 7 sessions; sell after a close above SMA10 = 809.08
+- ⏳ **HOLD NVDA** — entry 207.59, last 168.89 (-18.6%), 7 sessions; sell after a close above SMA10 = 195.84
+- ⏳ **HOLD PLTR** — entry 168.18, last 168.82 (+0.4%), 6 sessions; sell after a close above SMA10 = 175.62
 
-**Strategy: 19 trades · avg +0.79% · median +0.38% · win rate 53% · avg hold 5.7 sessions · P&L +$3,835 (+3.83% of $100,000) · max DD -4.5% · 4 open (unrealized -$6,243)**  
-Control (every day, no market filter): 66 trades · avg +0.39% · win rate 59% · P&L +$6,219 · max DD -17.9%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-09 18:59 ET
+**Strategy: 20 trades · avg +0.99% · median +0.57% · win rate 55% · avg hold 5.7 sessions · P&L +$5,006 (+5.01% of $100,000) · max DD -4.5% · 3 open (unrealized -$9,185)**  
+Control (every day, no market filter): 67 trades · avg +0.39% · win rate 60% · P&L +$6,301 · max DD -17.9%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-10 16:40 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
