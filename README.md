@@ -15,16 +15,15 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Nov 11, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
-QQQ **690.38** (+2.31%) · RSI(2) **81.2** · passed the filter: 12
+### 📊 Scan Nov 12, 2026 (after the close) — ⚪ normal day (QQQ RSI2 ≥ 30) — no new buys, manage open positions only
+QQQ **688.17** (-0.32%) · RSI(2) **70.2** · passed the filter: 81
 
-- 🔴 **SELL MU** at the open — 28 sh, entry 890.65, last 811.30 (-8.9%), 8 sessions, reason: close above SMA10
-- ⏳ **HOLD NVDA** — entry 207.59, last 173.73 (-16.3%), 8 sessions; sell after a close above SMA10 = 191.67
-- ⏳ **HOLD PLTR** — entry 168.18, last 172.40 (+2.5%), 7 sessions; sell after a close above SMA10 = 173.18
+- 🔴 **SELL PLTR** at the open — 148 sh, entry 168.18, last 171.58 (+2.0%), 8 sessions, reason: close above SMA10
+- ⏳ **HOLD NVDA** — entry 207.59, last 166.19 (-19.9%), 9 sessions; sell after a close above SMA10 = 186.92
 
-**Strategy: 20 trades · avg +0.99% · median +0.57% · win rate 55% · avg hold 5.7 sessions · P&L +$5,006 (+5.01% of $100,000) · max DD -4.5% · 3 open (unrealized -$5,661)**  
-Control (every day, no market filter): 68 trades · avg +0.39% · win rate 60% · P&L +$6,405 · max DD -17.9%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-11 17:30 ET
+**Strategy: 21 trades · avg +0.29% · median +0.38% · win rate 52% · avg hold 5.8 sessions · P&L +$1,584 (+1.58% of $100,000) · max DD -5.7% · 2 open (unrealized -$4,465)**  
+Control (every day, no market filter): 71 trades · avg +0.10% · win rate 58% · P&L +$1,546 · max DD -20.0%  
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-12 17:04 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
