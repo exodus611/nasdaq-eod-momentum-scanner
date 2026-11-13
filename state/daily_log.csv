@@ -115,3 +115,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-11-10,live,674.76,-0.0068,57.7,C,42,MRNA SHOP,,,MU NVDA PLTR
 2026-11-11,live,690.38,0.0231,81.2,C,12,ABNB RVMD,,MU,NVDA PLTR
 2026-11-12,live,688.17,-0.0032,70.2,C,81,MRNA PANW,,PLTR,NVDA
+2026-11-13,live,679.89,-0.012,34.8,C,31,AMD MRNA,,,NVDA

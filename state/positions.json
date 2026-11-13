@@ -555,10 +555,10 @@
     "entry_date": "2026-11-02",
     "entry_px": 207.59,
     "shares": 120,
-    "last_px": 166.19000244140625,
-    "held": 9,
-    "sma10": 186.92400054931642,
-    "upnl": -0.19943156008764273
+    "last_px": 162.85000610351562,
+    "held": 10,
+    "sma10": 182.74500122070313,
+    "upnl": -0.2155209494507654
    },
    {
     "ticker": "AMD",
@@ -591,7 +591,7 @@
     "ticker": "PLTR",
     "signal_date": "2026-11-02",
     "tier": "A",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 178.34,
     "ret_1": -0.0313,
@@ -604,9 +604,15 @@
     "last_px": 171.5800018310547,
     "held": 8,
     "sma10": 170.69199981689454,
-    "upnl": 0.02021644565973757,
+    "upnl": null,
     "exit_signal_date": "2026-11-12",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-11-13",
+    "exit_px": 171.98,
+    "ret_gross": 0.02259,
+    "ret_net": 0.02159,
+    "pnl_usd": 537.51,
+    "hold": 8
    }
   ],
   "everyday": [
@@ -2433,10 +2439,10 @@
     "entry_date": "2026-11-02",
     "entry_px": 207.59,
     "shares": 120,
-    "last_px": 166.19000244140625,
-    "held": 9,
-    "sma10": 186.92400054931642,
-    "upnl": -0.19943156008764273
+    "last_px": 162.85000610351562,
+    "held": 10,
+    "sma10": 182.74500122070313,
+    "upnl": -0.2155209494507654
    },
    {
     "ticker": "MSFT",
@@ -2550,7 +2556,7 @@
     "ticker": "ABNB",
     "signal_date": "2026-11-11",
     "tier": "C",
-    "status": "exiting",
+    "status": "closed",
     "mode": "live",
     "signal_close": 181.13,
     "ret_1": -0.0309,
@@ -2563,9 +2569,15 @@
     "last_px": 181.1300048828125,
     "held": 1,
     "sma10": 177.84000091552736,
-    "upnl": 0.008490882118050713,
+    "upnl": null,
     "exit_signal_date": "2026-11-12",
-    "exit_reason": "SMA10"
+    "exit_reason": "SMA10",
+    "exit_date": "2026-11-13",
+    "exit_px": 182.665,
+    "ret_gross": 0.01704,
+    "ret_net": 0.01604,
+    "pnl_usd": 400.37,
+    "hold": 1
    },
    {
     "ticker": "RVMD",
@@ -2581,34 +2593,48 @@
     "entry_date": "2026-11-12",
     "entry_px": 181.325,
     "shares": 137,
-    "last_px": 176.35000610351562,
-    "held": 1,
-    "sma10": 189.35999755859376,
-    "upnl": -0.027436888992054986
+    "last_px": 172.2899932861328,
+    "held": 2,
+    "sma10": 187.45799713134767,
+    "upnl": -0.04982769454773017
    },
    {
     "ticker": "MRNA",
     "signal_date": "2026-11-12",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 231.35,
     "ret_1": -0.0697,
     "dvol_M": 3630,
     "usd": 25000,
-    "shares_est": 108
+    "shares_est": 108,
+    "entry_date": "2026-11-13",
+    "entry_px": 224.9125,
+    "shares": 111,
+    "last_px": 223.3699951171875,
+    "held": 1,
+    "sma10": 242.65400238037108,
+    "upnl": -0.006858244351970133
    },
    {
     "ticker": "PANW",
     "signal_date": "2026-11-12",
     "tier": "C",
-    "status": "pending",
+    "status": "open",
     "mode": "live",
     "signal_close": 322.66,
     "ret_1": -0.0353,
     "dvol_M": 2216,
     "usd": 25000,
-    "shares_est": 77
+    "shares_est": 77,
+    "entry_date": "2026-11-13",
+    "entry_px": 331.75,
+    "shares": 75,
+    "last_px": 322.239990234375,
+    "held": 1,
+    "sma10": 331.5090026855469,
+    "upnl": -0.02866619371703094
    }
   ]
  }
