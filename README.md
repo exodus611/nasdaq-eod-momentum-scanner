@@ -15,16 +15,16 @@ A mean-reversion scanner for NASDAQ stocks. Once a day, after the US close, it c
 Built as the working example for the book **Never Start from Scratch: Give Your Projects a Memory That Never Forgets** by Daniel Marlow — [the book on Amazon](https://www.amazon.com/dp/B0HKVZ3RSG) · [free starter kit](https://exodus611.github.io/project-memory-starter-kit/) (one file, one block: the method the scanner runs on).
 
 <!-- DASHBOARD:START -->
-### 📊 Scan Nov 17, 2026 (after the close) — 🟢 SIGNAL A — market oversold (QQQ RSI2 < 10): buy
-QQQ **656.95** (-0.73%) · RSI(2) **7.9** · passed the filter: 66
+### 📊 Scan Nov 18, 2026 (after the close) — 🟡 weak market (QQQ RSI2 10–30) — no new buys, manage open positions only
+QQQ **659.51** (+0.39%) · RSI(2) **28.4** · passed the filter: 25
 
-- 🟢 **BUY MRNA** at the open — 25% of capital ≈ $25,000 (~120 sh; close 206.80, today -3.9%)
-- 🟢 **BUY SHOP** at the open — 25% of capital ≈ $25,000 (~176 sh; close 141.90, today -4.0%)
-- ⏳ **HOLD NVDA** — entry 207.59, last 155.46 (-25.1%), 12 sessions; sell after a close above SMA10 = 173.03
+- ⏳ **HOLD NVDA** — entry 207.59, last 150.96 (-27.3%), 13 sessions; sell after a close above SMA10 = 168.11
+- ⏳ **HOLD MRNA** — entry 206.80, last 196.79 (-4.8%), 1 sessions; sell after a close above SMA10 = 233.78
+- ⏳ **HOLD SHOP** — entry 142.05, last 139.42 (-1.9%), 1 sessions; sell after a close above SMA10 = 146.36
 
-**Strategy: 22 trades · avg +0.37% · median +0.57% · win rate 55% · avg hold 5.9 sessions · P&L +$2,121 (+2.12% of $100,000) · max DD -5.7% · 1 open (unrealized -$6,256)**  
+**Strategy: 22 trades · avg +0.37% · median +0.57% · win rate 55% · avg hold 5.9 sessions · P&L +$2,121 (+2.12% of $100,000) · max DD -5.7% · 3 open (unrealized -$8,457)**  
 Control (every day, no market filter): 72 trades · avg +0.12% · win rate 58% · P&L +$1,946 · max DD -20.0%  
-Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-17 18:22 ET
+Full dashboard: https://exodus611.github.io/nasdaq-eod-momentum-scanner/ · updated 2026-11-18 17:51 ET
 <!-- DASHBOARD:END -->
 
 ## Rule v2
