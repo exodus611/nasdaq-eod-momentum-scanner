@@ -119,3 +119,4 @@ date,mode,q_close,q_ret,q_rsi,tier,n_candidates,picks,buy,sell,hold
 2026-11-16,live,661.75,-0.0267,10.8,B,72,AMD AMZN,,,NVDA
 2026-11-17,live,656.95,-0.0073,7.9,A,66,MRNA SHOP,MRNA SHOP,,NVDA
 2026-11-18,live,659.51,0.0039,28.4,B,25,MRNA AMGN,,,NVDA MRNA SHOP
+2026-11-19,live,645.04,-0.0219,8.1,A,92,AMD AMZN,AMD,,NVDA MRNA SHOP
